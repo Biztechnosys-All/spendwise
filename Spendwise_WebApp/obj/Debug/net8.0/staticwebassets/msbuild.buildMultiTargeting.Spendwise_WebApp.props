@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Spendwise_WebApp.props" />
+</Project>

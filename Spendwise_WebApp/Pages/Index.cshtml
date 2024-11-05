@@ -1,0 +1,86 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    @* @Model.pagename *@
+    <form id="CompanySearch" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="CompanyName" placeholder="Start by searching for your company name">
+            <div class="input-group-append">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </div>
+        </div>
+
+        @*  <label>Search Company</label>
+        <input type="text" name="CompanyID" />
+        <button type="submit" class="btn btn-dark">Search</button> *@
+    </form>
+</div>
+<div>
+    @if (Model.companyList != null)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Company Number</th>
+                    <th>Company Status</th>
+                    <th>Company Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.companyList.top_hit != null)
+                {
+                    <tr><td colspan="4" class="text-center"><b>Top Match</b></td></tr>
+                    <tr>
+                        <td>@Model.companyList.top_hit.company_name</td>
+                        <td>@Model.companyList.top_hit.company_number</td>
+                        <td>@Model.companyList.top_hit.company_status</td>
+                        <td>@Model.companyList.top_hit.company_type</td>
+                    </tr>
+                }
+                @if (Model.companyList.items != null)
+                {
+                    <tr><td colspan="4" class="text-center"><b>Realted Companies</b></td></tr>
+                    @foreach (var item in Model.companyList.items)
+                    {
+                        <tr>
+                            <td>@item.company_name</td>
+                            <td>@item.company_number</td>
+                            <td>@item.company_status</td>
+                            <td>@item.company_type</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.Package != null && Model.Package.Any())
+    {
+        <div class="row row-cols-4 g-4">
+            @foreach (var item in Model.Package)
+            {
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">@item.PackageName</h3>
+                            <h3>£ @item.Price <sup>+ VAT</sup></h3>
+                            <p class="card-text">
+                                @item.Description
+                            </p>
+                        </div>
+                        <div style="text-align:end;padding:1%;">
+                            <a class="btn btn-warning" href="/name-check-digital-package/">Buy Now</a>
+                            <a class="btn btn-dark" href="/package/digital/">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
