@@ -35,7 +35,7 @@ namespace Spendwise_WebApp.Pages.Admin.Packages
             {
                 Text = p.Feature,
                 Value = p.FeatureId.ToString(),
-                Selected = false
+                Selected = true
             }).ToList();
 
             var package =  await _context.packages.FirstOrDefaultAsync(m => m.PackageId == id);

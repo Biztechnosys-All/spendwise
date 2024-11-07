@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Spendwise_WebApp.Models
 {
@@ -9,10 +10,14 @@ namespace Spendwise_WebApp.Models
         [Required]
         public string PackageName { get; set; }
         [Required]
+        [DisplayName("Short Description")]
+        public string ShortDescription { get; set; }
+        [Required]
         public string Description { get; set; }
         [Required]
         public decimal Price { get; set; }
         [Required]
+        [DisplayName("Package Features")]
         public string PackageFeatures { get; set; }
         public DateTime? created_on { get; set; }
     }

@@ -18,8 +18,13 @@
                 <span asp-validation-for="Package.PackageName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Package.ShortDescription" class="control-label"></label>
+                <input asp-for="Package.ShortDescription" class="form-control" />
+                <span asp-validation-for="Package.ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Package.Description" class="control-label"></label>
-                <input asp-for="Package.Description" class="form-control" />
+                <textarea asp-for="Package.Description"></textarea>
                 <span asp-validation-for="Package.Description" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -29,7 +29,28 @@ namespace Spendwise_WebApp.Pages
 
         public async Task OnGet()
         {
+            var PackageFeatureList = await _context.PackageFeatures.ToListAsync();
             Package = await _context.packages.ToListAsync();
+
+            foreach (var item in Package)
+            {
+                var selectedFeatures = string.Empty;
+                var last = item.PackageFeatures.Split(',').Last();
+                foreach (var FeatureId in item.PackageFeatures.Split(','))
+                {
+                    if (FeatureId.Equals(last))
+                    {
+                        selectedFeatures += PackageFeatureList.Where(x => x.FeatureId.ToString() == FeatureId).Select(y => y.Feature).FirstOrDefault().ToString();
+                    }
+                    else
+                    {
+                        selectedFeatures += PackageFeatureList.Where(x => x.FeatureId.ToString() == FeatureId).Select(y => y.Feature).FirstOrDefault().ToString() + ", ";
+                    }
+
+                }
+                item.PackageFeatures = selectedFeatures;
+            }
+
         }
 
         public async Task<IActionResult> OnPost()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Spendwise_WebApp.DLL;
 using Spendwise_WebApp.Models;
@@ -19,11 +20,31 @@ namespace Spendwise_WebApp.Pages.Admin.Packages
             _context = context;
         }
 
-        public IList<Package> Package { get;set; } = default!;
+        public IList<Package> Package { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             Package = await _context.packages.ToListAsync();
+            var PackageFeatureList = await _context.PackageFeatures.ToListAsync();
+             
+            foreach (var item in Package)
+            {
+                var selectedFeatures = string.Empty;
+                var last = item.PackageFeatures.Split(',').Last();
+                foreach (var FeatureId in item.PackageFeatures.Split(','))
+                {
+                    if(FeatureId.Equals(last))
+                    {
+                        selectedFeatures += PackageFeatureList.Where(x => x.FeatureId.ToString() == FeatureId).Select(y => y.Feature).FirstOrDefault().ToString();
+                    }
+                    else
+                    {
+                        selectedFeatures += PackageFeatureList.Where(x => x.FeatureId.ToString() == FeatureId).Select(y => y.Feature).FirstOrDefault().ToString() + ", ";
+                    }
+                    
+                }
+                item.PackageFeatures = selectedFeatures;
+            }
         }
     }
 }

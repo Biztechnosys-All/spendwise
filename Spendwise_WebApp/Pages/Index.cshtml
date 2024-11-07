@@ -4,60 +4,1588 @@
     ViewData["Title"] = "Home page";
 }
 
-<div>
-    @* @Model.pagename *@
-    <form id="CompanySearch" method="post">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" name="CompanyName" placeholder="Start by searching for your company name">
-            <div class="input-group-append">
-                <button class="btn btn-dark" type="submit">Search</button>
+<section class="home-hero">
+    <div class="home-hero__main">
+        <header class="site-header">
+            <div class="site-header__wrap">
+                <div class="row">
+                    <div class="col-xs-5 col-sm-5 col-lg-5">
+                        <a class="site-header__logo" href="https://www.1stformations.co.uk">
+                            <img alt="1st Formations Ltd Logo"
+                                 src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/1st-logo-2022-light.png"
+                                 srcset="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/1st-logo-2022-light--retina.png 2x" />
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-lg-7">
+                        <div class="site-header__contact hidden-xs hidden-sm">
+                            <span class="site-header__contact">
+                                <a href="https://support.1stformations.co.uk/hc/en-gb/requests/new" target="_blank"> <i class="fa fa-envelope"></i> Email Us</a>
+                                <a href="tel:02038972233"> <i class="fa fa-phone"></i> 020 3897 2233</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 site-nav-burger">
+                        <div class="site-nav-burger__wrap"><span></span><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+            </div>
+            <section class="site-nav__wrap">
+                <div>
+                    <div class="col closed">
+                        <ul class="site-nav__body">
+                            <li class="site-nav__item site-nav__item--dropdown">
+                                <a href="#"><span>+</span>Company Formation</a>
+                                <div class="site-nav__menu site-nav__menu--inactive">
+                                    <div class="site-nav__menu-body">
+                                        <div class="site-nav__menu-links--three-col">
+                                            <div>
+                                                <h3 class="site-nav__menu-heading">Limited Company</h3>
+                                                <ul class="site-nav__menu-links">
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/digital/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            Digital Package
+                                                        </a>
+                                                    </li>
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/privacy/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            Privacy Package
+                                                        </a>
+                                                    </li>
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/professional/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            Professional Package
+                                                        </a>
+                                                    </li>
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/prestige/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            Prestige Package
+                                                        </a>
+                                                    </li>
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/all-inclusive/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            All Inclusive Package
+                                                        </a>
+                                                    </li>
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/eseller/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            eSeller Package
+                                                        </a>
+                                                    </li>
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a class="hash-link" href="/package/reserve-company-name/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            Reserve a Company Name
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <h3 class="site-nav__menu-heading">International</h3>
+                                                <ul class="site-nav__menu-links">
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/non-residents/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            Non-Residents Package
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <h3 class="site-nav__menu-heading">Other company packages</h3>
+                                                <ul class="site-nav__menu-links">
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/limited-by-guarantee/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            Limited By Guarantee
+                                                        </a>
+                                                    </li>
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/llp/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            Limited Liability Partnership
+                                                        </a>
+                                                    </li>
+                                                    <li class="site-nav__menu-sub-item">
+                                                        <a href="/package/plc/">
+                                                            <i class="fa-solid fa-angle-right"></i>
+                                                            Public Limited Company
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="site-nav__cta">
+                                            <a class="button button--primary" href="/compare-packages/">View All Packages</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="site-nav__item site-nav__item--dropdown">
+                                <a href="#"><span>+</span>Services</a>
+                                <div class="site-nav__menu site-nav__menu--inactive">
+                                    <div class="site-nav__menu-body">
+                                        <ul class="site-nav__menu-links site-nav__menu-links site-nav__menu-grid-layout">
+                                            <div>
+                                                <h3 class="site-nav__menu-heading">Address Services</h3>
+                                            <li class="site-nav__menu-sub-item">
+                                                <a href="/registered-office-service/">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    London Registered Office
+                                                </a>
+                                            </li>
+                                            <li class="site-nav__menu-sub-item">
+                                                <a href="/service-address-service/">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    London Service Address
+                                                </a>
+                                            </li>
+                                            <li class="site-nav__menu-sub-item">
+                                                <a href="/business-address-service/">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    London Business Address
+                                                </a>
+                                            </li>
+                                            <li class="site-nav__menu-sub-item">
+                                                <a href="/company-address-guide/">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    Company Addresses Explained
+                                                </a>
+                                            </li>
+                                            <li class="site-nav__menu-sub-item">
+                                                <a href="/renewals/">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    Renewals
+                                                </a>
+                                            </li>
+                                    </div>
+                                    <div>
+                                        <h3 class="site-nav__menu-heading">Company Services</h3>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/full-company-secretary/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Full Company Secretary Service
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/confirmation-statement-service/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Confirmation Statement
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/dormant-company-accounts/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Dormant Company Accounts
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/company-dissolution/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Company Dissolution
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/company-name-change/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Company Name Change
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/director-appointment-resignation/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Director Appointment & Resignation
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/apostilled-documents/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Apostilled Documents
+                                </a>
+                            </li>
+                    </div>
+                    <div>
+                        <h3 class="site-nav__menu-heading">&nbsp;</h3>
+                        <li class="site-nav__menu-sub-item">
+                            <a href="/issue-of-shares/">
+                                <i class="fa-solid fa-angle-right"></i>
+                                Issue of Shares
+                            </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                            <a href="/transfer-of-shares/">
+                                <i class="fa-solid fa-angle-right"></i>
+                                Transfer of Shares
+                            </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                            <a href="/certificate-of-good-standing/">
+                                <i class="fa-solid fa-angle-right"></i>
+                                Certificate of Good Standing
+                            </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                            <a href="/vat-registration/">
+                                <i class="fa-solid fa-angle-right"></i>
+                                VAT Registration
+                            </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                            <a href="/bizik-answering/">
+                                <i class="fa-solid fa-angle-right"></i>
+                                Bizik Answering Services
+                            </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                            <a href="/business-banking/">
+                                <i class="fa-solid fa-angle-right"></i>
+                                Business Banking
+                            </a>
+                        </li>
+                    </div>
+                    <div>
+                        <h3 class="site-nav__menu-heading">Office Services</h3>
+                        <li class="site-nav__menu-sub-item">
+                            <a href="/serviced-offices/">
+                                <i class="fa-solid fa-angle-right"></i>
+                                Serviced Offices
+                            </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                            <a href="/meeting-rooms/">
+                                <i class="fa-solid fa-angle-right"></i>
+                                Meeting Rooms
+                            </a>
+                        </li>
+                    </div>
+                    </ul>
+                </div>
+    </div>
+    </li>
+    <li class="site-nav__item site-nav__item--dropdown">
+        <a href="#"><span>+</span>Resources</a>
+        <div class="site-nav__menu site-nav__menu--inactive">
+            <div class="site-nav__menu-body">
+                <div class="site-nav__menu-links--three-col">
+                    <div>
+                        <h3 class="site-nav__menu-heading">Information</h3>
+                        <ul class="site-nav__menu-links">
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/online-company-manager/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Our Online Company Manager
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/company-set-up-guide/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Set Up a Company in 4 Simple Steps
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/company-set-up-checklist/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Information Required to Set Up a Company
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/about-companies/choose-company-name/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Company Name Guide
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/how-to-register-a-business/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    How to Register a Business
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/starting-your-own-business/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Starting Your Own Business - The Ultimate Guide
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/post-incorporation/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Post Incorporation Support
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="site-nav__menu-heading">Guides</h3>
+                        <ul class="site-nav__menu-links">
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/about-companies/company-limited-by-shares/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Companies Limited by Shares
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/about-companies/company-limited-by-guarantee/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Companies Limited by Guarantee
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/about-companies/limited-liability-partnerships/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Limited Liability Partnerships
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/about-companies/public-limited-companies/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Public Limited Companies
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/directors-and-secretaries/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Directors and Secretaries
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/shares-and-shareholders/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Shares and Shareholders
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/annual-filings/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Annual Filing Requirements
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="site-nav__menu-heading">Useful</h3>
+                        <ul class="site-nav__menu-links">
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/helpful-videos/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Videos
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/in-the-press/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    In The Press
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/our-partners/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Partner Offers
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/business-scholarship/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Scholarship
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/sustainability/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Sustainability
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/wonder-foundation/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Wonder Foundation
+                                </a>
+                            </li>
+                            <li class="site-nav__menu-sub-item">
+                                <a href="/pricing/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Pricing
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="site-nav__item">
+        <a href="/case-studies/">Case Studies</a>
+    </li>
+    </ul>
+    <ul class="site-nav__body--subnav">
+        <li class="site-nav__item site-nav__item--subnav">
+            <a href="/blog/">Blog</a>
+        </li>
+        <li class="site-nav__item site-nav__item--subnav">
+            <a href="/contact-us/">Contact</a>
+        </li>
+        <li class="site-nav__item site-nav__item--subnav">
+            <a href="/about-us/">About</a>
+        </li>
+        <li class="site-nav__item site-nav__item--subnav site-nav__item--login">
+            <a href="/login/"><i class="fa fa-lock"></i>Client Login</a>
+        </li>
+    </ul>
+    </div>
+    </div>
+</section>
+        </header>
+<div class="home-hero__containers">
+    <div class="container container--name-search">
+        <div class="row">
+            <div class="col">
+                <div class="company-name-search">
+                    <h1 class="intro">Company Formation</h1>
+                    <h2 class="mainheading">Start and grow <br />your dream business</h2>
+                    <div id="nameCheckNotification">
+                        <h2 class="subheading">The simplest way to set up a UK company</h2>
+                    </div>
+                    <span class="company-name-search__notification--button"><a href="/compare-packages/#namecheckpath" id="continue-button" class="button button--secondary button--hide">Choose a Package</a></span>
+                    <form id="home-company-search" class="static-form" action="/name-check/#namecheckpath" method="GET" onsubmit="return checkInput(this)" _lpchecked="1">
+                        <input id="company-name"
+                               type="text"
+                               placeholder="Enter your company name to check if it is available"
+                               onfocus="this.placeholder=''"
+                               onblur="this.placeholder='Enter your company name to check it is available'"
+                               autocomplete="off" />
+                        <button id="namecheck-button" class="button button--home-search" type="submit" aria-label="Search"><i class="fa fa-search"></i> <span>Search</span></button>
+                        <a href="/compare-packages/#namecheckpath" class="button button--secondary button--hide">Choose a Package</a>
+                    </form>
+                    <div class="company-name-search__clear-button button--hide">
+                        <a href="#" id="clear-button">Or search again</a>
+                    </div>
+                    <div class="company-name-search__video-button">New to company formation? <a href="#how-to-form-video" id="video-feature">Watch our video</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container--review-stats">
+        <div class="row">
+            <div class="col">
+                <h2 class="home-hero-stats__title">Over 25,000 excellent customer reviews</h2>
+                <div class="home-hero-stats__items">
+                    <div class="home-hero-stats__item home-hero-stats__item--trustpilot">
+                        <div class="home-hero-stats__top">
+                            <div class="home-hero-stats__logo">
+                                <picture>
+                                    <source srcset="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/webp/1st-trustpilot-logo--white.webp" type="image/webp" />
+                                    <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/1st-trustpilot-logo--white.png" alt="Trustpilot logo." loading="eager" width="143" height="45" />
+                                </picture>
+                            </div>
+                            <div class="home-hero-stats__stars">
+                                <svg class="home-hero-stats__star home-hero-stats__star--trustpilot full" viewBox="0 0 180 32">
+                                    <defs>
+                                        <g id="trustpilot-star">
+                                            <path d="M20.388,10.918L32,12.118l-8.735,7.749L25.914,31.4l-9.893-6.088L6.127,31.4l2.695-11.533L0,12.118l11.547-1.2L16.026,0.6L20.388,10.918z"></path>
+                                        </g>
+                                        <linearGradient id="trustpilotGradient">
+                                            <stop stop-opacity="1" offset="80%" stop-color="#5eb27c"></stop>
+                                            <stop stop-opacity="1" offset="80%" stop-color="#ffffff"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <use xlink:href="#trustpilot-star" x="0" y="0"></use>
+                                    <use xlink:href="#trustpilot-star" x="36" y="0"></use>
+                                    <use xlink:href="#trustpilot-star" x="72" y="0"></use>
+                                    <use xlink:href="#trustpilot-star" x="108" y="0"></use>
+                                    <use xlink:href="#trustpilot-star" x="144" y="0" class="home-hero-stats__star--trustpilot partial"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="home-hero-stats__info">
+                            <span>21,928 reviews</span>
+                            <span>4.8 out of 5.0</span>
+                        </div>
+                        <a class="home-hero-stats__link" target="_blank" aria-label="Trustpilot reviews for 1st Formations" href="https://uk.trustpilot.com/review/www.1stformations.co.uk"></a>
+                    </div>
+                    <div class="home-hero-stats__item home-hero-stats__item--google">
+                        <div class="home-hero-stats__top">
+                            <div class="home-hero-stats__logo">
+                                <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/Google_2015_logo.svg" alt="Google Logo">
+                            </div>
+                            <div class="home-hero-stats__stars">
+                                <svg class="home-hero-stats__star home-hero-stats__star--google full" viewBox="0 0 180 32">
+                                    <defs>
+                                        <g id="google-star">
+                                            <path d="M20.388,10.918L32,12.118l-8.735,7.749L25.914,31.4l-9.893-6.088L6.127,31.4l2.695-11.533L0,12.118l11.547-1.2L16.026,0.6L20.388,10.918z"></path>
+                                        </g>
+                                        <linearGradient id="googleGradient">
+                                            <stop stop-opacity="1" offset="90%" stop-color="#f0ac00"></stop>
+                                            <stop stop-opacity="1" offset="90%" stop-color="#aaaaaa"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <use xlink:href="#google-star" x="0" y="0"></use>
+                                    <use xlink:href="#google-star" x="36" y="0"></use>
+                                    <use xlink:href="#google-star" x="72" y="0"></use>
+                                    <use xlink:href="#google-star" x="108" y="0"></use>
+                                    <use xlink:href="#google-star" x="144" y="0" class="home-hero-stats__star--google partial"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="home-hero-stats__info">
+                            <span>4,617 reviews</span>
+                            <span>4.9 out of 5.0</span>
+                        </div>
+                        <a class="home-hero-stats__link"
+                           target="_blank"
+                           aria-label="Google reviews for 1st Formations"
+                           href="https://www.google.com/search?hl=en-GB&gl=uk&q=1st+Formations&stick=H4sIAAAAAAAAAONgecQ4hZFb4OWPe8JSXYyT1py8xtjMyMUVnJFf7ppXkllSKRTAxQZlqXAJSvHqp-sbGiYlleSZV5mWazBI8XOhCkkpKHHxdvdskRN1UX77X0uI87Hb9hBj6TIPwaMiUTdXfZ66RknZiH_XpWnn2DgFb4UsdahrCXJ4tLpzFSuTAUPTvhWH2Fg4GAUYeBax8hkWlyi45RflJpZk5ucVAwBnW_0RqwAAAA&sa=X&ved=2ahUKEwi9h6ju_YbkAhWOQxUIHYcHC2AQ6RMwHnoECAkQBA&biw=2560&bih=1335#lrd=0x48761b3354b746e3:0xac95f3aad95a14c5,1"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-hero__usps">
+        <div class="home-hero__usps--item">
+            <i class="home-hero__usps--icon fas fa-clipboard-check"></i>
+            <span class="home-hero__usps--text">Companies House approved</span>
+        </div>
+        <div class="home-hero__usps--item">
+            <i class="home-hero__usps--icon fas fa-university"></i>
+            <span class="home-hero__usps--text">Business bank accounts</span>
+        </div>
+        <div class="home-hero__usps--item">
+            <i class="home-hero__usps--icon fas fa-leaf"></i>
+            <span class="home-hero__usps--text">Carbon neutral business</span>
+        </div>
+        <div class="home-hero__usps--item">
+            <span class="home-hero__usps--icon_alt">1M</span>
+            <span class="home-hero__usps--text">Over 1 million companies formed</span>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+
+
+<div class="static-pages">
+    <section id="section-one" class="bg--cream">
+        <div>
+            <div class="row">
+                <div class="home-packages">
+                    <div class="col hidden-md">
+                        <div class="home-packages__title">
+                            <h3 class="section-title">Limited company formation packages</h3>
+                            <p>Explore our full range of <a href="/compare-packages/">packages</a>.</p>
+                        </div>
+                    </div>
+                    <div class="home-packages__wrap hidden-md">
+                        <div class="home-packages__packages">
+                            @if (Model.Package != null && Model.Package.Any())
+                            {
+                                @foreach (var item in Model.Package)
+                                {
+                                    <div class="home-packages__package">
+                                        <div class="home-packages__header">
+                                            <h4><a asp-page="/Package" asp-route-packageName="@item.PackageName">@item.PackageName</a></h4>
+                                            <div class="home-packages__prices">
+                                                <div class="home-packages__price">£ @item.Price</div>
+                                            </div>
+                                        </div>
+                                        <div class="home-packages__content">
+                                            <p class="home-packages__feature-title">Top Features</p>
+                                            @{
+                                                List<string> Features = item.PackageFeatures.Split(',').ToList();
+                                            }
+                                            <ul class="home-packages__items">
+                                                @foreach(var Feature in Features)
+                                                {
+                                                    <li>@Feature</li>
+                                                }
+                                                
+                                                @* <li>£50 Companies <br class="visible-desktop visible-tablet" />House Fee Included</li>
+                                                <li>Digital Company Documents</li>
+                                                <li>Confirmation <br class="visible-desktop visible-tablet" />Statement Service</li> *@
+                                            </ul>
+                                        </div>
+                                        <div class="home-packages__buttons">
+                                            <a class="button button--secondary button1 js-routing" href="/name-check-digital-package/">Buy Now</a>
+                                            <a class="button button--alt" href="/package/digital/">Read More</a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="home-packages__cta hidden-md">
+                    <a class="button button--primary" href="/compare-packages/">Compare all Packages</a>
+                </div>
+            </div>
+            <div class="home-packages__mobile">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="home-packages__title">
+                        <h3 class="section-title">Limited company formation packages</h3>
+                        <p>Explore our full range of <a href="/compare-packages/">packages</a>.</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12">
+                    <div class="home-packages__tab">
+                        <input id="tab-one" type="checkbox" name="tabs">
+                        <label for="tab-one" class="digital">
+                            Digital
+                            <div class="home-packages__right">
+                                <span>£52.99</span>
+                                <i class="fa fa-plus"></i>
+                                <i class="fa fa-minus" style="display: none;"></i>
+                            </div>
+                        </label>
+                        <div class="tab-content digital-package">
+                            <div class="inner-div">
+                                <p class="home-packages__feature-title">Top Features</p>
+                                <ul class="home-packages__items">
+                                    <li>LTD Company</li>
+                                    <li>£50 Companies <br class="visible-desktop visible-tablet" />House Fee Included</li>
+                                    <li>Digital Company Documents</li>
+                                    <li>Confirmation <br class="visible-desktop visible-tablet" />Statement Service</li>
+                                </ul>
+                                <div class="home-packages__buttons">
+                                    <a class="button button--secondary button1 js-routing" href="/name-check-digital-package/">Buy Now</a>
+                                    <a class="button button--alt" href="/package/digital/">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home-packages__tab">
+                        <input id="tab-two" type="checkbox" name="tabs">
+                        <label for="tab-two" class="privacy">
+                            Privacy
+                            <div class="home-packages__right">
+                                <span>£67.99</span>
+                                <i class="fa fa-plus"></i>
+                                <i class="fa fa-minus" style="display: none;"></i>
+                            </div>
+                        </label>
+                        <div class="tab-content privacy">
+                            <div class="inner-div">
+                                <p class="home-packages__feature-title">Top Features</p>
+                                <ul class="home-packages__items">
+                                    <li>LTD Company</li>
+                                    <li>£50 Companies <br class="visible-desktop visible-tablet" />House Fee Included</li>
+                                    <li>Digital Company Documents</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Registered Office</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Service Address</li>
+                                    <li>Confirmation <br class="visible-desktop visible-tablet" />Statement Service</li>
+                                </ul>
+                                <div class="home-packages__buttons">
+                                    <a class="button button--secondary button2 js-routing" href="/name-check-privacy-package/">Buy Now</a>
+                                    <a class="button button--alt" href="/package/privacy/">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home-packages__tab">
+                        <input id="tab-tree" type="checkbox" name="tabs">
+                        <label for="tab-tree" class="professional">
+                            Professional
+                            <div class="home-packages__right">
+                                <span>£79.99</span>
+                                <i class="fa fa-plus"></i>
+                                <i class="fa fa-minus" style="display: none;"></i>
+                            </div>
+                        </label>
+                        <div class="tab-content professional">
+                            <div class="inner-div">
+                                <p class="home-packages__feature-title">Top Features</p>
+                                <ul class="home-packages__items">
+                                    <li>LTD Company</li>
+                                    <li>£50 Companies <br class="visible-desktop visible-tablet" />House Fee Included</li>
+                                    <li>Digital Company <br class="visible-desktop visible-tablet" />Documents</li>
+                                    <li>Printed Company <br class="visible-desktop visible-tablet" />Documents</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Registered Office</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Service Address</li>
+                                    <li>Confirmation <br class="visible-desktop visible-tablet" />Statement Service</li>
+                                </ul>
+                                <div class="home-packages__buttons">
+                                    <a class="button button--secondary button3 js-routing" href="/name-check-professional-package/">Buy Now</a>
+                                    <a class="button button--alt" href="/package/professional/">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home-packages__tab">
+                        <input id="tab-four" type="checkbox" name="tabs">
+                        <label for="tab-four" class="prestige">
+                            Prestige
+                            <div class="home-packages__right">
+                                <span><span class="scored">£149.99</span>£99.99</span>
+                                <i class="fa fa-plus"></i>
+                                <i class="fa fa-minus" style="display: none;"></i>
+                            </div>
+                        </label>
+                        <div class="tab-content prestige">
+                            <div class="inner-div">
+                                <p class="home-packages__feature-title">Top Features</p>
+                                <ul class="home-packages__items">
+                                    <li>LTD Company</li>
+                                    <li>£50 Companies <br class="visible-desktop visible-tablet" />House Fee Included</li>
+                                    <li>Digital & Printed <br class="visible-desktop visible-tablet" />Company Documents</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Registered Office</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Service Address</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Business Address</li>
+                                    <li>Confirmation <br class="visible-desktop visible-tablet" />Statement Service</li>
+                                    <li>VAT Registration</li>
+                                    <li>PAYE Registration</li>
+                                </ul>
+                                <div class="home-packages__buttons">
+                                    <a class="button button--secondary button4 js-routing" href="/name-check-prestige-package/">Buy Now</a>
+                                    <a class="button button--alt" href="/package/prestige/">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home-packages__tab">
+                        <input id="tab-five" type="checkbox" name="tabs">
+                        <label for="tab-five" class="all-inclusive">
+                            All Inclusive
+                            <div class="home-packages__right">
+                                <span><span class="scored">£219.99</span>£149.99</span>
+                                <i class="fa fa-plus"></i>
+                                <i class="fa fa-minus" style="display: none;"></i>
+                            </div>
+                        </label>
+                        <div class="tab-content all-inclusive">
+                            <div class="inner-div">
+                                <p class="home-packages__feature-title">Top Features</p>
+                                <ul class="home-packages__items">
+                                    <li>LTD Company</li>
+                                    <li>£50 Companies <br class="visible-desktop visible-tablet" />House Fee Included</li>
+                                    <li>Digital & Printed <br class="visible-desktop visible-tablet" />Company Documents</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Registered Office</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Service Address</li>
+                                    <li>London <br class="visible-desktop visible-tablet" />Business Address</li>
+                                    <li>Confirmation <br class="visible-desktop visible-tablet" />Statement Service</li>
+                                    <li>VAT Registration</li>
+                                    <li>PAYE Registration</li>
+                                    <li>Full Company <br class="visible-desktop visible-tablet" />Secretary Service</li>
+                                </ul>
+                                <div class="home-packages__buttons">
+                                    <a class="button button--secondary button5 js-routing" href="/name-check-all-inclusive-package/">Buy Now</a>
+                                    <a class="button button--alt" href="/package/all-inclusive/">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="home-packages__package-mobile home-packages__package-mobile--compare" href="/compare-packages/">
+                        <span>Compare all Packages</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+</div>
+    </section>
+
+<section class="home-non-residents">
+    <div>
+        <div class="row">
+            <div class="col">
+                <div class="home-non-residents__wrap">
+                    <div class="home-non-residents__text">
+                        <h3 class="section-title hidden-md">Form a limited company with our Non-Residents Package</h3>
+                        <div>
+                            <p>Our Non-Residents Package is perfect for customers who are based overseas and wish to form a UK limited company.</p>
+                            <p>Our package includes online company registration, WorldFirst UK business banking, a full London presence with registered office and business address services, including same-day digital mail service and international mail forwarding.</p>
+                            <p>We are able to form companies for customers who are resident in most countries in the world. <a href="#non-res--eligible-countries" data-lity>A full list of eligible countries can be found here</a>.</p>
+                            <a class="button button--secondary home-non-residents__text--cta" href="/package/non-residents/">View Non-Residents Package</a>
+                        </div>
+                    </div>
+                    <div class="home-non-residents__image">
+                        <h3 class="section-title">Form a limited company with our Non-Residents Package</h3>
+                        <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/1st-non-res-package--flags.jpg" alt="Form a limited company with our Non-Residents Package" loading="lazy" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="banking_cards">
+    <div>
+        <div class="row">
+            <div class="col">
+                <h3 class="section-title">The best choice of business bank accounts</h3>
+                <p>
+                    Form your company with 1st Formations and set up your <br />
+                    business bank account with no paperwork or stress.
+                </p>
+            </div>
+            <div class="col">
+                <div class="banking_cards__grid">
+
+                    <div class="banking_cards__grid--card">
+                        <picture>
+                            <source type="image/avif"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/barclays/avif/card--barclays_adv2q8_c_scale,w_200.avif 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/barclays/avif/card--barclays_adv2q8_c_scale,w_522.avif 522w
+                "
+                                    loading="lazy"
+                                    alt="Barclays Bank Card" />
+                            <source type="image/webp"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/barclays/webp/card--barclays_t7za7v_c_scale,w_200.webp 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/barclays/webp/card--barclays_t7za7v_c_scale,w_522.webp 522w
+                "
+                                    loading="lazy"
+                                    alt="Barclays Bank Card" />
+                            <img sizes="(max-width: 522px) 100vw, 522px"
+                                 srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/barclays/png/card--barclays_t5zsle_c_scale,w_200.png 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/barclays/png/card--barclays_t5zsle_c_scale,w_447.png 447w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/barclays/png/card--barclays_t5zsle_c_scale,w_522.png 522w
+                "
+                                 src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/barclays/png/card--barclays_t5zsle_c_scale,w_522.png"
+                                 loading="lazy"
+                                 alt="Barclays Bank Card" />
+                        </picture>
+                    </div>
+
+                    <div class="banking_cards__grid--card">
+                        <picture>
+                            <source type="image/avif"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/natwest/avif/card--natwest_btkm7q_c_scale,w_200.avif 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/natwest/avif/card--natwest_btkm7q_c_scale,w_522.avif 522w
+                "
+                                    loading="lazy"
+                                    alt="Natwest Bank Card" />
+                            <source type="image/webp"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/natwest/webp/card--natwest_j4alts_c_scale,w_200.webp 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/natwest/webp/card--natwest_j4alts_c_scale,w_522.webp 522w
+                "
+                                    loading="lazy"
+                                    alt="Natwest Bank Card" />
+                            <img sizes="(max-width: 522px) 100vw, 522px"
+                                 srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/natwest/png/card--natwest_akvydm_c_scale,w_200.png 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/natwest/png/card--natwest_akvydm_c_scale,w_433.png 433w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/natwest/png/card--natwest_akvydm_c_scale,w_522.png 522w
+                "
+                                 src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/natwest/png/card--natwest_akvydm_c_scale,w_522.png"
+                                 loading="lazy"
+                                 alt="Natwest Bank Card" />
+                        </picture>
+                    </div>
+
+                    <div class="banking_cards__grid--card">
+                        <picture>
+                            <source type="image/avif"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/monzo/avif/card--monzo_yrtl6e_c_scale,w_200.avif 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/monzo/avif/card--monzo_yrtl6e_c_scale,w_522.avif 522w
+                "
+                                    loading="lazy"
+                                    alt="Monzo Bank Card" />
+                            <source type="image/webp"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/monzo/webp/card--monzo_q5bhl7_c_scale,w_200.webp 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/monzo/webp/card--monzo_q5bhl7_c_scale,w_522.webp 522w
+                "
+                                    loading="lazy"
+                                    alt="Monzo Bank Card" />
+                            <img sizes="(max-width: 522px) 100vw, 522px"
+                                 srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/monzo/png/card--monzo_zhbfzu_c_scale,w_200.png 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/monzo/png/card--monzo_zhbfzu_c_scale,w_522.png 522w
+                "
+                                 src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/monzo/png/card--monzo_zhbfzu_c_scale,w_522.png"
+                                 loading="lazy"
+                                 alt="Monzo Bank Card" />
+                        </picture>
+                    </div>
+
+                    <div class="banking_cards__grid--card">
+                        <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/hsbc/png/card-hsbc_nuhtuo_c_scale%2Cw_522.png" alt="HSBC Bank Card">
+                    </div>
+
+                    <div class="banking_cards__grid--card">
+                        <picture>
+                            <source type="image/avif"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/anna/avif/card--anna_v9txjc_c_scale,w_200.avif 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/anna/avif/card--anna_v9txjc_c_scale,w_522.avif 522w
+                "
+                                    loading="lazy"
+                                    alt="Anna Bank Card" />
+                            <source type="image/webp"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/anna/webp/card--anna_pklnop_c_scale,w_200.webp 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/anna/webp/card--anna_pklnop_c_scale,w_522.webp 522w
+                "
+                                    loading="lazy"
+                                    alt="Anna Bank Card" />
+                            <img sizes="(max-width: 522px) 100vw, 522px"
+                                 srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/anna/png/card--anna_eqkgku_c_scale,w_200.png 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/anna/png/card--anna_eqkgku_c_scale,w_522.png 522w
+                "
+                                 src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/anna/png/card--anna_eqkgku_c_scale,w_522.png"
+                                 loading="lazy"
+                                 alt="Anna Bank Card" />
+                        </picture>
+                    </div>
+
+                    <div class="banking_cards__grid--card">
+                        <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/png/card--zempler.png" alt="Zempler Bank Card">
+                    </div>
+
+                    <div class="banking_cards__grid--card">
+                        <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/png/card--worldfirst.png" alt="Worldfirst Bank Card">
+                    </div>
+
+                    <div class="banking_cards__grid--card">
+                        <picture>
+                            <source type="image/avif"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/tide/avif/card--tide_hzcz2n_c_scale,w_200.avif 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/tide/avif/card--tide_hzcz2n_c_scale,w_522.avif 522w
+                "
+                                    loading="lazy"
+                                    alt="Tide Bank Card" />
+                            <source type="image/webp"
+                                    sizes="(max-width: 522px) 100vw, 522px"
+                                    srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/tide/webp/card--tide_tuxtmv_c_scale,w_200.webp 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/tide/webp/card--tide_tuxtmv_c_scale,w_522.webp 522w
+                "
+                                    loading="lazy"
+                                    alt="Tide Bank Card" />
+                            <img sizes="(max-width: 522px) 100vw, 522px"
+                                 srcset="
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/tide/png/card--tide_whktoa_c_scale,w_200.png 200w,
+                  https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/tide/png/card--tide_whktoa_c_scale,w_522.png 522w
+                "
+                                 src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/banking_cards/tide/png/card--tide_whktoa_c_scale,w_522.png"
+                                 loading="lazy"
+                                 alt="Tide Bank Card" />
+                        </picture>
+                    </div>
+
+                </div>
             </div>
         </div>
 
-        @*  <label>Search Company</label>
-        <input type="text" name="CompanyID" />
-        <button type="submit" class="btn btn-dark">Search</button> *@
-    </form>
+        <div class="row">
+            <div class="col home-checklist__footer">
+                <a class="button button--secondary home-checklist__footer--button" href="/company-set-up-guide/">Register Now</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="home-company-formation-easy">
+    <div>
+        <div class="row">
+            <div class="col">
+                <div class="home-company-formation-easy__wrap">
+                    <div class="home-company-formation-easy__title">
+                        <h3 class="section-title">Company formation in 4 simple steps</h3>
+                        <p>Our easy company registration process gets your business up and running in no time.</p>
+                    </div>
+                    <div class="home-company-formation-easy__cards">
+                        <div class="home-company-formation-easy__card">
+                            <div class="home-company-formation-easy__icon">
+                                <img loading="lazy"
+                                     src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/search-icon.png"
+                                     alt="Search for a company name."
+                                     width="110"
+                                     height="110" />
+                                <div class="home-company-formation-easy__number" style="border-color: #fcbf09;"><span>1</span></div>
+                            </div>
+                            <div class="home-company-formation-easy__body">
+                                <h4>Company Name</h4>
+                                <p>Begin by searching for your company name to see if it is available for registration.</p>
+                            </div>
+                        </div>
+                        <div class="home-company-formation-easy__card">
+                            <div class="home-company-formation-easy__icon">
+                                <img loading="lazy"
+                                     src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/package-icon.png"
+                                     alt="Select a company package."
+                                     width="110"
+                                     height="110" />
+                                <div class="home-company-formation-easy__number" style="border-color: #b7d8e7;"><span>2</span></div>
+                            </div>
+                            <div class="home-company-formation-easy__body">
+                                <h4>Select Package</h4>
+                                <p>Select the package that is right for you. We have a range of different options.</p>
+                            </div>
+                        </div>
+                        <div class="home-company-formation-easy__card">
+                            <div class="home-company-formation-easy__icon">
+                                <img loading="lazy"
+                                     src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/cart-icon.png"
+                                     alt="Checkout and pay for your order."
+                                     width="110"
+                                     height="110" />
+                                <div class="home-company-formation-easy__number" style="border-color: #e48b20;"><span>3</span></div>
+                            </div>
+                            <div class="home-company-formation-easy__body">
+                                <h4>Checkout</h4>
+                                <p>Proceed to checkout. You will also have the option to add additional services.</p>
+                            </div>
+                        </div>
+                        <div class="home-company-formation-easy__card">
+                            <div class="home-company-formation-easy__icon">
+                                <img loading="lazy"
+                                     src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/details-icon.png"
+                                     alt="Complete details to setup your company."
+                                     width="110"
+                                     height="110" />
+                                <div class="home-company-formation-easy__number" style="border-color: #65a9bc;"><span>4</span></div>
+                            </div>
+                            <div class="home-company-formation-easy__body">
+                                <h4>Company Details</h4>
+                                <p>Quickly fill in your company details and let us take care of the rest.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home-company-formation-easy__cta">
+                        <a class="button button--secondary" href="/company-set-up-guide/">Register Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section--case-study-one bg--black">
+    <div>
+        <div class="row">
+            <div class="col">
+                <div class="case-study case-study--dark">
+                    <div class="case-study__quote">
+                        <div class="case-study__quote-icon">
+                            <i class="fa fa-quote-left"></i>
+                        </div>
+                        <h2>Everything was in one place, and it was easy to use for somebody who didn’t really know what they were doing.</h2>
+                        <span class="case-study__name">Liz Fraser, Dot Dot Dash Coaching</span>
+                        <a class="case-study__link" href="/case-studies/dot-dot-dash-coaching/">View customer story</a>
+                    </div>
+                    <div class="case-study__right">
+                        <div class="case-study__image">
+                            <picture>
+                                <source sizes="(max-width: 1120px) 100vw, 1120px"
+                                        srcset="
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/webp/liz-fraser_vimout_c_scale,w_200.webp   200w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/webp/liz-fraser_vimout_c_scale,w_411.webp   411w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/webp/liz-fraser_vimout_c_scale,w_603.webp   603w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/webp/liz-fraser_vimout_c_scale,w_818.webp   818w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/webp/liz-fraser_vimout_c_scale,w_957.webp   957w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/webp/liz-fraser_vimout_c_scale,w_1120.webp 1120w
+                                    "
+                                        alt="Liz Fraser, founder of Dot Dot Dash Coaching Limited."
+                                        loading="lazy" />
+                                <img sizes="(max-width: 1120px) 100vw, 1120px"
+                                     srcset="
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_200.jpg   200w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_394.jpg   394w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_542.jpg   542w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_671.jpg   671w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_791.jpg   791w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_902.jpg   902w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_1014.jpg 1014w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_1104.jpg 1104w,
+										https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_1120.jpg 1120w
+                                    "
+                                     src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/dot-dot-dash-coaching/portrait/jpg/liz-fraser_ywx6ei_c_scale,w_1120.jpg"
+                                     alt="Liz Fraser, founder of Dot Dot Dash Coaching Limited."
+                                     loading="lazy" />
+                            </picture>
+                            <a class="case-study__play" href="https://vimeo.com/857060623" data-lity aria-label="Watch video">
+                                <i class="fa-duotone fa-circle-play" style="--fa-primary-color: #ffffff; --fa-secondary-color: #f63470; --fa-secondary-opacity: 1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="how-to-form-video" class="home-how-to-form">
+    <div>
+        <div class="row">
+            <div class="col">
+                <h3 class="section-title">New to company formation?</h3>
+                <p>Created for beginners, this short video will provide you with everything you need to know <br />about the <a href="https://www.1stformations.co.uk/blog/what-is-company-formation/">company formation</a> process - in the simplest of terms. Watch it and register your company today.</p>
+            </div>
+            <div class="col">
+                <div class="home-how-to-form__videos">
+                    <a class="home-how-to-form__video" href="https://vimeo.com/758676194" data-lity>
+                        <img loading="lazy"
+                             src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/How_to_form_a_UK_limited_company_Nick_v3.jpg"
+                             alt="How to form a UK Limited Company." />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col home-checklist__footer">
+                <a class="button button--secondary home-checklist__footer--button" href="/company-set-up-guide/">Register Now</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section--case-study-two bg--cream">
+    <div>
+        <div class="row">
+            <div class="col">
+                <div class="case-study case-study--light">
+                    <div class="case-study__quote">
+                        <div class="case-study__quote-icon">
+                            <i class="fa fa-quote-left"></i>
+                        </div>
+                        <h2>It was an incredibly easy process.</h2>
+                        <span class="case-study__name">Alex Williams, Well Fruited</span>
+                        <a class="case-study__link" href="/case-studies/well-fruited/">View customer story</a>
+                    </div>
+                    <div class="case-study__right">
+                        <div class="case-study__image">
+                            <picture>
+                                <source sizes="(max-width: 672px) 100vw, 672px" srcset="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/webp/alex-williams_yti3jw_c_scale,w_200.webp 200w, https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/webp/alex-williams_yti3jw_c_scale,w_385.webp 385w, https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/webp/alex-williams_yti3jw_c_scale,w_529.webp 529w, https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/webp/alex-williams_yti3jw_c_scale,w_661.webp 661w, https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/webp/alex-williams_yti3jw_c_scale,w_672.webp 672w" alt="Alex Williams and Ben Kaye, founders of Well Fruited Limited." loading="lazy" />
+                                <img sizes="(max-width: 672px) 100vw, 672px"
+                                     srcset="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/jpg/alex-williams_lgbfhu_c_scale,w_200.jpg 200w, https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/jpg/alex-williams_lgbfhu_c_scale,w_385.jpg 385w, https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/jpg/alex-williams_lgbfhu_c_scale,w_509.jpg 509w, https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/jpg/alex-williams_lgbfhu_c_scale,w_651.jpg 651w, https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/jpg/alex-williams_lgbfhu_c_scale,w_672.jpg 672w"
+                                     src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/case-studies/well-fruited/portrait/jpg/alex-williams_lgbfhu_c_scale,w_672.jpg"
+                                     alt="Alex Williams and Ben Kaye, founders of Well Fruited Limited."
+                                     loading="lazy" />
+                            </picture>
+                            <a class="case-study__play" href="https://vimeo.com/857063855" data-lity aria-label="Watch video">
+                                <i class="fa-duotone fa-circle-play" style="--fa-primary-color: #ffffff; --fa-secondary-color: #f63470; --fa-secondary-opacity: 1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-partners-directory" id="home--partners-directory">
+    <div>
+        <div class="row">
+            <div class="col">
+                <h3 class="section-title">Grow your business with offers from our partners</h3>
+                <p>
+                    We have teamed up with some of the top business brands <br />
+                    in the world to give our customers a range of special offers and discounts.
+                </p>
+            </div>
+            <div class="col">
+                <div class="partners">
+                    <div class="partners__partners">
+                        <div class="partners__partner partners__partner--names">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/names-logo.png?v=2" loading="lazy" alt="Names.co.uk logo." width="206" height="35" />
+                        </div>
+                        <div class="partners__partner partners__partner--worldfirst">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/worldfirst-logo.png" loading="lazy" alt="Worldfirst logo." width="175" height="19" />
+                        </div>
+                        <div class="partners__partner partners__partner--squarespace hidden-sm">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/squarespace-logo.png?v=5" loading="lazy" alt="Squarespace logo." width="215" height="31" />
+                        </div>
+                        <div class="partners__partner partners__partner--indeed hidden-sm">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/indeed-logo.png" loading="lazy" alt="Indeed logo." width="106" height="30" />
+                        </div>
+                        <div class="partners__partner partners__partner--hubspot">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/hubspot-logo.png?v=2" loading="lazy" alt="Hubspot logo." width="113" height="33" />
+                        </div>
+                        <div class="partners__partner partners__partner--jotform">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/jotform-logo.png?v=2" loading="lazy" alt="Jotform logo." width="157" height="31" />
+                        </div>
+                        <div class="partners__partner partners__partner--shopify">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/shopify-logo.png?v=2" loading="lazy" alt="Shopify logo." width="116" height="65" />
+                        </div>
+                        <div class="partners__partner partners__partner--sendcloud hidden-sm">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/sendcloud-logo.png" loading="lazy" alt="Sendcloud logo." width="208" height="30" />
+                        </div>
+                        <div class="partners__partner partners__partner--google">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/google-workspace-logo.png?v=2" loading="lazy" alt="Google Workspace logo." width="200" height="56" />
+                        </div>
+                        <div class="partners__partner partners__partner--monday">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/monday-logo.png?v=2" loading="lazy" alt="Monday.com logo." width="167" height="31" />
+                        </div>
+                        <div class="partners__partner partners__partner--istock">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/istock-logo.png?v=2" loading="lazy" alt="iStock logo." width="107" height="38" />
+                        </div>
+                        <div class="partners__partner partners__partner--markup hidden-sm">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/markup-hero-logo.png?v=2" loading="lazy" alt="Markup Hero logo." width="62" height="39" />
+                        </div>
+                        <div class="partners__partner partners__partner--hotjar hidden-sm">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/hotjar-logo.png" loading="lazy" alt="Hotjar logo." width="92" height="44" />
+                        </div>
+                        <div class="partners__partner partners__partner--fiverr">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/fiverr-logo.png?v=3" loading="lazy" alt="Fiverr logo." width="117" height="36" />
+                        </div>
+                        <div class="partners__partner partners__partner--quickbooks">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/quickbooks-logo.png" loading="lazy" alt="Quickbooks logo." width="200" height="55" />
+                        </div>
+                        <div class="partners__partner partners__partner--slack hidden-sm">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/slack-logo.png" loading="lazy" alt="Slack logo." width="116" height="31" />
+                        </div>
+                        <div class="partners__partner partners__partner--revolut">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/revolut-logo.png" loading="lazy" alt="Revolut logo." width="111" height="26" />
+                        </div>
+                        <div class="partners__partner partners__partner--airwallex hidden-sm">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/airwallex-logo.png" loading="lazy" alt="Airwallex logo." width="189" height="26" />
+                        </div>
+                        <div class="partners__partner partners__partner--wallester">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/wallester-logo.png" loading="lazy" alt="Wallester logo." width="165" height="31" />
+                        </div>
+                        <div class="partners__partner partners__partner--gocardless">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/gocardless-logo.png" loading="lazy" alt="GoCardless logo." width="209" height="31" />
+                        </div>
+                        <div class="partners__partner partners__partner--payoneer">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/payoneer-logo.png" loading="lazy" alt="Payoneer logo." width="159" height="31" />
+                        </div>
+                        <div class="partners__partner partners__partner--semrush">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/semrush-logo.png?v=2" loading="lazy" alt="Semrush logo." width="212" height="29" />
+                        </div>
+                        <div class="partners__partner partners__partner--ipburger hidden-sm">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/ipburger-logo.png" loading="lazy" alt="IP Burger logo." width="130" height="38" />
+                        </div>
+                        <div class="partners__partner partners__partner--junglescout hidden-sm">
+                            <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/junglescout-logo.png" loading="lazy" alt="JungleScout logo." width="215" height="33" />
+                        </div>
+                    </div>
+                    <div class="partners__footer">
+                        <p>Available exclusively within our Customer Portal.</p>
+                    </div>
+                    <div class="partners__cta">
+                        <a class="button button--primary" href="https://www.1stformations.co.uk/our-partners/">View Partners Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-cnb" id="home--cnb">
+    <div>
+        <div class="row">
+            <div class="col">
+                <h3 class="section-title">We are a carbon neutral business</h3>
+            </div>
+            <div class="col">
+                <div class="home-cnb__info">
+                    <div class="home-cnb__image">
+                        <img src="https://1stformations.s3.eu-west-1.amazonaws.com/images/logos/cnb--black--lg.png?v=2" loading="lazy" alt="">
+                    </div>
+                    <div class="home-cnb__text">
+                        <div>
+                            <ul class="fa-ul">
+                                <li>
+                                    <i class="fa-li fa fa-check-circle"></i>
+                                    <h2>Responsibility</h2>
+                                    <p>As the UK's leading company formations agents, we recognised <br class="visible-desktop">our responsibility to address our impact on the environment.</p>
+                                </li>
+                                <li>
+                                    <i class="fa-li fa fa-check-circle"></i>
+                                    <h2>Action</h2>
+                                    <p>We calculated and offset our carbon footprint by investing in <br class="visible-desktop">environmental projects certified to the most recognised standards.</p>
+                                </li>
+                                <li>
+                                    <i class="fa-li fa fa-check-circle"></i>
+                                    <h2>Commitment</h2>
+                                    <p>We are proud of this achievement and committed to maintaining <br class="visible-desktop">our carbon neutral status for many years to come.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="home-cnb__cta">
+                    <a class="button button--primary" href="https://www.1stformations.co.uk/sustainability/">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="why-we-are-different">
+    <div>
+        <div class="row">
+            <div class="col">
+                <div class="why-we-are-different__wrap">
+                    <div class="why-we-are-different__title">
+                        <h3 class="section-title">Why register your company with 1st Formations?</h3>
+                    </div>
+                    <div class="why-we-are-different__cards">
+                        <div class="why-we-are-different__card">
+                            <div class="why-we-are-different__image">
+                                <img alt="We are obsessive about our customers." loading="lazy" src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/customers-icon.png" />
+                            </div>
+                            <div class="why-we-are-different__body">
+                                <h4>We are obsessive <br /> about our customers</h4>
+                                <p>The No.1 thing that has made us successful has been our fanatical focus on the customer.</p>
+                            </div>
+                        </div>
+                        <div class="why-we-are-different__card">
+                            <div class="why-we-are-different__image">
+                                <img alt="We are competively priced." loading="lazy" src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/price-icon.png" />
+                            </div>
+                            <div class="why-we-are-different__body">
+                                <h4>We have been able to <br />greatly reduce our prices</h4>
+                                <p>As we have grown we've been able to pass on our economies of scale to the customer.</p>
+                            </div>
+                        </div>
+                        <div class="why-we-are-different__card">
+                            <div class="why-we-are-different__image">
+                                <img alt="Our staff are the most knowledgable." loading="lazy" src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2023/knowledge-icon.png" />
+                            </div>
+                            <div class="why-we-are-different__body">
+                                <h4>We have the most knowledgeable <br />Customer Service Team</h4>
+                                <p>Our company formation training programme is much-admired within our industry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-business-guides">
+    <div>
+        <div class="row">
+            <div class="col">
+                <h3 class="section-title">Business startup guides</h3>
+                <p class="section-subtitle">Have you got any questions about the company formation process or business <br class="visible-tablet visible-desktop">in general? No problem. We’ve written a number of guides to help you start, run and grow your business.</p>
+            </div>
+            <div class="col">
+                <div class="home-business-guides__guides">
+                    <div class="home-business-guides__guide">
+                        <a href="https://www.1stformations.co.uk/blog/company-formation-what-you-need-to-know/">
+                            <img loading="lazy" src="https://www.1stformationsblog.co.uk/wp-content/uploads/2020/12/shutterstock_1742783978-728x485.png" class="home-business-guides__image" alt="A guide to UK company formation." />
+                        </a>
+                        <div class="home-business-guides__body">
+                            <h4><a href="https://www.1stformations.co.uk/blog/company-formation-what-you-need-to-know/">A guide to UK company formation</a></h4>
+                            <p>Everything you need to know about setting up a UK limited company. Find out what company formation means, how to pick the perfect name, and what you must do to register a company with Companies House.</p>
+                        </div>
+                    </div>
+                    <div class="home-business-guides__guide">
+                        <a href="https://www.1stformations.co.uk/blog/10-duties-company-director/">
+                            <img loading="lazy" src="https://www.1stformationsblog.co.uk/wp-content/uploads/2020/02/1ST-Job_Duties-728x485.jpg" class="home-business-guides__image" alt="10 duties of a company director." />
+                        </a>
+                        <div class="home-business-guides__body">
+                            <h4><a href="https://www.1stformations.co.uk/blog/10-duties-company-director/">10 duties of a company director</a></h4>
+                            <p>After company incorporation you will immediately take on a number of responsibilities. This is a comprehensive look at everything you need to do in your new role as company director.</p>
+                        </div>
+                    </div>
+                    <div class="home-business-guides__guide">
+                        <a href="https://www.1stformations.co.uk/blog/convert-from-sole-trader-to-limited-company/">
+                            <img loading="lazy" src="https://www.1stformationsblog.co.uk/wp-content/uploads/2020/05/1ST-Convert-728x485.jpg" class="home-business-guides__image" alt="How to change from sole trader to limited company." />
+                        </a>
+                        <div class="home-business-guides__body">
+                            <h4><a href="https://www.1stformations.co.uk/blog/convert-from-sole-trader-to-limited-company/">How to change from sole trader to limited company</a></h4>
+                            <p>The UK limited company structure provides multiple benefits when compared to sole traders, with the biggest being the financial protection it offers its members. Here’s how to make the switch.</p>
+                        </div>
+                    </div>
+                    <div class="home-business-guides__guide">
+                        <a href="https://www.1stformations.co.uk/blog/most-tax-efficient-way-to-pay-myself-from-my-limited-company/">
+                            <img loading="lazy" src="https://www.1stformationsblog.co.uk/wp-content/uploads/2022/03/shutterstock_1718291641-728x485.jpg" class="home-business-guides__image" alt="The most tax-efficient way to take money from a limited company." />
+                        </a>
+                        <div class="home-business-guides__body">
+                            <h4><a href="https://www.1stformations.co.uk/blog/most-tax-efficient-way-to-pay-myself-from-my-limited-company/">The most tax-efficient way to take money from a limited company</a></h4>
+                            <p>Operating as a limited company provides flexibility when it comes to your personal income. This is what you need to know in regards to paying yourself.</p>
+                        </div>
+                    </div>
+                    <div class="home-business-guides__guide">
+                        <a href="https://www.1stformations.co.uk/blog/managing-money-when-starting-business/">
+                            <img loading="lazy" src="https://www.1stformationsblog.co.uk/wp-content/uploads/2022/03/british-currency-picture-id639762750-728x485.jpg" class="home-business-guides__image" alt="7 tips for managing money when starting up a business." />
+                        </a>
+                        <div class="home-business-guides__body">
+                            <h4><a href="https://www.1stformations.co.uk/blog/managing-money-when-starting-business/">7 tips for managing money when starting up a business</a></h4>
+                            <p>Taking care of a startup can be a culture shock - going from steady, monthly pay to the unknown. We’ve compiled some handy tips to help you manage your money after registering a company.</p>
+                        </div>
+                    </div>
+                    <div class="home-business-guides__guide">
+                        <a href="https://www.1stformations.co.uk/blog/how-to-create-a-website-for-a-new-business/">
+                            <img loading="lazy" src="https://www.1stformationsblog.co.uk/wp-content/uploads/2018/01/how-do-i-create-a-website-for-my-company-977x4881-728x485.jpg" class="home-business-guides__image" alt="How to create a website for a new business." />
+                        </a>
+                        <div class="home-business-guides__body">
+                            <h4><a href="https://www.1stformations.co.uk/blog/how-to-create-a-website-for-a-new-business/">How to create a website for a new business</a></h4>
+                            <p>Congratulations on setting up a company! Now it’s time to get your new business noticed. Here’s what you need to do to build a website that will demand attention.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-ebook">
+    <div>
+        <div class="row">
+            <div class="col">
+                <h3 class="section-title">The Ultimate Guide to Starting Your Business</h3>
+                <span class="home-ebook__subtitle">Our eBook is available FREE with every company formation package.</span>
+            </div>
+            <div class="col">
+                <div class="home-ebook__info">
+                    <div class="home-ebook__image">
+                        <img src="https://1stformations.s3-eu-west-1.amazonaws.com/images/icons/1st-ebook-icon.jpg" loading="lazy" alt="1st Formations Ultimate Guide to Starting Your Business">
+                    </div>
+
+                    <div class="home-ebook__text">
+                        <div>
+                            <p>Learn how to cultivate a business idea, create a business plan, explore funding strategies, and start your business, with our comprehensive guide.</p>
+                            <p>We’ll also show you how to set up a company website, sell online, cope with the stress of running your business – and much more. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-popular-services">
+    <div>
+        <div class="row">
+            <div class="col">
+                <h3 class="section-title">Our popular services</h3>
+                <p class="section-subtitle">1st Formations provide many services to help you set up, maintain and develop your <br class="visible-tablet visible-desktop">business after company incorporation. Here is a selection of our most popular services.</p>
+            </div>
+            <div class="col">
+                <div class="home-popular-services__services">
+                    <div class="home-popular-services__service">
+                        <img loading="lazy" src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/popular-services/confirmation-statement.jpg" class="home-popular-services__image" alt="Confirmation statement service thumbnail." />
+                        <div class="home-popular-services__body">
+                            <h4><a href="/confirmation-statement-service/">Confirmation Statement <br />Service</a></h4>
+                            <a class="button button--primary" href="/confirmation-statement-service/">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="home-popular-services__service">
+                        <img loading="lazy" src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/popular-services/registered-office.jpg" class="home-popular-services__image" alt="Registered office address service thumbnail." />
+                        <div class="home-popular-services__body">
+                            <h4><a href="/registered-office-service/">London Registered <br />Office Service</a></h4>
+                            <a class="button button--primary" href="/registered-office-service/">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="home-popular-services__service">
+                        <img loading="lazy" src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/popular-services/full-company.jpg" class="home-popular-services__image" alt="Full company secretary service thumbnail." />
+                        <div class="home-popular-services__body">
+                            <h4><a href="/full-company-secretary/">Full Company <br />Secretary Service</a></h4>
+                            <a class="button button--primary" href="/full-company-secretary/">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="home-popular-services__service">
+                        <img loading="lazy" src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/popular-services/company-manager.jpg?v=4" class="home-popular-services__image" alt="Online company manager thumbnail." />
+                        <div class="home-popular-services__body">
+                            <h4><a href="/online-company-manager/">Our Online <br />Company Manager</a></h4>
+                            <a class="button button--primary" href="/online-company-manager/">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-last-cta">
+    <div>
+        <div class="row">
+            <div class="col">
+                <div class="site-last-cta__wrap">
+                    <h3 class="section-title section-title--large">Are you ready to <br class="visible-desktop">set up your company?</h3>
+                    <a class="button button--secondary" href="/company-set-up-guide/">Register Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-seo container--full-width-grey">
+    <div>
+        <div class="row row--grey">
+            <div class="col">
+                <div class="home-seo__body">
+                    <div class="home-seo__item">
+                        <h3 class="section-title">What you can expect from us...</h3>
+                        <p>1st Formations are authorised Companies House formation agents, and we are also a member of ACRA (the Association of Company Registration Agents) ensuring our company documentation is of the highest quality, always up-to-date and compliant with current regulations and legislation.</p>
+                        <p>We are available and ready to support you every step of the way; from tentative initial enquires, to helping you choose a package, to guiding you through the company formation process.</p>
+                        <p>If you need any assistance or you would like to form your company by telephone with one of our experts, give us a call at 020 3897 2233.</p>
+
+                        <h4>Once you are ready to start</h4>
+                        <p>It’s a simple matter of following our simple <a href="/company-set-up-guide/">4 step company formation process</a>: Go to our homepage and find out if your company name is available; choose a package; select any company services you may require, checkout and pay; and complete our 'online company registration form'. This should take you no more than 15 minutes and your new company should be ready to trade within 24 hours.</p>
+                        <p>As soon as your new company is incorporated, we will send you a digital copy of your company documents. Printed documents will take between 24 to 48 hours to reach you by post, and if your package included any address services, these will be set up for you within 3 to 5 working hours.</p>
+
+                        <h4>After company formation</h4>
+                        <p>Let’s just say our journey together has just started! 1st Formations provides free customer support for the lifetime of your company. So please call or email us if you need help.</p>
+                        <p>We also provide a free <a href="/online-company-manager/">Online Company Manager</a> facility for all customers, where they can maintain and update their company records and details, without having to login and navigate Companies House website, and a full range of <a href="/company-services/">company services</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </div>
+
+
+
+
 <div>
-    @if (Model.companyList != null)
+    @*  @if (Model.companyList != null)
     {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Company Name</th>
-                    <th>Company Number</th>
-                    <th>Company Status</th>
-                    <th>Company Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.companyList.top_hit != null)
-                {
-                    <tr><td colspan="4" class="text-center"><b>Top Match</b></td></tr>
-                    <tr>
-                        <td>@Model.companyList.top_hit.company_name</td>
-                        <td>@Model.companyList.top_hit.company_number</td>
-                        <td>@Model.companyList.top_hit.company_status</td>
-                        <td>@Model.companyList.top_hit.company_type</td>
-                    </tr>
-                }
-                @if (Model.companyList.items != null)
-                {
-                    <tr><td colspan="4" class="text-center"><b>Realted Companies</b></td></tr>
-                    @foreach (var item in Model.companyList.items)
-                    {
-                        <tr>
-                            <td>@item.company_name</td>
-                            <td>@item.company_number</td>
-                            <td>@item.company_status</td>
-                            <td>@item.company_type</td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+    <th>Company Name</th>
+    <th>Company Number</th>
+    <th>Company Status</th>
+    <th>Company Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.companyList.top_hit != null)
+    {
+    <tr><td colspan="4" class="text-center"><b>Top Match</b></td></tr>
+    <tr>
+    <td>@Model.companyList.top_hit.company_name</td>
+    <td>@Model.companyList.top_hit.company_number</td>
+    <td>@Model.companyList.top_hit.company_status</td>
+    <td>@Model.companyList.top_hit.company_type</td>
+    </tr>
     }
+    @if (Model.companyList.items != null)
+    {
+    <tr><td colspan="4" class="text-center"><b>Realted Companies</b></td></tr>
+    @foreach (var item in Model.companyList.items)
+    {
+    <tr>
+    <td>@item.company_name</td>
+    <td>@item.company_number</td>
+    <td>@item.company_status</td>
+    <td>@item.company_type</td>
+    </tr>
+    }
+    }
+    </tbody>
+    </table>
+    } *@
 
     @if (Model.Package != null && Model.Package.Any())
     {
