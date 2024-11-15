@@ -1,0 +1,190 @@
+﻿@page
+@model Spendwise_WebApp.Pages.BuyPackage.IndexModel
+@{
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+<style>
+    li.nav-item {
+        width: 20%;
+    }
+
+    a.active.nav-link.packageTab {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 4px solid #73B810;
+        border-radius: 5px;
+    }
+
+    ul.nav.nav-tabs.justify-content-center {
+        padding-top: 2%;
+        padding-bottom: 0.5%;
+    }
+
+    .compare-packages-hero__left h1 {
+        color: #3f3f3f !important;
+        margin-top: 0 !important;
+        margin-bottom: .5rem !important;
+    }
+
+    .compare-packages-hero__left p {
+        font-size: 21px;
+        font-size: 1.3125rem;
+        font-family: "Myriad Semi Condensed", sans-serif;
+        color: #676767;
+    }
+
+    a.PackTabProcessed.nav-link.packageTab {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 4px solid #73B810;
+        border-radius: 5px;
+    }
+</style>
+<div>
+    <input type="hidden" id="hdnSelectedPackage" value="@Model.PackageName" />
+    <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link packageTab active" data-toggle="tab" role="tab" aria-controls="CompanyName"
+               href="#CompanyName" onclick="ShowSelectedTab('CompanyName')">1. Company Name</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link packageTab" data-toggle="tab" role="tab" aria-controls="SelectPackage"
+               href="#SelectPackage" onclick="ShowSelectedTab('SelectPackage')">2. Select Package</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link packageTab" data-toggle="tab" role="tab" aria-controls="Checkout"
+               href="#Checkout" onclick="ShowSelectedTab('Checkout')">3. Checkout</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link packageTab" data-toggle="tab" role="tab" aria-controls="CompanyDetails"
+               href="#CompanyDetails" onclick="ShowSelectedTab('CompanyDetails')">4. Company Details</a>
+        </li>
+    </ul>
+</div>
+<div class="tab-content" id="myTabContent">
+    <div class="rf-home-bc pd-top-20 pd-bot-20  xs-hide">
+        <div class="clearfix"></div>
+        <div class="container-inner ncinner pos-relative padding-top-bot-tw pad-left-none pad-right-none" id="PackageTabContent">
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $.ajax({
+                url: "/BuyPackage/CompanyName",
+                type: "get",
+                success: function (result) {
+                    $(".packageTab").removeClass("active");
+                    $("#PackageTabContent").html(result);
+                    $('a[href="#CompanyName"]').addClass("active");
+                    $("#PackageNameSpan").html($("#hdnSelectedPackage").val().toUpperCase() + " PACKAGE");
+                }
+            })
+        })
+
+        function ShowSelectedTab(TabName) {
+            if (TabName == "CompanyName") {
+                $.ajax({
+                    url: "/BuyPackage/CompanyName",
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $('a[href="#CompanyName"]').addClass("active");
+                        $('a[href="#SelectPackage"]').removeClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                    }
+                })
+            }
+            else if (TabName == "SelectPackage") {
+                $.ajax({
+                    url: "/BuyPackage/SelectPackage",
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $('a[href="#SelectPackage"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                    }
+                })
+            }
+            else if (TabName == "Checkout") {
+                $.ajax({
+                    url: "/BuyPackage/Checkout",
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $('a[href="#Checkout"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                    }
+                })
+            }
+            else if (TabName == "CompanyDetails") {
+                $.ajax({
+                    url: "/BuyPackage/CompanyDetails",
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $('a[href="#CompanyDetails"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').addClass("PackTabProcessed");
+                    }
+                })
+            }
+
+        }
+
+        function CheckCompanyName() {
+            $("#divCopmanySearch").css("display", "none");
+            $("#efNameCheckResult").css("display", "block");
+            var searchedCompanyName = $("#company_name").val();
+            $("#spnSearchedCompanyName").html(searchedCompanyName);
+        }
+
+        function MoveToNextPackageStep() {
+            var searchParams = new URLSearchParams(window.location.search);
+            var UrlPrams = searchParams.toString().split('=');
+            if (UrlPrams[1] != "") {
+                $.ajax({
+                    url: "/BuyPackage/Checkout",
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $('a[href="#Checkout"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
+                    }
+                })
+            }
+            else {
+                $.ajax({
+                    url: "/BuyPackage/SelectPackage",
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $('a[href="#SelectPackage"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                    }
+                })
+            }
+        }
+    </script>
+} 

@@ -1,0 +1,1313 @@
+﻿@page
+@model Spendwise_WebApp.Pages.BuyPackage.CompanyDetailsModel
+@{
+    Layout = null;
+}
+<link href="/css/ef-core.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://s3-eu-west-1.amazonaws.com/cdn-1stformations/gzip/assets/css/nav-min.css?v=49" />
+<style type="text/css">
+    /* Page styles */
+    #payment-gateway {
+        float: left;
+        width: 100%;
+        margin: 1rem 0 3rem;
+    }
+
+    #payment-gateway #efPageContent {
+        padding: 0;
+    }
+
+    #payment-gateway .efPaymentDetailsWrapper {
+        width: 57%;
+    }
+
+    #payment-gateway .efOrderContentsWrapper {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+    }
+
+    #payment-gateway .container {
+        width: 100%;
+    }
+
+    #payment-gateway .row {
+        height: auto;
+        margin: 0;
+    }
+
+    body.pace-running {
+        background-image: none !important;
+    }
+
+    #st-payment-stored-card button {
+        margin-left: 15px !important;
+    }
+
+    /* Section styles */
+    #payment-gateway .efPaymentGatewayAccountDetails h2,
+    #payment-gateway .efPaymentGatewayBillingDetails h2,
+    #payment-gateway .efNewCardWrapper h2,
+    #payment-gateway .efOrderDefaultContents h2,
+    #payment-gateway .efExistingCustomer .ef-js-existing-customer-form h2,
+    #payment-gateway .efPreviousCardWrapper h2 {
+        font-family: MyriadW08-BoldSemiConde !important;
+        font-size: 18px;
+        display: block;
+        border-bottom: 1px solid #dddddd;
+        padding: 10px 15px;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+        color: #676767;
+        background-color: #f5f5f5;
+    }
+
+    #payment-gateway .efCustomerTypeWrapper {
+        margin-top: 0;
+    }
+
+    #payment-gateway .efCustomerTypeWrapper .efCustomerType {
+        box-sizing: border-box;
+        border-color: #afd6e6;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-width: 1px;
+        font-size: 18px;
+        font-family: MyriadW08-BoldSemiConde !important;
+    }
+
+    #payment-gateway .efPaymentGatewayAccountDetails,
+    #payment-gateway .efPaymentGatewayBillingDetails,
+    #payment-gateway .efNewCardWrapper,
+    #payment-gateway .efOrderDefaultContents,
+    #payment-gateway .efPaymentOptionWrapper,
+    #payment-gateway .efExistingCustomer .ef-js-existing-customer-form,
+    #payment-gateway .efPreviousCardWrapper {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    #payment-gateway .efOrderDefaultContents {
+        padding: 0;
+    }
+
+    #payment-gateway h1 {
+        font-family: MyriadW08-BoldSemiConde !important;
+        font-size: 18px;
+        line-height: initial;
+        display: block;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 15px;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+        color: #676767;
+        background-color: #f5f5f5;
+        margin: 0;
+        border-color: #dddddd;
+    }
+
+    #payment-gateway .efPaymentGatewayAccountDetails .efPaymentGatewayField,
+    #payment-gateway .efPaymentGatewayBillingDetails .efPaymentGatewayField,
+    #payment-gateway .efNewCardWrapper .efPaymentGatewayField,
+    #payment-gateway .efExistingCustomer .efPaymentGatewayField,
+    #payment-gateway .efOrderDefaultContents .efPaymentGatewayOrderId,
+    #payment-gateway .efOrderDefaultContents .efOrderContentsList,
+    #payment-gateway .efOrderDefaultContents .efPaymentGatewayTotals,
+    #payment-gateway .efOrderDefaultContents .efOrderPackageName,
+    #payment-gateway .efOrderDefaultContents .efOrderCompanyName,
+    #payment-gateway .efNewCardWrapper .efCardDetailsField,
+    #payment-gateway .efPaymentOptionWrapper .efPaymentSelect {
+        padding: 15px 15px 0 15px;
+        margin: 0;
+    }
+        
+    #payment-gateway .efOrderDefaultContents .efPaymentGatewayAccountTitle {
+        padding: 15px 15px 0 15px;
+        margin: 0;
+    }
+
+    #payment-gateway .efOrderDefaultContents .efPaymentGatewayAccountDescription {
+        padding: 5px 15px 15px;
+        margin: 0;
+    }
+
+    #payment-gateway .efPaymentGatewayAccountDetails .efPaymentGatewayField:last-of-type,
+    #payment-gateway .efPaymentGatewayBillingDetails .efPaymentGatewayField:last-of-type,
+    #payment-gateway .efExistingCustomer .efPaymentGatewayField:last-of-type {
+        margin-bottom: 20px;
+    }
+
+    #payment-gateway .efPaymentGatewayAccountDetails #password-constraints ul {
+        font-size: 14px;
+    }
+
+    #payment-gateway .efPaymentGatewayAddressText {
+        margin-left: 0;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+
+    /* Form styles */
+    #payment-gateway .efCustomerTypeWrapper input[type=radio].ef-toggle:checked+label:after {
+        display: none;
+    }
+
+    #payment-gateway .efCustomerTypeWrapper input[type=radio].ef-toggle+.efExistingCustomerLabel {
+        margin-left: -4px;
+        background-color: #fff;
+    }
+
+    #payment-gateway .efCustomerTypeWrapper input[type=radio].ef-toggle:checked+label {
+        background-color: #31a5cb;
+        border-color: #31a5cb;
+        color: #fff;
+    }
+
+    #payment-gateway .efCustomerTypeWrapper .efCustomerType:first-of-type {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    #payment-gateway label.efPaymentGatewayLabel {
+        font-size: 14px;
+        display: block;
+        width: 100%;
+        font-weight: bold;
+        color: #676767;
+    }
+
+    #payment-gateway form input,
+    #payment-gateway .ef-info-modal input {
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        background: #FFFFFF;
+        padding: 6px 10px;
+        width: 100%;
+        background-image: none !important;
+        border-radius: 3px;
+    }
+
+    #payment-gateway input.ef-js-billing-title {
+        width: 262px;
+    }
+
+    #payment-gateway form select,
+    #payment-gateway .ef-info-modal select {
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        background: #FFFFFF;
+        padding: 5px 10px;
+        width: auto;
+        background-image: none !important;
+        border-radius: 3px;
+    }
+
+    #payment-gateway form input:focus,
+    #payment-gateway .ef-info-modal input:focus,
+    #payment-gateway form select:focus,
+    #payment-gateway .ef-info-modal select:focus {
+        border: 1px solid #ccc !important;
+    }
+
+    #payment-gateway form button.efButton,
+    #payment-gateway .ef-info-modal button.efButton,
+    #efNewAddressFormData .efPostcodeLookup #ef-postcode-look-up,
+    #efSubmitNewAddressButton,
+    .efAddressEnterManually span.efButton,
+    #efGetAddressSearch .efUsedAddressDialogRow .efButton,
+    .efPostCodeLookupSuccessfulSearchResult .efButton,
+    #efGetAddressSearch #ef-add-a-new-address {
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 18px;
+        font-family: MyriadW08-BoldSemiConde !important;
+        background-color: #00abe4;
+        height: auto !important;
+        margin-left: initial;
+    }
+
+    #payment-gateway form button.efButton.ui-state-active,
+    #payment-gateway form button.efButton.ui-state-focus,
+    #payment-gateway form button.efButton.ui-state-hover,
+    #payment-gateway .ef-info-modal button.efButton.ui-state-active,
+    #payment-gateway .ef-info-modal button.efButton.ui-state-focus,
+    #payment-gateway .ef-info-modal button.efButton.ui-state-hover {
+        background-color: #0498ca !important;
+    }
+
+    #payment-gateway form button.efButton img,
+    #payment-gateway .ef-info-modal button.efButton img {
+        display: none;
+    }
+
+    #payment-gateway form button.efPayButton {
+        background-color: #62a43f !important;
+        padding: 13px;
+        margin-top: 0;
+        height: auto !important;
+        margin-left: initial;
+    }
+
+    #payment-gateway form button.efPayButton.ui-state-active,
+    #payment-gateway form button.efPayButton.ui-state-focus,
+    #payment-gateway form button.efPayButton.ui-state-hover {
+        background-color: #518d31 !important;
+    }
+
+    #payment-gateway .efPaymentGatewayPayBtn {
+        margin: 0 0 20px !important;
+    }
+
+    #payment-gateway .efPaymentGatewayPayBtn .efPaymentGatewayLabel,
+    #payment-gateway .efPaymentGatewayLabel:empty {
+        display: none;
+        height: 0;
+        padding: 0;
+    }
+
+    #payment-gateway .efPaymentGatewayAddressWrapper .efPaymentGatewayAddressActions {
+        margin: 0;
+    }
+
+    #payment-gateway .ui-button-text-only .ui-button-text,
+    #ef-add-a-new-address .ui-button-text {
+        padding: .4em 1em !important;
+    }
+
+
+    /* Basket styles */
+    #payment-gateway h3.efPaymentGatewayOrderId {
+        font-size: 16px;
+        font-weight: 600;
+        color: #676767;
+    }
+
+    #payment-gateway h3.efPaymentGatewayOrderId span {
+        font-weight: 400;
+    }
+
+    #payment-gateway .efOrderDefaultContents .efOrderPackageName {
+        font-size: 14px;
+        color: #676767;
+        font-weight: 600;
+    }
+
+    #payment-gateway .efOrderDefaultContents .efOrderPackageName span {
+        float: right;
+    }
+
+    #payment-gateway .efOrderDefaultContents .efOrderCompanyName {
+        font-size: 14px;
+        font-weight: 600;
+        color: #155724;
+        background-color: #eaf8ed;
+        margin: 15px 15px 0;
+        padding: 15px;
+        border-radius: 3px;
+    }
+
+    #payment-gateway .efOrderDefaultContents .efOrderCompanyName span {
+        font-weight: 400;
+        display: block;
+        margin-top: 3px;
+    }
+
+    #payment-gateway ul.efOrderContentsList li {
+        border-bottom: 1px dotted #ccc;
+        color: #676767;
+        font-size: 12px;
+        line-height: 14px;
+        padding: 5px 10px 5px 0;
+    }
+
+    #payment-gateway ul.efOrderContentsList li:nth-child(2) {
+        border-top: 1px dotted #ccc;
+    }
+
+    #payment-gateway ul.efOrderContentsList li:before {
+        display: none;
+    }
+
+    #payment-gateway .efPaymentGatewayTotals {
+        padding: 20px !important;
+        text-align: left;
+        background-color: #F2F2F2;
+        margin: 20px 15px !important;
+        border: none;
+        border-radius: 3px;
+    }
+
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayGrossPrice,
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayNetPrice,
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayVATPrice {
+        font-size: 14px;
+        line-height: 16px;
+        color: #676767;
+        font-weight: 600;
+        margin: 0 0 5px 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #payment-gateway .efPaymentGatewayVATPrice {
+        margin: 0 0 10px !important;
+        padding-bottom: 10px;
+        display: block;
+        border-bottom: 1px dotted #CCCCCC;
+    }
+
+    #payment-gateway .efPaymentGatewayGrossPrice {
+        color: #00a800 !important;
+    }
+
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayNetPrice span,
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayVATPrice span {
+        float: right;
+        font-weight: 400;
+    }
+
+    #payment-gateway .efPaymentGatewayAmountDuePrice {
+        text-align: left;
+        padding: 10px 20px;
+        font-size: 14px;
+        background-color: #f1f1f2;
+        margin: 15px !important;
+        border-radius: 3px;
+        font-weight: 600;
+        color: #00a800 !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    #payment-gateway .efPaymentGatewayAmountDuePrice span,
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayGrossPrice span {
+        float: right;
+    }
+
+
+    /* Other styles */
+    #payment-gateway .efPoweredBySt {
+        margin: 20px 0;
+        background-color: #f5f5f5;
+        margin-bottom: 0;
+        border-radius: 0 0 3px 3px;
+        padding-bottom: 20px;
+    }
+
+    #payment-gateway .efOrderMerchantName,
+    #payment-gateway .efOrderReferenceNumber {
+        font-size: 14px;
+        font-weight: 600;
+        color: #676767;
+    }
+
+    #payment-gateway .efOrderMerchantName {
+        margin-bottom: 1rem;
+    }
+
+    #payment-gateway .efOrderMerchantName span,
+    #payment-gateway .efOrderReferenceNumber span {
+        font-weight: 400;
+    }
+
+    #payment-gateway .efOrderDefaultContents+div,
+    #payment-gateway .efPaymentGatewayOrderId {
+        display: none;
+    }
+
+    #payment-gateway .efExistingCustomer .efForgottenPassword {
+        font-size: 14px;
+        color: #676767;
+    }
+
+    #payment-gateway .efExistingCustomer .efForgottenPassword:hover {
+        color: #fcbe18;
+    }
+
+    #payment-gateway .efNewCardWrapper .efCardTypeWrapper.ef-payment-type-wrapper {
+        padding: 15px 15px 0;
+    }
+
+    #payment-gateway .efCardDetails {
+        margin-top: 0;
+    }
+
+    #payment-gateway .efCardDetails .ef-js-non-paypal .efCardDetailsField:nth-child(2) {
+        width: 55%;
+        box-sizing: border-box;
+        float: left;
+    }
+
+    #payment-gateway .efCardDetails .ef-js-non-paypal .efCardDetailsField:nth-child(3) {
+        width: 45%;
+        box-sizing: border-box;
+        float: left;
+    }
+
+    #payment-gateway .efCardDetails .ef-js-non-paypal .efCardDetailsField:nth-child(3) img {
+        max-height: 80px !important;
+        float: right;
+    }
+
+    #payment-gateway .efNewCardWrapper .efCardTypeWrapper span.ef-card-type-span {
+        margin: 0;
+        opacity: 1!important;
+        border: 1px solid #ccc;
+    }
+
+    #payment-gateway .efNewCardWrapper .efCardTypeWrapper span.ef-card-type-span.efCardSelected {
+        border: 1px solid #62a43f;
+        box-shadow: inset 0 0px 0px 1px #7cc452;
+    }
+
+    #payment-gateway .efNewCardWrapper .efCardTypeWrapper span.ef-card-type-span:hover {
+        background-color: #f1f1f1;
+    }
+
+    #payment-gateway .efNewCardWrapper .efCardTypeWrapper span.ef-card-type-span .efCardTypeImg {
+        padding: 2px;
+        height: 42px;
+    }
+
+    #payment-gateway .efPaymentOptionWrapper .efPaymentSelect div:last-child {
+        margin-bottom: 15px;
+    }
+
+    #payment-gateway .efPaymentOptionWrapper .efPaymentMethod {
+        font-size: 14px;
+        border-radius: 3px;
+        box-shadow: none !important;
+    }
+
+    #efNewAddressFormData .efPostcodeLookup {
+        margin-top: 20px;
+    }
+
+    #efNewAddressFormData .efPostcodeLookup b {
+        margin-top: 5px;
+    }
+
+    #efNewAddressFormData .efPostcodeLookup #ef-postcode-look-up {
+        padding: 4px 10px;
+        margin: 0;
+        height: 37px!important;
+    }
+
+    #efNewAddressFormData .efPostcodeLookup #ef-postcode-look-up span.ui-button-text {
+        padding: .2em 1em;
+    }
+
+    #efNewAddressFormData .efPostcodeLookup #_PostCodeLookup_ {
+        height: 37px;
+        border: 1px solid #bfbfbf;
+        border-radius: 2px;
+    }
+
+    #efSubmitNewAddressButton span.ui-button-text,
+    .efAddressEnterManually span.efButton span.ui-button-text {
+        padding: .4em 1em !important;
+    }
+
+    #efNewAddressFormData b {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+        width: 165px!important;
+    }
+
+
+    /* Error styles */
+    #payment-gateway .efPaymentGatewayDetailsError,
+    #payment-gateway .efPaymentGatewayLoginError,
+    #payment-gateway .efPaymentGatewayMainError,
+    #efGetAddressDialogError,
+    #efAddressPostCodeResults .ui-state-error {
+        margin: 15px 0;
+        background: #f2dede;
+        color: #a94442;
+        padding: 10px 15px;
+        font-size: 14px;
+        border-radius: 3px;
+        border: none;
+    }
+
+    #payment-gateway .efPaymentGatewayDetailsError .ui-state-error-text,
+    #payment-gateway .efPaymentGatewayLoginError .ui-state-error-text,
+    #payment-gateway .efPaymentGatewayMainError .ui-state-error-text,
+    #payment-gateway .efForgottenPasswordOnReg,
+    efGetAddressDialogError .efGetAddressDialogAlertText,
+    #efAddressPostCodeResults .ui-state-error .ui-state-error-text {
+        color: #a94442;
+    }
+
+    #efAddressPostCodeResults .ui-state-error .ui-icon,
+    #efGetAddressDialogError .ui-icon {
+        display: none;
+    }
+
+    #payment-gateway .efPaymentGatewayLoginNotice {
+        margin: 15px 0;
+        color: #856404;
+        background: #fff3cd;
+        padding: 10px 15px;
+        font-size: 14px;
+        border-radius: 3px;
+        border: none;
+    }
+
+    #payment-gateway .efNewCardWrapper .efPaymentGatewayDetailsError {
+        margin: 15px 15px 15px;
+    }
+
+
+    /* Modal styles */
+    #payment-gateway .ef-info-modal .ef-info-modal-header {
+        padding: 10px;
+    }
+
+    #payment-gateway .ef-info-modal .ef-info-modal-body {
+        margin-top: 0;
+    }
+
+    #payment-gateway .ef-info-modal .ef-info-modal-close {
+        margin-top: 12px;
+    }
+
+    #payment-gateway .ef-info-modal h2 {
+        font-family: MyriadW08-BoldSemiConde !important;
+        font-size: 18px;
+        line-height: 22px !important;
+        display: block;
+        padding: 10px 5px 5px 7px !important;
+        color: #676767;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    #payment-gateway .ef-js-recover-password {
+        margin: 20px 0 10px;
+    }
+
+    #payment-gateway .efPaymentGatewayDetailsError {
+        margin: 10px 0;
+    }
+
+    #payment-gateway .efPreviousCardNameWrapper,
+    #payment-gateway .efPreviousCardAmountWrapper {
+        margin: 15px;
+    }
+
+    #payment-gateway .efPrevCardButton {
+        margin: 0 15px 15px;
+    }
+
+
+    /* Get Help styles */
+    #payment-gateway .need-any-help {
+        margin-top: 25px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 15px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        font-size: 14px;
+        color: #676767;
+        box-sizing: border-box;
+    }
+
+    #payment-gateway .need-any-help h4 {
+        font-size: 18px;
+        font-family: MyriadW08-BoldSemiConde !important;
+        margin-bottom: 5px;
+        margin-top: 2px;
+    }
+
+    #payment-gateway .need-any-help .need-any-help--body span {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    #payment-gateway .need-any-help .need-any-help--body span:last-of-type {
+        margin-bottom: 0;
+    }
+
+    #payment-gateway .need-any-help .need-any-help--body a {
+        color: #676767 !important;
+    }
+
+    #payment-gateway .need-any-help .need-any-help--body a:hover {
+        color: #fcbe18 !important;
+    }
+
+    #payment-gateway .need-any-help>div {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    #payment-gateway .need-any-help .need-any-help--image img {
+        background-color: #e9f9ff;
+        border-radius: 3px;
+        height: 64px;
+        width: 64px;
+    }
+
+    #payment-gateway .need-any-help .need-any-help--image {
+        padding-right: 15px;
+    }
+
+    #payment-gateway .efPaymentGatewayPayBtn {
+        margin: 0 0 20px !important;
+    }
+
+    #payment-gateway .efPaymentGatewayPayBtn .efPaymentGatewayLabel,
+    #payment-gateway .efPaymentGatewayLabel:empty {
+        display: none;
+        height: 0;
+        padding: 0;
+    }
+
+    .ui-dialog h3 {
+        font-family: MyriadW08-BoldSemiConde !important;
+        font-size: 21px;
+        font-weight: 600;
+        margin: 20px 8px;
+    }
+
+    #efGetAddressSearch .efUsedAddressDialogRow,
+    .efPostCodeLookupSuccessfulSearchResult {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    #efAddressPostCodeResults table.efTable tr.efPostCodeLookupSuccessfulSearchResult td .efButton {
+        margin: 0;
+    }
+
+    #efAddressPostCodeResults table.efTable tr.efPostCodeLookupSuccessfulSearchResult td .efButton span.ui-button-text {
+        padding: .25em 1em;
+    }
+
+    input.efTextInput:active,
+    input.efTextInput:focus,
+    select.efSelectInput:active,
+    select.efSelectInput:focus {
+        background-color: #fff;
+        border-color: #bfbfbf!important;
+    }
+
+
+    /* Progress Steps styles */
+    .rf-home-bc {
+        height: auto;
+    }
+
+    .steps {
+        text-align: center !important;
+        float: left;
+        width: 25% !important;
+    }
+
+    .ef-js-payment-option-wrapper {
+        border: 0!important;
+    }
+
+    .ef-js-payment-option-wrapper .efPaymentSelect {
+        padding: 0!important;
+        margin: 0!important;
+    }
+
+    .efPaymentGatewayFields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+        padding: 15px 15px 0 15px;
+    }
+
+    .efPaymentGatewayFields .efPaymentGatewayField {
+        padding: 0!important;
+        margin-bottom: 0!important;
+    }
+
+</style>
+<div id="payment-gateway">
+    <div class="container">
+        <div class="row">
+            <div id="efPageContent" class="ui-widget">
+
+                <!-- global error -->
+                <!-- end global error -->
+                <!-- start payment content -->
+                <div class="efPaymentDetailsWrapper">
+
+                    <!-- stripe moto warning -->
+                    <!-- payment method toggle-->
+                    <div class="efPaymentOptionWrapper ef-js-payment-option-wrapper efHide ">
+
+
+                        <!-- <h2 class="efPaymentMethodTitle">Payment Methods</h2> -->
+                        <div class="efPaymentSelect">
+                        </div>
+                    </div>
+                    <!-- end payment method toggle-->
+
+                    <div class="efBillingDetails ef-js-billing-details">
+
+                        <!-- new/existing customer toggle -->
+                        <div class="efCustomerStatusWrapper ef-js-customer-status-wrapper">
+                            <div class="efCustomerTypeWrapper ef-js-customer-type-wrapper">
+                                <!-- new customer -->
+                                <input id="ef-toggle-on" class="ef-toggle ef-toggle-left ef-js-new-customer-btn ef-js-customer-type-selector efCustomerTypeSelected" name="toggle" value="false" type="radio" checked="" data-customer-type="new">
+                                <label for="ef-toggle-on" class="efCustomerType efNewCustomerLabel">New Customers</label>
+
+                                <!-- existing customer -->
+                                <input id="toggle-off" class="ef-toggle ef-toggle-right ef-js-existing-customer-btn ef-js-customer-type-selector" name="toggle" value="true" type="radio" data-customer-type="existing">
+                                <label for="toggle-off" class="efCustomerType efExistingCustomerLabel">Returning Customers</label>
+                            </div>
+                        </div>
+                        <!-- end new/existing customer toggle -->
+                        <!-- existing customer login -->
+                        <div class="efExistingCustomer ef-js-existing-customer efHide">
+
+                            <div class="ui-state-error efPaymentGatewayLoginError efHide ef-js-login-error">
+                                <span class="ui-state-error-icon"></span>
+                                <span class="ui-state-error-text">There was an error with your payment</span>
+                            </div>
+
+                            <div class="ui-state-highlight efPaymentGatewayLoginNotice efHide js-ef-login-notice">
+                                <span class="ui-state-highlight-icon"></span>
+                                <span class="ui-state-highlight-text">Password reset email has been sent</span>
+                            </div>
+
+                            <form action="#" method="post" class="ef-js-existing-customer-form">
+                                <div>
+                                    <h1>Login</h1>
+                                    <div class="efPaymentGatewayField">
+                                        <label class="efPaymentGatewayLabel">Email:</label>
+                                        <input type="text" name="ef-js-existing-uname" value="" class="efTextInput ef-js-existing-uname">
+                                        <span class="ef-validate-icon"></span>
+                                    </div>
+                                    <div class="efPaymentGatewayField">
+                                        <label class="efPaymentGatewayLabel">Password:</label>
+                                        <input type="password" name="ef-js-existing-pass" value="" class="efTextInput ef-js-existing-pass" autocomplete="off" id="efExistingPasswordInput">
+                                        <span class="efPasswordEyeOpenIcon ef-js-text-mask" data-owner="efExistingPasswordInput">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
+                                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
+                                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="efPasswordEyeClosedIcon ef-js-text-mask efHide" data-owner="efExistingPasswordInput">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 18 22">
+                                                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"></path>
+                                                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
+                                                <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="ef-validate-icon"></span>
+                                    </div>
+                                    <div class="efPaymentGatewayField">
+                                        <label class="efPaymentGatewayLabel"></label>
+                                        <a class="ef-js-forgotten-password efForgottenPassword" data-content-class=".ef-js-forgotten-password-form" data-content-title="Forgotten Password">Forgotten Password?</a>
+                                    </div>
+                                    <div class="efPaymentGatewayField">
+                                        <label class="efPaymentGatewayLabel"></label>
+                                        <button type="submit" class="efButton ui-button ui-widget efPaymentGatewayLoginButton ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Login</span></button>
+                                        <span class="efPaymentGatewayLoader efHide ef-js-login-loader"></span>
+                                    </div>
+                                </div>
+                                <input class="ef-js-csrf" type="hidden" name="csrf-token" value="2ed750ef6d876d665999ca8507f5dd9cfbe3e5ecbc246b53807933e77e5c59af">
+                            </form>
+                        </div>
+                        <!-- end existing customer login -->
+                        <!-- no stored card form wrapper -->
+                        <span class="ef-js-billing-and-new-card-form" data-no-stored-cards="true"></span>
+                        <!-- end of no stored card form wrapper -->
+                        <!-- new customer details -->
+                        <div class="efNewCustomerWrapper ef-js-new-customer">
+                            <form action="#" method="post" class="ef-js-new-customer-form">
+
+                                <div class="ef-js-billing-details-error efPaymentGatewayDetailsError efHide">
+                                    <span class="ef-js-billing-details-error-text"></span>
+                                </div>
+
+                                <div class="efPaymentGatewayAccountDetails">
+                                    <h2>Account Details</h2>
+                                    <div class="efPaymentGatewayField">
+                                        <label class="efPaymentGatewayLabel">Email</label>
+                                        <input type="text" class="efTextInput ef-js-user-email" name="user-email" autocomplete="off" value="">
+                                    </div>
+                                    <div class="efPaymentGatewayField" style="display: none;">
+                                        <label class="efPaymentGatewayLabel">Confirm Email</label>
+                                        <input type="text" class="efTextInput ef-js-user-confirm-email" name="user-confirm-email" autocomplete="off" value="">
+                                    </div>
+                                    <div class="efPaymentGatewayField">
+                                        <label class="efPaymentGatewayLabel">Create Password</label>
+                                        <input type="password" class="efTextInput ef-js-user-password" name="user-password" autocomplete="off" value="" id="efUserPasswordInput">
+                                        <span class="efPasswordEyeOpenIcon ef-js-text-mask" data-owner="efUserPasswordInput">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
+                                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
+                                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="efPasswordEyeClosedIcon ef-js-text-mask efHide" data-owner="efUserPasswordInput">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 18 22">
+                                                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"></path>
+                                                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
+                                                <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="efPaymentGatewayField">
+                                        <div id="password-constraints" class="efHide">
+                                            <ul style="">
+                                                <li id="password-constraint-uppercase">At least one uppercase character <img src="/assets/icons/tick.png" class="efHide"> </li>
+                                                <li id="password-constraint-lowercase">At least one lowercase character <img src="/assets/icons/tick.png" class="efHide"> </li>
+                                                <li id="password-constraint-number">At least one number                 <img src="/assets/icons/tick.png" class="efHide"> </li>
+                                                <li id="password-constraint-symbol">At least one symbol                 <img src="/assets/icons/tick.png" class="efHide"> </li>
+                                                <li id="password-constraint-length">Minimum of 8 Characters             <img src="/assets/icons/tick.png" class="efHide"> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="efPaymentGatewayBillingDetails">
+                                    <h2>Billing Details</h2>
+                                    <div class="efPaymentGatewayField">
+                                        <label class="efPaymentGatewayLabel">Title (Mr, Mrs, Ms, etc.)</label>
+                                        <input type="text" class="efTextInput ef-js-billing-title" name="user-title" autocomplete="off" value="">
+                                    </div><div class="efPaymentGatewayFields">
+                                        <div class="efPaymentGatewayField">
+                                            <label class="efPaymentGatewayLabel">First name</label>
+                                            <input type="text" class="efTextInput ef-js-billing-fname" name="user-firstname" autocomplete="off" value="">
+                                        </div><div class="efPaymentGatewayField">
+                                            <label class="efPaymentGatewayLabel">Last name(s)</label>
+                                            <input type="text" class="efTextInput ef-js-billing-lname" name="user-lastname" autocomplete="off" value="">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="efPaymentGatewayField">
+                                        <label class="efPaymentGatewayLabel">Phone</label>
+                                        <input type="text" class="efTextInput ef-js-billing-phone" name="user-phone" autocomplete="off" value="">
+                                    </div>
+                                    <div class="efPaymentGatewayField efPaymentGatewayAddressWrapper">
+                                        <div class="efPaymentGatewayAddress">
+                                            <label class="efPaymentGatewayLabel">Billing Address (where card is registered)</label>
+                                            <span class="efPaymentGatewayAddressText ef-js-selected-address-text">
+                                            </span>
+                                        </div>
+                                        <div class="efPaymentGatewayAddressActions">
+                                            <button type="button" class="efButton ui-button ui-widget efBillingAddressBtn ef-js-choose-address ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Enter Address</span></button>
+                                            <input type="hidden" class="ef-js-billing-address-id" name="user-address-id" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- end new customer details -->
+
+                        <input class="ef-js-csrf" type="hidden" name="csrf-token" value="2ed750ef6d876d665999ca8507f5dd9cfbe3e5ecbc246b53807933e77e5c59af">
+
+
+
+                    </div>
+
+                    <!-- account balance wrapper -->
+                    <!-- end account balance wrapper -->
+                    <!-- previous card wrapper -->
+                    <!-- end previoud card wrapper -->
+                    <!-- start ST V2 details -->
+                    <!-- New Card wrapper -->
+                    <div class="efNewCardWrapper ef-js-new-card-wrapper">
+
+                        <h2>Card Details</h2>
+
+                        <div id="st-message" class="ef-js-st-error-wrapper" style=""></div>
+
+                        <div class="ef-js-card-details-error efPaymentGatewayDetailsError efHide">
+                            <span class="ef-js-card-details-error-text"></span>
+                        </div>
+
+                        <div class="efCardTypeWrapper ef-payment-type-wrapper">
+                            <label class="efPaymentGatewayLabel">Select Card Type:</label><div class="efCardTypeSelector ef-js-card-type-selector">
+                                <span class="ef-card-type-span ef-js-card-type " data-card-type="VISA">
+                                    <img src="/assets/images/card-logos/st/big/VISA.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span ef-js-card-type " data-card-type="ELECTRON">
+                                    <img src="/assets/images/card-logos/st/big/ELECTRON.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span ef-js-card-type " data-card-type="DELTA">
+                                    <img src="/assets/images/card-logos/st/big/DELTA.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span ef-js-card-type " data-card-type="PURCHASING">
+                                    <img src="/assets/images/card-logos/st/big/PURCHASING.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span ef-js-card-type " data-card-type="VPAY">
+                                    <img src="/assets/images/card-logos/st/big/VPAY.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span ef-js-card-type " data-card-type="MAESTRO">
+                                    <img src="/assets/images/card-logos/st/big/MAESTRO.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span ef-js-card-type " data-card-type="MASTERCARD">
+                                    <img src="/assets/images/card-logos/st/big/MASTERCARD.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span ef-js-card-type " data-card-type="MASTERCARDDEBIT">
+                                    <img src="/assets/images/card-logos/st/big/MASTERCARDDEBIT.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span ef-js-card-type " data-card-type="AMEX">
+                                    <img src="/assets/images/card-logos/st/big/AMEX.png" class="efCardTypeImg">
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- new card form -->
+                        <form id="st-form-v2" class="ef-js-payment-form" action="/efiling-process-trustpayment/?pt=a860a6f2-a0cf-11ef-8d6b-42010a8400b7" method="post">
+                            <div class="efCardDetails ef-js-card-detailszzz">
+                                <input type="hidden" name="selected-card-type" value="" class="ef-js-card-type-id">
+                                <div class="ef-js-non-paypal ">
+                                    <div class="efCardDetailsField">
+                                        <label class="efPaymentGatewayLabel">Card Number</label>
+                                        <input type="text" class="efTextInput ef-js-card-pan" name="ef-pan" data-st-field="pan" autocomplete="off" value="">
+                                    </div>
+                                    <div class="efCardDetailsField">
+                                        <label class="efPaymentGatewayLabel">Expiry</label>
+                                        <select name="ef-exp-month" class="efSelectInput efExpDate efExpMonth" data-st-field="expirymonth">
+                                            <option value="">Month</option>
+                                            <option>01</option>
+                                            <option>02</option>
+                                            <option>03</option>
+                                            <option>04</option>
+                                            <option>05</option>
+                                            <option>06</option>
+                                            <option>07</option>
+                                            <option>08</option>
+                                            <option>09</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+
+                                        </select>
+                                        /
+                                        <select name="ef-exp-year" class="efSelectInput efExpDate efExpYear" data-st-field="expiryyear">
+                                            <option value="">Year</option>
+                                            <option>2024</option>
+                                            <option>2025</option>
+                                            <option>2026</option>
+                                            <option>2027</option>
+                                            <option>2028</option>
+                                            <option>2029</option>
+                                            <option>2030</option>
+                                            <option>2031</option>
+                                            <option>2032</option>
+                                            <option>2033</option>
+                                            <option>2034</option>
+                                        </select>
+                                    </div>
+                                    <div class="efCardDetailsField">
+                                        <label class="efPaymentGatewayLabel">CVC/CVV</label>
+                                        <input type="text" class="efTextInput efCVC" name="ef-cvc" size="4" data-st-field="securitycode" autocomplete="off">
+                                        <img src="/assets/images/cvv2.png" class="efPaymentPageCVV">
+                                    </div>
+                                </div>
+                                <div class="efPaymentGatewayPayBtn efCardDetailsField">
+                                    <label class="efPaymentGatewayLabel"></label>
+                                    <button type="button" name="make-payment" class="efButton efPayButton ui-button ui-widget ef-js-make-payment ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Pay Securely</span></button>
+                                    <span class="efPaymentGatewayLoader efHide ef-js-payment-loader"></span>
+                                </div>
+
+                            </div>
+
+                            <!-- billing details populated presubmit-->
+                            <input type="hidden" class="js-st-billing-title" name="billing-title" value="">
+                            <input type="hidden" class="js-st-billing-firstname" name="billing-firstname" value="">
+                            <input type="hidden" class="js-st-billing-lastname" name="billing-lastname" value="">
+                            <input type="hidden" class="js-st-billing-phone" name="billing-phone" value="">
+                            <input type="hidden" class="js-st-billing-address" name="billing-address-id" value="">
+                            <!-- end billing details -->
+
+                            <input type="hidden" name="pa" value="card-payment">
+                            <input type="hidden" name="input-amount" value="59.58">
+                            <input type="hidden" name="order-description" value="Payment for Order 4811520">
+                            <input type="hidden" class="ef-js-pt" name="pt" value="a860a6f2-a0cf-11ef-8d6b-42010a8400b7">
+                            <input type="hidden" class="ef-js-csrf" name="csrf-token" value="2ed750ef6d876d665999ca8507f5dd9cfbe3e5ecbc246b53807933e77e5c59af">
+                            <input type="hidden" class="ef-js-siteref" name="siteref" value="firstform53731">
+                            <input type="hidden" class="ef-js-payment-version" name="ef-js-payment-version" value="ST2">
+                        </form>
+
+                    </div>
+
+
+                    <!-- nothing to pay -->
+                    <!-- invalid config -->
+
+                    <style>
+                        #ef-stv2-overlay {
+                            position: fixed;
+                            display: none;
+                            width: 100%;
+                            height: 100%;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background-color: rgba(0,0,0,0.5);
+                            z-index: 2;
+                            cursor: pointer;
+                        }
+
+                        #ef-stv2-page-wrapper {
+                            position: relative;
+                            top: 10%;
+                            margin: auto;
+                            width: 50%;
+                            height: auto;
+                            min-height: 390px;
+                            max-width: 390px;
+                            padding: 20px 30px 30px 30px;
+                            border: 1px solid #eee;
+                            background-color: rgba(255, 255, 255, 1);
+                        }
+
+                        .ef-stv2-loader {
+                            position: absolute;
+                            margin: auto;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+                            width: 32px;
+                            height: 32px;
+                        }
+
+                        ef-stv2-loader-img {
+                            position: relative;
+                            margin: auto;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+                            width: 32px;
+                            height: 32px;
+                            padding: 20px 30px 30px 30px;
+                        }
+
+                        .ef-stv2-logos {
+                            position: absolute;
+                            bottom: 5px;
+                            margin: auto;
+                            width: 100%;
+                            padding-bottom: 15px;
+                        }
+                    </style>
+                    <div id="ef-stv2-overlay">
+                        <div id="ef-stv2-page-wrapper">
+                            <h1>Payment processing</h1>
+                            <p>Please do not refresh or leave this page.</p>
+                            <div class="ef-stv2-loader">
+                                <img class="ef-stv2-loader-img" src="/assets/loaders/default.gif" alt="Loading...">
+                            </div>
+                            <div class="ef-stv2-logos">
+                                <span class="ef-card-type-span">
+                                    <img src="/assets/images/card-logos/st/big/DELTA.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span">
+                                    <img src="/assets/images/card-logos/st/big/VISA.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span">
+                                    <img src="/assets/images/card-logos/st/big/MASTERCARD.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span">
+                                    <img src="/assets/images/card-logos/st/big/MASTERCARDDEBIT.png" class="efCardTypeImg">
+                                </span>
+                                <span class="ef-card-type-span">
+                                    <img src="/assets/images/card-logos/st/big/MAESTRO.png" class="efCardTypeImg">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="js-3d-secure-wrapper" class=""></div>
+
+                    <script src="https://webservices.securetrading.net/js/v3/st.js"></script>
+
+
+                    <!-- end ST V2 details -->
+                    <!-- start Stripe details -->
+                    <!-- end ST V2 details -->
+
+                </div>
+                <!-- end payment content -->
+                <!-- start cart contents -->
+                <div class="efOrderContentsWrapper">
+                    <div class="efOrderDefaultContents">
+                        <!-- div can be empted and rendered in JS -->
+                        <h1 class="efPaymentGatewayTitle">Your Order</h1>
+
+                        <h3 class="efPaymentGatewayOrderId">Order Ref: <span>4811520</span></h3><div class="efOrderCompanyName">
+                            Your new company name: <span>
+                                CODEPLUS
+                            </span>
+                        </div><div class="efOrderPackageName">
+                            Digital Package
+                        </div>
+                        <ul class="efOrderContentsList">
+                            <li class="efOrderContentsListItem" style="display: none;">Limited by Shares Company Formation <span class="efOrderContentsListItemPrice">£2.99</span></li>
+                            <li class="efOrderContentsListItem">Email Copy of Certificate of Incorporation <span class="efOrderContentsListItemPrice">£0.00</span></li>
+                            <li class="efOrderContentsListItem">Email Copy of Memorandum &amp; Articles of Association <span class="efOrderContentsListItemPrice">£0.00</span></li>
+                            <li class="efOrderContentsListItem">Email Copy of Share Certificate(s) <span class="efOrderContentsListItemPrice">£0.00</span></li>
+                            <li class="efOrderContentsListItem">Free .com or .co.uk domain name <span class="efOrderContentsListItemPrice">£0.00</span></li>
+                            <li class="efOrderContentsListItem">Confirmation Statement Service <span class="efOrderContentsListItemPrice">£0.00</span></li>
+                            <li class="efOrderContentsListItem">Pre-Submission Review (we check your company details to avoid mistakes) <span class="efOrderContentsListItemPrice">£4.99</span></li>
+                            <li class="efOrderContentsListItem">Companies House Incorporation Fee <span class="efOrderContentsListItemPrice">£50.00</span></li>
+                        </ul>
+                        <div class="efPaymentGatewayTotals">
+
+                            <p class="efPaymentGatewayNetPrice">Price <span>£57.98</span></p><p class="efPaymentGatewayVATPrice">VAT  <span>£1.60</span></p>
+                            <p class="efPaymentGatewayGrossPrice">Total  <span>£59.58</span></p>
+                        </div>
+
+                        <h3 class="efPaymentGatewayAmountDuePrice">Amount Due  <span>£59.58</span></h3>
+
+                        <div class="efPoweredBySt">
+                            <div class="efOrderReferenceNumber">Order reference: <span>#4811520</span></div><div class="efOrderMerchantName">Merchant name: <span>1st Formations</span></div>
+                            Powered by:
+                            <img src="https://s3-eu-west-1.amazonaws.com/bso.media.cdn/generic/trust_payment_logo.png" alt="Powered by Trust Payments.">
+                        </div>
+
+                    </div>
+
+
+
+
+
+                    <div class="need-any-help"><div class="need-any-help--image"><img src="https://payments.securetrading.net/merchantfiles/525/test_bluesquareseven52541/telephone-blue.png" data-holder-rendered="true" style="width: 64px; height: 64px;"></div><div class="need-any-help--body"><h4>Do you need any help?</h4><span>Our customer service are here to help.</span><span><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:02038972233">020 3897 2233</a></span></div></div>
+                </div>
+                <!-- end card contents -->
+                <!-- modal box-->
+                <div id="ef-modal-template" class="ef-info-modal" style="display:none;">
+                    <div class="ef-info-modal-content">
+                        <div class="ef-info-modal-header">
+                            <span class="ef-info-modal-close ef-js-info-modal-close">×</span>
+                            <h2 class="ef-info-modal-title"></h2>
+                        </div>
+                        <div class="ef-info-modal-body">
+                            <!-- Loading -->
+                        </div>
+                    </div>
+                </div>
+                <!-- modal box -->
+                <!-- modal content -->
+                <div class="ef-js-forgotten-password-form efForgottenPasswordForm efHide">
+                    <div>
+                        <div class="efPaymentGatewayDetailsError efHide ef-js-forgotten-email-error" style="margin: 0px 0px 20px;">
+                            <span class="ui-state-error-icon"></span>
+                            <span class="ui-state-error-text ef-js-fp-email-error-text">Please enter a valid email!</span>
+                        </div>
+                        <label class="efPaymentGatewayLabel">Email:</label>
+                        <input type="text" name="ef-uname" class="ef-js-forgotten-uname efForgottenPasswordEmail">
+                        <input type="hidden" class="ef-js-forgotten" value="2ed750ef6d876d665999ca8507f5dd9cfbe3e5ecbc246b53807933e77e5c59af">
+                        <span class="ef-validate-icon"></span>
+                    </div>
+                    <div class="">
+                        <label class="efPaymentGatewayLabel"></label>
+                        <button type="button" class="efButton ui-button ui-widget ef-js-recover-password ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Reset</span></button>
+                    </div>
+                </div>
+                <!-- end  modal content-->
+
+
+                <script>
+                    (function (w) {
+                        // set user info
+                        if (typeof w.ef.user != 'undefined') {
+                            w.ef.user._setUserId('1776210');
+                            w.ef.user._setAuthenticated('0');
+                            w.ef.user._setUsername('FQpJBrNmFRYDkGF');
+                            w.ef.user._setTitle('');
+                            w.ef.user._setFirstname('');
+                            w.ef.user._setLastname('');
+                            w.ef.user._setOrganisation('');
+                            w.ef.user._setVatExempt('0');
+                            w.ef.user._setAccountBalance('0.00');
+                        }
+
+                        // set cart info
+                        if (typeof w.ef.user != 'undefined') {
+                            w.ef.cart._setCartType('order');
+                            w.ef.cart._setOrderId('4811520');
+                            w.ef.cart._setTotal('59.58');
+                            w.ef.cart._setVat('1.60');
+                            w.ef.cart._setAmountDue('59.58');
+                            w.ef.cart._setOrderDescription('Payment for Order 4811520');
+                            w.ef.cart._setCartOrigin('package-buy');
+                            w.ef.cart._addOrderLine({
+                                'id': "41392047",
+                                'qty': "1",
+                                'total': "2.99",
+                                'tax': "0.60",
+                                'productName': "Limited by Shares Company Formation",
+                            });
+                            w.ef.cart._addOrderLine({
+                                'id': "41392048",
+                                'qty': "1",
+                                'total': "0.00",
+                                'tax': "0.00",
+                                'productName': "Email Copy of Certificate of Incorporation",
+                            });
+                            w.ef.cart._addOrderLine({
+                                'id': "41392049",
+                                'qty': "1",
+                                'total': "0.00",
+                                'tax': "0.00",
+                                'productName': "Email Copy of Memorandum & Articles of Association",
+                            });
+                            w.ef.cart._addOrderLine({
+                                'id': "41392050",
+                                'qty': "1",
+                                'total': "0.00",
+                                'tax': "0.00",
+                                'productName': "Email Copy of Share Certificate(s)",
+                            });
+                            w.ef.cart._addOrderLine({
+                                'id': "41392051",
+                                'qty': "1",
+                                'total': "0.00",
+                                'tax': "0.00",
+                                'productName': "Free .com or .co.uk domain name",
+                            });
+                            w.ef.cart._addOrderLine({
+                                'id': "41392052",
+                                'qty': "1",
+                                'total': "0.00",
+                                'tax': "0.00",
+                                'productName': "Confirmation Statement Service",
+                            });
+                            w.ef.cart._addOrderLine({
+                                'id': "41392053",
+                                'qty': "1",
+                                'total': "4.99",
+                                'tax': "1.00",
+                                'productName': "Pre-Submission Review (we check your company details to avoid mistakes)",
+                            });
+                            w.ef.cart._addOrderLine({
+                                'id': "",
+                                'qty': "1",
+                                'total': "50.00",
+                                'tax': "0.00",
+                                'productName': "Companies House Incorporation Fee",
+                            });
+                        }
+                    })(window);
+                </script>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

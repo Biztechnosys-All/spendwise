@@ -1,0 +1,2420 @@
+﻿@page
+@model Spendwise_WebApp.Pages.BuyPackage.CheckoutModel
+@{
+    Layout = null;
+}
+<link rel="stylesheet" type="text/css" href="https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/css/checkout.css?v=1">
+<link href="https://cdnnetwork.s3.amazonaws.com/files/dist/css/checkout-min-gzip.css" rel="stylesheet" type="text/css" />
+<style>
+    div#efEverythingInTheOrderContainer {
+        max-width: 100% !important;
+    }
+
+    input#efPackageCheckoutButton {
+        padding: 3%;
+    }
+
+    div#efPackageCheckout {
+        text-align: right;
+        margin: 2%;
+    }
+
+    table#efIncludedTable {
+        width: 100%;
+    }
+
+    div#efPackageNet {
+        text-align: right;
+        overflow: hidden;
+    }
+
+    div#efPackageTax {
+        text-align: right;
+        overflow: hidden;
+    }
+
+    #efPackageNet span, #efPackageTax span, #efPackageTotal span {
+        width: 75px !important;
+    }
+
+    #efPackageNet span, #efPackageTax span, #efPackageTotal span {
+        font-weight: 700;
+        float: right;
+        display: block;
+        width: 120px;
+    }
+</style>
+<div class="container mr-top-20">
+    <div class="row-wide">
+        <div class="col seven pd-right-35-imp t-twelve m-twelve t-pd-right-15-imp m-pd-right-15-imp pd-bot-30" id="CustomOptionalContainer" style="">
+            <div class="d-hide t-hide m-hide xs-hide" id="packageName">Digital Package</div>
+            <div class="company-requested-name d-hide t-hide m-hide xs-hide">CODEPLUS</div>
+            <div class="OptionalContainer">
+                <div id="OptionalContainerList">
+                    <h3 class="OptionalItemsTitle fs-26 fw-700 fc-grey pd-top-5 pd-bot-5 mr-bot-25">Customers also bought:</h3>
+                    <div class="checkout-notice default">
+                        <p>
+                            After you checkout on this page, you will be able to enter your
+                            <br class="m-hide">
+                            company details and select a business bank account (optional).
+                        </p>
+                    </div>
+                    <div class="checkout-notice non-residents" style="display: none;">
+                        <p>
+                            After you checkout on this page, you will be able to enter your company
+                            <br class="m-hide">
+                            details and our staff will then submit your company for incorporation.
+                        </p>
+                    </div>
+                    <div class="additional-items additional-items-group additional-items-address-services additional-items-address-services-annually" style="display: none;">
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2047" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Registered Office Service (paid annually)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Protect the privacy of your home with our
+                                    registered office address in Covent Garden, London WC2
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>
+                                                Registered Office Service
+                                                <br>
+                                                Covent Garden, London WC2
+                                            </h3>
+                                            <p>
+                                                The Registered Office will appear on public record as the official address of your company. With
+                                                this service, our prestigious Covent Garden address will appear on public record rather than
+                                                your home address. We will
+                                                then scan and email all statutory company mail to you from a number of official government
+                                                bodies, free of charge.
+                                            </p>
+                                            <p>
+                                                Mail from the following government bodies are covered by this service: Companies House, HMRC,
+                                                Government Gateway, Department for Work &amp; Pensions (DWP), The Pensions Regulator (TPR), Office
+                                                for National Statistics,
+                                                Information Commissioner’s Office (ICO) and Court documents.
+                                            </p>
+                                            <p>
+                                                This service is renewable on a 12 monthly basis at the cost of £39.00 +VAT. Notice will always
+                                                be given in advance of your renewal date and you will be able to cancel the service.
+                                            </p>
+                                            <p>
+                                                <strong>Please note</strong>: The forwarding of official government mail by scan and email is
+                                                free. Mail will be
+                                                forwarded on a daily basis.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£39.00</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2046" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Service Address (paid annually)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Protect the privacy of one director, or
+                                    secretary, or shareholder. If you require this service for more than one person, please enter the
+                                    quantity required
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>
+                                                1 x Service Address
+                                                <br>
+                                                Covent Garden, London WC2
+                                            </h3>
+                                            <p>
+                                                All company directors, shareholders who are persons with significant control (PSC), and company
+                                                secretaries, must provide a service address where statutory mail from government bodies such as
+                                                Companies House and HMRC
+                                                can be sent to them personally. This address will appear on public record, so most people prefer
+                                                not to use their home address for this purpose.
+                                            </p>
+                                            <p>
+                                                With this facility, our London Service Address will show on the public record than your home
+                                                address. This service includes the scanning and emailing of mail addressed to a company officer
+                                                from all UK government
+                                                bodies, as well as Court documents, free of charge.
+                                            </p>
+                                            <p>
+                                                This item provides a service address for 1 person and is renewable on a 12 month basis at a cost
+                                                of £26.00 +VAT. Notice will always be given in advance of your renewal date and you will be able
+                                                to cancel the service.
+                                            </p>
+                                            <p>
+                                                <strong>Please note</strong>: Forwarding of service address mail by scan and email is free of
+                                                charge. Mail will
+                                                be forwarded on a daily basis.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="addQuantity" id="optional_quantity_2046" value="1">
+                                <span class="fs-15 float-right lh-2l fc-dark">£26.00</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="10698" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Business Address Service (paid annually)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Enhance the corporate image of your company
+                                    with a Covent Garden, London, WC2 business / trading address
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>London Business Address Service</h3>
+                                            <h4>Covent Garden, London WC2</h4>
+                                            <p>
+                                                1st Formations' London Business Address Service allows you to use our prestigious Covent Garden
+                                                address for your day-to-day business correspondence.
+                                            </p>
+                                            <p>
+                                                A business address in the heart of London’s West End is an excellent way to enhance the
+                                                corporate image of your company and establish a business presence in an important area.
+                                            </p>
+                                            <p>
+                                                All mail addressed to your company will be forwarded to you by scan and email on the same day
+                                                we receive it.
+                                            </p>
+                                            <p>
+                                                This service is renewable on a 12 monthly basis at the cost of £96.00 + VAT. Notice will always
+                                                be given in advance of your renewal date and you will be able to cancel the service.
+                                            </p>
+                                            <p><strong>Mail Delivery</strong><br>Mail forwarded by scan and email costs 50p per item.</p>
+                                            <p>
+                                                Any items of value that cannot be sent by scan and email, will be forwarded by post. All postal
+                                                forwarding will be charged at Royal Mail postal rates plus 15%.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£96.00</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="additional-items additional-items-group additional-items-address-services additional-items-address-services-monthly">
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="22183">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Registered Office Service (paid monthly)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Protect the privacy of your home with our
+                                    registered <br> office address in Covent Garden, London
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Registered Office Service <br>Covent Garden, London WC2</h3>
+                                            <p>
+                                                The Registered Office will appear on public record as the official address of your company.
+                                                With this service, our prestigious Covent Garden address will appear on public record rather
+                                                than your home address.
+                                            </p>
+                                            <p>
+                                                We will scan and email all statutory company mail to you from all UK government agencies, as
+                                                well as Court documents, free of charge.
+                                            </p>
+                                            <p>This service is renewable on a monthly basis at the cost of £3.99 +VAT.</p>
+                                            <p>
+                                                <strong>Please note</strong>: The forwarding of official government mail by scan and email is
+                                                free. Mail will be
+                                                forwarded daily.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£3.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="22185">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Service Address (paid monthly)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Protect the privacy of one director, or
+                                    secretary, or <br> shareholder. If you require this service for more than one <br> person, please
+                                    enter the quantity required
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>1 x Service Address <br>Covent Garden, London WC2</h3>
+                                            <p>
+                                                All company directors, shareholders who are persons with significant control (PSC), and company
+                                                secretaries, must provide a service address where statutory mail from government agencies such
+                                                as Companies House and HMRC can be sent to them personally. This address will appear on public
+                                                record, so most people prefer not to use their home address for this purpose.
+                                            </p>
+                                            <p>
+                                                With this facility, our London Service Address will show on the public record than your home
+                                                address. This service includes the scanning and emailing of mail addressed to a company officer
+                                                from all UK government agencies, as well as Court documents, free of charge.
+                                            </p>
+                                            <p>
+                                                This item provides a service address for 1 person and is renewable on a monthly basis at a cost
+                                                of £2.99 +VAT.
+                                            </p>
+                                            <p>
+                                                <strong>Please note</strong>: Forwarding of service address mail by scan and email is free of
+                                                charge. Mail will
+                                                be forwarded on a daily basis.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="addQuantity" id="optional_quantity_22185" value="1">
+                                <span class="fs-15 float-right lh-2l fc-dark">£2.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="22188">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Business Address Service (paid monthly)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Enhance the corporate image of your company
+                                    with a <br> Covent Garden, London, business / trading address
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>London Business Address <br>Covent Garden, London WC2</h3>
+                                            <p>
+                                                1st Formations' London Business Address Service allows you to use our prestigious Covent Garden
+                                                address for your day-to-day business correspondence.
+                                            </p>
+                                            <p>
+                                                A business address in the heart of London’s West End is an excellent way to enhance the
+                                                corporate image of your company and establish a business presence in an important area.
+                                            </p>
+                                            <p>
+                                                All mail addressed to your company will be forwarded to you by scan and email on the same day
+                                                we receive it.
+                                            </p>
+                                            <p>This service is renewable on a monthly basis at the cost of £6.99 +VAT.</p>
+                                            <p><strong>Mail Delivery</strong><br>Mail forwarded by scan and email costs 50p per item.</p>
+                                            <p>
+                                                Any items of value that cannot be sent by scan and email, will be forwarded by post. All postal
+                                                forwarding will be charged at Royal Mail postal rates plus 15%.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£6.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SEPARATE BLOCK FOR LLP ADDRESS SERVICES -->
+                    <div class="additional-items additional-items-group additional-items-llp-address-services" style="display: none;">
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2047" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Registered Office Service (paid annually)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Protect the privacy of your home with our
+                                    registered office address in Covent Garden, London WC2
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>
+                                                Registered Office Service
+                                                <br>
+                                                Covent Garden, London WC2
+                                            </h3>
+                                            <p>
+                                                The Registered Office will appear on public record as the official address of your LLP. With
+                                                this service, our prestigious Covent Garden address will appear on public record rather than
+                                                your home address. We will
+                                                then forward all official mail from governing agencies, such as Companies House and HMRC. to a
+                                                correspondence address of your choice, free of charge.
+                                            </p>
+                                            <p>
+                                                This service is renewable on a 12-monthly basis at the cost of £39.00 +VAT. Notice will always
+                                                be given in advance of your renewal date and you will be able to cancel the service.
+                                            </p>
+                                            <p>
+                                                Please note: The forwarding of official government mail within the UK is free. Mail forwarding
+                                                of official mail outside the UK will be charged at Royal Mail postal rates plus 15%. Mail will
+                                                be forwarded daily.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£39.00</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2046" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Service Address (paid annually)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Protect the privacy of a partner of your
+                                    LLP. If you require this service for more than one partner, please enter the quantity required
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>
+                                                1 x Service Address
+                                                <br>
+                                                Covent Garden, London WC2
+                                            </h3>
+                                            <p>
+                                                All LLP members must provide a service address where official government mail from Companies
+                                                House, HMRC and other governing agencies, can be sent to them personally. This address will
+                                                appear on public record, so
+                                                most people prefer not to use their home address for this purpose.
+                                            </p>
+                                            <p>
+                                                With this facility, our London Service Address will show on the public record rather than your
+                                                home address. This service includes the forwarding of all official government mail addressed to
+                                                a company officer (from
+                                                HMRC, Companies House and other governing agencies) for no additional cost.
+                                            </p>
+                                            <p>
+                                                12-monthly basis at a cost of £26.00 +VAT. Notice will always be given in advance of your
+                                                renewal date and you will be able to cancel the service.
+                                            </p>
+                                            <p>
+                                                Please note: Forwarding of official government mail within the UK is free of charge. Forwarding
+                                                mail outside the UK will be charged at Royal Mail postal rates plus 15%.Mail will be forwarded
+                                                daily.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£26.00</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="10698" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Business Address Service (paid annually)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Enhance the corporate image of your LLP
+                                    with a Covent Garden, London, WC2 business / trading address
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>London Business Address Service</h3>
+                                            <p>
+                                                1st Formations' London Business Address Service allows you to use our prestigious Covent Garden
+                                                address for your day-to-day business correspondence.
+                                            </p>
+                                            <p>
+                                                A business address in the heart of London’s West End is an excellent way to enhance the
+                                                corporate image of your company and establish a business presence in an important commercial
+                                                area.
+                                            </p>
+                                            <p>
+                                                All mail addressed to your company will be forwarded to you at an address of your choice by
+                                                first class post, daily
+                                            </p>
+                                            <p>This service is renewable on a 12-monthly basis at the cost of £96.00 +VAT.</p>
+                                            <p>
+                                                Please note: The forwarding of mail to you is not included. All mail forwarding will be charged
+                                                at Royal Mail postal rates plus 15%.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£96.00</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="additional-items additional-items-group additional-items-group-finance">
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2052">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Guaranteed Same-Day Service</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Guarantee your company is incorporated today.<br>
+                                    (We must receive your order before 3pm.)
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Guaranteed Same-Day Service</h3>
+                                            <p>
+                                                Guarantee your company is incorporated today. 1st Formations process most applications within
+                                                the advertised 3 to 6 working hours; however, due to Companies House workloads, there is no
+                                                certainty this can always be
+                                                achieved.
+                                            </p>
+                                            <p>
+                                                If it is of the utmost importance your company is registered today, you can take advantage of
+                                                Companies House’s express service, which fast tracks applications and guarantees registration
+                                                before the close of business
+                                                today.
+                                            </p>
+                                            <p>
+                                                <strong>Please note:</strong>
+                                                We must receive your order and Proof of ID (if required) no later than 3pm (Monday to Friday).
+                                                Should we not receive all required information by this time, we will not be able to provide the
+                                                same-day service, and you
+                                                will receive a refund for this service.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£39.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13529">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">12-month Cancellation Protection</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    If you decide your company is no longer required,
+                                    <br class="d-visible">
+                                    we will close it – normally priced at £89.99
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>12-month Cancellation Protection</h3>
+                                            <p>Save money and time by purchasing our cancellation protection.</p>
+                                            <p>
+                                                If you change your mind and decide you no longer need your company, within the first 12 months
+                                                of forming it, we will close the company for you.
+                                            </p>
+                                            <p>
+                                                Our Company Dissolution Service normally costs £89.99 and so, by purchasing this product you
+                                                will save £55.00.
+                                            </p>
+                                            <p>
+                                                This product includes the Companies House fee of £33.00, completion and filing of the DS01 form
+                                                (the application to strike off a company), Board Resolution to approve the dissolution, and
+                                                continued use of our
+                                                Registered Office and Service Address until your company is closed down.
+                                            </p>
+                                            <p>
+                                                Please note: You must claim your cancellation protection within 12 months of the date of
+                                                incorporation of your company. This product expires after 12 months and cannot be renewed.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£34.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="16458" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Confirmation Statement</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Prepared and filed at Companies House - never
+                                    <br>
+                                    miss another confirmation statement deadline.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Confirmation Statement</h3>
+                                            <p>
+                                                It is a legal requirement for every limited company to submit a Confirmation Statement to
+                                                Companies House, informing them of any changes to company details.
+                                            </p>
+                                            <p>
+                                                Our highly trained staff will prepare your Confirmation Statement, and file it with Companies
+                                                House before the deadline, ensuring it is completed on time and with complete accuracy.
+                                            </p>
+                                            <p>
+                                                This service is renewable every 12 months for £59.99 (which includes the £34.00 Companies House
+                                                filing fee). Notice will always be given in advance of your renewal date, and you will be able
+                                                to cancel the service.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£59.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2054" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Company Seal</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Emboss all official paperwork with your company name and registration number. Including FREE worldwide
+                                    delivery by International Tracked and Signed mail service.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Company Seal</h3>
+                                            <p>
+                                                With our customised Company Seal you can emboss all official paperwork with your company name
+                                                and registration number. The company seal is a hand plier design and comes complete with its own
+                                                protective wallet.
+                                            </p>
+                                            <p>
+                                                All company seals are unique to each company and therefore are custom-made. Please allow 5 to 10
+                                                days for manufacture and delivery within the UK. Orders for customers outside the UK can take
+                                                longer dependent on
+                                                location.
+                                            </p>
+                                            <p>
+                                                <strong>Delivery:</strong>This service includes FREE worldwide delivery of the company seal by
+                                                International Tracked and Signed mail service.
+                                            </p>
+                                            <br>
+                                            <p><img src="https://cdnnetwork.s3.amazonaws.com/images/system/emboss.jpg" alt="Company Seal" width="300" height="100"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£34.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div data-id="16477" class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Full Company Secretary Service (paid annually)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    This service includes 15 company changes per year, a dedicated account manager, filing of your annual
+                                    confirmation statement, and monthly solicitor-written guidance notes.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Full Company Secretary Service</h3>
+                                            <p>
+                                                Our Full Company Secretary Service is our premium service, providing 15 company changes per
+                                                year to ensure your company stays compliant, and much more.
+                                            </p>
+                                            <p>
+                                                <strong>What's included?</strong>
+                                            </p>
+                                            <ul class="fa-ul pd-bot-15-imp">
+                                                <li>
+                                                    Up to fifteen changes to your company per year, including director appointments, share
+                                                    transfers and share allotments free of charge (additional transactions thereafter are charged
+                                                    at our standard rates).
+                                                </li>
+                                                <li>
+                                                    Preparation and filing of your annual Confirmation Statement, including the Companies House
+                                                    filing fee of £34.00.
+                                                </li>
+                                                <li>
+                                                    Preparation, maintenance and storage of your five company registers (including the statutory
+                                                    Register of Members, as required by the Companies Act 2006).
+                                                </li>
+                                                <li>
+                                                    Exclusive solicitor-written guidance notes covering key topics and processes you need to be
+                                                    aware of when running a company (such as the directors' duties and entering into contracts).
+                                                </li>
+                                                <li>
+                                                    A dedicated account manager, who is an experienced company secretarial professional, on hand
+                                                    to answer your questions and process your instructions.
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                <strong>Renewal Cost</strong>
+                                            </p>
+                                            <p>
+                                                Our Full Company Secretary Service is renewable on an annual basis at the cost of £149.99.
+                                                Notice will always be given in advance of your renewal date and you will have the right to
+                                                cancel the service.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-14 float-right lh-2l fc-black xs-float-left xs-pd-left-45">£149.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input type="button" value="Add" class="add-product float-right ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="6986" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">GDPR Compliance Package</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Save money on legal fees with our GDPR
+                                    Compliance Package, including all documents and templates
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>GDPR Compliance Package</h3>
+                                            <p>
+                                                This valuable package provides all the guidance and templates your company needs to quickly and
+                                                inexpensively become fully GDPR compliant.
+                                            </p>
+                                            <p>
+                                                In May 2018, the UK introduced new legislation based on the EU’s General Data Protection
+                                                Regulation (GDPR), governing how companies collect, process and store data. GDPR significantly
+                                                increases the responsibilities
+                                                all companies have when it comes to handling customer and employee data. Breaches of GDPR can
+                                                lead to very large fines.
+                                            </p>
+                                            <p>
+                                                Avoid hours of research and fines by using our GDPR guidance and template documents contained
+                                                within this comprehensive package.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£39.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2554" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Apostilled Document Service</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Legalise a document – popular with
+                                    non-UK residents
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>
+                                                Apostilled Document Service <span class="right-title-annotation">
+                                                    Cost per document: £99.99
+                                                    +VAT
+                                                </span>
+                                            </h3>
+                                            <p>
+                                                If you are a non-UK resident opening a UK limited company, you may need your company documents
+                                                legalised before they can be used overseas for certain purposes, such as opening a business bank
+                                                account. An Apostille
+                                                Certificate is a form of authentication which can be attached to official UK documents to allow
+                                                their use in other countries.
+                                            </p>
+                                            <p>
+                                                This official authentication will ensure the documents are verified for use in all countries
+                                                which are party to the 1961 Hague Convention.
+                                            </p>
+                                            <p>
+                                                Our Apostille service can be used to legalise various company documents, including your
+                                                Certificate of Incorporation, Memorandum &amp; Articles of Association and Share Certificates.
+                                                You may also specify additional
+                                                documents, as required, during the ordering process. Documents which are not filed at Companies
+                                                House, or existing signed documents, will need to be provided by you.
+                                            </p>
+                                            <p>Please note: Documents can take up to 14 days to be certified.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="addQuantity" id="optional_quantity_2554" value="1">
+                                <span class="fs-15 float-right lh-2l fc-dark">£99.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13532" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Apostilled Documents Bundle</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Legalise 3 documents and save £30.00 <br>
+                                    on the normal price of £299.97.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Apostilled Documents Bundle</h3>
+                                            <h4>Cost per bundle (3 documents): £269.99 + VAT</h4>
+                                            <p>
+                                                Legalise 3 apostilled documents and save £30.00 on the normal price of £299.99 (based on our
+                                                usual cost of £99.99 per document).
+                                            </p>
+                                            <p>
+                                                If you are a non-UK resident opening a UK limited company, you may need your company documents
+                                                legalised before they can be used overseas for certain purposes, such as opening a business bank
+                                                account. An Apostille
+                                                Certificate is a form of authentication which can be attached to official UK documents to allow
+                                                their use in other countries.
+                                            </p>
+                                            <p>
+                                                This official authentication will ensure the documents are verified for use in all countries
+                                                which are party to the 1961 Hague Convention.
+                                            </p>
+                                            <p>
+                                                Our Apostille service can be used to legalise various company documents, including your
+                                                Certificate of Incorporation, Memorandum &amp; Articles of Association and Share Certificates. You
+                                                may also specify additional
+                                                documents, as required, during the ordering process. Documents which are not filed at Companies
+                                                House, or existing signed documents, will need to be provided by you.
+                                            </p>
+                                            <p>Please note: Documents can take up to 14 days to be certified.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£269.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2048">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">VAT Registration</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Let us process your VAT registration on
+                                    your behalf
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>VAT Registration</h3>
+                                            <p>
+                                                If you need or want to have your company registered for VAT, we will take care of the
+                                                formalities and process the application on your behalf.
+                                            </p>
+                                            <p>Companies register for VAT due to the following reasons:</p>
+                                            <ul class="fa-ul pd-bot-15-imp">
+                                                <li>
+                                                    Turnover is expected to exceed £90,000 in the next 12 months. It is therefore a legal
+                                                    requirement to register for VAT, unless the supplies are exempt.
+                                                </li>
+                                                <li>
+                                                    If turnover is expected to be less than £90,000 but the company wants to register
+                                                    voluntarily.
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                <strong>The VAT registration process explained</strong>
+                                            </p>
+                                            <p>
+                                                As soon as your company is incorporated, we will send you a questionnaire by email, asking for
+                                                some additional information necessary to complete your VAT registration application with HMRC.
+                                            </p>
+                                            <p>
+                                                We will then apply for your VAT registration online. The timeline for the approval of new VAT
+                                                registrations is subject to the information received and HMRC's workload, which can vary
+                                                significantly.
+                                            </p>
+                                            <p>
+                                                Once your VAT registration has been approved, we will send your VAT Registration Number to you
+                                                by email. Your VAT Registration Certificate will be sent to you by post by HMRC.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£39.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2049" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">PAYE Registration</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Let us process your PAYE registration on
+                                    your behalf
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>PAYE Registration</h3>
+                                            <p>
+                                                If there are any employees or directors who will be taking a salary from your company, it is a
+                                                legal requirement to register your company for PAYE with HMRC. Failure to register for PAYE
+                                                promptly can result in
+                                                penalties.
+                                            </p>
+                                            <p>
+                                                Avoid potential complications by allowing our highly trained staff to take care of the
+                                                registration on your behalf.
+                                            </p>
+                                            <p>
+                                                <strong>The PAYE registration process explained</strong>
+                                            </p>
+                                            <p>
+                                                As soon as your company is incorporated, we will send you a questionnaire by email, asking for
+                                                some additional information necessary to complete your PAYE registration application with HMRC.
+                                            </p>
+                                            <p>
+                                                We will then apply for your PAYE registration online. This process normally takes around 3
+                                                weeks, and all of your PAYE information will be sent to you by post directly from HMRC.
+                                            </p>
+                                            <p>
+                                                If your first payday is less than 3 weeks away, do not be concerned. You should process your
+                                                salary or salaries on the date of your first payday, and complete your registration information
+                                                from HMRC. If your first
+                                                filing is late, HMRC will take into account the timing of your registration so there should be
+                                                no issues arising from this filing.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£24.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="19493">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">ICO Registration Service</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    The vast majority of companies must
+                                    register with the ICO by law. Avoid fines by letting us register your company.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>ICO Registration Service</h3>
+                                            <p>Allow our highly trained staff to handle the formalities of your ICO registration.</p>
+                                            <p>
+                                                The vast majority of UK companies have to register with the Information Commissioner’s Office
+                                                (ICO) once per year for data protection purposes, except for a very small number who are exempt.
+                                            </p>
+                                            <p>You should ensure your company is registered with the ICO because:</p>
+                                            <ul class="fa-ul pd-bot-15-imp">
+                                                <li>Companies which are not registered with the ICO can be fined up to £4,000</li>
+                                                <li>
+                                                    Your company will be listed on the public register of fee payers, enhancing its corporate
+                                                    image
+                                                </li>
+                                                <li>
+                                                    You can publish your ICO Registration Number on your website, showing you take data
+                                                    protection seriously
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                <strong>The ICO registration process explained</strong>
+                                            </p>
+                                            <p>
+                                                Once you have ordered, we will send you a questionnaire by email, asking for some additional
+                                                information necessary to complete your ICO registration.
+                                            </p>
+                                            <p>We will then apply for your ICO registration online. This process can take up to 10 days.</p>
+                                            <p>
+                                                Once your ICO registration has been approved, we will send your ICO Registration Number and ICO
+                                                Registration Certificate to you by email.
+                                            </p>
+                                            <p>This Service includes the £40.00 registration fee payable to the ICO.</p>
+                                            <p>Your service will automatically renew every 12 months at a cost of £79.99 plus VAT.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£79.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="additional-items additional-items-group additional-items-group-bustel">
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13588">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Telephone Answering (pay monthly)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    All calls answered in your company name.
+                                    <br>Includes a free business telephone number and <br>20 receptionist minutes per month.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Telephone Answering (pay monthly)</h3>
+                                            <p>
+                                                We are pleased to offer telephone answering through our sister company, Bizik, a leading UK
+                                                business support provider.
+                                            </p>
+                                            <p>
+                                                A dedicated team of receptionists will be assigned to answer your business calls between 8.30
+                                                am and 5.30 pm, just like your in-house team. This service includes a free business telephone
+                                                number.
+                                            </p>
+                                            <p>
+                                                Get started with the Biz Starter plan, which includes 20 receptionist minutes at £29.99 + VAT.
+                                                Any additional minutes used are charged at £1.50 per minute.
+                                            </p>
+                                            <p><strong>How it works</strong></p>
+                                            <p>
+                                                The Bizik Team will contact you within 1 working day of your company being formed to arrange
+                                                the set-up of your Telephone Answering Service.
+                                            </p>
+                                            <p><strong>Key features</strong></p>
+                                            <ul class="fa-ul pd-bot-15-imp">
+                                                <li>Bespoke call handling</li>
+                                                <li>Professional people</li>
+                                                <li>Diary management</li>
+                                                <li>Online portal with reporting</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£29.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="4750">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Business Telephone Number (pay monthly)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Your own 020 London or regional landline
+                                    number. <br>£9.99 per month.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Business Telephone Number (pay monthly)</h3>
+                                            <p>
+                                                Make your business appear more established with a dedicated business telephone number from
+                                                £9.99 per month, provided by our sister company Bizik, a leading UK telephone services provider.
+                                            </p>
+                                            <p>
+                                                Bizik will provide you with your own unique London or regional landline telephone number, and
+                                                forward calls to any number of your choice. Call forwarding will be charged at BT Standard
+                                                Rates.
+                                            </p>
+                                            <p><strong>How it works</strong></p>
+                                            <p>
+                                                The Bizik Team will contact you within 1 working day of your company being formed to arrange
+                                                the set-up of your business telephone number.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£9.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="22313">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Managed Live Chat (pay monthly)</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Live chats conducted by UK agents on behalf
+                                    of <br>your company. Includes fully branded live chat <br>software and 15 chats answered per
+                                    month.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Managed Live Chat (pay monthly)</h3>
+                                            <p>
+                                                We are pleased to offer managed live chat through our sister company, Bizik, a leading UK
+                                                managed live chat provider.
+                                            </p>
+                                            <p>
+                                                Bizik will provide live chat functionality for your website, and work alongside you to build an
+                                                extensive knowledge base of your business, so that their friendly UK-based agents can conduct
+                                                live chats on your behalf.
+                                            </p>
+                                            <p>
+                                                Get started with the Chat 15 plan, which includes 15 chats answered and fully branded software
+                                                at £54.99 +VAT per month.Any additional chats answered are charged at £3.70 per chat.
+                                            </p>
+                                            <p><strong>How it works</strong></p>
+                                            <p>
+                                                The Bizik Team will contact you within 1 working day of your company being formed to arrange
+                                                the set-up of your Managed Live Chat Service.
+                                            </p>
+                                            <p><strong>Key features</strong></p>
+                                            <ul class="fa-ul pd-bot-15-imp">
+                                                <li>Real human conversations</li>
+                                                <li>Personalised live chat widget</li>
+                                                <li>Full live chat transcripts</li>
+                                                <li>Online portal with reporting</li>
+                                                <li>Lead capture</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£54.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="additional-items additional-items-group">
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="20820">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">QuickBooks - 90% off for 7 months</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Automate your finances and simplify invoicing <br class="d-visible">
+                                    to get paid faster with industry-leading software
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>QuickBooks - 90% off for 7 months</h3>
+                                            <p>
+                                                We have partnered with QuickBooks, the online accounting software that helps you do business
+                                                differently, to offer our customers 90% off their paid plans for 7 months.
+                                            </p>
+                                            <p>QuickBooks helps customers manage their limited company finances all in one place:</p>
+                                            <ul class="fa-ul">
+                                                <li>Reduce admin by automating everyday business tasks</li>
+                                                <li>Pay yourself and your employees each month with QuickBooks Payroll</li>
+                                                <li>Manage cash flow and get paid faster</li>
+                                                <li>View your finances in real-time</li>
+                                                <li>Run financial reports tailored to your needs</li>
+                                            </ul>
+                                            <p>
+                                                <strong>How it works</strong>
+                                            </p>
+                                            <p>
+                                                Once your company has been formed, we will send you an Order Fulfilment email, which will
+                                                include your discount for QuickBooks’ plans. Simply click on the link to get started with
+                                                QuickBooks and create an account.
+                                            </p>
+                                            <p>Please note: This discount is only available to first-time QuickBooks users.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">Free</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="19244">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Shopify - 3 day free trial + 3 months for £1/month</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    One platform with the ecommerce and point <br class="d-visible">
+                                    of sale features to start, run, and grow your business.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Shopify – 3 day free trial + 3 months for £1/month</h3>
+                                            <p>
+                                                Millions of the world's most successful brands trust Shopify to sell, ship and process
+                                                payments.
+                                            </p>
+                                            <p>
+                                                <strong>Sell everywhere</strong>
+                                            </p>
+                                            <p>
+                                                Use one platform to sell products to anyone, anywhere - in person with point of sale and online
+                                                through your website, social media, and online marketplaces.
+                                            </p>
+                                            <p>
+                                                <strong>Market your business</strong>
+                                            </p>
+                                            <p>
+                                                Take the guesswork out of marketing with built-in tools that help you create, execute, and
+                                                analyse digital marketing campaigns.
+                                            </p>
+                                            <p>
+                                                <strong>Manage everything</strong>
+                                            </p>
+                                            <p>
+                                                Gain the insights you need to grow - use a single dashboard to manage orders, shipping, and
+                                                payments anywhere you go.
+                                            </p>
+                                            <p>
+                                                <strong>How it works</strong>
+                                            </p>
+                                            <p>
+                                                As soon as your company is approved by Companies House, we will send you an order fulfilled
+                                                email, which will include a link to Shopify's website to redeem your free 3 day free trial + 3 months for £1/month on all plans.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">Free</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="19769">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">monday.com - 30 day free trial</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Centralise work processes, project
+                                    management, <br class="d-visible">and team collaboration with one efficient platform.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>monday.com - 30 day free trial</h3>
+                                            <p>
+                                                We have partnered with monday.com, an award-winning project and work management platform, to
+                                                offer our customers an extended 30 day free trial of their Pro Plan.
+                                            </p>
+                                            <p>
+                                                monday.com helps you plan, manage, and track everything, from daily work processes to
+                                                large-scale projects. The platform is ideal for both small teams and large organisations looking
+                                                to work smarter, collaborate easier, and stay aligned on business goals.
+                                            </p>
+                                            <p>Here are just a few of the time-saving work management features monday.com has to offer:</p>
+                                            <ul class="fa-ul">
+                                                <li>Ready-made templates</li>
+                                                <li>No-code automations, to eliminate tedious tasks</li>
+                                                <li>Visually intuitive boards, where team members can collaborate</li>
+                                                <li>Integrations to connect your favourite tools</li>
+                                            </ul>
+                                            <p>
+                                                With the Pro Plan, you also get access to unlimited boards, time tracking, Gantt and timeline
+                                                views, dependency columns, and much more.
+                                            </p>
+                                            <p><strong>How it works</strong></p>
+                                            <p>
+                                                As soon as your company is set up, we will send you an Order Fulfilment email, which will
+                                                include your extended free trial for the monday.com Pro Plan. Simply click on the link and
+                                                follow the instructions to create your monday.com account.
+                                            </p>
+                                            <p>Please note: The offer is only available to first-time monday.com users.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">Free</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="20493">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Trama – 10% Discount</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Trademark registration that protects the
+                                    <br class="d-visible">uniqueness of your brand. Simple, fast &amp; affordable.
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Trama – 10% Discount</h3>
+                                            <p>
+                                                We have partnered with Trama to help our customers register a trademark in just a few simple
+                                                steps. The process starts with a free lawyer's check, where their legal team examines your mark,
+                                                establishes your chances of successful registration, and provides tips to improve them if
+                                                necessary.
+                                            </p>
+                                            <p>
+                                                If you choose to proceed, their lawyers will guide you through the process and prepare your
+                                                trademark application. They can recommend goods and services that are relevant for you, and
+                                                maximise protection while keeping costs down. After they submit the application to the relevant
+                                                intellectual property office for review, they will inform you about any updates.
+                                            </p>
+                                            <p><strong>How it works</strong></p>
+                                            <p>
+                                                Once your company has been set up, we will send you an Order Fulfilment email, which will
+                                                include a link and a code to claim a 10% discount on trademark registration fees. Simply click
+                                                on the link and follow the instructions to get started.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">Free</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13592" style="display: none;">
+                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Printed Company Documents Bundle</p>
+                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                    Printed Certificate of Incorporation,
+                                    Memorandum &amp; Articles of Association and Share Certificates
+                                </p>
+                            </div>
+                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                </span>
+                                <div class="infobox">
+                                    <div class="infobox__wrapper">
+                                        <a class="infobox__close">×</a>
+                                        <div class="infobox__content">
+                                            <h3>Printed Company Documents Bundle</h3>
+                                            <p>
+                                                As soon as your company is registered at Companies House we will deliver a full set of company
+                                                documents to you by post, including:
+                                            </p>
+                                            <ul class="fa-ul pd-bot-15-imp">
+                                                <li>Certificate of Incorporation</li>
+                                                <li>Memorandum &amp; Articles of Association</li>
+                                                <li>Share Certificates</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fs-15 float-right lh-2l fc-dark">£19.99</span>
+                            </div>
+                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="inline-block col five t-twelve m-twelve m-pd-top-0 m-pd-right-0 m-pd-left-0" id="originalCart" style="">
+            <div id="efPageContent" class="ui-widget">
+                <h3 class="OptionalItemsTitle fs-28 fw-700 fc-grey pd-top-5 pd-bot-5">Checkout</h3>
+                <div id="efPackagePurchaseOptionsContainer" style="display:block">
+                    <form method="POST" onsubmit="return false;" id="package-form" action="/buy/digital-package">
+                        <input type="hidden" name="pa" value="submit_details">
+                        <div style="clear:both" id="efPackageBuyIncludedOptionalDivider"></div>
+                        <div id="efEverythingInTheOrderContainer">
+                            <h3 id="efPackageIncludedItemsTitle">Your Basket</h3>
+                            <p id="efPackageIncludedItemsSubtitle">Checkout &amp; proceed to payment</p>
+                            <table class="efTable efPackageTable ui-widget-content" id="efIncludedTable">
+                                <thead>
+                                    <tr class="ui-widget-header">
+                                        <td>Item</td>
+                                        <td style="text-align:center" class="remove-column">Quantity</td>
+                                        <td>Price</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="efIncludedItemTableRow efOdd" data-pattern="formation">
+                                        <td class="fs-15"><b>Digital Package</b></td>
+                                        <td style="text-align:center" class="remove-column fs-15"><input type="hidden" name="quantity[P2043]" value="1"> 1</td>
+                                        <td align="right" class="fs-15">£52.99</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="efTable efPackageTable ui-widget-content" id="efOptionalIncludedTable" style="display: table;">
+                                <tbody>
+                                    <tr class="ui-widget-header">
+                                        <td colspan="3">Selected Extras</td>
+                                        <td align="center" class="remove-column">Quantity</td>
+                                        <td align="right" colspan="2"></td>
+                                        <td class="remove-column"></td>
+                                    </tr>
+                                    <tr id="optional_included_2051" class="efOptionalTrProduct efOdd">
+                                        <td colspan="3">Pre-Submission Review (we check your company details to avoid mistakes) <input type="hidden" id="optional_included_quantity_2051" name="quantity[P2051]" value="1"></td>
+                                        <td style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="X" onclick="remove_product_1(2051,'5')" role="button" aria-disabled="false"></td>
+                                        <td style="text-align:right">£4.99</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div id="efPackageNet">Net:<span>£57.98</span></div>
+                            <div id="efPackageTax">VAT:<span>£1.60</span></div>
+                            <div id="efPackageTotal">Order Total:<span>£59.58</span></div>
+                            <div id="efPackageAgreeTerms"><input type="checkbox" id="tcagree" class="cy-accept-tnc"> <label for="tcagree" id="tcagree-checkbox-label"> I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a> </label> </div>
+                            <div id="efPackageCheckout">
+                                <span class="efPackageCheckoutButtonLoader efHide"></span>
+                                <input id="spPackageCheckoutButton" type="button" class="efButton ui-button ui-widget cy-package-buy ui-state-default ui-corner-all" value="Checkout" role="button" aria-disabled="false">
+                            </div>
+                        </div>
+                        <div id="efEverythingOptionalContainer">
+                            <h3 style="clear:both" id="efPackageOptionalItemsTitle">Additional Services</h3>
+                            <p id="efPackageOptionalItemsSubtitle">You may wish to add some optional extras:</p>
+                            <table class="efTable efPackageTable ui-widget-content" id="efOptionalTable">
+                                <tbody>
+                                    <tr class="ui-widget-header" style="display: none; visibility: hidden;">
+                                        <td>Item</td>
+                                        <td>
+                                            <!-- more details -->
+                                        </td>
+                                        <td class="remove-column">RRP</td>
+                                        <td class="remove-column">Saving</td>
+                                        <td>Price</td>
+                                        <td>
+                                            <!-- quantity -->
+                                        </td>
+                                        <td>
+                                            <!-- add -->
+                                        </td>
+                                    </tr>
+                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_SAMEDAY">
+                                        <td colspan="10">Same Day Services</td>
+                                    </tr>
+                                    <tr id="optional_2052" class="optional_product_SAMEDAY efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_SAMEDAY">
+                                        <td>Guaranteed Same Day Service</td>
+                                        <td><a href="javascript:more_details_1(2052)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£39.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_2052" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(2052,'2', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_">
+                                        <td colspan="10">Standard Products</td>
+                                    </tr>
+                                    <tr id="optional_13529" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
+                                        <td>12-month Cancellation Protection</td>
+                                        <td><a href="javascript:more_details_1(13529)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£34.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_13529" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(13529,'4', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_2048" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
+                                        <td>VAT Registration</td>
+                                        <td><a href="javascript:more_details_1(2048)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£39.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_2048" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(2048,'6', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_19244" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
+                                        <td>Shopify - 3 day free trial + 3 months for £1/month</td>
+                                        <td><a href="javascript:more_details_1(19244)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_19244" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(19244,'7', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_19493" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
+                                        <td>ICO Registration Service</td>
+                                        <td><a href="javascript:more_details_1(19493)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£79.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_19493" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(19493,'8', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_19769" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
+                                        <td>monday.com Pro Plan - 30 day free trial</td>
+                                        <td><a href="javascript:more_details_1(19769)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_19769" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(19769,'9', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_20820" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
+                                        <td>QuickBooks - 90% off for 7 months</td>
+                                        <td><a href="javascript:more_details_1(20820)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_20820" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(20820,'10', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_20822" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
+                                        <td>Trustpilot – 10% off any paid plans</td>
+                                        <td><a href="javascript:more_details_1(20822)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_20822" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(20822,'11', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_12552" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
+                                        <td>Ultimate Guide to Starting Your Business</td>
+                                        <td><a href="javascript:more_details_1(12552)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_12552" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(12552,'12', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_20493" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
+                                        <td>Trama – 10% Discount</td>
+                                        <td><a href="javascript:more_details_1(20493)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_20493" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(20493,'13', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_22313" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
+                                        <td>Managed Live Chat (pay monthly)</td>
+                                        <td></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£54.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_22313" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(22313,'14', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_4750" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
+                                        <td>Business Telephone Number (pay monthly)</td>
+                                        <td></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£9.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_4750" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(4750,'15', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr id="optional_13588" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
+                                        <td>Telephone Answering (pay monthly)</td>
+                                        <td></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£29.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_13588" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(13588,'16', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_REGOFFICE">
+                                        <td colspan="10">Registered Offices</td>
+                                    </tr>
+                                    <tr id="optional_22183" class="optional_product_REGOFFICE efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_REGOFFICE">
+                                        <td>Registered Office - Pay Monthly</td>
+                                        <td><a href="javascript:more_details_1(22183)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£3.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_22183" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(22183,'18', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_SERVICEADDRESS">
+                                        <td colspan="10">Officer Service Addresses</td>
+                                    </tr>
+                                    <tr id="optional_22185" class="optional_product_SERVICEADDRESS efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_SERVICEADDRESS">
+                                        <td>Service Address - Pay Monthly</td>
+                                        <td><a href="javascript:more_details_1(22185)">Details</a></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£2.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_22185" value="1" class="efQuantity"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(22185,'20', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_MAILFORWARD">
+                                        <td colspan="10">Mail Forwarding Services</td>
+                                    </tr>
+                                    <tr id="optional_22188" class="optional_product_MAILFORWARD efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_MAILFORWARD">
+                                        <td>Business Address - Pay Monthly</td>
+                                        <td></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right" class="remove-column"></td>
+                                        <td style="text-align:right"><span class="efPriceInPackage">£6.99</span></td>
+                                        <td style="text-align:right"><input id="optional_quantity_22188" type="hidden" value="1"></td>
+                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(22188,'22', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div title="Limited by Shares Company Formation" style="display:none" id="efMoreInfo_2043" class="efMoreInfo"></div>
+                <div title="Email Copy of Certificate of Incorporation" style="display:none" id="efMoreInfo_2065" class="efMoreInfo"></div>
+                <div title="Email Copy of Memorandum &amp; Articles of Association" style="display:none" id="efMoreInfo_2070" class="efMoreInfo"></div>
+                <div title="Email Copy of Share Certificate(s)" style="display:none" id="efMoreInfo_2067" class="efMoreInfo"></div>
+                <div title="Guaranteed Same Day Service" style="display:none" id="efMoreInfo_2052" class="efMoreInfo">
+                    <p>1st Formations process the majority of applications within the advertised 3 hours, however, as this is dependent on Companies House workloads we cannot always guarantee this timescale. If you wish to ensure a speedy registration, you can take advantage of the express service to fast track your application and guarantee your company is registered before the close of business today.</p>
+                    <p><b>Please note:</b> We must receive your submission no later than 3.00pm (UK) for it to qualify for the guaranteed same day service.</p>
+                </div>
+                <div title="12-month Cancellation Protection" style="display:none" id="efMoreInfo_13529" class="efMoreInfo">
+                    <h3>12-month Cancellation Protection</h3>
+                    <p>Save money and time by purchasing our cancellation protection. </p>
+                    <p>If you change your mind and decide you no longer need your company, within the first 12 months of forming it, we will close the company for you.</p>
+                    <p>Our Company Dissolution Service normally costs £89.99 and so, by purchasing this product you will save £55.00.</p>
+                    <p>This product includes the Companies House fee, completion and filing of the DS01 form (the application to strike off a company), Board Resolution to approve the dissolution, and continued use of our Registered Office and Service Address until your company is closed down.</p>
+                    <p>Please note: You must claim your cancellation protection within 12 months of the date of incorporation of your company. This product expires after 12 months and cannot be renewed.</p>
+                </div>
+                <div title="Pre-Submission Review (we check your company details to avoid mistakes)" style="display:none" id="efMoreInfo_2051" class="efMoreInfo">
+                    <p>Making changes to your company after incorporation can be a time-consuming and costly process. The simplest way to avoid this is by having one of our experts review your new company application and correct any errors before it is submitted to Companies House.</p>
+                </div>
+                <div title="VAT Registration" style="display:none" id="efMoreInfo_2048" class="efMoreInfo">
+                    <h3>VAT Registration (use at anytime)</h3>
+                    <p>Allow our highly trained staff to handle the formalities of your VAT registration.</p>
+                    <p>If your turnover is expected to exceed £90,000 in the next 12 months, it is a legal requirement to register for VAT, unless the supplies are exempt.</p>
+                    <p>If your turnover is not expected to exceed the £90,000 threshold, there are a number of reasons why many companies choose to register for VAT voluntarily. Here are some examples:</p>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> The ability to claim back VAT on goods and services purchased by the company.</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i>Raise the corporate image of the company by appearing to be bigger than you actually are.</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i>Enable deals with suppliers and customers who are not willing to deal with companies that are not VAT registered.</li>
+                    </ul>
+                    <p><strong>The VAT registration process explained</strong></p>
+                    <p>As soon as your company is incorporated, we will send you a questionnaire by email, asking for some additional information necessary to complete your VAT registration application with HMRC.</p>
+                    <p>We will then apply for your VAT registration online. The timeline for the approval of new VAT registrations is subject to the information received and HMRC's workload, which can vary significantly.</p>
+                    <p>Once your VAT registration has been approved, we will send your VAT Registration Number to you by email. Your VAT Registration Certificate will be sent to you by post by HMRC.</p>
+                </div>
+                <div title="PAYE Registration " style="display:none" id="efMoreInfo_2049" class="efMoreInfo">
+                    <h3>PAYE Registration</h3>
+                    <p>If there are any employees or directors who will be taking a salary from your company it is a legal requirement to register your company for PAYE with HMRC. Failure to register for PAYE promptly can result in penalties.</p>
+                    <p>Avoid potential complications by allowing our highly trained staff to take care of the registration on your behalf.</p>
+                    <h4 class="pd-top-15">The PAYE registration process explained</h4>
+                    <p>As soon as your company is incorporated, we will send you a link to our form by email, asking for some additional information necessary to complete your PAYE registration application with HMRC.</p>
+                    <p>We will then apply for your PAYE registration online. This process normally takes around 3 weeks and all of your PAYE information will be sent to you by post directly from HMRC. </p>
+                    <p>If your first payday is less than 3 weeks away, do not be concerned. You should process your salary or salaries on the date of your first payday and complete your PAYE return when you receive your registration information from HMRC.  If your first filing is late, HMRC will take into account the timing of your registration so there should be no issues arising from this filing.</p>
+                </div>
+                <div title="Free .com or .co.uk domain name" style="display:none" id="efMoreInfo_3738" class="efMoreInfo"></div>
+                <div title="Shopify - 3 day free trial + 3 months for £1/month" style="display:none" id="efMoreInfo_19244" class="efMoreInfo">
+                    <h3>Shopify - 3 day free trial + 3 months for £1/month</h3>
+                    <p>Millions of the world's most successful brands trust Shopify to sell, ship, and process payments.</p>
+                    <p><strong>Sell everywhere</strong></p>
+                    <p>Use one platform to sell products to anyone, anywhere - in person with point of sale and online through your website, social media, and online marketplaces.</p>
+                    <p><strong>Market your business</strong></p>
+                    <p>Take the guesswork out of marketing with built-in tools that help you create, execute, and analyse digital marketing campaigns.</p>
+                    <p><strong>Manage everything</strong></p>
+                    <p>Gain the insights you need to grow - use a single dashboard to manage orders, shipping, and payments anywhere you go.</p>
+                    <p><strong>How it works</strong></p>
+                    <p>As soon as your company is approved by Companies House, we will send you an order fulfilled email, which will include your free 3 day trial + 3 months for £1/month and a link to Shopify’s website.</p>
+                </div>
+                <div title="ICO Registration Service" style="display:none" id="efMoreInfo_19493" class="efMoreInfo">
+                    <h3>ICO Registration Service</h3>
+                    <p>Allow our highly trained staff to handle the formalities of your ICO registration.</p>
+                    <p>The vast majority of UK companies have to register with the Information Commissioner’s Office (ICO) once per year for data protection purposes, except for a very small number who are exempt.</p>
+                    <p>You should ensure your company is registered with the ICO because:</p>
+                    <ul class="fa-ul">
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i> Companies which are not registered with the ICO can be fined up to £4,000</li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i> Your company will be listed on the public register of fee payers, enhancing its corporate image</li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i> You can publish your ICO Registration Number on your website, showing you take data protection seriously</li>
+                    </ul>
+                    <p><strong>The ICO registration process explained</strong></p>
+                    <p>Once you have ordered, we will send you a questionnaire by email, asking for some additional information necessary to complete your ICO registration.</p>
+                    <p>We will then apply for your ICO registration online. This process can take up to 10 days.</p>
+                    <p>Once your ICO registration has been approved, we will send your ICO Registration Number and ICO Registration Certificate to you by email.</p>
+                    <p>This Service includes the £40.00 registration fee payable to the ICO.</p>
+                    <p>Your service will automatically renew every 12 months at a cost of £79.99 plus VAT.</p>
+                </div>
+                <div title="monday.com Pro Plan - 30 day free trial" style="display:none" id="efMoreInfo_19769" class="efMoreInfo">
+                    <h3>monday.com Work OS - 30 day free trial</h3>
+                    <p>We have partnered with monday.com, an award-winning project and work management platform, to offer our customers an extended 30 day free trial of their Pro Plan.</p>
+                    <p>monday.com helps you plan, manage, and track everything, from daily work processes to large-scale projects. The platform is ideal for both small teams and large organisations looking to work smarter, collaborate easier, and stay aligned on business goals.</p>
+                    <p> Here are just a few of the time-saving work management features monday.com has to offer:</p>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> Ready-made templates</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> No-code automations, to eliminate tedious tasks</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> Visually intuitive boards, where team members can collaborate</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> Integrations to connect your favourite tools</li>
+                    </ul>
+                    <p>With the Pro Plan, you also get access to unlimited boards, time tracking, Gantt and timeline views, dependency columns, and much more.</p>
+                    <p><strong>How it works</strong></p>
+                    <p>As soon as your company is set up, we will send you an Order Fulfilment email, which will include your extended free trial for the monday.com Pro Plan. Simply click on the link and follow the instructions to create your monday.com account.</p>
+                    <p>Please note: The offer is only available to first-time monday.com users.</p>
+                </div>
+                <div title="QuickBooks - 90% off for 7 months" style="display:none" id="efMoreInfo_20820" class="efMoreInfo">
+                    <h3>QuickBooks - 90% off for 7 months</h3>
+                    <p>We have partnered with QuickBooks, the online accounting software that helps you do business differently, to offer our customers 90% off their paid plans for 7 months.</p>
+                    <p>QuickBooks helps customers manage their limited company finances all in one place:</p>
+                    <ul class="fa-ul pd-top-5">
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> Reduce admin by automating everyday business tasks</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> Pay yourself and your employees each month with QuickBooks Payroll</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> Manage cash flow and get paid faster</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> View your finances in real-time</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> Run financial reports tailored to your needs</li>
+                    </ul>
+                    <h4 class="pd-top-15">How it works</h4>
+                    <p>Once your company has been formed, we will send you an Order Fulfilment email, which will include your discount for QuickBooks’ plans. Simply click on the link to get started with QuickBooks and create an account.</p>
+                    <p>Please note: This discount is only available to first-time QuickBooks users.</p>
+                </div>
+                <div title="Trustpilot – 10% off any paid plans" style="display:none" id="efMoreInfo_20822" class="efMoreInfo">
+                    <h3>Trustpilot – 10% off any paid plans</h3>
+                    <p>Trustpilot's website receives over 50 million visitors every month. Each visit is an opportunity to showcase your company reputation and drive qualified leads to your website.</p>
+                    <p>We have partnered with Trustpilot, the world’s most trusted review platform, to help our customers realise the power of reviews. Win new customers and retain existing clients with a reputation strategy you own, and enjoy a 10% discount on any paid plans.</p>
+                    <ul class="fa-ul pd-top-5">
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> The world’s most recognised review platform</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> One of the top 30 visited websites in the UK</li>
+                        <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> Home to consumer decision-making</li>
+                    </ul>
+                    <h4 class="pd-top-15">How it works</h4>
+                    <p>Once your company has been formed, we will send you an Order Fulfillment email, which will include your discount for Trustpilot’s plans. Simply click on the link to get started with Trustpilot and complete the contact form to receive a call back from their reputation advisors.</p>
+                </div>
+                <div title="Ultimate Guide to Starting Your Business" style="display:none" id="efMoreInfo_12552" class="efMoreInfo">
+                    <h3>Ultimate Guide to Starting Your Business – eBook</h3>
+                    <p>Our exclusive guide to starting your business by our CEO and Founder, Graeme Donnelly, will provide you with the comprehensive guidance you need to give your company the best start possible.</p>
+                    <p>Our book shows you how to cultivate a business idea and turn it into a structured business plan. It explains the funding strategies available, and explores various matters such as, whether you should hire staff to help run it, and the do’s and don’ts of researching company premises.</p>
+                    <p>Learn how to set up a company website, develop a recognisable brand, advertise and market your business, and sell your products online.</p>
+                    <p>Also covered are the skills you will require to become a successful business leader, and how to cope with the stress of running your own business, as well as a number of other insightful business tips.</p>
+                    <h4>How do I receive my eBook?</h4>
+                    <p>Simply add our free eBook to your basket on the checkout page during the order process. Once your company has been formed, your free eBook will be sent to you via email, in PDF format.</p>
+                    <p>Author: Graeme Donnelly, CEO and Founder of 1st Formations. 70 pages.</p>
+                </div>
+                <div title="Confirmation Statement Service" style="display:none" id="efMoreInfo_16458" class="efMoreInfo">
+                    <h3>Confirmation Statement Service</h3>
+                    <p>It is a legal requirement for every limited company to submit a Confirmation Statement (previously called the Annual Return) to Companies House, informing them of any changes to company details.</p>
+                    <p>Our highly trained staff will prepare your Confirmation Statement and file it with Companies House before the deadline, ensuring it is completed on time and with complete accuracy.</p>
+                    <p>Please note: This service is renewable every 12 months.</p>
+                    <p>Notice will be given in advance of your renewal date and you will be able to cancel the service. </p>
+                </div>
+                <div title="Trama – 10% Discount" style="display:none" id="efMoreInfo_20493" class="efMoreInfo">
+                    <h3>Trama – 10% Discount</h3>
+                    <p>We have partnered with Trama to help our customers register a trademark in just a few simple steps. The process starts with a free lawyer's check, where their legal team examines your mark, establishes your chances of successful registration, and provides tips to improve them if necessary.</p>
+                    <p>If you choose to proceed, their lawyers will guide you through the process and prepare your trademark application. They can recommend goods and services that are relevant for you, and maximise protection while keeping costs down. After they submit the application to the relevant intellectual property office for review, they will inform you about any updates.</p>
+                    <h4>How it works</h4>
+                    <p>Once your company has been set up, we will send you an Order Fulfilment email, which will include a link and a code to claim a 10% discount on trademark registration fees. Simply click on the link and follow the instructions to get started.</p>
+                </div>
+                <div title="Managed Live Chat (pay monthly)" style="display:none" id="efMoreInfo_22313" class="efMoreInfo"></div>
+                <div title="Registered Office - Pay Monthly" style="display:none" id="efMoreInfo_22183" class="efMoreInfo">
+                    <div class="w-row">
+                        <div class="w-col w-col-12">
+                            <h3 class="ef-item-bottom-border">Why would I use your Registered Address Service?</h3>
+                        </div>
+                        <div class="w-col w-col-6">
+                            <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/shield.svg" width="50" alt="light bulb"> Protect your privacy</h4>
+                            <p>Protect the privacy of your home with our prestigious London registered office address.</p>
+                            <p>This service allows you to maintain the privacy of your home address, as our prestigious Covent Garden, London address will appear on public record as the official address of your company. We will then scan and email all statutory company mail to you from a number of official government bodies, free of charge.</p>
+                            <p>Mail from the following government bodies are covered by this service: Companies House, HMRC, Government Gateway, Department for Work &amp; Pensions (DWP), Office for National Statistics, Information Commissioner’s Office (ICO) and Court documents.</p>
+                            <p>This service is renewable on a monthly basis at the cost of £3.99 +VAT.</p>
+                        </div>
+                        <div class="w-col w-col-6">
+                            <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/bulb.svg" width="50" alt="light bulb"> Benefits of our Registered Address Service</h4>
+                            <ul class="fa-ul fs-14">
+                                <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> It will enable you to keep your home address off the public record at Companies House.</li>
+                                <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> It prevents unsolicited mail and visitors from arriving at your private residence.</li>
+                                <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> Creates a professional, corporate image as the registered office address requires being displayed on company paperwork and website.</li>
+                                <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> Gives the impression of a large, established business.</li>
+                            </ul>
+                        </div>
+                        <div class="w-col w-col-12">
+                            <p><strong>Please note:</strong> The forwarding of official government mail by scan and email is free. Mail will be forwarded on a daily basis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div title="Service Address - Pay Monthly" style="display:none" id="efMoreInfo_22185" class="efMoreInfo">
+                    <div class="w-row">
+                        <div class="w-col w-col-12">
+                            <h3 class="ef-item-bottom-border">Why would I use your Service Address?</h3>
+                        </div>
+                        <div class="w-col w-col-6">
+                            <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/shield.svg" width="50" alt="light bulb"> Protect your privacy</h4>
+                            <p>Protect the privacy of your home with our prestigious London service address.</p>
+                            <p>This service allows you to maintain the privacy of your home address, as our prestigious Covent Garden, London address will appear on public record as the official address of a company officer. This service includes the scanning and emailing of all official government mail addressed to a company officer, from a number of official government bodies, free of charge.</p>
+                            <p>Mail from the following government bodies are covered by this service: Companies House, HMRC, Government Gateway, Department for Work &amp; Pensions (DWP), Office for National Statistics, Information Commissioner’s Office (ICO) and Court documents.</p>
+                            <p>This service is renewable on a monthly basis at the cost of £2.99 +VAT.</p>
+                        </div>
+                        <div class="w-col w-col-6">
+                            <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/bulb.svg" width="50" alt="light bulb"> Benefits of our Service Address</h4>
+                            <ul class="fa-ul fs-14">
+                                <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> Our London service address will protect the privacy of your home address.</li>
+                                <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> It prevents unsolicited mail and visitors from arriving at their private residence.</li>
+                                <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> A prestigious London service address will enhance your professional image.</li>
+                            </ul>
+                        </div>
+                        <div class="w-col w-col-12">
+                            <p><strong>Please note:</strong> Forwarding of service address mail by scan and email is free of charge. Mail will be forwarded on a daily basis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div title="Business Telephone Number (pay monthly)" style="display:none" id="efMoreInfo_4750" class="efMoreInfo"></div>
+                <div title="Telephone Answering (pay monthly)" style="display:none" id="efMoreInfo_13588" class="efMoreInfo"></div>
+                <div title="Business Address - Pay Monthly" style="display:none" id="efMoreInfo_22188" class="efMoreInfo"></div>
+                <div title="PSC Help Required" style="display:none" id="efMoreInfo_4852" class="efMoreInfo"></div>
+                <div title="QuickBooks" style="display:none" id="efMoreInfo_8913" class="efMoreInfo"></div>
+                <div title="Bank Of Scotland" style="display:none" id="efMoreInfo_8914" class="efMoreInfo"></div>
+                <div title="Xero (UK)" style="display:none" id="efMoreInfo_8915" class="efMoreInfo"></div>
+                <div title="Worldpay" style="display:none" id="efMoreInfo_8916" class="efMoreInfo"></div>
+                <div title="KashFlow" style="display:none" id="efMoreInfo_8917" class="efMoreInfo"></div>
+                <div title="CardOne" style="display:none" id="efMoreInfo_8918" class="efMoreInfo"></div>
+                <div title="Advanced Payment Solutions Ltd" style="display:none" id="efMoreInfo_8919" class="efMoreInfo"></div>
+                <div title="Lloyds Bank" style="display:none" id="efMoreInfo_8920" class="efMoreInfo"></div>
+                <div title="Royal Bank of Scotland" style="display:none" id="efMoreInfo_8921" class="efMoreInfo"></div>
+                <div title="Barclays Bank UK PLC" style="display:none" id="efMoreInfo_8922" class="efMoreInfo"></div>
+                <div title="Trendzer" style="display:none" id="efMoreInfo_8923" class="efMoreInfo"></div>
+                <div title="Churchill Insurance" style="display:none" id="efMoreInfo_8924" class="efMoreInfo"></div>
+                <div title="Direct Line for Business" style="display:none" id="efMoreInfo_8925" class="efMoreInfo"></div>
+                <div title="Paya Card Services" style="display:none" id="efMoreInfo_8926" class="efMoreInfo"></div>
+                <div title="Tide" style="display:none" id="efMoreInfo_8927" class="efMoreInfo"></div>
+                <div title="Cashplus" style="display:none" id="efMoreInfo_8928" class="efMoreInfo"></div>
+                <div title="Barclays PLC" style="display:none" id="efMoreInfo_8929" class="efMoreInfo"></div>
+                <div title="GoDaddy" style="display:none" id="efMoreInfo_8930" class="efMoreInfo"></div>
+                <div title="Countingup" style="display:none" id="efMoreInfo_8931" class="efMoreInfo"></div>
+                <div title="Revolut" style="display:none" id="efMoreInfo_10558" class="efMoreInfo"></div>
+                <div title="Mettle" style="display:none" id="efMoreInfo_11223" class="efMoreInfo"></div>
+                <div title="Cashplus Business Account" style="display:none" id="efMoreInfo_11346" class="efMoreInfo"></div>
+                <div title="TSB" style="display:none" id="efMoreInfo_11554" class="efMoreInfo"></div>
+                <div title="First Payment Merchant Services" style="display:none" id="efMoreInfo_11809" class="efMoreInfo"></div>
+                <div title="ANNA Money" style="display:none" id="efMoreInfo_12294" class="efMoreInfo"></div>
+                <div title="Sage" style="display:none" id="efMoreInfo_13014" class="efMoreInfo"></div>
+                <div title="ANNA Dockeeper" style="display:none" id="efMoreInfo_13309" class="efMoreInfo"></div>
+                <div title="Hiscox UK" style="display:none" id="efMoreInfo_13802" class="efMoreInfo"></div>
+                <div title="takepayments" style="display:none" id="efMoreInfo_13957" class="efMoreInfo"></div>
+                <div title="Iris" style="display:none" id="efMoreInfo_14513" class="efMoreInfo"></div>
+                <div title="Payaro" style="display:none" id="efMoreInfo_15174" class="efMoreInfo"></div>
+                <div title="Tyl by Natwest" style="display:none" id="efMoreInfo_15562" class="efMoreInfo"></div>
+                <div title="CountingUp (Accounting)" style="display:none" id="efMoreInfo_15859" class="efMoreInfo"></div>
+                <div title="AcornAccount" style="display:none" id="efMoreInfo_16022" class="efMoreInfo"></div>
+                <div title="Fair Everywhere" style="display:none" id="efMoreInfo_16174" class="efMoreInfo"></div>
+                <div title="Barclaycard" style="display:none" id="efMoreInfo_16334" class="efMoreInfo"></div>
+                <div title="Trust Payments" style="display:none" id="efMoreInfo_16568" class="efMoreInfo"></div>
+                <div title="Portman Asset Finance" style="display:none" id="efMoreInfo_16956" class="efMoreInfo"></div>
+                <div title="Countingup Business" style="display:none" id="efMoreInfo_17112" class="efMoreInfo"></div>
+                <div title="UKBF" style="display:none" id="efMoreInfo_17365" class="efMoreInfo"></div>
+                <div title="Monzo" style="display:none" id="efMoreInfo_18523" class="efMoreInfo"></div>
+                <div title="Natwest" style="display:none" id="efMoreInfo_18756" class="efMoreInfo"></div>
+                <div title="FreeAgent" style="display:none" id="efMoreInfo_19099" class="efMoreInfo"></div>
+                <div title="Cashplus Bank Business Go Bank Account" style="display:none" id="efMoreInfo_19281" class="efMoreInfo"></div>
+                <div title="ClearBooks" style="display:none" id="efMoreInfo_20076" class="efMoreInfo"></div>
+                <div title="HSBC Kinectic" style="display:none" id="efMoreInfo_22007" class="efMoreInfo"></div>
+                <style>
+                    .no-title-bar .ui-dialog-titlebar {
+                        display: none
+                    }
+                </style>
+                <script>
+                    var display_incvat = "0";
+                    var displayed = false;
+                    var tax = (1 + 0.2);
+                    var packprice = 53.59;
+                    var packnetprice = 52.99;
+                    var prices = Array();
+                    var multibuy = Array();
+                    var multibuy_discount = Array();
+                    var names = Array();
+                    var savingamounts = Array();
+                    var savingpercs = Array();
+                    var fullprices = Array();
+                    var fees = Array();
+                    var feenames = Array();
+                    var hasDetails = Array();
+                    var types = Array();
+                    var taxesnotbetaxin = Array();
+
+                    taxesnotbetaxin["P2052"] = (0.2 + 1);
+                    savingamounts["P2052"] = 0.00;
+                    savingpercs["P2052"] = 0;
+                    fullprices["P2052"] = 39.99;
+                    prices["P2052"] = 39.99;
+                    names["P2052"] = "Guaranteed Same Day Service";
+                    multibuy_discount["P2052"] = 1;
+                    multibuy["P2052"] = 0;
+                    fees["P2052"] = 0.00;
+                    feenames["P2052"] = "";
+                    types["P2052"] = "SAMEDAY";
+                    hasDetails["P2052"] = "1";
+                    taxesnotbetaxin["P13529"] = (0.2 + 1);
+                    savingamounts["P13529"] = 0.00;
+                    savingpercs["P13529"] = 0;
+                    fullprices["P13529"] = 34.99;
+                    prices["P13529"] = 34.99;
+                    names["P13529"] = "12-month Cancellation Protection";
+                    multibuy_discount["P13529"] = 1;
+                    multibuy["P13529"] = 0;
+                    fees["P13529"] = 0.00;
+                    feenames["P13529"] = "";
+                    types["P13529"] = "";
+                    hasDetails["P13529"] = "1";
+                    taxesnotbetaxin["P2051"] = (0.2 + 1);
+                    savingamounts["P2051"] = 0.00;
+                    savingpercs["P2051"] = 0;
+                    fullprices["P2051"] = 4.99;
+                    prices["P2051"] = 4.99;
+                    names["P2051"] = "Pre-Submission Review (we check your company details to avoid mistakes)";
+                    multibuy_discount["P2051"] = 1;
+                    multibuy["P2051"] = 0;
+                    fees["P2051"] = 0.00;
+                    feenames["P2051"] = "";
+                    types["P2051"] = "";
+                    hasDetails["P2051"] = "1";
+                    taxesnotbetaxin["P2048"] = (0.2 + 1);
+                    savingamounts["P2048"] = 0.00;
+                    savingpercs["P2048"] = 0;
+                    fullprices["P2048"] = 39.99;
+                    prices["P2048"] = 39.99;
+                    names["P2048"] = "VAT Registration";
+                    multibuy_discount["P2048"] = 1;
+                    multibuy["P2048"] = 0;
+                    fees["P2048"] = 0.00;
+                    feenames["P2048"] = "";
+                    types["P2048"] = "";
+                    hasDetails["P2048"] = "1";
+                    taxesnotbetaxin["P19244"] = (0.2 + 1);
+                    savingamounts["P19244"] = 0.00;
+                    savingpercs["P19244"] = 0;
+                    fullprices["P19244"] = 0.00;
+                    prices["P19244"] = 0.00;
+                    names["P19244"] = "Shopify - 3 day free trial + 3 months for £1/month";
+                    multibuy_discount["P19244"] = 1;
+                    multibuy["P19244"] = 0;
+                    fees["P19244"] = 0.00;
+                    feenames["P19244"] = "";
+                    types["P19244"] = "";
+                    hasDetails["P19244"] = "1";
+                    taxesnotbetaxin["P19493"] = (0.2 + 1);
+                    savingamounts["P19493"] = 0.00;
+                    savingpercs["P19493"] = 0;
+                    fullprices["P19493"] = 79.99;
+                    prices["P19493"] = 79.99;
+                    names["P19493"] = "ICO Registration Service";
+                    multibuy_discount["P19493"] = 1;
+                    multibuy["P19493"] = 0;
+                    fees["P19493"] = 0.00;
+                    feenames["P19493"] = "";
+                    types["P19493"] = "";
+                    hasDetails["P19493"] = "1";
+                    taxesnotbetaxin["P19769"] = (0.2 + 1);
+                    savingamounts["P19769"] = 0.00;
+                    savingpercs["P19769"] = 0;
+                    fullprices["P19769"] = 0.00;
+                    prices["P19769"] = 0.00;
+                    names["P19769"] = "monday.com Pro Plan - 30 day free trial";
+                    multibuy_discount["P19769"] = 1;
+                    multibuy["P19769"] = 0;
+                    fees["P19769"] = 0.00;
+                    feenames["P19769"] = "";
+                    types["P19769"] = "";
+                    hasDetails["P19769"] = "1";
+                    taxesnotbetaxin["P20820"] = (0.2 + 1);
+                    savingamounts["P20820"] = 0.00;
+                    savingpercs["P20820"] = 0;
+                    fullprices["P20820"] = 0.00;
+                    prices["P20820"] = 0.00;
+                    names["P20820"] = "QuickBooks - 90% off for 7 months";
+                    multibuy_discount["P20820"] = 1;
+                    multibuy["P20820"] = 0;
+                    fees["P20820"] = 0.00;
+                    feenames["P20820"] = "";
+                    types["P20820"] = "";
+                    hasDetails["P20820"] = "1";
+                    taxesnotbetaxin["P20822"] = (0.2 + 1);
+                    savingamounts["P20822"] = 0.00;
+                    savingpercs["P20822"] = 0;
+                    fullprices["P20822"] = 0.00;
+                    prices["P20822"] = 0.00;
+                    names["P20822"] = "Trustpilot – 10% off any paid plans";
+                    multibuy_discount["P20822"] = 1;
+                    multibuy["P20822"] = 0;
+                    fees["P20822"] = 0.00;
+                    feenames["P20822"] = "";
+                    types["P20822"] = "";
+                    hasDetails["P20822"] = "1";
+                    taxesnotbetaxin["P12552"] = (0.2 + 1);
+                    savingamounts["P12552"] = 0.00;
+                    savingpercs["P12552"] = 0;
+                    fullprices["P12552"] = 0.00;
+                    prices["P12552"] = 0.00;
+                    names["P12552"] = "Ultimate Guide to Starting Your Business";
+                    multibuy_discount["P12552"] = 1;
+                    multibuy["P12552"] = 0;
+                    fees["P12552"] = 0.00;
+                    feenames["P12552"] = "";
+                    types["P12552"] = "";
+                    hasDetails["P12552"] = "1";
+                    taxesnotbetaxin["P20493"] = (0.2 + 1);
+                    savingamounts["P20493"] = 0.00;
+                    savingpercs["P20493"] = 0;
+                    fullprices["P20493"] = 0.00;
+                    prices["P20493"] = 0.00;
+                    names["P20493"] = "Trama – 10% Discount";
+                    multibuy_discount["P20493"] = 1;
+                    multibuy["P20493"] = 0;
+                    fees["P20493"] = 0.00;
+                    feenames["P20493"] = "";
+                    types["P20493"] = "";
+                    hasDetails["P20493"] = "1";
+                    taxesnotbetaxin["P22313"] = (0.2 + 1);
+                    savingamounts["P22313"] = 0.00;
+                    savingpercs["P22313"] = 0;
+                    fullprices["P22313"] = 54.99;
+                    prices["P22313"] = 54.99;
+                    names["P22313"] = "Managed Live Chat (pay monthly)";
+                    multibuy_discount["P22313"] = 1;
+                    multibuy["P22313"] = 0;
+                    fees["P22313"] = 0.00;
+                    feenames["P22313"] = "";
+                    types["P22313"] = "";
+                    hasDetails["P22313"] = "0";
+                    taxesnotbetaxin["P22183"] = (0.2 + 1);
+                    savingamounts["P22183"] = 0.00;
+                    savingpercs["P22183"] = 0;
+                    fullprices["P22183"] = 3.99;
+                    prices["P22183"] = 3.99;
+                    names["P22183"] = "Registered Office - Pay Monthly";
+                    multibuy_discount["P22183"] = 1;
+                    multibuy["P22183"] = 0;
+                    fees["P22183"] = 0.00;
+                    feenames["P22183"] = "";
+                    types["P22183"] = "REGOFFICE";
+                    hasDetails["P22183"] = "1";
+                    taxesnotbetaxin["P22185"] = (0.2 + 1);
+                    savingamounts["P22185"] = 0.00;
+                    savingpercs["P22185"] = 0;
+                    fullprices["P22185"] = 2.99;
+                    prices["P22185"] = 2.99;
+                    names["P22185"] = "Service Address - Pay Monthly";
+                    multibuy_discount["P22185"] = 1;
+                    multibuy["P22185"] = 1;
+                    fees["P22185"] = 0.00;
+                    feenames["P22185"] = "";
+                    types["P22185"] = "SERVICEADDRESS";
+                    hasDetails["P22185"] = "1";
+                    taxesnotbetaxin["P4750"] = (0.2 + 1);
+                    savingamounts["P4750"] = 0.00;
+                    savingpercs["P4750"] = 0;
+                    fullprices["P4750"] = 9.99;
+                    prices["P4750"] = 9.99;
+                    names["P4750"] = "Business Telephone Number (pay monthly)";
+                    multibuy_discount["P4750"] = 1;
+                    multibuy["P4750"] = 0;
+                    fees["P4750"] = 0.00;
+                    feenames["P4750"] = "";
+                    types["P4750"] = "";
+                    hasDetails["P4750"] = "0";
+                    taxesnotbetaxin["P13588"] = (0.2 + 1);
+                    savingamounts["P13588"] = 0.00;
+                    savingpercs["P13588"] = 0;
+                    fullprices["P13588"] = 29.99;
+                    prices["P13588"] = 29.99;
+                    names["P13588"] = "Telephone Answering (pay monthly)";
+                    multibuy_discount["P13588"] = 1;
+                    multibuy["P13588"] = 0;
+                    fees["P13588"] = 0.00;
+                    feenames["P13588"] = "";
+                    types["P13588"] = "";
+                    hasDetails["P13588"] = "0";
+                    taxesnotbetaxin["P22188"] = (0.2 + 1);
+                    savingamounts["P22188"] = 0.00;
+                    savingpercs["P22188"] = 0;
+                    fullprices["P22188"] = 6.99;
+                    prices["P22188"] = 6.99;
+                    names["P22188"] = "Business Address - Pay Monthly";
+                    multibuy_discount["P22188"] = 1;
+                    multibuy["P22188"] = 0;
+                    fees["P22188"] = 0.00;
+                    feenames["P22188"] = "";
+                    types["P22188"] = "MAILFORWARD";
+                    hasDetails["P22188"] = "0";
+
+                    // inital checkout
+                    function proceedToPayment() {
+
+                        if (!termsAndConditionsCheck()) {
+                            showTermsAndConditionsWarning();
+                            return false;
+                        }
+
+                        var loader = jQuery('.efPackageCheckoutButtonLoader');
+                        var url = "/buy/digital-package/";
+                        var fdata = jQuery("#package-form").serialize();
+                        jQuery.post(url, fdata, function (json) {
+                            if (json.OrderId > 0) {
+                                jQuery('#ef-js-new-token').val(json.Token);
+                                document.location.href = '/payment-gateway/?pt=' + json.Token;
+                            }
+
+                            if (json.OrderId === null) {
+                                document.location.href = '/buy/digital-package/?notice=-120';
+                            }
+
+                        }, "json");
+
+                        loader.removeClass('efHide');
+
+                    }
+
+                </script>
+                <script>
+                    (function ($) {
+                        $("#efPackageCheckoutButton").on('click', proceedToPayment);
+                        $(".efButton").button();
+                    })(jQuery);
+                </script>
+                <script>
+                    (function (w) {
+                        if (typeof w.ef != 'undefined') {
+                            w.ef.user._setUserId('');
+                            w.ef.user._setAuthenticated('0');
+                            w.ef.user._setUsername('');
+                            w.ef.user._setTitle('');
+                            w.ef.user._setFirstname('');
+                            w.ef.user._setLastname('');
+                            w.ef.user._setOrganisation('');
+                            w.ef.user._setVatExempt('');
+                            w.ef.user._setAccountBalance('');
+                        }
+                    })(window);
+                </script>
+            </div>
+            <div class="checkout-info">
+                <p class="title">
+                    <strong class="fs-twenty-one t-fs-18 fc-dark">Eligible Countries List</strong>
+                </p>
+                <p class="fs-15 lh-19">
+                    We can form companies for customers who are resident in most countries in the world; however, there are
+                    several that are not eligible. Check if your country is on the <a href="#non-res--eligible-countries" data-lity="">Eligible Countries List.</a>
+                </p>
+                <div id="non-res--eligible-countries" class="home-non-residents__modal lity-hide">
+                    <div>
+                        <p><small>Last Updated: 28 October 2024</small></p>
+                        <h3>Eligible Countries</h3>
+                        <p>
+                            We can form companies for customers in most countries in the world; however, there are several that are not
+                            eligible. <br>Check if your country is eligible below:
+                        </p>
+                        <ul class="home-non-residents__list">
+                            <li>Albania</li>
+                            <li>Algeria</li>
+                            <li>Andorra</li>
+                            <li>Antigua and Barbuda</li>
+                            <li>Argentina</li>
+                            <li>Armenia</li>
+                            <li>Australia</li>
+                            <li>Austria</li>
+                            <li>Azerbaijan</li>
+                            <li>The Bahamas</li>
+                            <li>Bahrain</li>
+                            <li>Barbados</li>
+                            <li>Belarus</li>
+                            <li>Belgium</li>
+                            <li>Belize</li>
+                            <li>Bhutan</li>
+                            <li>Bolivia</li>
+                            <li>Bosnia and Herzegovina</li>
+                            <li>Botswana</li>
+                            <li>Brazil</li>
+                            <li>Brunei</li>
+                            <li>Burundi</li>
+                            <li>Cabo Verde</li>
+                            <li>Cambodia</li>
+                            <li>Canada</li>
+                            <li>Chile</li>
+                            <li>China</li>
+                            <li>Colombia</li>
+                            <li>Comoros</li>
+                            <li>Costa Rica</li>
+                            <li>Cyprus</li>
+                            <li>Czech Republic</li>
+                            <li>Denmark</li>
+                            <li>Djibouti</li>
+                            <li>Dominica</li>
+                            <li>Dominican Republic</li>
+                            <li>East Timor (Timor-Leste)</li>
+                            <li>Ecuador</li>
+                            <li>Egypt</li>
+                            <li>El Salvador</li>
+                            <li>Equatorial Guinea</li>
+                            <li>Estonia</li>
+                            <li>Eswatini</li>
+                            <li>Ethiopia</li>
+                            <li>Fiji</li>
+                            <li>Finland</li>
+                            <li>France</li>
+                            <li>Gabon</li>
+                            <li>The Gambia</li>
+                            <li>Georgia</li>
+                            <li>Germany</li>
+                            <li>Ghana</li>
+                            <li>Greece</li>
+                            <li>Grenada</li>
+                            <li>Guatemala</li>
+                            <li>Guinea</li>
+                            <li>Guinea-Bissau</li>
+                            <li>Guyana</li>
+                            <li>Honduras</li>
+                            <li>Hungary</li>
+                            <li>Iceland</li>
+                            <li>India</li>
+                            <li>Indonesia</li>
+                            <li>Ireland</li>
+                            <li>Israel</li>
+                            <li>Italy</li>
+                            <li>Jamaica</li>
+                            <li>Japan</li>
+                            <li>Jordan</li>
+                            <li>Kazakhstan</li>
+                            <li>Kiribati</li>
+                            <li>Korea, South</li>
+                            <li>Kosovo</li>
+                            <li>Kuwait</li>
+                            <li>Kyrgyzstan</li>
+                            <li>Laos</li>
+                            <li>Latvia</li>
+                            <li>Lesotho</li>
+                            <li>Liberia</li>
+                            <li>Liechtenstein</li>
+                            <li>Lithuania</li>
+                            <li>Luxembourg</li>
+                            <li>Madagascar</li>
+                            <li>Malawi</li>
+                            <li>Malaysia</li>
+                            <li>Maldives</li>
+                            <li>Malta</li>
+                            <li>Marshall Islands</li>
+                            <li>Mauritania</li>
+                            <li>Mauritius</li>
+                            <li>Mexico</li>
+                            <li>Micronesia, Federated States of</li>
+                            <li>Moldova</li>
+                            <li>Mongolia</li>
+                            <li>Montenegro</li>
+                            <li>Morocco</li>
+                            <li>Nauru</li>
+                            <li>Nepal</li>
+                            <li>Netherlands</li>
+                            <li>New Zealand</li>
+                            <li>Nicaragua</li>
+                            <li>Niger</li>
+                            <li>North Macedonia</li>
+                            <li>Norway</li>
+                            <li>Oman</li>
+                            <li>Pakistan</li>
+                            <li>Palau</li>
+                            <li>Papua New Guinea</li>
+                            <li>Paraguay</li>
+                            <li>Peru</li>
+                            <li>Poland</li>
+                            <li>Portugal</li>
+                            <li>Qatar</li>
+                            <li>Romania</li>
+                            <li>Russia</li>
+                            <li>Rwanda</li>
+                            <li>Saint Kitts and Nevis</li>
+                            <li>Saint Lucia</li>
+                            <li>Saint Vincent and the Grenadines</li>
+                            <li>Samoa</li>
+                            <li>San Marino</li>
+                            <li>Sao Tome and Principe</li>
+                            <li>Saudi Arabia</li>
+                            <li>Senegal</li>
+                            <li>Serbia</li>
+                            <li>Seychelles</li>
+                            <li>Sierra Leone</li>
+                            <li>Singapore</li>
+                            <li>Slovakia</li>
+                            <li>Slovenia</li>
+                            <li>Solomon Islands</li>
+                            <li>Spain</li>
+                            <li>Sri Lanka</li>
+                            <li>Suriname</li>
+                            <li>Sweden</li>
+                            <li>Switzerland</li>
+                            <li>Taiwan</li>
+                            <li>Tajikistan</li>
+                            <li>Thailand</li>
+                            <li>Togo</li>
+                            <li>Tonga</li>
+                            <li>Trinidad and Tobago</li>
+                            <li>Tunisia</li>
+                            <li>Turkey</li>
+                            <li>Turkmenistan</li>
+                            <li>Tuvalu</li>
+                            <li>Uganda</li>
+                            <li>Ukraine</li>
+                            <li>United Arab Emirates</li>
+                            <li>United Kingdom</li>
+                            <li>United States</li>
+                            <li>Uruguay</li>
+                            <li>Uzbekistan</li>
+                            <li>Vanuatu</li>
+                            <li>Vatican City</li>
+                            <li>Vietnam</li>
+                            <li>Zambia</li>
+                            <li>Zimbabwe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="checkout-info green fc-white">
+                <p class="title">
+                    <strong class="fs-twenty-one t-fs-18 fc-white"> <i class="fa fa-circle-info fc-white float-left mr-right-5" aria-hidden="true"></i>What happens next?</strong>
+                </p>
+                <ul class="fa-ul">
+                    <li class="fs-15 lh-19 list-item-default mr-bot-10">
+                        <span class="fa-li">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
+                        After checkout, you will be asked to enter your new company details and you can select a business bank
+                        account (optional).
+                    </li>
+                    <li class="fs-15 lh-19 list-item-non-residents mr-bot-10" style="display: none;">
+                        <span class="fa-li">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
+                        After checkout, you will be asked to enter your new company details (director and shareholder info).
+                    </li>
+                    <li class="fs-15 lh-19 mr-bot-10">
+                        <span class="fa-li">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
+                        Our staff will then send your new company application to Companies House for approval.
+                    </li>
+                    <li class="fs-15 lh-19">
+                        <span class="fa-li">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
+                        Most companies are registered within 24 hours.
+                    </li>
+                </ul>
+            </div>
+            <div class="checkout-info">
+                <p class="title">
+                    <strong class="fs-twenty-one t-fs-18 fc-dark"> <i class="ft-ico-thumb-up2 fc-green float-left mr-right-5"></i>Money Back Guarantee</strong>
+                </p>
+                <p class="fs-15 lh-19">
+                    If you pay for your order and then decide you do not want to proceed, we will return your
+                    money in full, in accordance with our Terms and Conditions.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+﻿@page
+@model Spendwise_WebApp.Pages.BuyPackage.SelectPackageModel
+@{
+    Layout = null;
+}
+<link href="/css/compare-packages-min.css" rel="stylesheet" />
+
+<section class="compare-packages-hero ltd">
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                <div class="compare-packages-hero__left">
+                    <h1>Compare our company registration packages</h1>
+                    <p> Need help choosing a package? Call our friendly team of experts <br> who will be happy to assist. </p>
+                    <div class="compare-packages-hero__actions">
+                        <span class="compare-packages-hero__tel">
+                            <i class="fa fa-phone-square" aria-hidden="true"></i>
+                            <a href="tel:+442038972233">020 3897 2233</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-lg-5 col-md-12 col-sm-12 col-xs-12 compare-packages-hero__right">
+                <div class="compare-packages-hero__company-name" style="display: none;">
+                    <i class="fa fa-check" aria-hidden="true"></i> <p> Your new company name:<br> <span>CODEPLUS</span> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="compare-packages-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="compare-packages-tabs__tabs">
+                    <ul>
+                        <li data-tab="limited-company" class="compare-packages-tabs__tab active">
+                            <a href="/compare-packages/">Limited Company</a>
+                        </li>
+                        <li data-tab="non-residents" class="compare-packages-tabs__tab">
+                            <a href="/package/non-residents/">Non-Residents</a>
+                        </li>
+                        <li data-tab="llp" class="compare-packages-tabs__tab">
+                            <a href="/package/llp/">LLP</a>
+                        </li>
+                        <li data-tab="guarantee" class="compare-packages-tabs__tab">
+                            <a href="/package/limited-by-guarantee/">Guarantee</a>
+                        </li>
+                        <li data-tab="eseller" class="compare-packages-tabs__tab">
+                            <a href="/package/eseller/">eSeller</a>
+                        </li>
+                        <li data-tab="plc" class="compare-packages-tabs__tab">
+                            <a href="/package/plc/">PLC</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="limited-company-content" class="compare-packages-grid compare-packages-grid--desktop">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="compare-packages-grid__grid">
+                    <div class="compare-packages-grid__header">
+                        <div class="compare-packages-grid__column">&nbsp;</div>
+                        @if (Model.Package != null && Model.Package.Any())
+                        {
+                            @foreach (var item in Model.Package)
+                            {
+                                <div class="compare-packages-grid__column compare-packages-grid__package">
+                                    <h3><a href="/package/digital/">@item.PackageName</a></h3>
+                                    <div class="compare-packages-grid__prices">
+                                        <span class="compare-packages-grid__price">£@item.Price</span>
+                                    </div>
+                                    <div class="compare-packages-grid__buttons">
+                                        <a href="/BuyPackage?packageName=@item.PackageName" class="button1 js-routing button button--secondary">Buy Now</a>
+                                        <a asp-page="/Package" asp-route-packageName="@item.PackageName" class="button button--alt">Read More</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="compare-packages-grid__products">
+                        @if (Model.packageFeatureList != null && Model.packageFeatureList.Any())
+                        {
+                            @foreach (var item in Model.packageFeatureList)
+                            {
+                                <div class="compare-packages-grid__product">
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__product-info">
+                                            <h3>@item.Feature</h3>
+                                        </div>
+                                        <div class="compare-packages-grid__tooltip">
+                                            <span class="infobox-btn"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="compare-packages-grid__footer">
+                        <div class="compare-packages-grid__column">&nbsp;</div>
+                        @if (Model.Package != null && Model.Package.Any())
+                        {
+                            @foreach (var item in Model.Package)
+                            {
+                                <div class="compare-packages-grid__column compare-packages-grid__package">
+                                    <h3><a href="/package/digital/">@item.PackageName</a></h3>
+                                    <div class="compare-packages-grid__prices">
+                                        <span class="compare-packages-grid__price">£@item.Price</span>
+                                    </div>
+                                    <div class="compare-packages-grid__buttons">
+                                        <a href="/BuyPackage?packageName=@item.PackageName" class="button1 js-routing button button--secondary">Buy Now</a>
+                                        <a asp-page="/Package" asp-route-packageName="@item.PackageName" class="button button--alt">Read More</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

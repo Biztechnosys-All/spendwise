@@ -10,10 +10,8 @@
             <div class="site-header__wrap">
                 <div class="row">
                     <div class="col-xs-5 col-sm-5 col-lg-5">
-                        <a class="site-header__logo" href="https://www.1stformations.co.uk">
-                            <img alt="1st Formations Ltd Logo"
-                                 src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/1st-logo-2022-light.png"
-                                 srcset="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/1st-logo-2022-light--retina.png 2x" />
+                        <a class="site-header__logo" href="/">
+                            <img alt="Spendwise" src="/Spenwise_logo.png" />
                         </a>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-lg-7">
@@ -21,6 +19,7 @@
                             <span class="site-header__contact">
                                 <a href="https://support.1stformations.co.uk/hc/en-gb/requests/new" target="_blank"> <i class="fa fa-envelope"></i> Email Us</a>
                                 <a href="tel:02038972233"> <i class="fa fa-phone"></i> 020 3897 2233</a>
+                                <a asp-area="" asp-page="/Admin/Dashboard">Admin</a>
                             </span>
                         </div>
                     </div>
@@ -598,19 +597,15 @@
                                                 List<string> Features = item.PackageFeatures.Split(',').ToList();
                                             }
                                             <ul class="home-packages__items">
-                                                @foreach(var Feature in Features)
+                                                @foreach (var Feature in Features)
                                                 {
                                                     <li>@Feature</li>
                                                 }
-                                                
-                                                @* <li>£50 Companies <br class="visible-desktop visible-tablet" />House Fee Included</li>
-                                                <li>Digital Company Documents</li>
-                                                <li>Confirmation <br class="visible-desktop visible-tablet" />Statement Service</li> *@
                                             </ul>
                                         </div>
                                         <div class="home-packages__buttons">
-                                            <a class="button button--secondary button1 js-routing" href="/name-check-digital-package/">Buy Now</a>
-                                            <a class="button button--alt" href="/package/digital/">Read More</a>
+                                            <a class="button button--secondary" href="/BuyPackage?packageName=@item.PackageName">Buy Now</a>
+                                            <a class="button button--alt" asp-page="/Package" asp-route-packageName="@item.PackageName">Read More</a>
                                         </div>
                                     </div>
                                 }
@@ -1547,8 +1542,8 @@
 
 
 
-<div>
-    @*  @if (Model.companyList != null)
+@* <div>
+     @if (Model.companyList != null)
     {
     <table class="table table-striped">
     <thead>
@@ -1585,7 +1580,7 @@
     }
     </tbody>
     </table>
-    } *@
+    }
 
     @if (Model.Package != null && Model.Package.Any())
     {
@@ -1607,8 +1602,8 @@
                         </div>
                     </div>
                 </div>
-            }
-        </div>
     }
+        </div>
+    }*@
 </div>
 

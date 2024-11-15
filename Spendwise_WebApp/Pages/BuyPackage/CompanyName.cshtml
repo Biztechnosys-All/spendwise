@@ -1,0 +1,78 @@
+﻿@page
+@model Spendwise_WebApp.Pages.BuyPackage.CompanyNameModel
+@{
+    //Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+    Layout = null;
+}
+<div class="col-five namecheck-holer bg-color-white">
+    <style type="text/css">
+        .namecheck-holer .col {
+            width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        button.btn.btn-primary {
+            width: 100%;
+            max-width: 20%;
+            border: 0;
+            margin: 0;
+            float: left;
+            clear: none;
+            background-color: #31a5cb;
+            color: #fff;
+            padding: 5px 10px;
+            font-family: arial, helvetica, sans-serif;
+            font-weight: 300;
+            font-size: 23px;
+            height: 60px;
+            z-index: 1;
+            cursor: pointer;
+            -webkit-appearance: none;
+            box-sizing: border-box;
+            border-radius: 0px;
+        }
+
+        #efNameCheckResult {
+            width: 70%;
+        }
+
+        .efNameCheckResult .custom {
+            padding: 55px 0 0;
+        }
+
+        hr.hr-searchagain {
+            margin-right: 0;
+        }
+        .searchagain .searchagain-title {
+            padding: 2px 0px;
+            margin-right: 0;
+        }
+    </style>
+
+    <div class="col twelve pd-left-0" id="divCopmanySearch">
+        <h2 class="fs-24 fc-grey">You have chosen the <br class="xs-visible m-visible"><span class="fc-blue" id="PackageNameSpan"></span>.<br> Now choose your company name.</h2>
+        <div class="custom ncblock ncinput-wrap lbs1 seven m-twelve col pd-20 pd-left-0 m-pd-left-20">
+            <form method="post" asp-page="CompanyName" data-ajax-complete="firstCompleted">
+                <input class="efInputText" id="company_name" name="name" type="text" placeholder="Enter your new company name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your company name'">
+                <button type="button" class="btn btn-primary" onclick="CheckCompanyName()">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="efNameCheckResult" style="display:none;">
+    <div id="efNameCheckResult_GREEN" class="efNameCheckResult">
+        <div class="custom greencontent">
+            <div class="float-left">
+                <i class="fa fa-check-circle fa-4x fc-green" aria-hidden="true"></i>
+            </div>
+            <p class="box4 fs-thirty-one">
+                <span class="ncgreen-title fc-green" id="spnSearchedCompanyName">CODEPLUS</span>
+                Congratulations, the company name above is available for registration!
+            </p>
+            <div class="btn-savencon">
+                <a href="#" onclick="MoveToNextPackageStep()">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
