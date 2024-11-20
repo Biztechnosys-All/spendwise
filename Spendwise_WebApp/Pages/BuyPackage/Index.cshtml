@@ -76,16 +76,46 @@
 {
     <script>
         $(function () {
-            $.ajax({
-                url: "/BuyPackage/CompanyName",
-                type: "get",
-                success: function (result) {
-                    $(".packageTab").removeClass("active");
-                    $("#PackageTabContent").html(result);
-                    $('a[href="#CompanyName"]').addClass("active");
-                    $("#PackageNameSpan").html($("#hdnSelectedPackage").val().toUpperCase() + " PACKAGE");
-                }
-            })
+            var searchParams = new URLSearchParams(window.location.search);
+            var UrlPrams = searchParams.toString().split('=');
+            if (UrlPrams.length > 1) {
+                $.ajax({
+                    url: "/BuyPackage/CompanyName",
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $('a[href="#CompanyName"]').addClass("active");
+                        $("#PackageNameSpan").html($("#hdnSelectedPackage").val().toUpperCase() + " PACKAGE");
+                    }
+                })
+            }
+            else{
+                $.ajax({
+                    url: "/BuyPackage/SelectPackage",
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $('a[href="#SelectPackage"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $.ajax({
+                            url: "/BuyPackage/limited-company",
+                            type: "get",
+                            success: function (result) {
+                                $("#CompanyTypeBasedPackage").html(result);
+                                // $('a[href="#SelectPackage"]').addClass("active");
+                                $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                                $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                                $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                            }
+                        })
+
+                    }
+                })
+            }
         })
 
         function ShowSelectedTab(TabName) {
@@ -114,6 +144,17 @@
                         $('a[href="#CompanyName"]').addClass("PackTabProcessed");
                         $('a[href="#Checkout"]').removeClass("PackTabProcessed");
                         $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $.ajax({
+                            url: "/BuyPackage/limited-company",
+                            type: "get",
+                            success: function (result) {
+                                $("#CompanyTypeBasedPackage").html(result);
+                                $('a[href="#SelectPackage"]').addClass("active");
+                                $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                                $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                                $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                            }
+                        })
                     }
                 })
             }
@@ -186,5 +227,77 @@
                 })
             }
         }
+
+         function ShowTypeBasedPackage(Type) {
+            if (Type == "limited-company") {
+                $.ajax({
+                    url: "/BuyPackage/limited-company",
+                    type: "get",
+                    success: function (result) {
+                        $("#CompanyTypeBasedPackage").html(result);
+                        // $('a[href="#SelectPackage"]').addClass("active");
+                        $('a[href="#limited-company"]').parent().addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                    }
+                })
+            }
+            else if (Type == "Non-residents") {
+                $.ajax({
+                    url: "/BuyPackage/Non-residents",
+                    type: "get",
+                    success: function (result) {
+                        $("#CompanyTypeBasedPackage").html(result);
+                        // $('a[href="#SelectPackage"]').addClass("active");
+                        $('a[href="#Non-residents"]').parent().addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                    }
+                })
+            }
+            else if (Type == "LLP") {
+                $.ajax({
+                    url: "/BuyPackage/LLP",
+                    type: "get",
+                    success: function (result) {
+                        $("#CompanyTypeBasedPackage").html(result);
+                        $('a[href="#SelectPackage"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                    }
+                })
+            }
+            else if (Type == "Guarantee") {
+                $.ajax({
+                    url: "/BuyPackage/Guarantee",
+                    type: "get",
+                    success: function (result) {
+                        $("#CompanyTypeBasedPackage").html(result);
+                        $('a[href="#SelectPackage"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                    }
+                })
+            }
+            else if (Type == "eSeller") {
+                $.ajax({
+                    url: "/BuyPackage/eSeller",
+                    type: "get",
+                    success: function (result) {
+                        $("#CompanyTypeBasedPackage").html(result);
+                        $('a[href="#SelectPackage"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
+                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                    }
+                })
+            }
+
+        }
+
     </script>
 } 

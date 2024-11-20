@@ -1,0 +1,85 @@
+﻿@page
+@model Spendwise_WebApp.Pages.BuyPackage.limited_companyModel
+@{
+}
+<section id="limited-company-content" class="compare-packages-grid compare-packages-grid--desktop">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="compare-packages-grid__grid">
+                    <div class="compare-packages-grid__header">
+                        <div class="compare-packages-grid__column">&nbsp;</div>
+                        @if (Model.Package != null && Model.Package.Any())
+                        {
+                            @foreach (var item in Model.Package)
+                            {
+                                <div class="compare-packages-grid__column compare-packages-grid__package">
+                                    <h3><a href="/package/digital/">@item.PackageName</a></h3>
+                                    <div class="compare-packages-grid__prices">
+                                        <span class="compare-packages-grid__price">£@item.Price</span>
+                                    </div>
+                                    <div class="compare-packages-grid__buttons">
+                                        <a href="/BuyPackage?packageName=@item.PackageName" class="button1 js-routing button button--secondary">Buy Now</a>
+                                        <a asp-page="/Package" asp-route-packageName="@item.PackageName" class="button button--alt">Read More</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="compare-packages-grid__products">
+                        @if (Model.packageFeatureList != null && Model.packageFeatureList.Any())
+                        {
+                            @foreach (var item in Model.packageFeatureList)
+                            {
+                                <div class="compare-packages-grid__product">
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__product-info">
+                                            <h3>@item.Feature</h3>
+                                        </div>
+                                        <div class="compare-packages-grid__tooltip">
+                                            <span class="infobox-btn"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="compare-packages-grid__column">
+                                        <div class="compare-packages-grid__included"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="compare-packages-grid__footer">
+                        <div class="compare-packages-grid__column">&nbsp;</div>
+                        @if (Model.Package != null && Model.Package.Any())
+                        {
+                            @foreach (var item in Model.Package)
+                            {
+                                <div class="compare-packages-grid__column compare-packages-grid__package">
+                                    <h3><a href="/package/digital/">@item.PackageName</a></h3>
+                                    <div class="compare-packages-grid__prices">
+                                        <span class="compare-packages-grid__price">£@item.Price</span>
+                                    </div>
+                                    <div class="compare-packages-grid__buttons">
+                                        <a href="/BuyPackage?packageName=@item.PackageName" class="button1 js-routing button button--secondary">Buy Now</a>
+                                        <a asp-page="/Package" asp-route-packageName="@item.PackageName" class="button button--alt">Read More</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
