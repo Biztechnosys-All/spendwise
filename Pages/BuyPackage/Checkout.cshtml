@@ -66,1137 +66,209 @@
                             details and our staff will then submit your company for incorporation.
                         </p>
                     </div>
-                    <div class="additional-items additional-items-group additional-items-address-services additional-items-address-services-annually" style="display: none;">
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2047" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Registered Office Service (paid annually)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Protect the privacy of your home with our
-                                    registered office address in Covent Garden, London WC2
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>
-                                                Registered Office Service
-                                                <br>
-                                                Covent Garden, London WC2
-                                            </h3>
-                                            <p>
-                                                The Registered Office will appear on public record as the official address of your company. With
-                                                this service, our prestigious Covent Garden address will appear on public record rather than
-                                                your home address. We will
-                                                then scan and email all statutory company mail to you from a number of official government
-                                                bodies, free of charge.
-                                            </p>
-                                            <p>
-                                                Mail from the following government bodies are covered by this service: Companies House, HMRC,
-                                                Government Gateway, Department for Work &amp; Pensions (DWP), The Pensions Regulator (TPR), Office
-                                                for National Statistics,
-                                                Information Commissioner’s Office (ICO) and Court documents.
-                                            </p>
-                                            <p>
-                                                This service is renewable on a 12 monthly basis at the cost of £39.00 +VAT. Notice will always
-                                                be given in advance of your renewal date and you will be able to cancel the service.
-                                            </p>
-                                            <p>
-                                                <strong>Please note</strong>: The forwarding of official government mail by scan and email is
-                                                free. Mail will be
-                                                forwarded on a daily basis.
-                                            </p>
+                    <div class="additional-items additional-items-group additional-items-address-services additional-items-address-services-annually">
+                        @if (Model.additionalPackageItems != null && Model.additionalPackageItems.Any())
+                        {
+                            foreach (var item in Model.additionalPackageItems.Where(x => x.ItemGroup == "annually"))
+                            {
+                                <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2047">
+                                    <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                        <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">@item.ItemName</p>
+                                        <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                            @item.ItemShortDesc
+                                        </p>
+                                    </div>
+                                    <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                        <span class="checkout-additional-items__item--icon infobox-btn">
+                                            <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                        </span>
+                                        <div class="infobox">
+                                            <div class="infobox__wrapper">
+                                                <a class="infobox__close">×</a>
+                                                <div class="infobox__content">
+                                                    @item.ItemDetail
+                                                </div>
+                                            </div>
                                         </div>
+                                        <span class="fs-15 float-right lh-2l fc-dark">£@item.price</span>
+                                    </div>
+                                    <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                        <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
                                     </div>
                                 </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£39.00</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2046" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Service Address (paid annually)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Protect the privacy of one director, or
-                                    secretary, or shareholder. If you require this service for more than one person, please enter the
-                                    quantity required
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>
-                                                1 x Service Address
-                                                <br>
-                                                Covent Garden, London WC2
-                                            </h3>
-                                            <p>
-                                                All company directors, shareholders who are persons with significant control (PSC), and company
-                                                secretaries, must provide a service address where statutory mail from government bodies such as
-                                                Companies House and HMRC
-                                                can be sent to them personally. This address will appear on public record, so most people prefer
-                                                not to use their home address for this purpose.
-                                            </p>
-                                            <p>
-                                                With this facility, our London Service Address will show on the public record than your home
-                                                address. This service includes the scanning and emailing of mail addressed to a company officer
-                                                from all UK government
-                                                bodies, as well as Court documents, free of charge.
-                                            </p>
-                                            <p>
-                                                This item provides a service address for 1 person and is renewable on a 12 month basis at a cost
-                                                of £26.00 +VAT. Notice will always be given in advance of your renewal date and you will be able
-                                                to cancel the service.
-                                            </p>
-                                            <p>
-                                                <strong>Please note</strong>: Forwarding of service address mail by scan and email is free of
-                                                charge. Mail will
-                                                be forwarded on a daily basis.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input class="addQuantity" id="optional_quantity_2046" value="1">
-                                <span class="fs-15 float-right lh-2l fc-dark">£26.00</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="10698" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Business Address Service (paid annually)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Enhance the corporate image of your company
-                                    with a Covent Garden, London, WC2 business / trading address
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>London Business Address Service</h3>
-                                            <h4>Covent Garden, London WC2</h4>
-                                            <p>
-                                                1st Formations' London Business Address Service allows you to use our prestigious Covent Garden
-                                                address for your day-to-day business correspondence.
-                                            </p>
-                                            <p>
-                                                A business address in the heart of London’s West End is an excellent way to enhance the
-                                                corporate image of your company and establish a business presence in an important area.
-                                            </p>
-                                            <p>
-                                                All mail addressed to your company will be forwarded to you by scan and email on the same day
-                                                we receive it.
-                                            </p>
-                                            <p>
-                                                This service is renewable on a 12 monthly basis at the cost of £96.00 + VAT. Notice will always
-                                                be given in advance of your renewal date and you will be able to cancel the service.
-                                            </p>
-                                            <p><strong>Mail Delivery</strong><br>Mail forwarded by scan and email costs 50p per item.</p>
-                                            <p>
-                                                Any items of value that cannot be sent by scan and email, will be forwarded by post. All postal
-                                                forwarding will be charged at Royal Mail postal rates plus 15%.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£96.00</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                     <div class="additional-items additional-items-group additional-items-address-services additional-items-address-services-monthly">
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="22183">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Registered Office Service (paid monthly)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Protect the privacy of your home with our
-                                    registered <br> office address in Covent Garden, London
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Registered Office Service <br>Covent Garden, London WC2</h3>
-                                            <p>
-                                                The Registered Office will appear on public record as the official address of your company.
-                                                With this service, our prestigious Covent Garden address will appear on public record rather
-                                                than your home address.
-                                            </p>
-                                            <p>
-                                                We will scan and email all statutory company mail to you from all UK government agencies, as
-                                                well as Court documents, free of charge.
-                                            </p>
-                                            <p>This service is renewable on a monthly basis at the cost of £3.99 +VAT.</p>
-                                            <p>
-                                                <strong>Please note</strong>: The forwarding of official government mail by scan and email is
-                                                free. Mail will be
-                                                forwarded daily.
-                                            </p>
+                        @if (Model.additionalPackageItems != null && Model.additionalPackageItems.Any())
+                        {
+                            foreach (var item in Model.additionalPackageItems.Where(x => x.ItemGroup == "monthly"))
+                            {
+                                <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="22183">
+                                    <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                        <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">@item.ItemName</p>
+                                        <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                            @item.ItemShortDesc
+                                        </p>
+                                    </div>
+                                    <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                        <span class="checkout-additional-items__item--icon infobox-btn">
+                                            <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                        </span>
+                                        <div class="infobox">
+                                            <div class="infobox__wrapper">
+                                                <a class="infobox__close">×</a>
+                                                <div class="infobox__content">
+                                                    @item.ItemDetail
+                                                </div>
+                                            </div>
                                         </div>
+                                        <span class="fs-15 float-right lh-2l fc-dark">£@item.price</span>
+                                    </div>
+                                    <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                        <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
                                     </div>
                                 </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£3.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="22185">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Service Address (paid monthly)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Protect the privacy of one director, or
-                                    secretary, or <br> shareholder. If you require this service for more than one <br> person, please
-                                    enter the quantity required
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>1 x Service Address <br>Covent Garden, London WC2</h3>
-                                            <p>
-                                                All company directors, shareholders who are persons with significant control (PSC), and company
-                                                secretaries, must provide a service address where statutory mail from government agencies such
-                                                as Companies House and HMRC can be sent to them personally. This address will appear on public
-                                                record, so most people prefer not to use their home address for this purpose.
-                                            </p>
-                                            <p>
-                                                With this facility, our London Service Address will show on the public record than your home
-                                                address. This service includes the scanning and emailing of mail addressed to a company officer
-                                                from all UK government agencies, as well as Court documents, free of charge.
-                                            </p>
-                                            <p>
-                                                This item provides a service address for 1 person and is renewable on a monthly basis at a cost
-                                                of £2.99 +VAT.
-                                            </p>
-                                            <p>
-                                                <strong>Please note</strong>: Forwarding of service address mail by scan and email is free of
-                                                charge. Mail will
-                                                be forwarded on a daily basis.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input class="addQuantity" id="optional_quantity_22185" value="1">
-                                <span class="fs-15 float-right lh-2l fc-dark">£2.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="22188">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Business Address Service (paid monthly)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Enhance the corporate image of your company
-                                    with a <br> Covent Garden, London, business / trading address
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>London Business Address <br>Covent Garden, London WC2</h3>
-                                            <p>
-                                                1st Formations' London Business Address Service allows you to use our prestigious Covent Garden
-                                                address for your day-to-day business correspondence.
-                                            </p>
-                                            <p>
-                                                A business address in the heart of London’s West End is an excellent way to enhance the
-                                                corporate image of your company and establish a business presence in an important area.
-                                            </p>
-                                            <p>
-                                                All mail addressed to your company will be forwarded to you by scan and email on the same day
-                                                we receive it.
-                                            </p>
-                                            <p>This service is renewable on a monthly basis at the cost of £6.99 +VAT.</p>
-                                            <p><strong>Mail Delivery</strong><br>Mail forwarded by scan and email costs 50p per item.</p>
-                                            <p>
-                                                Any items of value that cannot be sent by scan and email, will be forwarded by post. All postal
-                                                forwarding will be charged at Royal Mail postal rates plus 15%.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£6.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                     <!-- SEPARATE BLOCK FOR LLP ADDRESS SERVICES -->
                     <div class="additional-items additional-items-group additional-items-llp-address-services" style="display: none;">
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2047" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Registered Office Service (paid annually)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Protect the privacy of your home with our
-                                    registered office address in Covent Garden, London WC2
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>
-                                                Registered Office Service
-                                                <br>
-                                                Covent Garden, London WC2
-                                            </h3>
-                                            <p>
-                                                The Registered Office will appear on public record as the official address of your LLP. With
-                                                this service, our prestigious Covent Garden address will appear on public record rather than
-                                                your home address. We will
-                                                then forward all official mail from governing agencies, such as Companies House and HMRC. to a
-                                                correspondence address of your choice, free of charge.
-                                            </p>
-                                            <p>
-                                                This service is renewable on a 12-monthly basis at the cost of £39.00 +VAT. Notice will always
-                                                be given in advance of your renewal date and you will be able to cancel the service.
-                                            </p>
-                                            <p>
-                                                Please note: The forwarding of official government mail within the UK is free. Mail forwarding
-                                                of official mail outside the UK will be charged at Royal Mail postal rates plus 15%. Mail will
-                                                be forwarded daily.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£39.00</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
+                        @* <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2047" style="display: none;">
+                        <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                        <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Registered Office Service (paid annually)</p>
+                        <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                        Protect the privacy of your home with our
+                        registered office address in Covent Garden, London WC2
+                        </p>
                         </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2046" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Service Address (paid annually)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Protect the privacy of a partner of your
-                                    LLP. If you require this service for more than one partner, please enter the quantity required
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>
-                                                1 x Service Address
-                                                <br>
-                                                Covent Garden, London WC2
-                                            </h3>
-                                            <p>
-                                                All LLP members must provide a service address where official government mail from Companies
-                                                House, HMRC and other governing agencies, can be sent to them personally. This address will
-                                                appear on public record, so
-                                                most people prefer not to use their home address for this purpose.
-                                            </p>
-                                            <p>
-                                                With this facility, our London Service Address will show on the public record rather than your
-                                                home address. This service includes the forwarding of all official government mail addressed to
-                                                a company officer (from
-                                                HMRC, Companies House and other governing agencies) for no additional cost.
-                                            </p>
-                                            <p>
-                                                12-monthly basis at a cost of £26.00 +VAT. Notice will always be given in advance of your
-                                                renewal date and you will be able to cancel the service.
-                                            </p>
-                                            <p>
-                                                Please note: Forwarding of official government mail within the UK is free of charge. Forwarding
-                                                mail outside the UK will be charged at Royal Mail postal rates plus 15%.Mail will be forwarded
-                                                daily.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£26.00</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
+                        <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                        <span class="checkout-additional-items__item--icon infobox-btn">
+                        <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                        </span>
+                        <div class="infobox">
+                        <div class="infobox__wrapper">
+                        <a class="infobox__close">×</a>
+                        <div class="infobox__content">
+                        <h3>
+                        Registered Office Service
+                        <br>
+                        Covent Garden, London WC2
+                        </h3>
+                        <p>
+                        The Registered Office will appear on public record as the official address of your LLP. With
+                        this service, our prestigious Covent Garden address will appear on public record rather than
+                        your home address. We will
+                        then forward all official mail from governing agencies, such as Companies House and HMRC. to a
+                        correspondence address of your choice, free of charge.
+                        </p>
+                        <p>
+                        This service is renewable on a 12-monthly basis at the cost of £39.00 +VAT. Notice will always
+                        be given in advance of your renewal date and you will be able to cancel the service.
+                        </p>
+                        <p>
+                        Please note: The forwarding of official government mail within the UK is free. Mail forwarding
+                        of official mail outside the UK will be charged at Royal Mail postal rates plus 15%. Mail will
+                        be forwarded daily.
+                        </p>
                         </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="10698" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Business Address Service (paid annually)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Enhance the corporate image of your LLP
-                                    with a Covent Garden, London, WC2 business / trading address
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>London Business Address Service</h3>
-                                            <p>
-                                                1st Formations' London Business Address Service allows you to use our prestigious Covent Garden
-                                                address for your day-to-day business correspondence.
-                                            </p>
-                                            <p>
-                                                A business address in the heart of London’s West End is an excellent way to enhance the
-                                                corporate image of your company and establish a business presence in an important commercial
-                                                area.
-                                            </p>
-                                            <p>
-                                                All mail addressed to your company will be forwarded to you at an address of your choice by
-                                                first class post, daily
-                                            </p>
-                                            <p>This service is renewable on a 12-monthly basis at the cost of £96.00 +VAT.</p>
-                                            <p>
-                                                Please note: The forwarding of mail to you is not included. All mail forwarding will be charged
-                                                at Royal Mail postal rates plus 15%.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£96.00</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
                         </div>
+                        </div>
+                        <span class="fs-15 float-right lh-2l fc-dark">£39.00</span>
+                        </div>
+                        <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                        <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                        </div>
+                        </div> *@
+
                     </div>
                     <div class="additional-items additional-items-group additional-items-group-finance">
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2052">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Guaranteed Same-Day Service</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Guarantee your company is incorporated today.<br>
-                                    (We must receive your order before 3pm.)
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Guaranteed Same-Day Service</h3>
-                                            <p>
-                                                Guarantee your company is incorporated today. 1st Formations process most applications within
-                                                the advertised 3 to 6 working hours; however, due to Companies House workloads, there is no
-                                                certainty this can always be
-                                                achieved.
-                                            </p>
-                                            <p>
-                                                If it is of the utmost importance your company is registered today, you can take advantage of
-                                                Companies House’s express service, which fast tracks applications and guarantees registration
-                                                before the close of business
-                                                today.
-                                            </p>
-                                            <p>
-                                                <strong>Please note:</strong>
-                                                We must receive your order and Proof of ID (if required) no later than 3pm (Monday to Friday).
-                                                Should we not receive all required information by this time, we will not be able to provide the
-                                                same-day service, and you
-                                                will receive a refund for this service.
-                                            </p>
+                        @if (Model.additionalPackageItems != null && Model.additionalPackageItems.Any())
+                        {
+                            foreach (var item in Model.additionalPackageItems.Where(x => x.ItemGroup == "finance"))
+                            {
+
+                                <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2052">
+                                    <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                                        <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">@item.ItemName</p>
+                                        <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                                            @item.ItemShortDesc
+                                        </p>
+                                    </div>
+                                    <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                                        <span class="checkout-additional-items__item--icon infobox-btn">
+                                            <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                        </span>
+                                        <div class="infobox">
+                                            <div class="infobox__wrapper">
+                                                <a class="infobox__close">×</a>
+                                                <div class="infobox__content">
+                                                    @item.ItemDetail
+                                                </div>
+                                            </div>
                                         </div>
+                                        <span class="fs-15 float-right lh-2l fc-dark">£@item.price</span>
+                                    </div>
+                                    <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                                        <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
                                     </div>
                                 </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£39.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13529">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">12-month Cancellation Protection</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    If you decide your company is no longer required,
-                                    <br class="d-visible">
-                                    we will close it – normally priced at £89.99
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>12-month Cancellation Protection</h3>
-                                            <p>Save money and time by purchasing our cancellation protection.</p>
-                                            <p>
-                                                If you change your mind and decide you no longer need your company, within the first 12 months
-                                                of forming it, we will close the company for you.
-                                            </p>
-                                            <p>
-                                                Our Company Dissolution Service normally costs £89.99 and so, by purchasing this product you
-                                                will save £55.00.
-                                            </p>
-                                            <p>
-                                                This product includes the Companies House fee of £33.00, completion and filing of the DS01 form
-                                                (the application to strike off a company), Board Resolution to approve the dissolution, and
-                                                continued use of our
-                                                Registered Office and Service Address until your company is closed down.
-                                            </p>
-                                            <p>
-                                                Please note: You must claim your cancellation protection within 12 months of the date of
-                                                incorporation of your company. This product expires after 12 months and cannot be renewed.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£34.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="16458" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Confirmation Statement</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Prepared and filed at Companies House - never
-                                    <br>
-                                    miss another confirmation statement deadline.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Confirmation Statement</h3>
-                                            <p>
-                                                It is a legal requirement for every limited company to submit a Confirmation Statement to
-                                                Companies House, informing them of any changes to company details.
-                                            </p>
-                                            <p>
-                                                Our highly trained staff will prepare your Confirmation Statement, and file it with Companies
-                                                House before the deadline, ensuring it is completed on time and with complete accuracy.
-                                            </p>
-                                            <p>
-                                                This service is renewable every 12 months for £59.99 (which includes the £34.00 Companies House
-                                                filing fee). Notice will always be given in advance of your renewal date, and you will be able
-                                                to cancel the service.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£59.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2054" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Company Seal</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Emboss all official paperwork with your company name and registration number. Including FREE worldwide
-                                    delivery by International Tracked and Signed mail service.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Company Seal</h3>
-                                            <p>
-                                                With our customised Company Seal you can emboss all official paperwork with your company name
-                                                and registration number. The company seal is a hand plier design and comes complete with its own
-                                                protective wallet.
-                                            </p>
-                                            <p>
-                                                All company seals are unique to each company and therefore are custom-made. Please allow 5 to 10
-                                                days for manufacture and delivery within the UK. Orders for customers outside the UK can take
-                                                longer dependent on
-                                                location.
-                                            </p>
-                                            <p>
-                                                <strong>Delivery:</strong>This service includes FREE worldwide delivery of the company seal by
-                                                International Tracked and Signed mail service.
-                                            </p>
-                                            <br>
-                                            <p><img src="https://cdnnetwork.s3.amazonaws.com/images/system/emboss.jpg" alt="Company Seal" width="300" height="100"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£34.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div data-id="16477" class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Full Company Secretary Service (paid annually)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    This service includes 15 company changes per year, a dedicated account manager, filing of your annual
-                                    confirmation statement, and monthly solicitor-written guidance notes.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Full Company Secretary Service</h3>
-                                            <p>
-                                                Our Full Company Secretary Service is our premium service, providing 15 company changes per
-                                                year to ensure your company stays compliant, and much more.
-                                            </p>
-                                            <p>
-                                                <strong>What's included?</strong>
-                                            </p>
-                                            <ul class="fa-ul pd-bot-15-imp">
-                                                <li>
-                                                    Up to fifteen changes to your company per year, including director appointments, share
-                                                    transfers and share allotments free of charge (additional transactions thereafter are charged
-                                                    at our standard rates).
-                                                </li>
-                                                <li>
-                                                    Preparation and filing of your annual Confirmation Statement, including the Companies House
-                                                    filing fee of £34.00.
-                                                </li>
-                                                <li>
-                                                    Preparation, maintenance and storage of your five company registers (including the statutory
-                                                    Register of Members, as required by the Companies Act 2006).
-                                                </li>
-                                                <li>
-                                                    Exclusive solicitor-written guidance notes covering key topics and processes you need to be
-                                                    aware of when running a company (such as the directors' duties and entering into contracts).
-                                                </li>
-                                                <li>
-                                                    A dedicated account manager, who is an experienced company secretarial professional, on hand
-                                                    to answer your questions and process your instructions.
-                                                </li>
-                                            </ul>
-                                            <p>
-                                                <strong>Renewal Cost</strong>
-                                            </p>
-                                            <p>
-                                                Our Full Company Secretary Service is renewable on an annual basis at the cost of £149.99.
-                                                Notice will always be given in advance of your renewal date and you will have the right to
-                                                cancel the service.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-14 float-right lh-2l fc-black xs-float-left xs-pd-left-45">£149.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input type="button" value="Add" class="add-product float-right ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="6986" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">GDPR Compliance Package</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Save money on legal fees with our GDPR
-                                    Compliance Package, including all documents and templates
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>GDPR Compliance Package</h3>
-                                            <p>
-                                                This valuable package provides all the guidance and templates your company needs to quickly and
-                                                inexpensively become fully GDPR compliant.
-                                            </p>
-                                            <p>
-                                                In May 2018, the UK introduced new legislation based on the EU’s General Data Protection
-                                                Regulation (GDPR), governing how companies collect, process and store data. GDPR significantly
-                                                increases the responsibilities
-                                                all companies have when it comes to handling customer and employee data. Breaches of GDPR can
-                                                lead to very large fines.
-                                            </p>
-                                            <p>
-                                                Avoid hours of research and fines by using our GDPR guidance and template documents contained
-                                                within this comprehensive package.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£39.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2554" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Apostilled Document Service</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Legalise a document – popular with
-                                    non-UK residents
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>
-                                                Apostilled Document Service <span class="right-title-annotation">
-                                                    Cost per document: £99.99
-                                                    +VAT
-                                                </span>
-                                            </h3>
-                                            <p>
-                                                If you are a non-UK resident opening a UK limited company, you may need your company documents
-                                                legalised before they can be used overseas for certain purposes, such as opening a business bank
-                                                account. An Apostille
-                                                Certificate is a form of authentication which can be attached to official UK documents to allow
-                                                their use in other countries.
-                                            </p>
-                                            <p>
-                                                This official authentication will ensure the documents are verified for use in all countries
-                                                which are party to the 1961 Hague Convention.
-                                            </p>
-                                            <p>
-                                                Our Apostille service can be used to legalise various company documents, including your
-                                                Certificate of Incorporation, Memorandum &amp; Articles of Association and Share Certificates.
-                                                You may also specify additional
-                                                documents, as required, during the ordering process. Documents which are not filed at Companies
-                                                House, or existing signed documents, will need to be provided by you.
-                                            </p>
-                                            <p>Please note: Documents can take up to 14 days to be certified.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input class="addQuantity" id="optional_quantity_2554" value="1">
-                                <span class="fs-15 float-right lh-2l fc-dark">£99.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13532" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Apostilled Documents Bundle</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Legalise 3 documents and save £30.00 <br>
-                                    on the normal price of £299.97.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Apostilled Documents Bundle</h3>
-                                            <h4>Cost per bundle (3 documents): £269.99 + VAT</h4>
-                                            <p>
-                                                Legalise 3 apostilled documents and save £30.00 on the normal price of £299.99 (based on our
-                                                usual cost of £99.99 per document).
-                                            </p>
-                                            <p>
-                                                If you are a non-UK resident opening a UK limited company, you may need your company documents
-                                                legalised before they can be used overseas for certain purposes, such as opening a business bank
-                                                account. An Apostille
-                                                Certificate is a form of authentication which can be attached to official UK documents to allow
-                                                their use in other countries.
-                                            </p>
-                                            <p>
-                                                This official authentication will ensure the documents are verified for use in all countries
-                                                which are party to the 1961 Hague Convention.
-                                            </p>
-                                            <p>
-                                                Our Apostille service can be used to legalise various company documents, including your
-                                                Certificate of Incorporation, Memorandum &amp; Articles of Association and Share Certificates. You
-                                                may also specify additional
-                                                documents, as required, during the ordering process. Documents which are not filed at Companies
-                                                House, or existing signed documents, will need to be provided by you.
-                                            </p>
-                                            <p>Please note: Documents can take up to 14 days to be certified.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£269.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2048">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">VAT Registration</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Let us process your VAT registration on
-                                    your behalf
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>VAT Registration</h3>
-                                            <p>
-                                                If you need or want to have your company registered for VAT, we will take care of the
-                                                formalities and process the application on your behalf.
-                                            </p>
-                                            <p>Companies register for VAT due to the following reasons:</p>
-                                            <ul class="fa-ul pd-bot-15-imp">
-                                                <li>
-                                                    Turnover is expected to exceed £90,000 in the next 12 months. It is therefore a legal
-                                                    requirement to register for VAT, unless the supplies are exempt.
-                                                </li>
-                                                <li>
-                                                    If turnover is expected to be less than £90,000 but the company wants to register
-                                                    voluntarily.
-                                                </li>
-                                            </ul>
-                                            <p>
-                                                <strong>The VAT registration process explained</strong>
-                                            </p>
-                                            <p>
-                                                As soon as your company is incorporated, we will send you a questionnaire by email, asking for
-                                                some additional information necessary to complete your VAT registration application with HMRC.
-                                            </p>
-                                            <p>
-                                                We will then apply for your VAT registration online. The timeline for the approval of new VAT
-                                                registrations is subject to the information received and HMRC's workload, which can vary
-                                                significantly.
-                                            </p>
-                                            <p>
-                                                Once your VAT registration has been approved, we will send your VAT Registration Number to you
-                                                by email. Your VAT Registration Certificate will be sent to you by post by HMRC.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£39.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2049" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">PAYE Registration</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Let us process your PAYE registration on
-                                    your behalf
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>PAYE Registration</h3>
-                                            <p>
-                                                If there are any employees or directors who will be taking a salary from your company, it is a
-                                                legal requirement to register your company for PAYE with HMRC. Failure to register for PAYE
-                                                promptly can result in
-                                                penalties.
-                                            </p>
-                                            <p>
-                                                Avoid potential complications by allowing our highly trained staff to take care of the
-                                                registration on your behalf.
-                                            </p>
-                                            <p>
-                                                <strong>The PAYE registration process explained</strong>
-                                            </p>
-                                            <p>
-                                                As soon as your company is incorporated, we will send you a questionnaire by email, asking for
-                                                some additional information necessary to complete your PAYE registration application with HMRC.
-                                            </p>
-                                            <p>
-                                                We will then apply for your PAYE registration online. This process normally takes around 3
-                                                weeks, and all of your PAYE information will be sent to you by post directly from HMRC.
-                                            </p>
-                                            <p>
-                                                If your first payday is less than 3 weeks away, do not be concerned. You should process your
-                                                salary or salaries on the date of your first payday, and complete your registration information
-                                                from HMRC. If your first
-                                                filing is late, HMRC will take into account the timing of your registration so there should be
-                                                no issues arising from this filing.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£24.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="19493">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">ICO Registration Service</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    The vast majority of companies must
-                                    register with the ICO by law. Avoid fines by letting us register your company.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>ICO Registration Service</h3>
-                                            <p>Allow our highly trained staff to handle the formalities of your ICO registration.</p>
-                                            <p>
-                                                The vast majority of UK companies have to register with the Information Commissioner’s Office
-                                                (ICO) once per year for data protection purposes, except for a very small number who are exempt.
-                                            </p>
-                                            <p>You should ensure your company is registered with the ICO because:</p>
-                                            <ul class="fa-ul pd-bot-15-imp">
-                                                <li>Companies which are not registered with the ICO can be fined up to £4,000</li>
-                                                <li>
-                                                    Your company will be listed on the public register of fee payers, enhancing its corporate
-                                                    image
-                                                </li>
-                                                <li>
-                                                    You can publish your ICO Registration Number on your website, showing you take data
-                                                    protection seriously
-                                                </li>
-                                            </ul>
-                                            <p>
-                                                <strong>The ICO registration process explained</strong>
-                                            </p>
-                                            <p>
-                                                Once you have ordered, we will send you a questionnaire by email, asking for some additional
-                                                information necessary to complete your ICO registration.
-                                            </p>
-                                            <p>We will then apply for your ICO registration online. This process can take up to 10 days.</p>
-                                            <p>
-                                                Once your ICO registration has been approved, we will send your ICO Registration Number and ICO
-                                                Registration Certificate to you by email.
-                                            </p>
-                                            <p>This Service includes the £40.00 registration fee payable to the ICO.</p>
-                                            <p>Your service will automatically renew every 12 months at a cost of £79.99 plus VAT.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£79.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
+                            }
+                        }
+
                     </div>
                     <div class="additional-items additional-items-group additional-items-group-bustel">
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13588">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Telephone Answering (pay monthly)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    All calls answered in your company name.
-                                    <br>Includes a free business telephone number and <br>20 receptionist minutes per month.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Telephone Answering (pay monthly)</h3>
-                                            <p>
-                                                We are pleased to offer telephone answering through our sister company, Bizik, a leading UK
-                                                business support provider.
-                                            </p>
-                                            <p>
-                                                A dedicated team of receptionists will be assigned to answer your business calls between 8.30
-                                                am and 5.30 pm, just like your in-house team. This service includes a free business telephone
-                                                number.
-                                            </p>
-                                            <p>
-                                                Get started with the Biz Starter plan, which includes 20 receptionist minutes at £29.99 + VAT.
-                                                Any additional minutes used are charged at £1.50 per minute.
-                                            </p>
-                                            <p><strong>How it works</strong></p>
-                                            <p>
-                                                The Bizik Team will contact you within 1 working day of your company being formed to arrange
-                                                the set-up of your Telephone Answering Service.
-                                            </p>
-                                            <p><strong>Key features</strong></p>
-                                            <ul class="fa-ul pd-bot-15-imp">
-                                                <li>Bespoke call handling</li>
-                                                <li>Professional people</li>
-                                                <li>Diary management</li>
-                                                <li>Online portal with reporting</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£29.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
+                        @*  <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13588">
+                        <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
+                        <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Telephone Answering (pay monthly)</p>
+                        <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
+                        All calls answered in your company name.
+                        <br>Includes a free business telephone number and <br>20 receptionist minutes per month.
+                        </p>
                         </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="4750">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Business Telephone Number (pay monthly)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Your own 020 London or regional landline
-                                    number. <br>£9.99 per month.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Business Telephone Number (pay monthly)</h3>
-                                            <p>
-                                                Make your business appear more established with a dedicated business telephone number from
-                                                £9.99 per month, provided by our sister company Bizik, a leading UK telephone services provider.
-                                            </p>
-                                            <p>
-                                                Bizik will provide you with your own unique London or regional landline telephone number, and
-                                                forward calls to any number of your choice. Call forwarding will be charged at BT Standard
-                                                Rates.
-                                            </p>
-                                            <p><strong>How it works</strong></p>
-                                            <p>
-                                                The Bizik Team will contact you within 1 working day of your company being formed to arrange
-                                                the set-up of your business telephone number.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£9.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
+                        <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
+                        <span class="checkout-additional-items__item--icon infobox-btn">
+                        <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                        </span>
+                        <div class="infobox">
+                        <div class="infobox__wrapper">
+                        <a class="infobox__close">×</a>
+                        <div class="infobox__content">
+                        <h3>Telephone Answering (pay monthly)</h3>
+                        <p>
+                        We are pleased to offer telephone answering through our sister company, Bizik, a leading UK
+                        business support provider.
+                        </p>
+                        <p>
+                        A dedicated team of receptionists will be assigned to answer your business calls between 8.30
+                        am and 5.30 pm, just like your in-house team. This service includes a free business telephone
+                        number.
+                        </p>
+                        <p>
+                        Get started with the Biz Starter plan, which includes 20 receptionist minutes at £29.99 + VAT.
+                        Any additional minutes used are charged at £1.50 per minute.
+                        </p>
+                        <p><strong>How it works</strong></p>
+                        <p>
+                        The Bizik Team will contact you within 1 working day of your company being formed to arrange
+                        the set-up of your Telephone Answering Service.
+                        </p>
+                        <p><strong>Key features</strong></p>
+                        <ul class="fa-ul pd-bot-15-imp">
+                        <li>Bespoke call handling</li>
+                        <li>Professional people</li>
+                        <li>Diary management</li>
+                        <li>Online portal with reporting</li>
+                        </ul>
                         </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="22313">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Managed Live Chat (pay monthly)</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Live chats conducted by UK agents on behalf
-                                    of <br>your company. Includes fully branded live chat <br>software and 15 chats answered per
-                                    month.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Managed Live Chat (pay monthly)</h3>
-                                            <p>
-                                                We are pleased to offer managed live chat through our sister company, Bizik, a leading UK
-                                                managed live chat provider.
-                                            </p>
-                                            <p>
-                                                Bizik will provide live chat functionality for your website, and work alongside you to build an
-                                                extensive knowledge base of your business, so that their friendly UK-based agents can conduct
-                                                live chats on your behalf.
-                                            </p>
-                                            <p>
-                                                Get started with the Chat 15 plan, which includes 15 chats answered and fully branded software
-                                                at £54.99 +VAT per month.Any additional chats answered are charged at £3.70 per chat.
-                                            </p>
-                                            <p><strong>How it works</strong></p>
-                                            <p>
-                                                The Bizik Team will contact you within 1 working day of your company being formed to arrange
-                                                the set-up of your Managed Live Chat Service.
-                                            </p>
-                                            <p><strong>Key features</strong></p>
-                                            <ul class="fa-ul pd-bot-15-imp">
-                                                <li>Real human conversations</li>
-                                                <li>Personalised live chat widget</li>
-                                                <li>Full live chat transcripts</li>
-                                                <li>Online portal with reporting</li>
-                                                <li>Lead capture</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£54.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
                         </div>
+                        </div>
+                        <span class="fs-15 float-right lh-2l fc-dark">£29.99</span>
+                        </div>
+                        <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
+                        <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
+                        </div>
+                        </div> *@
                     </div>
                     <div class="additional-items additional-items-group">
                         <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="20820">

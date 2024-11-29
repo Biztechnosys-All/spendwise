@@ -1,0 +1,66 @@
+﻿@page
+@model Spendwise_WebApp.Pages.Admin.AdditionalPackageItems.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+<div style="padding:1.5%;">
+    <h1>Additional Package Items</h1>
+
+    <p style="padding:1%;text-align:right">
+        <a asp-page="Create" class="btn btn-dark">Create New</a>
+    </p>
+    <table class=" table table-bordered table-hover dataTable dtr-inline">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.additionalPackageItem[0].ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.additionalPackageItem[0].PackageName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.additionalPackageItem[0].ItemGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.additionalPackageItem[0].price)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.additionalPackageItem != null && Model.additionalPackageItem.Any())
+            {
+                @foreach (var item in Model.additionalPackageItem)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PackageName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemGroup)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.price)
+                        </td>
+                        <td width="15%">
+                            <a asp-page="./Edit" asp-route-id="@item.AdditionalPackageItemId" class="btn btn-dark">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.AdditionalPackageItemId" class="btn btn-dark">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.AdditionalPackageItemId" class="btn btn-dark">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">No package items are avalible</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

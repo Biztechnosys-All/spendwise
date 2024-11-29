@@ -65,6 +65,12 @@
                                 <p>Packages</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/Admin/AdditionalPackageItems/Index" class="nav-link">
+                                <i class="nav-icon bi bi-circle-fill"></i>
+                                <p>Additional Package Items</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -88,6 +94,7 @@
             //Initialize Select2 Elements
             $('.select2').select2()
             $("#Package_Description").summernote()
+            $("#additionalPackageItem_ItemDetail").summernote()
         });
 
         const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";

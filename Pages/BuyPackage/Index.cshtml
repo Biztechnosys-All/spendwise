@@ -201,7 +201,7 @@
             var UrlPrams = searchParams.toString().split('=');
             if (UrlPrams[1] != "") {
                 $.ajax({
-                    url: "/BuyPackage/Checkout",
+                    url: "/BuyPackage/Checkout?packageName=" + $("#hdnSelectedPackage").val(),
                     type: "get",
                     success: function (result) {
                         $(".packageTab").removeClass("active");
