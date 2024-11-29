@@ -15,6 +15,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         }
 
         public Package SelectedPackage { get; set; }
+        public List<AdditionalPackageItem> additionalPackageItems { get; set; }
 
         public async Task OnGet(string packageName)
         {
@@ -22,6 +23,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             {
                 SelectedPackage = await _context.packages.Where(x => x.PackageName.ToLower() == packageName.ToLower()).FirstOrDefaultAsync();
 
+                additionalPackageItems = await _context.AdditionalPackageItems.Where(x=>x.PackageName == SelectedPackage.PackageName).ToListAsync();
 
             }
         }

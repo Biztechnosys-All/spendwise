@@ -1,0 +1,56 @@
+﻿@page
+@model Spendwise_WebApp.Pages.Admin.AdditionalPackageItems.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+
+<div style="padding:1.5%;">
+    <h3>Details</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.additionalPackageItem.ItemName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.additionalPackageItem.ItemName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.additionalPackageItem.ItemShortDesc)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.additionalPackageItem.ItemShortDesc)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.additionalPackageItem.ItemDetail)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.Raw(Model.additionalPackageItem.ItemDetail)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.additionalPackageItem.price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.additionalPackageItem.price)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.additionalPackageItem.PackageName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.additionalPackageItem.PackageName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.additionalPackageItem.ItemGroup)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.additionalPackageItem.ItemGroup)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-page="./Edit" asp-route-id="@Model.additionalPackageItem.AdditionalPackageItemId" class="btn btn-dark">Edit</a> |
+        <a asp-page="./Index" class="btn btn-dark">Back to List</a>
+    </div>
+</div>
