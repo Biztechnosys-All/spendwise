@@ -327,7 +327,12 @@
                 height: 100%;
                 object-fit: cover;
             }
-
+            @@media (min-width: 48em) {
+            .banking-cards__grid {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 1em 0;
+    }
+}
         </style>
 
         <section class="banking-cards">
