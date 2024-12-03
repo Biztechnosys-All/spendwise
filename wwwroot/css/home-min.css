@@ -1,14 +1,15 @@
 @charset "UTF-8";
 :root {
-  --font-family-body: Arial, Helvetica, sans-serif;
-  --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
-  --primary: #676767; 
-  --color-green: #62a43f;
-  --color-blue: #208bae;
-  --color-white: #ffffff;
-  --color-black: #000000;
-  --color-gray: #4c4e52;
-  --color-yellow: #fcbe18;
+    --font-family-body: Arial, Helvetica, sans-serif;
+    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
+    --primary: #676767;
+    --color-green: #5fc371;
+    --color-green-one: #5fc371;
+    --color-blue: #208bae;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #4c4e52;
+    --color-yellow: #ffe400;
 }
 body {
   color: var(--primary);
@@ -572,13 +573,17 @@ body {
 .box--bank__logos a:last-child img {
   height: 25px;
 }
+.button.button--home-search {
+    border-radius:0px !important;
+}
 .button {
-  -webkit-transition: background 0.3s ease;
-  -moz-transition: background 0.3s ease;
-  -ms-transition: background 0.3s ease;
-  -o-transition: background 0.3s ease;
-  transition: background 0.3s ease;
-  display: inline-block;
+    -webkit-transition: background 0.3s ease;
+    -moz-transition: background 0.3s ease;
+    -ms-transition: background 0.3s ease;
+    -o-transition: background 0.3s ease;
+    transition: background 0.3s ease;
+    display: inline-block;
+    border-radius: 8px;
 }
 .button:hover {
   cursor: pointer;
@@ -741,7 +746,7 @@ body {
   position: absolute;
   height: 3px;
   width: 100%;
-  background: var(--color-white);
+  background: var(--color-green-one);
   -webkit-border-radius: 4px;
   border-radius: 4px;
   background-clip: padding-box;
@@ -898,7 +903,7 @@ body {
 }
 .site-nav__item--login a i,
 .site-nav__item--login a svg {
-  color: #75c14c;
+  color: var(--color-yellow);
   padding: 0 5px 0 0;
   font-size: 16px;
   font-size: 1rem;
@@ -1124,7 +1129,8 @@ body {
 }
 @media (min-width: 62em) {
   .home-hero .site-nav__wrap {
-    padding: 30px 0 10px;
+    padding: 10px 0 10px;
+    background: var(--color-green-one)
   }
 }
 .home-hero .site-nav__wrap > div > div {
@@ -1177,7 +1183,7 @@ body {
   .home-hero .site-nav__menu {
     position: absolute;
     top: 210%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(95, 194, 113, 0.9);
     border-top: 3px solid var(--color-yellow);
     z-index: 999;
   }
@@ -1402,7 +1408,7 @@ footer {
   font-size: 0.875rem;
 }
 .site-footer__wrap {
-  background-color: #5b5f67;
+  background-color: var(--color-black);
   border-top: 5px solid #bcc0c9;
   padding-bottom: 50px;
 }
@@ -1819,7 +1825,7 @@ section {
 }
 .bg--black {
   outline: 0;
-  background-color: #1f1f1f;
+  background-color: var(--color-green-one);
 }
 .container {
   width: 96%;
@@ -2084,7 +2090,7 @@ section {
 }
 .home-hero .site-header {
   padding: 10px 0;
-  background-color: transparent;
+  background-color: var(--color-white);
 }
 .home-hero .site-header__wrap {
   margin: 0;
@@ -2092,7 +2098,6 @@ section {
   margin-right: auto;
 }
 .home-hero .site-header__contact {
-  color: var(--color-white);
   font-weight: 700;
   margin-top: 0;
 }
@@ -2102,6 +2107,7 @@ section {
   }
 }
 @media (min-width: 62em) {
+
   .home-hero .site-header__contact {
     font-weight: 400;
   }
@@ -2112,16 +2118,15 @@ section {
 .home-hero .site-header__contact i,
 .home-hero .site-header__contact svg {
   position: relative;
-  top: 0;
-  color: var(--color-white);
+  top: 0;  
   padding-right: 0;
   font-size: 17px;
 }
 .home-hero .site-header__contact > a {
-  color: var(--color-white);
+  color: var(--color-black);
 }
 .home-hero .site-header__contact > a:hover {
-  color: var(--color-white);
+  color: var(--color-blue);
 }
 @media (min-width: 62em) {
   .home-hero .site-header__contact {
@@ -2420,7 +2425,6 @@ section {
 }
 .home-hero__main:before {
   content: "";
-  background-color: rgba(0, 0, 0, 0.45);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -3402,6 +3406,8 @@ section {
 @media (min-width: 62em) {
   #section-one .home-packages__header {
     min-height: 105px;
+    background: var(--color-green-one);
+    padding:10px;
   }
 }
 #section-one .home-packages__header h4 {
