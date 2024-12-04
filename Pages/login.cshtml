@@ -4,29 +4,30 @@
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
 <style>
-    .login-wrapper{
-        min-height:500px;
+    .login-wrapper {
+        min-height: 500px;
     }
+
     .login-box__field {
         margin-bottom: 1rem;
         float: left;
         width: 100%;
     }
 
-    .login-box__field label {
-        display: block;
-        float: none!important;
-        margin-bottom: 0.5rem;
-        font-size: 16px;
-        color: #717171;
-        width: 100%!important;
-    }
+        .login-box__field label {
+            display: block;
+            float: none !important;
+            margin-bottom: 0.5rem;
+            font-size: 16px;
+            color: #717171;
+            width: 100% !important;
+        }
 
-    .login-box__field input {
-        min-width: 400px;
-        padding: 5px 10px;
-        font-size:16px!important;
-    }
+        .login-box__field input {
+            min-width: 400px;
+            padding: 5px 10px;
+            font-size: 16px !important;
+        }
 
     .login-box__actions {
         margin-top: 0.5rem;
@@ -34,32 +35,32 @@
         width: 100%;
     }
 
-    .login-box__actions p{
-        font-size: 16px;
-    }
+        .login-box__actions p {
+            font-size: 16px;
+        }
 
     .login-box__actions--login {
         display: block;
         margin-bottom: 2rem;
     }
 
-    .login-box__actions--login input[type="submit"] {
-        margin-left: 0!important;
-        font-size:16px!important;
-    }
+        .login-box__actions--login input[type="submit"] {
+            margin-left: 0 !important;
+            font-size: 16px !important;
+        }
 
     .login-box__actions--reset a {
         font-size: 16px;
         font-weight: bold;
     }
 
-    .login-box__actions--reset a:hover {
-        text-decoration: underline!important;
-        color:#232c65;
-    }
+        .login-box__actions--reset a:hover {
+            text-decoration: underline !important;
+            color: #232c65;
+        }
 
-    .login-box__actions--reset p{
-        max-width:340px;
+    .login-box__actions--reset p {
+        max-width: 340px;
     }
 
     .register-box__actions--register {
@@ -67,13 +68,13 @@
         width: 100%;
     }
 
-    .register-box__actions--register a.button--register {
-        float: left;
-        font-size:16px!important;
-    }
+        .register-box__actions--register a.button--register {
+            float: left;
+            font-size: 16px !important;
+        }
 
-    .register-box p{
-        font-size:16px;
+    .register-box p {
+        font-size: 16px;
         line-height: 1.35;
     }
 
@@ -83,17 +84,17 @@
 
     .ui-state-error {
         font-size: 16px;
-        display:flex;
+        display: flex;
     }
 
-    .ui-state-error .ui-icon{
-        margin-top:.1em;
-    }
+        .ui-state-error .ui-icon {
+            margin-top: .1em;
+        }
 
     @@media (max-width: 767px) {
         .login-box__actions--reset {
-            float:left;
-            width:100%;
+            float: left;
+            width: 100%;
             margin-bottom: 1rem;
         }
     }
@@ -104,9 +105,11 @@
             float: left;
             margin-bottom: 1rem;
         }
-        .login-wrapper{
-            min-height:0;
+
+        .login-wrapper {
+            min-height: 0;
         }
+
         .login-box__field input {
             min-width: 100%;
         }
@@ -160,7 +163,7 @@
                                     <p>Forgotten Username: Try your email address or call 020 3897 2233.</p>
                                 </div>
                                 <div class="login-box__actions--reset">
-                                    <p>Forgotten Password: Please <a href="javascript:password_reminder()">click here</a> to reset.</p>
+                                    <p>Forgotten Password: Please <a data-bs-toggle="modal" data-bs-target="#exampleModal">click here</a> to reset.</p>
                                 </div>
                             </div>
                         </div>
@@ -201,6 +204,24 @@
             <p>If you would like to register with 1st Formations and import an existing company to manage using our Online Company Manager then please click 'Create Account' below.</p>
             <div class="register-box__actions--register">
                 <a class="button--register button-five" href="/register/">Create Account</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Password Reset</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <p>Please enter your email address or username in the field below:</p>
+                    <p><input type="text" class="form-control" /></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>

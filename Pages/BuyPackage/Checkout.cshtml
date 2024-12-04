@@ -66,39 +66,6 @@
                             details and our staff will then submit your company for incorporation.
                         </p>
                     </div>
-                    <div class="additional-items additional-items-group additional-items-address-services additional-items-address-services-annually">
-                        @if (Model.additionalPackageItems != null && Model.additionalPackageItems.Any())
-                        {
-                            foreach (var item in Model.additionalPackageItems.Where(x => x.ItemGroup == "annually"))
-                            {
-                                <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="@item.AdditionalPackageItemId">
-                                    <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                        <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">@item.ItemName</p>
-                                        <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                            @item.ItemShortDesc
-                                        </p>
-                                    </div>
-                                    <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                        <span class="checkout-additional-items__item--icon infobox-btn">
-                                            <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                        </span>
-                                        <div class="infobox">
-                                            <div class="infobox__wrapper">
-                                                <a class="infobox__close">×</a>
-                                                <div class="infobox__content">
-                                                    @item.ItemDetail
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="fs-15 float-right lh-2l fc-dark">£@item.price</span>
-                                    </div>
-                                    <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                        <a aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" onclick="AddItemToCheckout(this)" role="button" type="button" value="Add"></a>
-                                    </div>
-                                </div>
-                            }
-                        }
-                    </div>
                     <div class="additional-items additional-items-group additional-items-address-services additional-items-address-services-monthly">
                         @if (Model.additionalPackageItems != null && Model.additionalPackageItems.Any())
                         {
@@ -132,363 +99,7 @@
                             }
                         }
                     </div>
-                    <!-- SEPARATE BLOCK FOR LLP ADDRESS SERVICES -->
-                    <div class="additional-items additional-items-group additional-items-llp-address-services" style="display: none;">
-                        @* <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="2047" style="display: none;">
-                        <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                        <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Registered Office Service (paid annually)</p>
-                        <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                        Protect the privacy of your home with our
-                        registered office address in Covent Garden, London WC2
-                        </p>
-                        </div>
-                        <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                        <span class="checkout-additional-items__item--icon infobox-btn">
-                        <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                        </span>
-                        <div class="infobox">
-                        <div class="infobox__wrapper">
-                        <a class="infobox__close">×</a>
-                        <div class="infobox__content">
-                        <h3>
-                        Registered Office Service
-                        <br>
-                        Covent Garden, London WC2
-                        </h3>
-                        <p>
-                        The Registered Office will appear on public record as the official address of your LLP. With
-                        this service, our prestigious Covent Garden address will appear on public record rather than
-                        your home address. We will
-                        then forward all official mail from governing agencies, such as Companies House and HMRC. to a
-                        correspondence address of your choice, free of charge.
-                        </p>
-                        <p>
-                        This service is renewable on a 12-monthly basis at the cost of £39.00 +VAT. Notice will always
-                        be given in advance of your renewal date and you will be able to cancel the service.
-                        </p>
-                        <p>
-                        Please note: The forwarding of official government mail within the UK is free. Mail forwarding
-                        of official mail outside the UK will be charged at Royal Mail postal rates plus 15%. Mail will
-                        be forwarded daily.
-                        </p>
-                        </div>
-                        </div>
-                        </div>
-                        <span class="fs-15 float-right lh-2l fc-dark">£39.00</span>
-                        </div>
-                        <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                        <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                        </div>
-                        </div> *@
 
-                    </div>
-                    <div class="additional-items additional-items-group additional-items-group-finance">
-                        @if (Model.additionalPackageItems != null && Model.additionalPackageItems.Any())
-                        {
-                            foreach (var item in Model.additionalPackageItems.Where(x => x.ItemGroup == "finance"))
-                            {
-
-                                <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="@item.AdditionalPackageItemId">
-                                    <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                        <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">@item.ItemName</p>
-                                        <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                            @item.ItemShortDesc
-                                        </p>
-                                    </div>
-                                    <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                        <span class="checkout-additional-items__item--icon infobox-btn">
-                                            <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                        </span>
-                                        <div class="infobox">
-                                            <div class="infobox__wrapper">
-                                                <a class="infobox__close">×</a>
-                                                <div class="infobox__content">
-                                                    @item.ItemDetail
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="fs-15 float-right lh-2l fc-dark">£@item.price</span>
-                                    </div>
-                                    <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                        <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" onclick="AddItemToCheckout(@item.AdditionalPackageItemId)" role="button" type="button" value="Add">
-                                    </div>
-                                </div>
-                            }
-                        }
-
-                    </div>
-                    <div class="additional-items additional-items-group additional-items-group-bustel">
-                        @if (Model.additionalPackageItems != null && Model.additionalPackageItems.Any())
-                        {
-                            foreach (var item in Model.additionalPackageItems.Where(x => x.ItemGroup == "bustel"))
-                            {
-                                <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13588">
-                                    <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                        <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">@item.ItemName</p>
-                                        <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                            @item.ItemShortDesc
-                                        </p>
-                                    </div>
-                                    <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                        <span class="checkout-additional-items__item--icon infobox-btn">
-                                            <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                        </span>
-                                        <div class="infobox">
-                                            <div class="infobox__wrapper">
-                                                <a class="infobox__close">×</a>
-                                                <div class="infobox__content">
-                                                    @item.ItemDetail
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="fs-15 float-right lh-2l fc-dark">£@item.price</span>
-                                    </div>
-                                    <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                        <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                                    </div>
-                                </div>
-                            }
-                        }
-                    </div>
-                   @*  <div class="additional-items additional-items-group">
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="20820">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">QuickBooks - 90% off for 7 months</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Automate your finances and simplify invoicing <br class="d-visible">
-                                    to get paid faster with industry-leading software
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>QuickBooks - 90% off for 7 months</h3>
-                                            <p>
-                                                We have partnered with QuickBooks, the online accounting software that helps you do business
-                                                differently, to offer our customers 90% off their paid plans for 7 months.
-                                            </p>
-                                            <p>QuickBooks helps customers manage their limited company finances all in one place:</p>
-                                            <ul class="fa-ul">
-                                                <li>Reduce admin by automating everyday business tasks</li>
-                                                <li>Pay yourself and your employees each month with QuickBooks Payroll</li>
-                                                <li>Manage cash flow and get paid faster</li>
-                                                <li>View your finances in real-time</li>
-                                                <li>Run financial reports tailored to your needs</li>
-                                            </ul>
-                                            <p>
-                                                <strong>How it works</strong>
-                                            </p>
-                                            <p>
-                                                Once your company has been formed, we will send you an Order Fulfilment email, which will
-                                                include your discount for QuickBooks’ plans. Simply click on the link to get started with
-                                                QuickBooks and create an account.
-                                            </p>
-                                            <p>Please note: This discount is only available to first-time QuickBooks users.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">Free</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="19244">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Shopify - 3 day free trial + 3 months for £1/month</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    One platform with the ecommerce and point <br class="d-visible">
-                                    of sale features to start, run, and grow your business.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Shopify – 3 day free trial + 3 months for £1/month</h3>
-                                            <p>
-                                                Millions of the world's most successful brands trust Shopify to sell, ship and process
-                                                payments.
-                                            </p>
-                                            <p>
-                                                <strong>Sell everywhere</strong>
-                                            </p>
-                                            <p>
-                                                Use one platform to sell products to anyone, anywhere - in person with point of sale and online
-                                                through your website, social media, and online marketplaces.
-                                            </p>
-                                            <p>
-                                                <strong>Market your business</strong>
-                                            </p>
-                                            <p>
-                                                Take the guesswork out of marketing with built-in tools that help you create, execute, and
-                                                analyse digital marketing campaigns.
-                                            </p>
-                                            <p>
-                                                <strong>Manage everything</strong>
-                                            </p>
-                                            <p>
-                                                Gain the insights you need to grow - use a single dashboard to manage orders, shipping, and
-                                                payments anywhere you go.
-                                            </p>
-                                            <p>
-                                                <strong>How it works</strong>
-                                            </p>
-                                            <p>
-                                                As soon as your company is approved by Companies House, we will send you an order fulfilled
-                                                email, which will include a link to Shopify's website to redeem your free 3 day free trial + 3 months for £1/month on all plans.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">Free</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="19769">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">monday.com - 30 day free trial</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Centralise work processes, project
-                                    management, <br class="d-visible">and team collaboration with one efficient platform.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>monday.com - 30 day free trial</h3>
-                                            <p>
-                                                We have partnered with monday.com, an award-winning project and work management platform, to
-                                                offer our customers an extended 30 day free trial of their Pro Plan.
-                                            </p>
-                                            <p>
-                                                monday.com helps you plan, manage, and track everything, from daily work processes to
-                                                large-scale projects. The platform is ideal for both small teams and large organisations looking
-                                                to work smarter, collaborate easier, and stay aligned on business goals.
-                                            </p>
-                                            <p>Here are just a few of the time-saving work management features monday.com has to offer:</p>
-                                            <ul class="fa-ul">
-                                                <li>Ready-made templates</li>
-                                                <li>No-code automations, to eliminate tedious tasks</li>
-                                                <li>Visually intuitive boards, where team members can collaborate</li>
-                                                <li>Integrations to connect your favourite tools</li>
-                                            </ul>
-                                            <p>
-                                                With the Pro Plan, you also get access to unlimited boards, time tracking, Gantt and timeline
-                                                views, dependency columns, and much more.
-                                            </p>
-                                            <p><strong>How it works</strong></p>
-                                            <p>
-                                                As soon as your company is set up, we will send you an Order Fulfilment email, which will
-                                                include your extended free trial for the monday.com Pro Plan. Simply click on the link and
-                                                follow the instructions to create your monday.com account.
-                                            </p>
-                                            <p>Please note: The offer is only available to first-time monday.com users.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">Free</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="20493">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Trama – 10% Discount</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Trademark registration that protects the
-                                    <br class="d-visible">uniqueness of your brand. Simple, fast &amp; affordable.
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Trama – 10% Discount</h3>
-                                            <p>
-                                                We have partnered with Trama to help our customers register a trademark in just a few simple
-                                                steps. The process starts with a free lawyer's check, where their legal team examines your mark,
-                                                establishes your chances of successful registration, and provides tips to improve them if
-                                                necessary.
-                                            </p>
-                                            <p>
-                                                If you choose to proceed, their lawyers will guide you through the process and prepare your
-                                                trademark application. They can recommend goods and services that are relevant for you, and
-                                                maximise protection while keeping costs down. After they submit the application to the relevant
-                                                intellectual property office for review, they will inform you about any updates.
-                                            </p>
-                                            <p><strong>How it works</strong></p>
-                                            <p>
-                                                Once your company has been set up, we will send you an Order Fulfilment email, which will
-                                                include a link and a code to claim a 10% discount on trademark registration fees. Simply click
-                                                on the link and follow the instructions to get started.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">Free</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                        <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="13592" style="display: none;">
-                            <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
-                                <p class="fs-15 lh-19 mr-bot-0 fc-dark fw-600">Printed Company Documents Bundle</p>
-                                <p class="fs-15 lh-19 mr-bot-5 m-mr-top-10 mr-top-0 fc-dark">
-                                    Printed Certificate of Incorporation,
-                                    Memorandum &amp; Articles of Association and Share Certificates
-                                </p>
-                            </div>
-                            <div class="col two t-three xs-four pd-right-0 pd-left-0 m-pd-left-0 xs-pd-left-0">
-                                <span class="checkout-additional-items__item--icon infobox-btn">
-                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
-                                </span>
-                                <div class="infobox">
-                                    <div class="infobox__wrapper">
-                                        <a class="infobox__close">×</a>
-                                        <div class="infobox__content">
-                                            <h3>Printed Company Documents Bundle</h3>
-                                            <p>
-                                                As soon as your company is registered at Companies House we will deliver a full set of company
-                                                documents to you by post, including:
-                                            </p>
-                                            <ul class="fa-ul pd-bot-15-imp">
-                                                <li>Certificate of Incorporation</li>
-                                                <li>Memorandum &amp; Articles of Association</li>
-                                                <li>Share Certificates</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fs-15 float-right lh-2l fc-dark">£19.99</span>
-                            </div>
-                            <div class="col two t-two xs-four pd-right-0 m-pd-right-0 xs-pd-right-0 align-right xs-align-center">
-                                <input aria-disabled="false" class="add-product ui-button ui-widget ui-state-default ui-corner-all" role="button" type="button" value="Add">
-                            </div>
-                        </div>
-                    </div> *@
                 </div>
             </div>
         </div>
@@ -519,196 +130,14 @@
                                 </tbody>
                             </table>
                             <hr />
-                            <div id="efPackageNet">Net:<span>£57.98</span></div>
-                            <div id="efPackageTax">VAT:<span>£1.60</span></div>
-                            <div id="efPackageTotal">Order Total:<span>£59.58</span></div>
+                            <div id="efPackageNet">Net:<span id="spmNetAmount">£@Model.SelectedPackage.Price</span></div>
+                            <div id="efPackageTax">VAT:<span id="spmVatAmount">£1.60</span></div>
+                            <div id="efPackageTotal">Order Total:<span id="spnTotalAmount">£59.58</span></div>
                             <div id="efPackageAgreeTerms"><input type="checkbox" id="tcagree" class="cy-accept-tnc"> <label for="tcagree" id="tcagree-checkbox-label"> I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a> </label> </div>
                             <div id="efPackageCheckout">
                                 <span class="efPackageCheckoutButtonLoader efHide"></span>
                                 <input id="spPackageCheckoutButton" type="button" class="efButton ui-button ui-widget cy-package-buy ui-state-default ui-corner-all" value="Checkout" role="button" aria-disabled="false">
                             </div>
-                        </div>
-                        <div id="efEverythingOptionalContainer">
-                            <h3 style="clear:both" id="efPackageOptionalItemsTitle">Additional Services</h3>
-                            <p id="efPackageOptionalItemsSubtitle">You may wish to add some optional extras:</p>
-                            <table class="efTable efPackageTable ui-widget-content" id="efOptionalTable">
-                                <tbody>
-                                    <tr class="ui-widget-header" style="display: none; visibility: hidden;">
-                                        <td>Item</td>
-                                        <td>
-                                            <!-- more details -->
-                                        </td>
-                                        <td class="remove-column">RRP</td>
-                                        <td class="remove-column">Saving</td>
-                                        <td>Price</td>
-                                        <td>
-                                            <!-- quantity -->
-                                        </td>
-                                        <td>
-                                            <!-- add -->
-                                        </td>
-                                    </tr>
-                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_SAMEDAY">
-                                        <td colspan="10">Same Day Services</td>
-                                    </tr>
-                                    <tr id="optional_2052" class="optional_product_SAMEDAY efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_SAMEDAY">
-                                        <td>Guaranteed Same Day Service</td>
-                                        <td><a href="javascript:more_details_1(2052)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£39.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_2052" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(2052,'2', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_">
-                                        <td colspan="10">Standard Products</td>
-                                    </tr>
-                                    <tr id="optional_13529" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
-                                        <td>12-month Cancellation Protection</td>
-                                        <td><a href="javascript:more_details_1(13529)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£34.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_13529" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(13529,'4', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_2048" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
-                                        <td>VAT Registration</td>
-                                        <td><a href="javascript:more_details_1(2048)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£39.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_2048" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(2048,'6', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_19244" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
-                                        <td>Shopify - 3 day free trial + 3 months for £1/month</td>
-                                        <td><a href="javascript:more_details_1(19244)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_19244" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(19244,'7', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_19493" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
-                                        <td>ICO Registration Service</td>
-                                        <td><a href="javascript:more_details_1(19493)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£79.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_19493" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(19493,'8', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_19769" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
-                                        <td>monday.com Pro Plan - 30 day free trial</td>
-                                        <td><a href="javascript:more_details_1(19769)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_19769" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(19769,'9', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_20820" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
-                                        <td>QuickBooks - 90% off for 7 months</td>
-                                        <td><a href="javascript:more_details_1(20820)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_20820" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(20820,'10', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_20822" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
-                                        <td>Trustpilot – 10% off any paid plans</td>
-                                        <td><a href="javascript:more_details_1(20822)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_20822" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(20822,'11', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_12552" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
-                                        <td>Ultimate Guide to Starting Your Business</td>
-                                        <td><a href="javascript:more_details_1(12552)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_12552" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(12552,'12', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_20493" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
-                                        <td>Trama – 10% Discount</td>
-                                        <td><a href="javascript:more_details_1(20493)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£0.00</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_20493" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(20493,'13', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_22313" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
-                                        <td>Managed Live Chat (pay monthly)</td>
-                                        <td></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£54.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_22313" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(22313,'14', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_4750" class="optional_product_ efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_">
-                                        <td>Business Telephone Number (pay monthly)</td>
-                                        <td></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£9.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_4750" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(4750,'15', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr id="optional_13588" class="optional_product_ efOptionalTrProduct efEven" data-subheader="efOptionalSubheader_">
-                                        <td>Telephone Answering (pay monthly)</td>
-                                        <td></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£29.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_13588" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(13588,'16', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_REGOFFICE">
-                                        <td colspan="10">Registered Offices</td>
-                                    </tr>
-                                    <tr id="optional_22183" class="optional_product_REGOFFICE efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_REGOFFICE">
-                                        <td>Registered Office - Pay Monthly</td>
-                                        <td><a href="javascript:more_details_1(22183)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£3.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_22183" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(22183,'18', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_SERVICEADDRESS">
-                                        <td colspan="10">Officer Service Addresses</td>
-                                    </tr>
-                                    <tr id="optional_22185" class="optional_product_SERVICEADDRESS efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_SERVICEADDRESS">
-                                        <td>Service Address - Pay Monthly</td>
-                                        <td><a href="javascript:more_details_1(22185)">Details</a></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£2.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_22185" value="1" class="efQuantity"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(22185,'20', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                    <tr class="ui-widget-header efTableSubheader" id="efOptionalSubheader_MAILFORWARD">
-                                        <td colspan="10">Mail Forwarding Services</td>
-                                    </tr>
-                                    <tr id="optional_22188" class="optional_product_MAILFORWARD efOptionalTrProduct efOdd" data-subheader="efOptionalSubheader_MAILFORWARD">
-                                        <td>Business Address - Pay Monthly</td>
-                                        <td></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right" class="remove-column"></td>
-                                        <td style="text-align:right"><span class="efPriceInPackage">£6.99</span></td>
-                                        <td style="text-align:right"><input id="optional_quantity_22188" type="hidden" value="1"></td>
-                                        <td colspan="4" align="right" style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Add" onclick="add_product_1(22188,'22', 'Add', 'Remove')" role="button" aria-disabled="false"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </form>
                 </div>
@@ -780,6 +209,14 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        var NetAmount = parseFloat($("#spmNetAmount").text().replace('£', ''));
+        let vat = NetAmount * 0.20;
+        $("#spmVatAmount").text("£" + vat.toFixed(2));
+        let TotalAmount = NetAmount + vat;
+        $("#spnTotalAmount").text("£" + TotalAmount.toFixed(2));
+
+    });
     let selectedPackageItems = [];
     function AddItemToCheckout(itemId) {
         var PackItems = $("#PackageItem_" + itemId).children();
@@ -788,21 +225,50 @@
         console.log("PackItems", PackItems)
 
         const CheckoutItemStr = `
-                        <tr id="CheckOut_included_${itemId}" class="efOptionalTrProduct efEven">
-                                    <td colspan="3">${ItemName}</td>
-                <td style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="X" onclick="removePackageItem(${itemId})" role="button" aria-disabled="false"></td>
-                        <td style="text-align:right">£${ItemPrice}</td>
-                        </tr>
-                `
+                            <tr id="CheckOut_included_${itemId}" class="efOptionalTrProduct efEven">
+                                        <td colspan="3">${ItemName}</td>
+                    <td style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="X" onclick="removePackageItem(${itemId})" role="button" aria-disabled="false"></td>
+                                <td style="text-align:right" id="CheckOut_included_${itemId}_Price">£${ItemPrice}</td>
+                            </tr>
+                    `
         selectedPackageItems.push(CheckoutItemStr);
         $("#CheckoutItems").append(CheckoutItemStr);
         const targetDiv = $(`div[data-id='${itemId}']`);
         targetDiv.css("display", "none");
+
+        var NetAmount = parseFloat($("#spmNetAmount").text().replace('£', ''));
+        var VatAmount = parseFloat($("#spmVatAmount").text().replace('£', ''));
+
+        var UpdatedNetAmount = parseFloat(NetAmount) + parseFloat(ItemPrice);
+        $("#spmNetAmount").text("£" + UpdatedNetAmount.toFixed(2));
+        let vat = UpdatedNetAmount * 0.20;
+        $("#spmVatAmount").text("£" + vat.toFixed(2));
+        // Calculate the total amount
+        let TotalAmount = UpdatedNetAmount + vat;
+        $("#spnTotalAmount").text("£" + TotalAmount.toFixed(2));
+        
+
+
         //renderAddons();
     }
-    
+
     function removePackageItem(itemId) {
+
         
+        let ItemPrice = parseFloat($(`#CheckOut_included_${itemId}_Price`).text().replace('£', ''));
+        var NetAmount = parseFloat($("#spmNetAmount").text().replace('£', ''));
+
+        console.log("ItemPrice", ItemPrice);
+        console.log("NetAmount", NetAmount);
+
+        let UpdatedNetAmount = NetAmount - ItemPrice;
+        let vat = UpdatedNetAmount * 0.20;
+        let TotalAmount = UpdatedNetAmount + vat;
+
+        $("#spmNetAmount").text("£" + UpdatedNetAmount.toFixed(2));
+        $("#spmVatAmount").text("£" + vat.toFixed(2));
+        $("#spnTotalAmount").text("£" + TotalAmount.toFixed(2));
+
         $(`#CheckOut_included_${itemId}`).remove();
         const targetDiv = $(`div[data-id='${itemId}']`);
         targetDiv.css("display", "block");
