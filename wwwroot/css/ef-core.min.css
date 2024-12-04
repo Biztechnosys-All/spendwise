@@ -1910,7 +1910,7 @@ h3.efCompanyManagerHeader {
 .efTogglePasswordControl {
     position: absolute;
     top: 6px;
-    right: 4px;
+    right: 25px;
     cursor: pointer;
     color: #000
 }
