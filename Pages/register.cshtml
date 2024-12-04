@@ -1,0 +1,570 @@
+﻿@page
+@model Spendwise_WebApp.Pages.registerModel
+@{
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+<style type="text/css">
+    #efRegisterContainer h1 {
+        line-height: 1.1;
+    }
+
+    #error-message,
+    #success-message {
+		width:96%;
+		padding:5px;
+	}
+
+    td input {
+		float: right;
+	}
+
+    td select {
+		float: right;
+	}
+
+    #efRegisterSubmitButton,
+    #captcha-wrapper {
+        float: left;
+    }
+
+    #efRegisterSubmitButton button {
+        margin: 2rem 0;
+        float: left;
+    }
+
+    .efRegisterUserWrapper,
+    .efRegisterUserAddressWrapper {
+        width: 100%!important;
+        margin-left: 0!important;
+    }
+
+    .efRegisterUserWrapper table.efRegisterUser,
+    .efRegisterUserAddressWrapper table.efRegisterUserAddress {
+        width: auto;
+    }
+
+    #register .efRegisterUserWrapper .efPanelHeader,
+    #register .efRegisterUserAddressWrapper .efPanelHeader {
+        background-color: grey!important;
+        color: #fff!important;
+        padding: 10px!important;
+        margin-bottom: 20px!important;
+        font-size: 18px;
+    }
+
+
+    #register .efRegisterUserWrapper .efRegisterLabel,
+    #register .efRegisterUserAddressWrapper .efRegisterLabel {
+        font-size: 14px;
+        text-align: right!important;
+        padding-right: 20px!important;
+        width: 200px!important;
+    }
+
+    #register .efRegisterUserWrapper table.efRegisterUser input,
+    #register .efRegisterUserAddressWrapper table.efRegisterUserAddress input {
+        border-color: #b7b7b7!important;
+        padding: 5px 10px;
+        color: #333!important;
+    }
+
+    #register .efRegisterUserWrapper table.efRegisterUser select,
+    #register .efRegisterUserAddressWrapper table.efRegisterUserAddress select {
+        border-color: #b7b7b7!important;
+        padding: 5px 10px;
+        color: #333!important;
+        width: 202px!important;
+    }
+
+    #register .efRegisterUserAddress button.efButton {
+        margin-left: 0;
+        font-size: 14px;
+        margin-top: -5px;
+        height: 28px!important;
+    }
+
+    #efRegisterSubmitButton button {
+        font-size: 14px;
+    }
+
+    @@media only screen and (min-width: 769px) {
+        #efRegisterSubmitButton, #captcha-wrapper {
+            float: left;
+        }
+
+        #efRegisterSubmitButton button {
+            margin: 1rem 0;
+            float: right;
+        }
+    }
+
+    @@media only screen and (max-width: 767px) {
+        #efRegisterContainer #register .efRegisterUserAddress tr td,
+        #efRegisterContainer #register .efRegisterUser tr td {
+            display: table-cell;
+            width: auto;
+        }
+
+        #efRegisterContainer #register input {
+            width: 202px!important;
+        }
+
+        #efRegisterContainer #register input[type="checkbox"] {
+            width: auto!important;
+        }
+
+        #register .efRegisterUserAddress button.efButton {
+            height: 32px!important;
+        }
+    }
+
+    @@media only screen and (max-width: 600px) {
+        #register .efRegisterUserWrapper .efRegisterLabel,
+        #register .efRegisterUserAddressWrapper .efRegisterLabel {
+            width: 100%!important;
+            text-align: left!important;
+        }
+
+        #efRegisterContainer #register .efRegisterUserAddress tr td,
+        #efRegisterContainer #register .efRegisterUser tr td {
+            display: block;
+            width: 100%;
+        }
+
+        #register .efRegisterUserWrapper table.efRegisterUser,
+        #register .efRegisterUserAddressWrapper table.efRegisterUserAddress {
+            width: 100%;
+        }
+
+        #efRegisterContainer #register .efRegisterUserWrapper table.efRegisterUser input,
+        #efRegisterContainer #register .efRegisterUserAddressWrapper table.efRegisterUserAddress input,
+        #efRegisterContainer #register .efRegisterUserWrapper table.efRegisterUser select,
+        #efRegisterContainer #register .efRegisterUserAddressWrapper table.efRegisterUserAddress select {
+            width: 100%!important;
+        }
+
+        #register .efRegisterUserAddress button.efButton {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+</style>
+<div class="col-five padding-top-bot-tw client">
+    <div class="container-inner">
+        <div id="efPageContent" class="ui-widget">
+            <div id="efRegisterContainer">
+                <h1>Account Registration with 1st Formations</h1>
+                <div class="ui-state-error ui-corner-all efAlert" id="error-message" style="display:none">
+                    <span class="ui-icon ui-icon-alert " style="float: left; margin-right: .3em;">
+                    </span> Invalid Submission Details
+                    <span>
+                        <ul class="efErrorMessages">
+                        </ul>
+
+                    </span>
+                </div>
+                <div class="ui-state-highlight ui-corner-all efAlert" id="success-message" style="display:none"><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><span id="success-text"></span></div>
+                <div id="efRequiredFieldLabel">
+                    <p>Please complete the details below to register with us. All fields marked with <span class="required_mark">*</span> are mandatory.</p>
+                </div>
+                <!-- Main Form Content -->
+                <form name="register" id="register" onsubmit="return show_something()" method="post" action="/register/">
+                    <input type="hidden" name="pa" value="submit-registration">
+                    <div class="efRegisterUserWrapper efPanel ui-widget-content ui-corner-top">
+                        <div class="ui-corner-top ui-widget-header efPanelHeader">Account Holder</div>
+                        <div class="ui-corner-bottom efPanelContent">
+                            <table class="efRegisterUser">
+                                <tbody>
+                                    <tr><td><label class="efRegisterLabel">Organisation (if applicable):</label></td><td><input id="efUserOrganisationInput" class="efTextInput" type="text" name="Organisation" value=""></td></tr>
+                                    <tr>
+                                        <td><label class="efRegisterLabel">Title: <span class="required_mark">*</span></label></td>
+                                        <td>
+                                            <select id="efUserTitleInput" class="efSelectInput" name="title">
+                                                <option value="">Please select...</option>
+                                                <option value="Mr">Mr</option>
+                                                <option value="Mrs">Mrs</option>
+                                                <option value="Miss">Miss</option>
+                                                <option value="Sir">Sir</option>
+                                                <option value="Ms">Ms</option>
+                                                <option value="Dr">Dr</option>
+                                                <option value="Madam">Madam</option>
+                                                <option value="Ma'am">Ma'am</option>
+                                                <option value="Lord">Lord</option>
+                                                <option value="Lady">Lady</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td><label class="efRegisterLabel">Forename: <span class="required_mark">*</span></label></td><td><input id="efUserForenameInput" class="efTextInput" type="text" name="Firstname" value=""></td></tr>
+                                    <tr><td><label class="efRegisterLabel">Surname: <span class="required_mark">*</span></label></td><td><input id="efUserSurnameInput" class="efTextInput" type="text" name="Lastname" value=""></td></tr>
+                                    <tr><td><label class="efRegisterLabel">Phone Number: <span class="required_mark">*</span></label></td><td><input id="efUserNumberInput" class="efTextInput" type="text" name="Phone" value=""></td></tr>
+                                    <tr><td><label class="efRegisterLabel">Email: <span class="required_mark">*</span></label></td><td><input id="efUserEmailInput" class="efTextInput" type="text" name="Email" value=""></td></tr>
+                                    <tr><td><label class="efRegisterLabel">Confirm Email: <span class="required_mark">*</span></label></td><td><input id="efUserConfirmEmailInput" class="efTextInput" type="text" name="EmailConfirm" value=""></td></tr>
+                                    <tr>
+                                        <td>
+                                            <label class="efRegisterLabel">Password: <span class="required_mark">*</span></label>
+                                        </td>
+                                        <td>
+                                            <div class="efPasswordWrapper">
+                                                <input id="efUserPasswordInput" type="password" class="efTextInput js-password-constraints" name="Password" value="">
+                                                <div class="efPasswordEyeOpen efTogglePasswordControl ef-js-text-mask" data-owner="Password">
+                                                    <div class="efPasswordEyeOpen">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 20">
+                                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
+                                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="efPasswordEyeClosed efTogglePasswordControl ef-js-text-mask efHide" data-owner="Password">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 18 20">
+                                                        <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"></path>
+                                                        <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
+                                                        <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"></path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div id="password-constraints" class="efHide">
+                                                <ul style="">
+                                                    <li id="password-constraint-uppercase">At least one uppercase character  <img src="/assets/icons/tick.png" class="efHide"></li>
+                                                    <li id="password-constraint-lowercase">At least one lowercase character  <img src="/assets/icons/tick.png" class="efHide"></li>
+                                                    <li id="password-constraint-number">At least one number <img src="/assets/icons/tick.png" class="efHide"> </li>
+                                                    <li id="password-constraint-symbol">At least one symbol <img src="/assets/icons/tick.png" class="efHide"></li>
+                                                    <li id="password-constraint-length">Minimum of 8 Characters <img src="/assets/icons/tick.png" class="efHide"> </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="efRegisterUserAddressWrapper efPanel ui-widget-content ui-corner-top">
+                        <div class="efPanelHeader ui-corner-top ui-widget-header">Primary Address</div>
+                        <div class="efPanelContent ui-corner-bottom">
+                            <table class="efRegisterUserAddress">
+
+                                <tbody>
+                                    <tr><td><label class="efRegisterLabel">Post Code: <span class="required_mark">*</span></label></td><td><input class="efTextInput" type="text" name="PostCode_Lookup" value=""></td> <td><button type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="webstate_postcode_lookup('PostCode_Lookup','Postcode Lookup')" role="button" aria-disabled="false"><span class="ui-button-text">Find Address</span></button></td></tr>
+                                    <tr><td><label class="efRegisterLabel">House Name / Number: <span class="required_mark">*</span></label></td><td><input id="efUserAddressNameNumberInput" class="efTextInput" type="text" name="NameNumber" value=""></td></tr>
+                                    <tr><td><label class="efRegisterLabel">Street: <span class="required_mark">*</span></label></td><td><input id="efUserAddressStreetInput" class="efTextInput" type="text" name="Street" value=""></td></tr>
+                                    <tr><td><label class="efRegisterLabel">Locality:</label></td><td><input id="efUserAddressLocalityInput" class="efTextInput" type="text" name="Locality" value=""></td></tr>
+                                    <tr><td><label class="efRegisterLabel">Town: <span class="required_mark">*</span></label></td><td><input id="efUserAddressTownInput" class="efTextInput" type="text" name="Town" value=""></td></tr>
+                                    <tr><td><label class="efRegisterLabel">County:</label></td><td><input id="efUserAddressCountyInput" class="efTextInput" type="text" name="County" value=""></td></tr>
+                                    <tr><td><label class="efRegisterLabel">Post Code: <span class="required_mark">*</span></label></td><td><input id="efUserAddressPostcodeInput" class="efTextInput" type="text" name="PostCode" value=""></td> </tr>
+                                    <tr>
+                                        <td><label class="efRegisterLabel">Country: <span class="required_mark">*</span></label></td>
+                                        <td>
+                                            <select style="" id="Country" name="Country" class="ui-widget-select efSelectInput">
+                                                <option value="7">AFGHANISTAN</option>
+                                                <option value="252">ALAND ISLANDS</option>
+                                                <option value="8">ALBANIA</option>
+                                                <option value="9">ALGERIA</option>
+                                                <option value="10">AMERICAN SAMOA</option>
+                                                <option value="11">ANDORRA</option>
+                                                <option value="12">ANGOLA</option>
+                                                <option value="13">ANGUILLA</option>
+                                                <option value="14">ANTARCTICA</option>
+                                                <option value="15">ANTIGUA AND BARBUDA</option>
+                                                <option value="16">ARGENTINA</option>
+                                                <option value="17">ARMENIA</option>
+                                                <option value="18">ARUBA</option>
+                                                <option value="19">AUSTRALIA</option>
+                                                <option value="20">AUSTRIA</option>
+                                                <option value="21">AZERBAIJAN</option>
+                                                <option value="22">BAHAMAS</option>
+                                                <option value="23">BAHRAIN</option>
+                                                <option value="24">BANGLADESH</option>
+                                                <option value="25">BARBADOS</option>
+                                                <option value="26">BELARUS</option>
+                                                <option value="27">BELGIUM</option>
+                                                <option value="28">BELIZE</option>
+                                                <option value="29">BENIN</option>
+                                                <option value="30">BERMUDA</option>
+                                                <option value="31">BHUTAN</option>
+                                                <option value="32">BOLIVIA</option>
+                                                <option value="254">BONAIRE, SINT EUSTATIUS AND SABA</option>
+                                                <option value="33">BOSNIA AND HERZEGOVINA</option>
+                                                <option value="34">BOTSWANA</option>
+                                                <option value="35">BOUVET ISLAND</option>
+                                                <option value="36">BRAZIL</option>
+                                                <option value="37">BRITISH INDIAN OCEAN TERRITORY</option>
+                                                <option value="38">BRUNEI DARUSSALAM</option>
+                                                <option value="39">BULGARIA</option>
+                                                <option value="40">BURKINA FASO</option>
+                                                <option value="41">BURUNDI</option>
+                                                <option value="42">CAMBODIA</option>
+                                                <option value="43">CAMEROON</option>
+                                                <option value="44">CANADA</option>
+                                                <option value="45">CAPE VERDE</option>
+                                                <option value="46">CAYMAN ISLANDS</option>
+                                                <option value="47">CENTRAL AFRICAN REPUBLIC</option>
+                                                <option value="48">CHAD</option>
+                                                <option value="49">CHILE</option>
+                                                <option value="50">CHINA</option>
+                                                <option value="51">CHRISTMAS ISLAND</option>
+                                                <option value="52">COCOS (KEELING) ISLANDS</option>
+                                                <option value="53">COLOMBIA</option>
+                                                <option value="54">COMOROS</option>
+                                                <option value="55">CONGO</option>
+                                                <option value="263">CONGO, THE DEMOCRATIC REPUBLIC OF THE</option>
+                                                <option value="56">COOK ISLANDS</option>
+                                                <option value="57">COSTA RICA</option>
+                                                <option value="58">CROATIA</option>
+                                                <option value="59">CUBA</option>
+                                                <option value="255">CURACAO</option>
+                                                <option value="60">CYPRUS</option>
+                                                <option value="61">CZECH REPUBLIC</option>
+                                                <option value="63">DENMARK</option>
+                                                <option value="64">DJIBOUTI</option>
+                                                <option value="65">DOMINICA</option>
+                                                <option value="66">DOMINICAN REPUBLIC</option>
+                                                <option value="67">EAST TIMOR</option>
+                                                <option value="68">ECUADOR</option>
+                                                <option value="69">EGYPT</option>
+                                                <option value="70">EL SALVADOR</option>
+                                                <option value="2" selected="selected">ENGLAND</option>
+                                                <option value="71">EQUATORIAL GUINEA</option>
+                                                <option value="72">ERITREA</option>
+                                                <option value="73">ESTONIA</option>
+                                                <option value="209">ESWATINI</option>
+                                                <option value="74">ETHIOPIA</option>
+                                                <option value="75">FALKLAND ISLANDS</option>
+                                                <option value="76">FAROE ISLANDS</option>
+                                                <option value="77">FIJI</option>
+                                                <option value="78">FINLAND</option>
+                                                <option value="79">FRANCE</option>
+                                                <option value="80">FRENCH GUIANA</option>
+                                                <option value="81">FRENCH POLYNESIA</option>
+                                                <option value="82">FRENCH SOUTHERN TERRITORIES</option>
+                                                <option value="83">GABON</option>
+                                                <option value="84">GAMBIA</option>
+                                                <option value="85">GEORGIA</option>
+                                                <option value="86">GERMANY</option>
+                                                <option value="87">GHANA</option>
+                                                <option value="88">GIBRALTAR</option>
+                                                <option value="89">GREECE</option>
+                                                <option value="90">GREENLAND</option>
+                                                <option value="91">GRENADA</option>
+                                                <option value="92">GUADELOUPE</option>
+                                                <option value="93">GUAM</option>
+                                                <option value="94">GUATEMALA</option>
+                                                <option value="246">GUERNSEY</option>
+                                                <option value="95">GUINEA</option>
+                                                <option value="96">GUINEA-BISSAU</option>
+                                                <option value="97">GUYANA</option>
+                                                <option value="98">HAITI</option>
+                                                <option value="99">HEARD ISLAND AND MCDONALD ISLANDS</option>
+                                                <option value="101">HONDURAS</option>
+                                                <option value="102">HONG KONG</option>
+                                                <option value="103">HUNGARY</option>
+                                                <option value="104">ICELAND</option>
+                                                <option value="105">INDIA</option>
+                                                <option value="106">INDONESIA</option>
+                                                <option value="107">IRAN</option>
+                                                <option value="108">IRAQ</option>
+                                                <option value="6">IRELAND</option>
+                                                <option value="248">ISLE OF MAN</option>
+                                                <option value="110">ISRAEL</option>
+                                                <option value="111">ITALY</option>
+                                                <option value="247">IVORY COAST</option>
+                                                <option value="112">JAMAICA</option>
+                                                <option value="113">JAPAN</option>
+                                                <option value="245">JERSEY</option>
+                                                <option value="114">JORDAN</option>
+                                                <option value="115">KAZAKHSTAN</option>
+                                                <option value="116">KENYA</option>
+                                                <option value="117">KIRIBATI</option>
+                                                <option value="256">KOSOVO</option>
+                                                <option value="118">KUWAIT</option>
+                                                <option value="119">KYRGYZSTAN</option>
+                                                <option value="120">LAOS</option>
+                                                <option value="121">LATVIA</option>
+                                                <option value="122">LEBANON</option>
+                                                <option value="123">LESOTHO</option>
+                                                <option value="124">LIBERIA</option>
+                                                <option value="257">LIBYA</option>
+                                                <option value="126">LIECHTENSTEIN</option>
+                                                <option value="127">LITHUANIA</option>
+                                                <option value="128">LUXEMBOURG</option>
+                                                <option value="129">MACAO</option>
+                                                <option value="130">MACEDONIA</option>
+                                                <option value="131">MADAGASCAR</option>
+                                                <option value="132">MALAWI</option>
+                                                <option value="133">MALAYSIA</option>
+                                                <option value="134">MALDIVES</option>
+                                                <option value="135">MALI</option>
+                                                <option value="136">MALTA</option>
+                                                <option value="137">MARSHALL ISLANDS</option>
+                                                <option value="138">MARTINIQUE</option>
+                                                <option value="139">MAURITANIA</option>
+                                                <option value="140">MAURITIUS</option>
+                                                <option value="141">MAYOTTE</option>
+                                                <option value="142">MEXICO</option>
+                                                <option value="143">MICRONESIA</option>
+                                                <option value="144">MOLDOVA</option>
+                                                <option value="145">MONACO</option>
+                                                <option value="146">MONGOLIA</option>
+                                                <option value="250">MONTENEGRO</option>
+                                                <option value="147">MONTSERRAT</option>
+                                                <option value="148">MOROCCO</option>
+                                                <option value="149">MOZAMBIQUE</option>
+                                                <option value="150">MYANMAR</option>
+                                                <option value="151">NAMIBIA</option>
+                                                <option value="152">NAURU</option>
+                                                <option value="153">NEPAL</option>
+                                                <option value="154">NETHERLANDS</option>
+                                                <option value="156">NEW CALEDONIA</option>
+                                                <option value="157">NEW ZEALAND</option>
+                                                <option value="158">NICARAGUA</option>
+                                                <option value="159">NIGER</option>
+                                                <option value="160">NIGERIA</option>
+                                                <option value="161">NIUE</option>
+                                                <option value="162">NORFOLK ISLAND</option>
+                                                <option value="163">NORTH KOREA</option>
+                                                <option value="5">NORTHERN IRELAND</option>
+                                                <option value="164">NORTHERN MARIANA ISLANDS</option>
+                                                <option value="165">NORWAY</option>
+                                                <option value="166">OMAN</option>
+                                                <option value="167">PAKISTAN</option>
+                                                <option value="168">PALAU</option>
+                                                <option value="169">PALESTINE, STATE OF</option>
+                                                <option value="170">PANAMA</option>
+                                                <option value="171">PAPUA NEW GUINEA</option>
+                                                <option value="172">PARAGUAY</option>
+                                                <option value="173">PERU</option>
+                                                <option value="174">PHILIPPINES</option>
+                                                <option value="175">PITCAIRN</option>
+                                                <option value="176">POLAND</option>
+                                                <option value="177">PORTUGAL</option>
+                                                <option value="178">PUERTO RICO</option>
+                                                <option value="179">QATAR</option>
+                                                <option value="180">REUNION</option>
+                                                <option value="181">ROMANIA</option>
+                                                <option value="182">RUSSIA</option>
+                                                <option value="183">RWANDA</option>
+                                                <option value="258">SAINT BARTHELEMY</option>
+                                                <option value="184">SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA</option>
+                                                <option value="185">SAINT KITTS AND NEVIS</option>
+                                                <option value="186">SAINT LUCIA</option>
+                                                <option value="259">SAINT MARTIN (FRENCH PART)</option>
+                                                <option value="187">SAINT PIERRE AND MIQUELON</option>
+                                                <option value="188">SAINT VINCENT AND THE GRENADINES</option>
+                                                <option value="189">SAMOA</option>
+                                                <option value="190">SAN MARINO</option>
+                                                <option value="191">SAO TOME AND PRINCIPE</option>
+                                                <option value="192">SAUDI ARABIA</option>
+                                                <option value="3">SCOTLAND</option>
+                                                <option value="193">SENEGAL</option>
+                                                <option value="249">SERBIA</option>
+                                                <option value="194">SEYCHELLES</option>
+                                                <option value="195">SIERRA LEONE</option>
+                                                <option value="196">SINGAPORE</option>
+                                                <option value="260">SINT MAARTEN (DUTCH PART)</option>
+                                                <option value="197">SLOVAKIA</option>
+                                                <option value="198">SLOVENIA</option>
+                                                <option value="199">SOLOMON ISLANDS</option>
+                                                <option value="200">SOMALIA</option>
+                                                <option value="201">SOUTH AFRICA</option>
+                                                <option value="202">SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS</option>
+                                                <option value="203">SOUTH KOREA</option>
+                                                <option value="261">SOUTH SUDAN</option>
+                                                <option value="204">SPAIN</option>
+                                                <option value="205">SRI LANKA</option>
+                                                <option value="206">SUDAN</option>
+                                                <option value="207">SURINAME</option>
+                                                <option value="208">SVALBARD AND JAN MAYEN</option>
+                                                <option value="251">SVALBARD AND JAN MAYEN ISLANDS</option>
+                                                <option value="210">SWEDEN</option>
+                                                <option value="211">SWITZERLAND</option>
+                                                <option value="212">SYRIA</option>
+                                                <option value="213">TAIWAN</option>
+                                                <option value="214">TAJIKISTAN</option>
+                                                <option value="215">TANZANIA</option>
+                                                <option value="216">THAILAND</option>
+                                                <option value="217">TOGO</option>
+                                                <option value="218">TOKELAU</option>
+                                                <option value="219">TONGA</option>
+                                                <option value="220">TRINIDAD AND TOBAGO</option>
+                                                <option value="221">TUNISIA</option>
+                                                <option value="222">TURKEY</option>
+                                                <option value="223">TURKMENISTAN</option>
+                                                <option value="224">TURKS AND CAICOS ISLANDS</option>
+                                                <option value="225">TUVALU</option>
+                                                <option value="226">UGANDA</option>
+                                                <option value="227">UKRAINE</option>
+                                                <option value="228">UNITED ARAB EMIRATES</option>
+                                                <option value="1">UNITED KINGDOM</option>
+                                                <option value="229">UNITED STATES</option>
+                                                <option value="230">UNITED STATES MINOR OUTLYING ISLANDS</option>
+                                                <option value="231">URUGUAY</option>
+                                                <option value="232">UZBEKISTAN</option>
+                                                <option value="233">VANUATU</option>
+                                                <option value="100">VATICAN CITY</option>
+                                                <option value="234">VENEZUELA</option>
+                                                <option value="235">VIETNAM</option>
+                                                <option value="236">VIRGIN ISLANDS, BRITISH</option>
+                                                <option value="237">VIRGIN ISLANDS, U.S.</option>
+                                                <option value="4">WALES</option>
+                                                <option value="238">WALLIS AND FUTUNA</option>
+                                                <option value="239">WESTERN SAHARA</option>
+                                                <option value="240">YEMEN</option>
+                                                <option value="241">YUGOSLAVIA</option>
+                                                <option value="243">ZAMBIA</option>
+                                                <option value="244">ZIMBABWE</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="efRegisterTermsWrapper efWidget ui-widget-content ui-corner-all">
+                        <p><label><label><input id="efNewsletterInput" name="newsletter" type="checkbox"> I would like to receive updates from 1st Formations</label></label></p>
+                        <p style="display: none;"><label><input type="checkbox" id="efRemarketing" name="remarketing"> I would like to receive updates from our business partners</label></p>
+                        <p><label><input type="checkbox" id="efTermsInput" name="terms"> I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a></label></p>
+                        <!-- captcha -->
+
+                    </div>
+
+                    <input type="hidden" name="redir" value="">
+
+
+                    <div id="efRegisterSubmitButton">
+                        <input type="hidden" name="g-recaptcha-response" placeholder="" value="03AFcWeA7WBBbZswKLdoOIwf2fC3rEBnd3RN3FeSTxzmem0mWgsf6FLjeVpWlmZFQu855IFEOGbEY71yZ0pX8gtvvjOB6G5x8dVkvueHApMSJiGrh8cyUibaZONyKukKZxZjVli1if961d_m4GIhGrNgr1CgYscGgUL2RCZgUNsvQXYg4sZdVTIKDAkgFQcnZXMtKZ4lOJD00GfGyRXsZTdoBHqcnX340JAw1wgJn8Po3sBA3GPbK9K3cAmG3b4SSswWcwXv8AtDEelt1N5-0gHiRCWoVIqqtL4D_lHmYJSAdtFZqlJHeW2dmOsw_OcOBUE_0QKTpO2SwQJtsw0kCSFmsWpNeYdbtiQvyPgJNaxvl4-MBbepye5eGvmW7YAhJZzJz5R9kixGTu3IINviq0Mcaj7oharbxOBdHMHkAlMLcck_nPSl4eTXajyyzkA-q8EpgyAM0fGOc57se0LommmtVeEQ-2YoIGCahm1fL2E-D-3pIZ_fqivEgjyc9HYQdMjUgO-dWPheBz7oVnyu9OZINUwmd4IhrVJ9REKgx4m72qeSkfadndo3t5fFU_MadR_unzmFjdrws3x0mstQowGLuzpscFB2SVVE1Up5AEOKPxbMElePiZez2YCte8dVTh3IoUYKPdWf7hQymja4N_V5V8XM5Yi-EOcD7qaVghWf1EoZDpxKP8rsQ82NFfbZvScK6G8wfKTLPU37etDBpZvJbJ1bgVGKvLBXzQSQTD24AgHFpvpzDRrPwzAbccNHL8BvngcYvLmf_aRNqcUMYgUoFFsZ6aNSWrxR8UhDXSgprG5ZPjVq_mHDudzfughV5TbqNDHxbm-7ESilXuIhhc0CvAWuutbA3UsnxDbUaQgRyumROz3YfoftvnK8BKB07SdCMqE472YASV" id="g-recaptcha-response">        <br>
+                        <button class="efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="jQuery('#register').submit();" role="button" aria-disabled="false"><span class="ui-button-text">Submit Registration</span></button>
+                    </div>
+
+                    <input type="hidden" value="66c00db1c845014efb4a6b03f41a8fa2ea22d614f38559ddcbc194fc85b9cf7e" name="token">
+                </form>
+
+            </div>
+            <img src="/assets/loaders/inline.gif" style="visibility:hidden">
+            <div id="reminder" style="display:none" title="Password Reset">
+                <form action="/login/" method="post">
+                    <input type="hidden" name="pa" value="reminder">
+                    <p>Please enter your email address or username in the field below:</p>
+                    <p><input class="efTextInput" name="identifier" type="text" style="width:460px"></p>
+                    <p><input type="submit" value="Submit" class="efButton  ui-button ui-widget ui-state-default ui-corner-all" style="float:right" role="button" aria-disabled="false"></p>
+                </form>
+            </div>
+
+            <script>
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('6LctSPcUAAAAAGqGPCeWQHpISurU2OwIHk8P5BFB', { action: 'register' })
+                        .then(function (token) {
+                            document.getElementById('g-recaptcha-response').value = token;
+                        });
+                });
+
+            </script>
+
+        </div>
+
+    </div>
+</div>
