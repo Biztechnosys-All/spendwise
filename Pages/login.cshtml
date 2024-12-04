@@ -1,0 +1,207 @@
+﻿@page
+@model Spendwise_WebApp.Pages.loginModel
+@{
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+<style>
+    .login-wrapper{
+        min-height:500px;
+    }
+    .login-box__field {
+        margin-bottom: 1rem;
+        float: left;
+        width: 100%;
+    }
+
+    .login-box__field label {
+        display: block;
+        float: none!important;
+        margin-bottom: 0.5rem;
+        font-size: 16px;
+        color: #717171;
+        width: 100%!important;
+    }
+
+    .login-box__field input {
+        min-width: 400px;
+        padding: 5px 10px;
+        font-size:16px!important;
+    }
+
+    .login-box__actions {
+        margin-top: 0.5rem;
+        float: left;
+        width: 100%;
+    }
+
+    .login-box__actions p{
+        font-size: 16px;
+    }
+
+    .login-box__actions--login {
+        display: block;
+        margin-bottom: 2rem;
+    }
+
+    .login-box__actions--login input[type="submit"] {
+        margin-left: 0!important;
+        font-size:16px!important;
+    }
+
+    .login-box__actions--reset a {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .login-box__actions--reset a:hover {
+        text-decoration: underline!important;
+        color:#232c65;
+    }
+
+    .login-box__actions--reset p{
+        max-width:340px;
+    }
+
+    .register-box__actions--register {
+        float: left;
+        width: 100%;
+    }
+
+    .register-box__actions--register a.button--register {
+        float: left;
+        font-size:16px!important;
+    }
+
+    .register-box p{
+        font-size:16px;
+        line-height: 1.35;
+    }
+
+    .boxeleven {
+        min-height: 300px;
+    }
+
+    .ui-state-error {
+        font-size: 16px;
+        display:flex;
+    }
+
+    .ui-state-error .ui-icon{
+        margin-top:.1em;
+    }
+
+    @@media (max-width: 767px) {
+        .login-box__actions--reset {
+            float:left;
+            width:100%;
+            margin-bottom: 1rem;
+        }
+    }
+
+    @@media (min-width: 320px) and (max-width: 480px) {
+        .login-box__actions--login {
+            width: 100%;
+            float: left;
+            margin-bottom: 1rem;
+        }
+        .login-wrapper{
+            min-height:0;
+        }
+        .login-box__field input {
+            min-width: 100%;
+        }
+    }
+</style>
+<div class="col-five bg-image-packages gradient--blue">
+	<div class="container-inner clientlog">
+		<h1 class="no-bg fc-white">Client Login</h1>
+	</div>
+</div>
+<div class="col-five client login-wrapper">
+    <div class="container-inner">
+        <div class="boxten mxwidth-fifty-per boxsizing float-left">
+            <div id="efPageContent" class="ui-widget">
+
+
+                <div id="efLoginContainer">
+                    <h2>Account Login</h2>
+                    <form action="/login/" method="post" class="ef-login-form cc-login-form">
+                        <input type="hidden" name="pa" value="login">
+                        <input type="hidden" name="k" value="">
+                        <input type="hidden" name="re" value="/account/">
+
+                        <div class="login-box__wrapper" id="efLoginBoxContent">
+                            <div class="login-box__field">
+                                <label>Username:</label>
+                                <input class="efTextInput" name="un" type="text" id="efUsernameField" autocomplete="off">
+                            </div>
+                            <div class="login-box__field">
+                                <label>Password:</label>
+                                <input class="efTextInput" type="password" name="pd" id="efPasswordField" autocomplete="off">
+                                <span class="efPasswordEyeOpenIcon ef-js-text-mask" data-owner="efPasswordField">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
+                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
+                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
+                                    </svg>
+                                </span>
+                                <span class="efPasswordEyeClosedIcon ef-js-text-mask efHide" data-owner="efPasswordField">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 18 22">
+                                        <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"></path>
+                                        <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
+                                        <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="login-box__actions">
+                                <div class="login-box__actions--login">
+                                    <input type="submit" value="Login" class="efButton ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
+                                </div>
+                                <div class="login-box__actions--reset">
+                                    <p>Forgotten Username: Try your email address or call 020 3897 2233.</p>
+                                </div>
+                                <div class="login-box__actions--reset">
+                                    <p>Forgotten Password: Please <a href="javascript:password_reminder()">click here</a> to reset.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="g-recaptcha-response" placeholder="" value="03AFcWeA50TWsJ_S35Tkm8xPoPHGUcLlt-M1iTgwfi5HrmHx29S06lG28wE14QBzo7FEfscTv-nM5NLQc-BmAX8VBh87DKmQP_Q3h8yaBQlXsps8KxtzQBZ6hXZI5ZDnoL3wf96h6WUu4ji1mmKzfKP_pK1JrGOXPVyubjuKv1NKr7Ar7gG_UBuffqd-Di18DFMKsznrUjoIVYaLMuttNkeGRBWEIZ6WkFDXkrr-wWYyMOZ67O4_MvoI1alH4r2Pn6U-5_t_KTYRlGSYEqp8ZiYHE3YHP3DyMQsXDlHQYhyIcOQHKG80f6JOdipKjpqEzhF-QDn53EiJYX1rgqvAeKMQQxeY43-K7lD3vPyw23FGxilAW5lZGAcX84FzywXeFibIluvg_k9jA2Dt6mV_mhXzIHd0WNsgKDfoiJL9qOW0ti7eSE_cZ3CTiL_TeHDIBSy5R59kJRO65_96MoUIl0YEEM4SLJ2DEKcwYqSbznYlGkt3dhfGvefVRM4q1zFnIsqHV4RZpSIyDy2RgSTS6ympbA3dRN1yEYz8td9dXGdln2cVfALf4-rQ7mTWEVk2olNw7pAwHMOiKW9FkS3olF8yWQ9ljwZRHs1-j4fj2B1qB9AkpTuLTZAkFJ-F0wfZOtYe9C9GZek3E9w3E8BIOgmNYIoWe5UwxbMCkkhv18kxLpKODZis4RF1S4QYmOOUOTGDk9m5x9ehw2874hT_AXf4V1xdT0pT66qfOaUQmZBIAxK6M1cgHoimyFfrt1ODZXOoVXBBEe2qhqEnug71LJhdl8-ErauTw0qglqvrRkSR_RjMumRM0YDO4golKaTtwldpGXx21OfuDiSRZ6D3O4yQdo6mtB34AUiN80oc5DfivA1gFuivhfvRw" id="g-recaptcha-response">
+                    </form>
+                </div>
+
+                <div id="reminder" style="display:none" title="Password Reset">
+                    <form action="/login/" method="post">
+                        <input type="hidden" name="pa" value="reminder">
+                        <input type="hidden" name="k" value="">
+                        <input type="hidden" name="re" value="/account/">
+
+                        <p>Please enter your email address or username in the field below:</p>
+                        <p><input class="efTextInput" name="identifier" type="text" style="width:460px"></p>
+                        <p><input type="submit" value="Submit" class="efButton  ui-button ui-widget ui-state-default ui-corner-all" style="float:right" role="button" aria-disabled="false"></p>
+                    </form>
+                </div>
+
+
+
+
+                <script>
+                    grecaptcha.ready(function () {
+                        grecaptcha.execute('6LctSPcUAAAAAGqGPCeWQHpISurU2OwIHk8P5BFB', { action: 'login' })
+                            .then(function (token) {
+                                document.getElementById('g-recaptcha-response').value = token;
+                            });
+                    });
+
+                </script>
+
+            </div>
+
+        </div>
+        <div class="boxeleven mxwidth-fifty-per boxsizing float-left border-left-767 padding-left-five-per register-box">
+            <h2>New Customer</h2>
+            <p>If you would like to register with 1st Formations and import an existing company to manage using our Online Company Manager then please click 'Create Account' below.</p>
+            <div class="register-box__actions--register">
+                <a class="button--register button-five" href="/register/">Create Account</a>
+            </div>
+        </div>
+    </div>
+</div>

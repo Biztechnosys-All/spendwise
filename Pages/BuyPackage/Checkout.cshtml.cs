@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Tokens;
 using Spendwise_WebApp.Models;
 
 namespace Spendwise_WebApp.Pages.BuyPackage
@@ -23,9 +25,19 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             {
                 SelectedPackage = await _context.packages.Where(x => x.PackageName.ToLower() == packageName.ToLower()).FirstOrDefaultAsync();
 
-                additionalPackageItems = await _context.AdditionalPackageItems.Where(x=>x.PackageName == SelectedPackage.PackageName).ToListAsync();
+                additionalPackageItems = await _context.AdditionalPackageItems.Where(x => x.PackageName == SelectedPackage.PackageName).ToListAsync();
 
             }
+        }
+
+        public AdditionalPackageItem GetAdditinalPackageItem(int ItemId)
+        {
+            AdditionalPackageItem additionalItem = new AdditionalPackageItem();
+            if (ItemId > 0)
+            {
+               additionalItem = _context.AdditionalPackageItems.Where(x => x.AdditionalPackageItemId == ItemId).FirstOrDefault();
+            }
+            return additionalItem;
         }
     }
 }
