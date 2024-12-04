@@ -11,6 +11,7 @@
     <link href="/css/inner-style.css" rel="stylesheet" />
     <link href="/css/ef-core.min.css" rel="stylesheet" />
     <link href="/css/theme.css" rel="stylesheet" />
+    <link href="/css/home-min.css" rel="stylesheet" />
 <link href="/css/base-rev-2-0-min-gzip.css?=v9" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -460,9 +461,12 @@
             @RenderBody()
         </main>
     </div>
+
+    @await Html.PartialAsync("_Footer")
+
     <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/site.js" asp-append-version="true"></script>    
-   
+
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main-min.js"></script>
     <script type="text/javascript" src="/js/slick.min.js"></script>
