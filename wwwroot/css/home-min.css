@@ -5,6 +5,7 @@
     --primary: #676767;
     --color-green: #5fc371;
     --color-green-one: #5fc371;
+    --button-hover: #6acd7c;
     --color-blue: #208bae;
     --color-white: #ffffff;
     --color-black: #000000;
@@ -292,19 +293,19 @@ body {
 .static-pages a {
   text-decoration: none;
 }
-.static-pages a,
-.static-pages a:active,
-.static-pages a:visited {
-  color: var(--color-blue);
-  -webkit-transition: color 0.3s ease;
-  -moz-transition: color 0.3s ease;
-  -ms-transition: color 0.3s ease;
-  -o-transition: color 0.3s ease;
-  transition: color 0.3s ease;
-}
-.static-pages a:hover {
-  color: #31a5cb;
-}
+    .static-pages a,
+    .static-pages a:active,
+    .static-pages a:visited {
+        color: var(--color-green-one);
+        -webkit-transition: color 0.3s ease;
+        -moz-transition: color 0.3s ease;
+        -ms-transition: color 0.3s ease;
+        -o-transition: color 0.3s ease;
+        transition: color 0.3s ease;
+    }
+        .static-pages a:hover {
+            color: var(--button-hover);
+        }
 .static-pages h1,
 .static-pages h2,
 .static-pages h3 {
@@ -616,11 +617,11 @@ body {
 .button--primary {
   color: var(--color-white) !important;
   padding: 10px 50px;
-  background-color: #31a5cb;
+  background-color: var(--color-green-one);
 }
 .button--primary:hover {
   color: var(--color-white) !important;
-  background-color: #56bfe1;
+  background-color: var(--button-hover);
 }
 .button--primary:focus {
   background-color: var(--color-blue);
@@ -3577,6 +3578,7 @@ section {
   width: 100%;
   text-align: center;
   box-sizing: border-box;
+  margin:3px 0;
 }
 #section-one .home-packages__buttons a.js-routing {
   margin-right: 10px;
