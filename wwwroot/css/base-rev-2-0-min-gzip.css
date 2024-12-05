@@ -1,5 +1,16 @@
 @charset "UTF-8";
-
+:root {
+    --font-family-body: Arial, Helvetica, sans-serif;
+    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
+    --primary: #676767;
+    --color-green: #62a43f;
+    --color-green-one: #5fc371;
+    --color-blue: #208bae;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #4c4e52;
+    --color-yellow: #ffe400;
+}
 
 @font-face {
     font-family: MyriadW08-LightSemiCond1166630;
@@ -2467,7 +2478,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .container-inner h1, .dt-packcom h2 {
     font-size: 31px;
-    color: #31c4f5;
+    color: var(--color-green);
     padding: 0 0 5px;
     background-repeat: no-repeat !important;
     background-position: 0 100%

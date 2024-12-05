@@ -1,3 +1,16 @@
+:root {
+    --font-family-body: Arial, Helvetica, sans-serif;
+    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
+    --primary: #676767;
+    --color-green: #5fc371;
+    --color-green-one: #5fc371;
+    --button-hover: #6acd7c;
+    --color-blue: #208bae;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #4c4e52;
+    --color-yellow: #ffe400;
+}
 .st_searchbox {
     position: absolute;
     right: 10px;
@@ -440,12 +453,12 @@ body {
     }
 
     .page-heading__button.compare-packages {
-        background-color: #31a5cb;
+        background-color: var(--color-green);
         margin-left: .5em;
     }
 
         .page-heading__button.compare-packages:hover {
-            background-color: #1387ad;
+            background-color: var(--button-hover);
         }
 
 .package-faqs,

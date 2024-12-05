@@ -1328,7 +1328,6 @@ body {
     .site-nav__menu {
         position: absolute;
         top: 184%;
-        background-color: #323336;
         z-index: 999
     }
 }
@@ -1565,12 +1564,6 @@ footer {
 .site-footer {
     font-size: 14px;
     font-size: .875rem
-}
-
-.site-footer__wrap {
-    background-color: #5b5f67;
-    border-top: 5px solid #bcc0c9;
-    padding-bottom: 50px
 }
 
 .site-footer__icon-strip {

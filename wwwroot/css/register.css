@@ -1,0 +1,160 @@
+:root {
+    --font-family-body: Arial, Helvetica, sans-serif;
+    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
+    --primary: #676767;
+    --color-green: #62a43f;
+    --color-green-one: #5fc371;
+    --color-blue: #208bae;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #4c4e52;
+    --color-yellow: #ffe400;
+}
+.col-five.client #efPageContent.ui-widget {
+    width:99%;
+    margin:0 auto
+}
+#efRegisterContainer h1 {
+    line-height: 1.1;
+}
+
+#error-message,
+#success-message {
+    width: 96%;
+    padding: 5px;
+}
+
+td input {
+    float: right;
+}
+
+td select {
+    float: right;
+}
+
+#efRegisterSubmitButton,
+#captcha-wrapper {
+    float: left;
+}
+
+    #efRegisterSubmitButton button {
+        margin: 2rem 0;
+        float: left;
+    }
+
+.efRegisterUserWrapper,
+.efRegisterUserAddressWrapper {
+    width: 100% !important;
+    margin-left: 0 !important;
+}
+
+    .efRegisterUserWrapper table.efRegisterUser,
+    .efRegisterUserAddressWrapper table.efRegisterUserAddress {
+        width: auto;
+    }
+
+#register .efRegisterUserWrapper .efPanelHeader,
+#register .efRegisterUserAddressWrapper .efPanelHeader {
+    background-color: var(--color-green) !important;
+    color: var(--color-white) !important;
+    padding: 10px !important;
+    margin-bottom: 20px !important;
+    font-size: 18px;
+}
+
+
+#register .efRegisterUserWrapper .efRegisterLabel,
+#register .efRegisterUserAddressWrapper .efRegisterLabel {
+    font-size: 14px;
+    text-align: right !important;
+    padding-right: 20px !important;
+    width: 200px !important;
+}
+
+#register .efRegisterUserWrapper table.efRegisterUser input,
+#register .efRegisterUserAddressWrapper table.efRegisterUserAddress input {
+    border-color: #b7b7b7 !important;
+    padding: 5px 10px;
+    color: #333 !important;
+}
+
+#register .efRegisterUserWrapper table.efRegisterUser select,
+#register .efRegisterUserAddressWrapper table.efRegisterUserAddress select {
+    border-color: #b7b7b7 !important;
+    padding: 5px 10px;
+    color: #333 !important;
+    width: 202px !important;
+}
+
+#register .efRegisterUserAddress button.efButton {
+    margin-left: 0;
+    font-size: 14px;
+    margin-top: -5px;
+    height: 28px !important;
+}
+
+#efRegisterSubmitButton button {
+    font-size: 14px;
+}
+
+@@media only screen and (min-width: 769px) {
+    #efRegisterSubmitButton, #captcha-wrapper {
+        float: left;
+    }
+
+        #efRegisterSubmitButton button {
+            margin: 1rem 0;
+            float: right;
+        }
+}
+
+@@media only screen and (max-width: 767px) {
+    #efRegisterContainer #register .efRegisterUserAddress tr td,
+    #efRegisterContainer #register .efRegisterUser tr td {
+        display: table-cell;
+        width: auto;
+    }
+
+    #efRegisterContainer #register input {
+        width: 202px !important;
+    }
+
+        #efRegisterContainer #register input[type="checkbox"] {
+            width: auto !important;
+        }
+
+    #register .efRegisterUserAddress button.efButton {
+        height: 32px !important;
+    }
+}
+
+@@media only screen and (max-width: 600px) {
+    #register .efRegisterUserWrapper .efRegisterLabel,
+    #register .efRegisterUserAddressWrapper .efRegisterLabel {
+        width: 100% !important;
+        text-align: left !important;
+    }
+
+    #efRegisterContainer #register .efRegisterUserAddress tr td,
+    #efRegisterContainer #register .efRegisterUser tr td {
+        display: block;
+        width: 100%;
+    }
+
+    #register .efRegisterUserWrapper table.efRegisterUser,
+    #register .efRegisterUserAddressWrapper table.efRegisterUserAddress {
+        width: 100%;
+    }
+
+    #efRegisterContainer #register .efRegisterUserWrapper table.efRegisterUser input,
+    #efRegisterContainer #register .efRegisterUserAddressWrapper table.efRegisterUserAddress input,
+    #efRegisterContainer #register .efRegisterUserWrapper table.efRegisterUser select,
+    #efRegisterContainer #register .efRegisterUserAddressWrapper table.efRegisterUserAddress select {
+        width: 100% !important;
+    }
+
+    #register .efRegisterUserAddress button.efButton {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
