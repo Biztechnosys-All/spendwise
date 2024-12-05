@@ -119,6 +119,7 @@
         })
 
         function ShowSelectedTab(TabName) {
+            debugger;
             if (TabName == "CompanyName") {
                 $.ajax({
                     url: "/BuyPackage/CompanyName",
@@ -159,6 +160,7 @@
                 })
             }
             else if (TabName == "Checkout") {
+                if ($("#hdnSelectedPackage").val() != "") {
                 $.ajax({
                     url: "/BuyPackage/Checkout?packageName=" + $("#hdnSelectedPackage").val(),
                     type: "get",
@@ -171,6 +173,11 @@
                         $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
                     }
                 })
+                }
+                else
+                {
+                    alert("please select package");
+                }
             }
             else if (TabName == "CompanyDetails") {
                 $.ajax({

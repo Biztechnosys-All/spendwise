@@ -69,7 +69,7 @@
                     <div class="additional-items additional-items-group additional-items-address-services additional-items-address-services-monthly">
                         @if (Model.additionalPackageItems != null && Model.additionalPackageItems.Any())
                         {
-                            foreach (var item in Model.additionalPackageItems.Where(x => x.ItemGroup == "monthly"))
+                            foreach (var item in Model.additionalPackageItems)
                             {
                                 <div class="inline-block additional-item twelve m-pd-bot-15 pd-bot-5 t-twelve m-twelve xs-twelve" data-id="@item.AdditionalPackageItemId">
                                     <div class="col eight t-seven m-eight xs-twelve pd-top-0 pd-left-0 pd-bot-0 m-pd-bot-5 xs-pd-bot-5">
