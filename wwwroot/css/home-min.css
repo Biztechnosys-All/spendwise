@@ -787,7 +787,7 @@ body {
   left: 50%;
 }
 .site-nav__wrap {
-  background-color: var(--color-black);
+  background-color: var(--color-green);
   padding: 0;
 }
 @media (min-width: 62em) {
@@ -999,7 +999,7 @@ body {
   .site-nav__menu {
     position: absolute;
     top: 184%;
-    background-color: #323336;
+    background-color: var(--color-green);
     z-index: 999;
   }
 }
@@ -1409,9 +1409,9 @@ footer {
   font-size: 0.875rem;
 }
 .site-footer__wrap {
-  background-color: var(--color-black);
-  border-top: 5px solid #bcc0c9;
-  padding-bottom: 50px;
+    background-color: var(--color-black);
+    border-top: 5px solid var(--color-black);
+    padding-bottom: 50px;
 }
 .site-footer__icon-strip {
   display: flex;

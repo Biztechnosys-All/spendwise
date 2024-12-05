@@ -1088,7 +1088,7 @@ body {
     left: 0;
     margin: 0;
     padding: 0 20px;
-    background-color: #000;
+    background-color: var(--color-green);
     z-index: 99;
     width: 100%
 }
@@ -1473,7 +1473,7 @@ body {
 }
 
 .home-hero .site-nav__wrap > div > div {
-    background-color: #000;
+    background-color: var(--color-green);
     width: 100%
 }
 
@@ -1556,8 +1556,8 @@ footer {
 }
 
 .site-footer__wrap {
-    background-color: #5b5f67;
-    border-top: 5px solid #bcc0c9;
+    background-color: var(--color-black);
+    border-top: 5px solid var(--color-black);
     padding-bottom: 50px
 }
 

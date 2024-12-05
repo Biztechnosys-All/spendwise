@@ -1,0 +1,795 @@
+/* Page styles */
+:root {
+    --font-family-body: Arial, Helvetica, sans-serif;
+    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
+    --primary: #676767;
+    --color-green: #5fc371;
+    --color-green-one: #5fc371;
+    --button-hover: #6acd7c;
+    --color-blue: #208bae;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #4c4e52;
+    --color-yellow: #ffe400;
+}
+#payment-gateway {
+    float: left;
+    width: 100%;
+    margin: 1rem 0 3rem;
+}
+
+    #payment-gateway #efPageContent {
+        padding: 0;
+    }
+
+    #payment-gateway .efPaymentDetailsWrapper {
+        width: 57%;
+    }
+
+    #payment-gateway .efOrderContentsWrapper {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+    }
+
+    #payment-gateway .container {
+        width: 100%;
+    }
+
+    #payment-gateway .row {
+        height: auto;
+        margin: 0;
+    }
+
+body.pace-running {
+    background-image: none !important;
+}
+
+#st-payment-stored-card button {
+    margin-left: 15px !important;
+}
+
+/* Section styles */
+#payment-gateway .efPaymentGatewayAccountDetails h2,
+#payment-gateway .efPaymentGatewayBillingDetails h2,
+#payment-gateway .efNewCardWrapper h2,
+#payment-gateway .efOrderDefaultContents h2,
+#payment-gateway .efExistingCustomer .ef-js-existing-customer-form h2,
+#payment-gateway .efPreviousCardWrapper h2 {
+    font-family: MyriadW08-BoldSemiConde !important;
+    font-size: 18px;
+    display: block;
+    border-bottom: 1px solid #dddddd;
+    padding: 10px 15px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    color: #676767;
+    background-color: #f5f5f5;
+}
+
+#payment-gateway .efCustomerTypeWrapper {
+    margin-top: 0;
+}
+
+    #payment-gateway .efCustomerTypeWrapper .efCustomerType {
+        box-sizing: border-box;
+        border-color: #afd6e6;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-width: 1px;
+        font-size: 18px;
+        font-family: MyriadW08-BoldSemiConde !important;
+    }
+
+#payment-gateway .efPaymentGatewayAccountDetails,
+#payment-gateway .efPaymentGatewayBillingDetails,
+#payment-gateway .efNewCardWrapper,
+#payment-gateway .efOrderDefaultContents,
+#payment-gateway .efPaymentOptionWrapper,
+#payment-gateway .efExistingCustomer .ef-js-existing-customer-form,
+#payment-gateway .efPreviousCardWrapper {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+#payment-gateway .efOrderDefaultContents {
+    padding: 0;
+}
+
+#payment-gateway h1 {
+    font-family: MyriadW08-BoldSemiConde !important;
+    font-size: 18px;
+    line-height: initial;
+    display: block;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 15px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    color: #676767;
+    background-color: #f5f5f5;
+    margin: 0;
+    border-color: #dddddd;
+}
+
+#payment-gateway .efPaymentGatewayAccountDetails .efPaymentGatewayField,
+#payment-gateway .efPaymentGatewayBillingDetails .efPaymentGatewayField,
+#payment-gateway .efNewCardWrapper .efPaymentGatewayField,
+#payment-gateway .efExistingCustomer .efPaymentGatewayField,
+#payment-gateway .efOrderDefaultContents .efPaymentGatewayOrderId,
+#payment-gateway .efOrderDefaultContents .efOrderContentsList,
+#payment-gateway .efOrderDefaultContents .efPaymentGatewayTotals,
+#payment-gateway .efOrderDefaultContents .efOrderPackageName,
+#payment-gateway .efOrderDefaultContents .efOrderCompanyName,
+#payment-gateway .efNewCardWrapper .efCardDetailsField,
+#payment-gateway .efPaymentOptionWrapper .efPaymentSelect {
+    padding: 15px 15px 0 15px;
+    margin: 0;
+}
+
+#payment-gateway .efOrderDefaultContents .efPaymentGatewayAccountTitle {
+    padding: 15px 15px 0 15px;
+    margin: 0;
+}
+
+#payment-gateway .efOrderDefaultContents .efPaymentGatewayAccountDescription {
+    padding: 5px 15px 15px;
+    margin: 0;
+}
+
+#payment-gateway .efPaymentGatewayAccountDetails .efPaymentGatewayField:last-of-type,
+#payment-gateway .efPaymentGatewayBillingDetails .efPaymentGatewayField:last-of-type,
+#payment-gateway .efExistingCustomer .efPaymentGatewayField:last-of-type {
+    margin-bottom: 20px;
+}
+
+#payment-gateway .efPaymentGatewayAccountDetails #password-constraints ul {
+    font-size: 14px;
+}
+
+#payment-gateway .efPaymentGatewayAddressText {
+    margin-left: 0;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+/* Form styles */
+#payment-gateway .efCustomerTypeWrapper input[type=radio].ef-toggle:checked + label:after {
+    display: none;
+}
+
+#payment-gateway .efCustomerTypeWrapper input[type=radio].ef-toggle + .efExistingCustomerLabel {
+    margin-left: -4px;
+    background-color: #fff;
+}
+
+#payment-gateway .efCustomerTypeWrapper input[type=radio].ef-toggle:checked + label {
+    background-color: var(--color-green);
+    border-color: var(--color-green);
+    color: #fff;
+}
+
+#payment-gateway .efCustomerTypeWrapper .efCustomerType:first-of-type {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+#payment-gateway label.efPaymentGatewayLabel {
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    color: #676767;
+}
+
+#payment-gateway form input,
+#payment-gateway .ef-info-modal input {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    padding: 6px 10px;
+    width: 100%;
+    background-image: none !important;
+    border-radius: 3px;
+}
+
+#payment-gateway input.ef-js-billing-title {
+    width: 262px;
+}
+
+#payment-gateway form select,
+#payment-gateway .ef-info-modal select {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    padding: 5px 10px;
+    width: auto;
+    background-image: none !important;
+    border-radius: 3px;
+}
+
+    #payment-gateway form input:focus,
+    #payment-gateway .ef-info-modal input:focus,
+    #payment-gateway form select:focus,
+    #payment-gateway .ef-info-modal select:focus {
+        border: 1px solid #ccc !important;
+    }
+
+#payment-gateway form button.efButton,
+#payment-gateway .ef-info-modal button.efButton,
+#efNewAddressFormData .efPostcodeLookup #ef-postcode-look-up,
+#efSubmitNewAddressButton,
+.efAddressEnterManually span.efButton,
+#efGetAddressSearch .efUsedAddressDialogRow .efButton,
+.efPostCodeLookupSuccessfulSearchResult .efButton,
+#efGetAddressSearch #ef-add-a-new-address {
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 18px;
+    font-family: MyriadW08-BoldSemiConde !important;
+    background-color: #00abe4;
+    height: auto !important;
+    margin-left: initial;
+}
+
+    #payment-gateway form button.efButton.ui-state-active,
+    #payment-gateway form button.efButton.ui-state-focus,
+    #payment-gateway form button.efButton.ui-state-hover,
+    #payment-gateway .ef-info-modal button.efButton.ui-state-active,
+    #payment-gateway .ef-info-modal button.efButton.ui-state-focus,
+    #payment-gateway .ef-info-modal button.efButton.ui-state-hover {
+        background-color: #0498ca !important;
+    }
+
+    #payment-gateway form button.efButton img,
+    #payment-gateway .ef-info-modal button.efButton img {
+        display: none;
+    }
+
+#payment-gateway form button.efPayButton {
+    background-color: #62a43f !important;
+    padding: 13px;
+    margin-top: 0;
+    height: auto !important;
+    margin-left: initial;
+}
+
+    #payment-gateway form button.efPayButton.ui-state-active,
+    #payment-gateway form button.efPayButton.ui-state-focus,
+    #payment-gateway form button.efPayButton.ui-state-hover {
+        background-color: #518d31 !important;
+    }
+
+#payment-gateway .efPaymentGatewayPayBtn {
+    margin: 0 0 20px !important;
+}
+
+    #payment-gateway .efPaymentGatewayPayBtn .efPaymentGatewayLabel,
+    #payment-gateway .efPaymentGatewayLabel:empty {
+        display: none;
+        height: 0;
+        padding: 0;
+    }
+
+#payment-gateway .efPaymentGatewayAddressWrapper .efPaymentGatewayAddressActions {
+    margin: 0;
+}
+
+#payment-gateway .ui-button-text-only .ui-button-text,
+#ef-add-a-new-address .ui-button-text {
+    padding: .4em 1em !important;
+}
+
+
+/* Basket styles */
+#payment-gateway h3.efPaymentGatewayOrderId {
+    font-size: 16px;
+    font-weight: 600;
+    color: #676767;
+}
+
+    #payment-gateway h3.efPaymentGatewayOrderId span {
+        font-weight: 400;
+    }
+
+#payment-gateway .efOrderDefaultContents .efOrderPackageName {
+    font-size: 14px;
+    color: #676767;
+    font-weight: 600;
+}
+
+    #payment-gateway .efOrderDefaultContents .efOrderPackageName span {
+        float: right;
+    }
+
+#payment-gateway .efOrderDefaultContents .efOrderCompanyName {
+    font-size: 14px;
+    font-weight: 600;
+    color: #155724;
+    background-color: #eaf8ed;
+    margin: 15px 15px 0;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+    #payment-gateway .efOrderDefaultContents .efOrderCompanyName span {
+        font-weight: 400;
+        display: block;
+        margin-top: 3px;
+    }
+
+#payment-gateway ul.efOrderContentsList li {
+    border-bottom: 1px dotted #ccc;
+    color: #676767;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 5px 10px 5px 0;
+}
+
+    #payment-gateway ul.efOrderContentsList li:nth-child(2) {
+        border-top: 1px dotted #ccc;
+    }
+
+    #payment-gateway ul.efOrderContentsList li:before {
+        display: none;
+    }
+
+#payment-gateway .efPaymentGatewayTotals {
+    padding: 20px !important;
+    text-align: left;
+    background-color: #F2F2F2;
+    margin: 20px 15px !important;
+    border: none;
+    border-radius: 3px;
+}
+
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayGrossPrice,
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayNetPrice,
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayVATPrice {
+        font-size: 14px;
+        line-height: 16px;
+        color: #676767;
+        font-weight: 600;
+        margin: 0 0 5px 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+#payment-gateway .efPaymentGatewayVATPrice {
+    margin: 0 0 10px !important;
+    padding-bottom: 10px;
+    display: block;
+    border-bottom: 1px dotted #CCCCCC;
+}
+
+#payment-gateway .efPaymentGatewayGrossPrice {
+    color: #00a800 !important;
+}
+
+#payment-gateway .efPaymentGatewayTotals .efPaymentGatewayNetPrice span,
+#payment-gateway .efPaymentGatewayTotals .efPaymentGatewayVATPrice span {
+    float: right;
+    font-weight: 400;
+}
+
+#payment-gateway .efPaymentGatewayAmountDuePrice {
+    text-align: left;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #f1f1f2;
+    margin: 15px !important;
+    border-radius: 3px;
+    font-weight: 600;
+    color: #00a800 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+    #payment-gateway .efPaymentGatewayAmountDuePrice span,
+    #payment-gateway .efPaymentGatewayTotals .efPaymentGatewayGrossPrice span {
+        float: right;
+    }
+
+
+/* Other styles */
+#payment-gateway .efPoweredBySt {
+    margin: 20px 0;
+    background-color: #f5f5f5;
+    margin-bottom: 0;
+    border-radius: 0 0 3px 3px;
+    padding-bottom: 20px;
+}
+
+#payment-gateway .efOrderMerchantName,
+#payment-gateway .efOrderReferenceNumber {
+    font-size: 14px;
+    font-weight: 600;
+    color: #676767;
+}
+
+#payment-gateway .efOrderMerchantName {
+    margin-bottom: 1rem;
+}
+
+    #payment-gateway .efOrderMerchantName span,
+    #payment-gateway .efOrderReferenceNumber span {
+        font-weight: 400;
+    }
+
+#payment-gateway .efOrderDefaultContents + div,
+#payment-gateway .efPaymentGatewayOrderId {
+    display: none;
+}
+
+#payment-gateway .efExistingCustomer .efForgottenPassword {
+    font-size: 14px;
+    color: #676767;
+}
+
+    #payment-gateway .efExistingCustomer .efForgottenPassword:hover {
+        color: #fcbe18;
+    }
+
+#payment-gateway .efNewCardWrapper .efCardTypeWrapper.ef-payment-type-wrapper {
+    padding: 15px 15px 0;
+}
+
+#payment-gateway .efCardDetails {
+    margin-top: 0;
+}
+
+    #payment-gateway .efCardDetails .ef-js-non-paypal .efCardDetailsField:nth-child(2) {
+        width: 55%;
+        box-sizing: border-box;
+        float: left;
+    }
+
+    #payment-gateway .efCardDetails .ef-js-non-paypal .efCardDetailsField:nth-child(3) {
+        width: 45%;
+        box-sizing: border-box;
+        float: left;
+    }
+
+        #payment-gateway .efCardDetails .ef-js-non-paypal .efCardDetailsField:nth-child(3) img {
+            max-height: 80px !important;
+            float: right;
+        }
+
+#payment-gateway .efNewCardWrapper .efCardTypeWrapper span.ef-card-type-span {
+    margin: 0;
+    opacity: 1 !important;
+    border: 1px solid #ccc;
+}
+
+    #payment-gateway .efNewCardWrapper .efCardTypeWrapper span.ef-card-type-span.efCardSelected {
+        border: 1px solid #62a43f;
+        box-shadow: inset 0 0px 0px 1px #7cc452;
+    }
+
+    #payment-gateway .efNewCardWrapper .efCardTypeWrapper span.ef-card-type-span:hover {
+        background-color: #f1f1f1;
+    }
+
+    #payment-gateway .efNewCardWrapper .efCardTypeWrapper span.ef-card-type-span .efCardTypeImg {
+        padding: 2px;
+        height: 42px;
+    }
+
+#payment-gateway .efPaymentOptionWrapper .efPaymentSelect div:last-child {
+    margin-bottom: 15px;
+}
+
+#payment-gateway .efPaymentOptionWrapper .efPaymentMethod {
+    font-size: 14px;
+    border-radius: 3px;
+    box-shadow: none !important;
+}
+
+#efNewAddressFormData .efPostcodeLookup {
+    margin-top: 20px;
+}
+
+    #efNewAddressFormData .efPostcodeLookup b {
+        margin-top: 5px;
+    }
+
+    #efNewAddressFormData .efPostcodeLookup #ef-postcode-look-up {
+        padding: 4px 10px;
+        margin: 0;
+        height: 37px !important;
+    }
+
+        #efNewAddressFormData .efPostcodeLookup #ef-postcode-look-up span.ui-button-text {
+            padding: .2em 1em;
+        }
+
+    #efNewAddressFormData .efPostcodeLookup #_PostCodeLookup_ {
+        height: 37px;
+        border: 1px solid #bfbfbf;
+        border-radius: 2px;
+    }
+
+#efSubmitNewAddressButton span.ui-button-text,
+.efAddressEnterManually span.efButton span.ui-button-text {
+    padding: .4em 1em !important;
+}
+
+#efNewAddressFormData b {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    width: 165px !important;
+}
+
+
+/* Error styles */
+#payment-gateway .efPaymentGatewayDetailsError,
+#payment-gateway .efPaymentGatewayLoginError,
+#payment-gateway .efPaymentGatewayMainError,
+#efGetAddressDialogError,
+#efAddressPostCodeResults .ui-state-error {
+    margin: 15px 0;
+    background: #f2dede;
+    color: #a94442;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: none;
+}
+
+    #payment-gateway .efPaymentGatewayDetailsError .ui-state-error-text,
+    #payment-gateway .efPaymentGatewayLoginError .ui-state-error-text,
+    #payment-gateway .efPaymentGatewayMainError .ui-state-error-text,
+    #payment-gateway .efForgottenPasswordOnReg,
+    efGetAddressDialogError .efGetAddressDialogAlertText,
+    #efAddressPostCodeResults .ui-state-error .ui-state-error-text {
+        color: #a94442;
+    }
+
+    #efAddressPostCodeResults .ui-state-error .ui-icon,
+    #efGetAddressDialogError .ui-icon {
+        display: none;
+    }
+
+#payment-gateway .efPaymentGatewayLoginNotice {
+    margin: 15px 0;
+    color: #856404;
+    background: #fff3cd;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: none;
+}
+
+#payment-gateway .efNewCardWrapper .efPaymentGatewayDetailsError {
+    margin: 15px 15px 15px;
+}
+
+
+/* Modal styles */
+#payment-gateway .ef-info-modal .ef-info-modal-header {
+    padding: 10px;
+}
+
+#payment-gateway .ef-info-modal .ef-info-modal-body {
+    margin-top: 0;
+}
+
+#payment-gateway .ef-info-modal .ef-info-modal-close {
+    margin-top: 12px;
+}
+
+#payment-gateway .ef-info-modal h2 {
+    font-family: MyriadW08-BoldSemiConde !important;
+    font-size: 18px;
+    line-height: 22px !important;
+    display: block;
+    padding: 10px 5px 5px 7px !important;
+    color: #676767;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+#payment-gateway .ef-js-recover-password {
+    margin: 20px 0 10px;
+}
+
+#payment-gateway .efPaymentGatewayDetailsError {
+    margin: 10px 0;
+}
+
+#payment-gateway .efPreviousCardNameWrapper,
+#payment-gateway .efPreviousCardAmountWrapper {
+    margin: 15px;
+}
+
+#payment-gateway .efPrevCardButton {
+    margin: 0 15px 15px;
+}
+
+
+/* Get Help styles */
+#payment-gateway .need-any-help {
+    margin-top: 25px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 15px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    font-size: 14px;
+    color: #676767;
+    box-sizing: border-box;
+}
+
+    #payment-gateway .need-any-help h4 {
+        font-size: 18px;
+        font-family: MyriadW08-BoldSemiConde !important;
+        margin-bottom: 5px;
+        margin-top: 2px;
+    }
+
+    #payment-gateway .need-any-help .need-any-help--body span {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+        #payment-gateway .need-any-help .need-any-help--body span:last-of-type {
+            margin-bottom: 0;
+        }
+
+    #payment-gateway .need-any-help .need-any-help--body a {
+        color: #676767 !important;
+    }
+
+        #payment-gateway .need-any-help .need-any-help--body a:hover {
+            color: #fcbe18 !important;
+        }
+
+    #payment-gateway .need-any-help > div {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    #payment-gateway .need-any-help .need-any-help--image img {
+        background-color: #e9f9ff;
+        border-radius: 3px;
+        height: 64px;
+        width: 64px;
+    }
+
+    #payment-gateway .need-any-help .need-any-help--image {
+        padding-right: 15px;
+    }
+
+#payment-gateway .efPaymentGatewayPayBtn {
+    margin: 0 0 20px !important;
+}
+
+    #payment-gateway .efPaymentGatewayPayBtn .efPaymentGatewayLabel,
+    #payment-gateway .efPaymentGatewayLabel:empty {
+        display: none;
+        height: 0;
+        padding: 0;
+    }
+
+.ui-dialog h3 {
+    font-family: MyriadW08-BoldSemiConde !important;
+    font-size: 21px;
+    font-weight: 600;
+    margin: 20px 8px;
+}
+
+#efGetAddressSearch .efUsedAddressDialogRow,
+.efPostCodeLookupSuccessfulSearchResult {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+#efAddressPostCodeResults table.efTable tr.efPostCodeLookupSuccessfulSearchResult td .efButton {
+    margin: 0;
+}
+
+    #efAddressPostCodeResults table.efTable tr.efPostCodeLookupSuccessfulSearchResult td .efButton span.ui-button-text {
+        padding: .25em 1em;
+    }
+
+input.efTextInput:active,
+input.efTextInput:focus,
+select.efSelectInput:active,
+select.efSelectInput:focus {
+    background-color: #fff;
+    border-color: #bfbfbf !important;
+}
+
+
+/* Progress Steps styles */
+.rf-home-bc {
+    height: auto;
+}
+
+.steps {
+    text-align: center !important;
+    float: left;
+    width: 25% !important;
+}
+
+.ef-js-payment-option-wrapper {
+    border: 0 !important;
+}
+
+    .ef-js-payment-option-wrapper .efPaymentSelect {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+.efPaymentGatewayFields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    padding: 15px 15px 0 15px;
+}
+
+    .efPaymentGatewayFields .efPaymentGatewayField {
+        padding: 0 !important;
+        margin-bottom: 0 !important;
+    }
+#ef-stv2-overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#ef-stv2-page-wrapper {
+    position: relative;
+    top: 10%;
+    margin: auto;
+    width: 50%;
+    height: auto;
+    min-height: 390px;
+    max-width: 390px;
+    padding: 20px 30px 30px 30px;
+    border: 1px solid #eee;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.ef-stv2-loader {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+}
+
+ef-stv2-loader-img {
+    position: relative;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    padding: 20px 30px 30px 30px;
+}
+
+.ef-stv2-logos {
+    position: absolute;
+    bottom: 5px;
+    margin: auto;
+    width: 100%;
+    padding-bottom: 15px;
+}
