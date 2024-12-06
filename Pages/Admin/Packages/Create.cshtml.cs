@@ -40,6 +40,11 @@ namespace Spendwise_WebApp.Pages.Admin.Packages
         {
             if (!ModelState.IsValid)
             {
+                PackageFeatureList = _context.PackageFeatures.Select(p => new SelectListItem
+                {
+                    Text = p.Feature,
+                    Value = p.FeatureId.ToString()
+                }).ToList();
                 return Page();
             }
            var PackagesFeatures =  Request.Form["Package.PackageFeatures"];
