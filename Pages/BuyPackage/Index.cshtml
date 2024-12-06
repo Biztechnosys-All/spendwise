@@ -197,10 +197,16 @@
         }
 
         function CheckCompanyName() {
-            $("#divCopmanySearch").css("display", "none");
-            $("#efNameCheckResult").css("display", "block");
-            var searchedCompanyName = $("#company_name").val();
-            $("#spnSearchedCompanyName").html(searchedCompanyName);
+            if ($("#company_name").val() == "") {
+                $("#errorCompanyname").css("display", "block");
+            }
+            else{
+                $("#errorCompanyname").css("display", "none");
+                $("#divCopmanySearch").css("display", "none");
+                $("#efNameCheckResult").css("display", "block");
+                var searchedCompanyName = $("#company_name").val();
+                $("#spnSearchedCompanyName").html(searchedCompanyName);
+            }
         }
 
         function MoveToNextPackageStep() {

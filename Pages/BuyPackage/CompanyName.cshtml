@@ -56,6 +56,7 @@
             <form method="post" asp-page="CompanyName" data-ajax-complete="firstCompleted">
                 <input class="efInputText" id="company_name" name="name" type="text" placeholder="Enter your new company name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your company name'">
                 <button type="button" class="btn btn-primary" onclick="CheckCompanyName()">Submit</button>
+                <label id="errorCompanyname" style="display:none;color:red;">Please write company name</label>
             </form>
         </div>
     </div>
@@ -67,7 +68,7 @@
                 <i class="fa fa-check-circle fa-4x fc-green" aria-hidden="true"></i>
             </div>
             <p class="box4 fs-thirty-one">
-                <span class="ncgreen-title fc-green" id="spnSearchedCompanyName">CODEPLUS</span>
+                <span class="ncgreen-title fc-green" id="spnSearchedCompanyName"></span>
                 Congratulations, the company name above is available for registration!
             </p>
             <div class="btn-savencon">

@@ -133,10 +133,10 @@
                             <div id="efPackageNet">Net:<span id="spmNetAmount">£@Model.SelectedPackage.Price</span></div>
                             <div id="efPackageTax">VAT:<span id="spmVatAmount">£1.60</span></div>
                             <div id="efPackageTotal">Order Total:<span id="spnTotalAmount">£59.58</span></div>
-                            <div id="efPackageAgreeTerms"><input type="checkbox" id="tcagree" class="cy-accept-tnc"> <label for="tcagree" id="tcagree-checkbox-label"> I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a> </label> </div>
+                            <div id="efPackageAgreeTerms"><input type="checkbox" id="ChkCheckoutTerms" name="ChkCheckoutTerms" class="cy-accept-tnc"> <label for="tcagree" id="tcagree-checkbox-label"> I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a> </label> </div>
                             <div id="efPackageCheckout">
                                 <span class="efPackageCheckoutButtonLoader efHide"></span>
-                                <input id="spPackageCheckoutButton" type="button" class="efButton ui-button ui-widget cy-package-buy ui-state-default ui-corner-all" value="Checkout" role="button" aria-disabled="false">
+                                <input id="spPackageCheckoutButton" type="button" class="efButton ui-button ui-widget cy-package-buy ui-state-default ui-corner-all" value="Checkout" role="button" onclick="CheckoutClick()" aria-disabled="false">
                             </div>
                         </div>
                     </form>
@@ -272,6 +272,25 @@
         $(`#CheckOut_included_${itemId}`).remove();
         const targetDiv = $(`div[data-id='${itemId}']`);
         targetDiv.css("display", "block");
+    }
+
+    function CheckoutClick(){
+        debugger
+        let isChecked = $('#ChkCheckoutTerms').prop('checked');
+        if (isChecked) {
+            $.ajax({
+                url: "/BuyPackage/CompanyDetails",
+                type: "get",
+                success: function (result) {
+                    $(".packageTab").removeClass("active");
+                    $("#PackageTabContent").html(result);
+                    $('a[href="#CompanyDetails"]').addClass("active");
+                    $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                    $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
+                    $('a[href="#Checkout"]').addClass("PackTabProcessed");
+                }
+            })
+        }
     }
 
 </script>
