@@ -86,7 +86,7 @@
                                             <div class="infobox__wrapper">
                                                 <a class="infobox__close">×</a>
                                                 <div class="infobox__content">
-                                                    @item.ItemDetail
+                                                    @Html.Raw(item.ItemDetail)
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +136,7 @@
                             <div id="efPackageAgreeTerms"><input type="checkbox" id="ChkCheckoutTerms" name="ChkCheckoutTerms" class="cy-accept-tnc"> <label for="tcagree" id="tcagree-checkbox-label"> I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a> </label> </div>
                             <div id="efPackageCheckout">
                                 <span class="efPackageCheckoutButtonLoader efHide"></span>
-                                <input id="spPackageCheckoutButton" type="button" class="efButton ui-button ui-widget cy-package-buy ui-state-default ui-corner-all" value="Checkout" role="button" onclick="CheckoutClick()" aria-disabled="false">
+                                <input id="spPackageCheckoutButton" type="button" class="efButton ui-button ui-widget cy-package-buy ui-state-default ui-corner-all" value="Checkout" role="button" onclick="btnCheckoutClick()" aria-disabled="false">
                             </div>
                         </div>
                     </form>
@@ -225,12 +225,12 @@
         console.log("PackItems", PackItems)
 
         const CheckoutItemStr = `
-                            <tr id="CheckOut_included_${itemId}" class="efOptionalTrProduct efEven">
-                                        <td colspan="3">${ItemName}</td>
-                    <td style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="X" onclick="removePackageItem(${itemId})" role="button" aria-disabled="false"></td>
-                                <td style="text-align:right" id="CheckOut_included_${itemId}_Price">£${ItemPrice}</td>
-                            </tr>
-                    `
+                                                <tr id="CheckOut_included_${itemId}" class="efOptionalTrProduct efEven">
+                                                            <td colspan="3">${ItemName}</td>
+                                        <td style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="X" onclick="removePackageItem(${itemId})" role="button" aria-disabled="false"></td>
+                                                    <td style="text-align:right" id="CheckOut_included_${itemId}_Price">£${ItemPrice}</td>
+                                                </tr>
+                                        `
         selectedPackageItems.push(CheckoutItemStr);
         $("#CheckoutItems").append(CheckoutItemStr);
         const targetDiv = $(`div[data-id='${itemId}']`);
@@ -246,7 +246,7 @@
         // Calculate the total amount
         let TotalAmount = UpdatedNetAmount + vat;
         $("#spnTotalAmount").text("£" + TotalAmount.toFixed(2));
-        
+
 
 
         //renderAddons();
@@ -254,7 +254,7 @@
 
     function removePackageItem(itemId) {
 
-        
+
         let ItemPrice = parseFloat($(`#CheckOut_included_${itemId}_Price`).text().replace('£', ''));
         var NetAmount = parseFloat($("#spmNetAmount").text().replace('£', ''));
 
@@ -273,40 +273,48 @@
         const targetDiv = $(`div[data-id='${itemId}']`);
         targetDiv.css("display", "block");
     }
-        (function tooltipModal() {
+    (function tooltipModal() {
         var infobox = $(".infobox"),
             infoboxBtn = $(".infobox-btn"),
             closeBtn = $(".infobox__close"),
             resizeTimeout;
-
         function getViewportWidth() {
             viewportWidth = window.innerWidth || document.documentElement.clientWidth;
         }
-
         function infoboxController() {
             getViewportWidth();
             infoboxBtn.off();
-            if(viewportWidth < 980) {
-                infoboxBtn.click(function() {
+            if (viewportWidth < 980) {
+                infoboxBtn.click(function () {
                     $(this).next().addClass("infobox--active");
                 });
-                infobox.click(function() {
+                infobox.click(function () {
                     $(this).removeClass("infobox--active");
                 });
-                $(".infobox__content").click(function(e) {
+                $(".infobox__content").click(function (e) {
                     e.stopPropagation();
                 });
             } else {
-
-                infoboxBtn.mouseenter(function() {
+                infoboxBtn.mouseenter(function () {
                     closeBtn.before("<span class='infobox__triangle'></span>");
                     $(this).next().addClass("infobox--active");
                 })
-                infoboxBtn.mouseleave(function() {
+                infoboxBtn.mouseleave(function () {
                     $(this).next().removeClass("infobox--active");
                     $(this).next().find(".infobox__triangle").remove();
+                });
+            }
+        }
+        $(function () {
+            infoboxController();
+        });
+        $(window).resize(function () {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(infoboxController, 500);
+        });
+    }());
 
-    function CheckoutClick(){
+    function btnCheckoutClick() {
         debugger
         let isChecked = $('#ChkCheckoutTerms').prop('checked');
         if (isChecked) {
@@ -323,6 +331,10 @@
                 }
             })
         }
+        else {
+            alert("please check terms");
+        }
     }
+
 
 </script>
