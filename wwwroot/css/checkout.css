@@ -1148,14 +1148,7 @@ body {
     }
 }
 
-@media (min-width:62em) {
-    .site-nav__menu {
-        position: absolute;
-        top: 184%;
-        background-color: #323336;
-        z-index: 999
-    }
-}
+
 
 .site-nav__menu--inactive {
     max-height: 0;
