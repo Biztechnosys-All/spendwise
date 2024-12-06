@@ -273,5 +273,51 @@
         const targetDiv = $(`div[data-id='${itemId}']`);
         targetDiv.css("display", "block");
     }
+        (function tooltipModal() {
+        var infobox = $(".infobox"),
+            infoboxBtn = $(".infobox-btn"),
+            closeBtn = $(".infobox__close"),
+            resizeTimeout;
 
+        function getViewportWidth() {
+            viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+        }
+
+        function infoboxController() {
+            getViewportWidth();
+            infoboxBtn.off();
+            if(viewportWidth < 980) {
+                infoboxBtn.click(function() {
+                    $(this).next().addClass("infobox--active");
+                });
+                infobox.click(function() {
+                    $(this).removeClass("infobox--active");
+                });
+                $(".infobox__content").click(function(e) {
+                    e.stopPropagation();
+                });
+            } else {
+
+                infoboxBtn.mouseenter(function() {
+                    closeBtn.before("<span class='infobox__triangle'></span>");
+                    $(this).next().addClass("infobox--active");
+                })
+                infoboxBtn.mouseleave(function() {
+                    $(this).next().removeClass("infobox--active");
+                    $(this).next().find(".infobox__triangle").remove();
+
+                });
+            }
+        }
+
+        $(function() {
+            infoboxController();
+        });
+
+        $(window).resize(function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(infoboxController, 500);
+        });
+
+    }());
 </script>
