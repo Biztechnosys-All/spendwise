@@ -90,7 +90,7 @@
                     }
                 })
             }
-            else{
+            else {
                 $.ajax({
                     url: "/BuyPackage/SelectPackage",
                     type: "get",
@@ -161,21 +161,20 @@
             }
             else if (TabName == "Checkout") {
                 if ($("#hdnSelectedPackage").val() != "") {
-                $.ajax({
-                    url: "/BuyPackage/Checkout?packageName=" + $("#hdnSelectedPackage").val(),
-                    type: "get",
-                    success: function (result) {
-                        $(".packageTab").removeClass("active");
-                        $("#PackageTabContent").html(result);
-                        $('a[href="#Checkout"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
-                    }
-                })
+                    $.ajax({
+                        url: "/BuyPackage/Checkout?packageName=" + $("#hdnSelectedPackage").val(),
+                        type: "get",
+                        success: function (result) {
+                            $(".packageTab").removeClass("active");
+                            $("#PackageTabContent").html(result);
+                            $('a[href="#Checkout"]').addClass("active");
+                            $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                            $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
+                            $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        }
+                    })
                 }
-                else
-                {
+                else {
                     alert("please select package");
                 }
             }
@@ -200,7 +199,7 @@
             if ($("#company_name").val() == "") {
                 $("#errorCompanyname").css("display", "block");
             }
-            else{
+            else {
                 $("#errorCompanyname").css("display", "none");
                 $("#divCopmanySearch").css("display", "none");
                 $("#efNameCheckResult").css("display", "block");
@@ -241,7 +240,7 @@
             }
         }
 
-         function ShowTypeBasedPackage(Type) {
+        function ShowTypeBasedPackage(Type) {
             if (Type == "limited-company") {
                 $.ajax({
                     url: "/BuyPackage/limited-company",
@@ -250,9 +249,10 @@
                         $("#CompanyTypeBasedPackage").html(result);
                         // $('a[href="#SelectPackage"]').addClass("active");
                         $('a[href="#limited-company"]').parent().addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $('a[href="#Non-residents"]').parent().removeClass("active");
+                        $('a[href="#LLP"]').parent().removeClass("active");
+                        $('a[href="#Guarantee"]').parent().removeClass("active");
+                        $('a[href="#eSeller"]').parent().removeClass("active");
                     }
                 })
             }
@@ -262,11 +262,11 @@
                     type: "get",
                     success: function (result) {
                         $("#CompanyTypeBasedPackage").html(result);
-                        // $('a[href="#SelectPackage"]').addClass("active");
+                        $('a[href="#limited-company"]').parent().removeClass("active");
                         $('a[href="#Non-residents"]').parent().addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $('a[href="#LLP"]').parent().removeClass("active");
+                        $('a[href="#Guarantee"]').parent().removeClass("active");
+                        $('a[href="#eSeller"]').parent().removeClass("active");
                     }
                 })
             }
@@ -276,10 +276,12 @@
                     type: "get",
                     success: function (result) {
                         $("#CompanyTypeBasedPackage").html(result);
-                        $('a[href="#SelectPackage"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $('a[href="#limited-company"]').parent().removeClass("active");
+                        $('a[href="#Non-residents"]').parent().removeClass("active");
+                        $('a[href="#LLP"]').parent().addClass("active");
+                        $('a[href="#Guarantee"]').parent().removeClass("active");
+                        $('a[href="#eSeller"]').parent().removeClass("active");
+                        
                     }
                 })
             }
@@ -289,10 +291,11 @@
                     type: "get",
                     success: function (result) {
                         $("#CompanyTypeBasedPackage").html(result);
-                        $('a[href="#SelectPackage"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $('a[href="#limited-company"]').parent().removeClass("active");
+                        $('a[href="#Non-residents"]').parent().removeClass("active");
+                        $('a[href="#LLP"]').parent().removeClass("active");
+                        $('a[href="#Guarantee"]').parent().addClass("active");
+                        $('a[href="#eSeller"]').parent().removeClass("active");
                     }
                 })
             }
@@ -302,10 +305,11 @@
                     type: "get",
                     success: function (result) {
                         $("#CompanyTypeBasedPackage").html(result);
-                        $('a[href="#SelectPackage"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $('a[href="#limited-company"]').parent().removeClass("active");
+                        $('a[href="#Non-residents"]').parent().removeClass("active");
+                        $('a[href="#LLP"]').parent().removeClass("active");
+                        $('a[href="#Guarantee"]').parent().removeClass("active");
+                        $('a[href="#eSeller"]').parent().addClass("active");
                     }
                 })
             }
