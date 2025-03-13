@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Spendwise_WebApp.Models;
 using System.ComponentModel.Design;
 using System.Net.Http;
@@ -18,6 +19,8 @@ namespace Spendwise_WebApp.Pages
 
         public CompanyList? companyList { get; set; }
         public IList<Package> Package { get; set; } = default!;
+        [BindProperty]
+        public string CompanyName { get; set; } = "";
 
 
         public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration, Spendwise_WebApp.DLL.AppDbContext context)
@@ -55,10 +58,37 @@ namespace Spendwise_WebApp.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            var CompanyName = Request.Form["CompanyName"];
-            string APikey = _configuration.GetValue<string>("CompaniesHouseApiKey") ?? " ";
+            //var CompanyName = Request.Form["CompanyName"];
+
+            //string APikey = _configuration.GetValue<string>("CompaniesHouseApiKey") ?? " ";
             //var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.company-information.service.gov.uk/company/{CompanyID}");
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.company-information.service.gov.uk/alphabetical-search/companies?q={CompanyName}");
+            //var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.company-information.service.gov.uk/alphabetical-search/companies?q={CompanyName}");
+            //var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.company-information.service.gov.uk/search/companies?q={CompanyName}&restrictions=active-companies legally-equivalent-company-name");
+
+            //request.Headers.Add("Authorization", $"Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes(APikey))}");
+            //using (var httpClient = new HttpClient())
+            //{
+            //    var result = await httpClient.SendAsync(request);
+            //    result.EnsureSuccessStatusCode();
+
+            //    string jsonResponse = await result.Content.ReadAsStringAsync();
+
+            //}
+            Package = await _context.packages.ToListAsync();
+            return Page();
+        }
+
+
+        public async Task<IActionResult> OnGetCheckCompanyAvailability(string CompanyName)
+        {
+            if (string.IsNullOrWhiteSpace(CompanyName))
+            {
+                return new JsonResult(false);  // Return false if company name is empty
+            }
+
+
+            string APikey = _configuration.GetValue<string>("CompaniesHouseApiKey") ?? " ";
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.company-information.service.gov.uk/search/companies?q={CompanyName}&restrictions=active-companies legally-equivalent-company-name");
 
             request.Headers.Add("Authorization", $"Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes(APikey))}");
             using (var httpClient = new HttpClient())
@@ -68,14 +98,13 @@ namespace Spendwise_WebApp.Pages
 
                 string jsonResponse = await result.Content.ReadAsStringAsync();
 
-                var data = JsonConvert.DeserializeObject<CompanyList>(jsonResponse);
-                if (data != null)
-                {
-                    companyList = data;
-                }
-                Package = await _context.packages.ToListAsync();
-                return Page();
+                JObject jsonObject = JObject.Parse(jsonResponse);
+                JArray itemsArray = (JArray)jsonObject["items"];
 
+                // If items array is null or empty, the company name is available
+                bool isAvailable = itemsArray == null || itemsArray.Count == 0;
+
+                return new JsonResult(isAvailable);
             }
         }
 

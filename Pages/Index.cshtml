@@ -137,40 +137,40 @@
                                         <ul class="site-nav__menu-links site-nav__menu-links site-nav__menu-grid-layout">
                                             <div>
                                                 <h3 class="site-nav__menu-heading">Address Services</h3>
-                                                <li class="site-nav__menu-sub-item">
+                                            <li class="site-nav__menu-sub-item">
                                                 <a href="#">
                                                     <i class="fa-solid fa-angle-right"></i>
                                                     London Registered Office
                                                 </a>
                                             </li>
-                                                <li class="site-nav__menu-sub-item">
+                                            <li class="site-nav__menu-sub-item">
                                                 <a href="#">
                                                     <i class="fa-solid fa-angle-right"></i>
                                                     London Service Address
                                                 </a>
                                             </li>
-                                                <li class="site-nav__menu-sub-item">
+                                            <li class="site-nav__menu-sub-item">
                                                 <a href="#">
                                                     <i class="fa-solid fa-angle-right"></i>
                                                     London Business Address
                                                 </a>
                                             </li>
-                                                <li class="site-nav__menu-sub-item">
+                                            <li class="site-nav__menu-sub-item">
                                                 <a href="#">
                                                     <i class="fa-solid fa-angle-right"></i>
                                                     Company Addresses Explained
                                                 </a>
                                             </li>
-                                                <li class="site-nav__menu-sub-item">
+                                            <li class="site-nav__menu-sub-item">
                                                 <a href="#">
                                                     <i class="fa-solid fa-angle-right"></i>
                                                     Renewals
                                                 </a>
                                             </li>
-                                             </div>
-                                            <div>
-                                                <h3 class="site-nav__menu-heading">Company Services</h3>
-                                                  <li class="site-nav__menu-sub-item">
+                                    </div>
+                                    <div>
+                                        <h3 class="site-nav__menu-heading">Company Services</h3>
+                            <li class="site-nav__menu-sub-item">
                                 <a href="#">
                                     <i class="fa-solid fa-angle-right"></i>
                                     Full Company Secretary Service
@@ -454,16 +454,27 @@
                         <h2 class="subheading">The simplest way to set up a UK company</h2>
                     </div>
                     <span class="company-name-search__notification--button"><a href="#" id="continue-button" class="button button--secondary button--hide">Choose a Package</a></span>
-                    <form id="home-company-search" class="static-form" action="#" method="GET" onsubmit="return checkInput(this)" _lpchecked="1">
-                        <input id="company-name"
+                    <form id="CompanyName-form" class="static-form" _lpchecked="1">
+                        <input asp-for="CompanyName"
                                type="text"
                                placeholder="Enter your company name to check if it is available"
                                onfocus="this.placeholder=''"
                                onblur="this.placeholder='Enter your company name to check it is available'"
                                autocomplete="off" />
-                        <button id="namecheck-button" class="button button--home-search" type="submit" aria-label="Search"><i class="fa fa-search"></i> <span>Search</span></button>
+                        <button id="CompanynamecheckBtn" class="button button--home-search" type="button" aria-label="Search"><i class="fa fa-search"></i> <span>Search</span></button>
                         <a href="#" class="button button--secondary button--hide">Choose a Package</a>
                     </form>
+                            @* <p id="resultMessage"></p> *@
+                    <div id="nameCheckNotification">
+                        <div class="company-name-search__notification company-name-search__notification--green" id="cNameAv" style="display:none;">
+                            <span class="icon"></span><h3 id="cName">CODEPLUS</h3>
+                            <p>Congratulations! This company name is available.</p>
+                        </div>
+                        <div class="company-name-search__notification company-name-search__notification--red" id="cNameNotAv" style="display:none;">
+                            <span class="icon"></span><h3 id="cNameNoAv">1STFORMATIONS</h3>
+                            <p>Sorry, this company name is unavailable.</p>
+                        </div>
+                    </div>
                     <div class="company-name-search__clear-button button--hide">
                         <a href="#" id="clear-button">Or search again</a>
                     </div>
@@ -3002,3 +3013,48 @@
         </div>
     </section>
 </div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#cNameAv").hide();
+            $("#cNameNotAv").hide();
+
+            $("#CompanynamecheckBtn").click(function () {
+                $("#CompanyName").addClass("spinner-ring");
+                var companyName = $("#CompanyName").val().trim();
+
+                if (companyName === "") {
+                    alert("Please enter a company name.");
+                    $("#cNameAv").hide();
+                    $("#cNameNotAv").hide();
+                    $("#CompanyName").removeClass("spinner-ring");
+                    return;
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Index?handler=CheckCompanyAvailability&companyName=" + encodeURIComponent(companyName),
+                    success: function (isAvailable) {
+                        // Check if the response is a string and convert it to a boolean if necessary
+                        if (typeof isAvailable === 'string') {
+                            isAvailable = (isAvailable.toLowerCase() === 'true');
+                        }
+                        $("#CompanyName").removeClass("spinner-ring");
+                        if (isAvailable === true) {
+                            $("#cName").text(companyName);
+                            $("#cNameAv").show();
+                            $("#cNameNotAv").hide();
+                        } else {
+                            $("#cNameNoAv").text(companyName);
+                            $("#cNameNotAv").show();
+                            $("#cNameAv").hide();
+                        }
+                    },
+                    error: function () {
+                        alert("Error checking company name.");
+                    }
+                });
+            });
+        });
+    </script>
+}
