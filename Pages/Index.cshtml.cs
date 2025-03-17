@@ -32,6 +32,19 @@ namespace Spendwise_WebApp.Pages
 
         public async Task OnGet()
         {
+
+            // Create a cookie with a value and expiration time
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.UtcNow.AddDays(7), // Cookie expires in 7 days
+                HttpOnly = true, // Prevent JavaScript access for security
+                Secure = true, // Use HTTPS
+                IsEssential = true // Required for GDPR compliance
+            };
+
+            Response.Cookies.Append("UserPreference", "DarkMode", cookieOptions);
+
+
             var PackageFeatureList = await _context.PackageFeatures.ToListAsync();
             Package = await _context.packages.ToListAsync();
 
