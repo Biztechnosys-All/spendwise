@@ -44,6 +44,7 @@
 </style>
 <div>
     <input type="hidden" id="hdnSelectedPackage" value="@Model.PackageName" />
+    <input type="hidden" id="hdnSelectedCompany" />
     <ul class="nav nav-tabs justify-content-center">
         <li class="nav-item">
             <a class="nav-link packageTab active" data-toggle="tab" role="tab" aria-controls="CompanyName"
@@ -71,14 +72,39 @@
     </div>
 </div>
 
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+    <div id="myToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="toastMessage">
+                Toast message goes here!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 
 @section scripts
 {
     <script>
         $(function () {
+            $("#hdnSelectedCompany").val(Cookies.get("companyName"));
+
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
-            if (UrlPrams.length > 1) {
+            if (UrlPrams.length > 1 && $("#hdnSelectedCompany").val() != "") {
+                $.ajax({
+                    url: "/BuyPackage/Checkout?packageName=" + $("#hdnSelectedPackage").val(),
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $('a[href="#Checkout"]').addClass("active");
+                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
+                        $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
+                    }
+                })
+            }
+            else if (UrlPrams.length > 1) {
                 $.ajax({
                     url: "/BuyPackage/CompanyName",
                     type: "get",
@@ -101,6 +127,11 @@
                         $('a[href="#CompanyName"]').addClass("PackTabProcessed");
                         $('a[href="#Checkout"]').removeClass("PackTabProcessed");
                         $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        if ($("#hdnSelectedCompany").val() != "") {
+                            $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
+                            $("#selectPackageCompnameDiv").css("display", "flex");
+                            $("#selectPackageCompnameDiv").show();
+                        }
                         $.ajax({
                             url: "/BuyPackage/limited-company",
                             type: "get",
@@ -189,6 +220,8 @@
                         $('a[href="#CompanyName"]').addClass("PackTabProcessed");
                         $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
                         $('a[href="#Checkout"]').addClass("PackTabProcessed");
+                        alert($("#hdnSelectedCompany").val());
+                        $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
                     }
                 })
             }
@@ -210,6 +243,7 @@
 
         function MoveToNextPackageStep() {
             var searchParams = new URLSearchParams(window.location.search);
+            alert(searchParams);
             var UrlPrams = searchParams.toString().split('=');
             if (UrlPrams[1] != "") {
                 $.ajax({
@@ -281,7 +315,7 @@
                         $('a[href="#LLP"]').parent().addClass("active");
                         $('a[href="#Guarantee"]').parent().removeClass("active");
                         $('a[href="#eSeller"]').parent().removeClass("active");
-                        
+
                     }
                 })
             }
@@ -316,9 +350,15 @@
 
         }
 
-        // function AddItemToCheckout(item) {
-        //     alert();
-        // }
+        function showToast(message, type = 'success') {
+            // Update message and color
+            $('#toastMessage').text(message);
+            $('#myToast').removeClass('bg-success bg-danger bg-warning').addClass(`bg-${type}`);
+
+            // Show the toast
+            var toast = new bootstrap.Toast(document.getElementById('myToast'));
+            toast.show();
+        }
 
     </script>
 } 

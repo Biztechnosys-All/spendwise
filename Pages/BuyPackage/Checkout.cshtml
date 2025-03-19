@@ -215,7 +215,6 @@
         $("#spmVatAmount").text("£" + vat.toFixed(2));
         let TotalAmount = NetAmount + vat;
         $("#spnTotalAmount").text("£" + TotalAmount.toFixed(2));
-
     });
     let selectedPackageItems = [];
     function AddItemToCheckout(itemId) {
@@ -315,9 +314,12 @@
     }());
 
     function btnCheckoutClick() {
-        debugger
         let isChecked = $('#ChkCheckoutTerms').prop('checked');
         if (isChecked) {
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            Cookies.set("NetAmount", $("#spmNetAmount").text(), expires);
+            Cookies.set("VatAmount", $("#spmVatAmount").text(), expires);
+            Cookies.set("TotalAmount", $("#spnTotalAmount").text(), expires);
             $.ajax({
                 url: "/BuyPackage/CompanyDetails",
                 type: "get",
@@ -328,11 +330,12 @@
                     $('a[href="#CompanyName"]').addClass("PackTabProcessed");
                     $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
                     $('a[href="#Checkout"]').addClass("PackTabProcessed");
+                    $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
                 }
             })
         }
         else {
-            alert("please check terms");
+            showToast('You must agree to the terms and conditions.', 'warning');
         }
     }
 

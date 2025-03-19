@@ -467,12 +467,13 @@
                             @* <p id="resultMessage"></p> *@
                     <div id="nameCheckNotification">
                         <div class="company-name-search__notification company-name-search__notification--green" id="cNameAv" style="display:none;">
-                            <span class="icon"></span><h3 id="cName">CODEPLUS</h3>
+                            <span class="icon"></span><h3 id="cName"></h3>
+                            <input type="hidden" id="hdnCompanyName"/>
                             <p>Congratulations! This company name is available.</p>
-                            <span class="company-name-search__notification--button"><a href="/BuyPackage" id="continue-button" class="button button--secondary button--hide button--show">Choose a Package</a></span>
+                            <span class="company-name-search__notification--button"><a href="#" onclick="onBuyPackage()" id="continue-button" class="button button--secondary button--hide button--show">Choose a Package</a></span>
                         </div>
                         <div class="company-name-search__notification company-name-search__notification--red" id="cNameNotAv" style="display:none;">
-                            <span class="icon"></span><h3 id="cNameNoAv">1STFORMATIONS</h3>
+                            <span class="icon"></span><h3 id="cNameNoAv"></h3>
                             <p>Sorry, this company name is unavailable.</p>
                         </div>
                     </div>
@@ -3050,6 +3051,7 @@
                         $("#CompanyName").removeClass("spinner-ring");
                         if (isAvailable === true) {
                             $("#cName").text(companyName);
+                            $("#hdnCompanyName").val(companyName);
                             $("#cNameAv").show();
                             $("#cNameNotAv").hide();
                         } else {
@@ -3064,5 +3066,12 @@
                 });
             });
         });
+
+        function onBuyPackage(){
+            var companyName = $("#hdnCompanyName").val();
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            Cookies.set("companyName", companyName , expires);
+            window.location.href = "/BuyPackage";
+        }
     </script>
 }

@@ -360,8 +360,8 @@
                         <h1 class="efPaymentGatewayTitle">Your Order</h1>
 
                         <h3 class="efPaymentGatewayOrderId">Order Ref: <span>4811520</span></h3><div class="efOrderCompanyName">
-                            Your new company name: <span>
-                                CODEPLUS
+                            Your new company name: <span id="spnSelectCompName">
+                                
                             </span>
                         </div><div class="efOrderPackageName">
                             Digital Package
@@ -378,11 +378,11 @@
                         </ul>
                         <div class="efPaymentGatewayTotals">
 
-                            <p class="efPaymentGatewayNetPrice">Price <span>£57.98</span></p><p class="efPaymentGatewayVATPrice">VAT  <span>£1.60</span></p>
-                            <p class="efPaymentGatewayGrossPrice">Total  <span>£59.58</span></p>
+                            <p class="efPaymentGatewayNetPrice">Price <span id="spnPrice">£57.98</span></p><p class="efPaymentGatewayVATPrice">VAT  <span id="spnVat">£1.60</span></p>
+                            <p class="efPaymentGatewayGrossPrice">Total  <span id="spnTotal">£59.58</span></p>
                         </div>
 
-                        <h3 class="efPaymentGatewayAmountDuePrice">Amount Due  <span>£59.58</span></h3>
+                        <h3 class="efPaymentGatewayAmountDuePrice">Amount Due  <span id="spnAmountDue">£59.58</span></h3>
 
                         <div class="efPoweredBySt">
                             <div class="efOrderReferenceNumber">Order reference: <span>#4811520</span></div><div class="efOrderMerchantName">Merchant name: <span>Spendwise</span></div>
@@ -515,12 +515,17 @@
                         }
                     })(window);
                 </script>
-
-
-
-
             </div>
 
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $("#spnPrice").text(Cookies.get("NetAmount"));
+        $("#spnVat").text(Cookies.get("VatAmount"));
+        $("#spnTotal").text(Cookies.get("TotalAmount"));
+        $("#spnAmountDue").text(Cookies.get("TotalAmount"));
+    });
+
+</script>

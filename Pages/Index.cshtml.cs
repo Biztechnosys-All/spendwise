@@ -71,22 +71,6 @@ namespace Spendwise_WebApp.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            //var CompanyName = Request.Form["CompanyName"];
-
-            //string APikey = _configuration.GetValue<string>("CompaniesHouseApiKey") ?? " ";
-            //var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.company-information.service.gov.uk/company/{CompanyID}");
-            //var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.company-information.service.gov.uk/alphabetical-search/companies?q={CompanyName}");
-            //var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.company-information.service.gov.uk/search/companies?q={CompanyName}&restrictions=active-companies legally-equivalent-company-name");
-
-            //request.Headers.Add("Authorization", $"Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes(APikey))}");
-            //using (var httpClient = new HttpClient())
-            //{
-            //    var result = await httpClient.SendAsync(request);
-            //    result.EnsureSuccessStatusCode();
-
-            //    string jsonResponse = await result.Content.ReadAsStringAsync();
-
-            //}
             Package = await _context.packages.ToListAsync();
             return Page();
         }
