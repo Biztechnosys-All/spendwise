@@ -6,14 +6,31 @@ namespace Spendwise_WebApp.Models
     {
         [Key]
         public int UserID { get; set; }
+
+        public required string Title { get; set; }
         [Required]
-        public string FirstName { get; set; }
+        public required string Forename { get; set; }
         [Required]
-        public string LastName { get; set; }
+        public required string Surname { get; set; }
         [Required]
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string MobileNumber { get; set; }
+        public required string PhoneNumber { get; set; }
+        [Required]
+        public required string Email { get; set; }
+        [Required]
+        public required string Password { get; set; }
+        [Required]
+        public required string PostCode { get; set; }
+        [Required]
+        public required string HouseName { get; set; }
+        [Required]
+        public required string Street { get; set; }
+        public required string Locality { get; set; }
+        [Required]
+        public required string Town { get; set; }
+        public required string County { get; set; }
+        [Required]
+        public required string Country { get; set; }
+
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
         public DateTime? created_on { get; set; }

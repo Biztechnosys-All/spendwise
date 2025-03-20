@@ -21,6 +21,7 @@ namespace Spendwise_WebApp.Pages
         public IList<Package> Package { get; set; } = default!;
         [BindProperty]
         public string CompanyName { get; set; } = "";
+        public bool isuUserLogin { get; set; } = false;
 
 
         public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration, Spendwise_WebApp.DLL.AppDbContext context)
@@ -32,18 +33,15 @@ namespace Spendwise_WebApp.Pages
 
         public async Task OnGet()
         {
-
-            // Create a cookie with a value and expiration time
-            var cookieOptions = new CookieOptions
+            var userName = Request.Cookies["UserName"];
+            if (!string.IsNullOrEmpty(userName))
             {
-                Expires = DateTime.UtcNow.AddDays(7), // Cookie expires in 7 days
-                HttpOnly = true, // Prevent JavaScript access for security
-                Secure = true, // Use HTTPS
-                IsEssential = true // Required for GDPR compliance
-            };
-
-            Response.Cookies.Append("UserPreference", "DarkMode", cookieOptions);
-
+                isuUserLogin = true;
+            }
+            else
+            {
+                isuUserLogin = false;
+            }
 
             var PackageFeatureList = await _context.PackageFeatures.ToListAsync();
             Package = await _context.packages.ToListAsync();

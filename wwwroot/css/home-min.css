@@ -3,8 +3,8 @@
     --font-family-body: Arial, Helvetica, sans-serif;
     --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
     --primary: #676767;
-    --color-green: #5fc371;
-    --color-green-one: #5fc371;
+    --color-green: #98FF98;
+    --color-green-one: #98FF98;
     --button-hover: #6acd7c;
     --color-blue: #208bae;
     --color-white: #ffffff;
@@ -1181,13 +1181,13 @@ body {
   }
 }
 @media (min-width: 62em) {
-  .home-hero .site-nav__menu {
-    position: absolute;
-    top: 210%;
-    background-color: rgba(95, 194, 113, 0.9);
-    border-top: 3px solid var(--color-yellow);
-    z-index: 999;
-  }
+    .home-hero .site-nav__menu {
+        position: absolute;
+        top: 210%;
+        background-color: rgb(152, 255, 152);
+        border-top: 3px solid var(--color-yellow);
+        z-index: 999;
+    }
 }
 .home-hero .site-nav__menu-divider {
   width: 83%;

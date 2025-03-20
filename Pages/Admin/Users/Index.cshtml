@@ -8,23 +8,26 @@
 <div style="padding:1.5%;">
     <h3>Users</h3>
 
-    <p style="padding:1%;text-align:right;">
+    @* <p style="padding:1%;text-align:right;">
         <a asp-page="Create" class="btn btn-dark">Create New</a>
-    </p>
+    </p> *@
     <table class=" table table-bordered table-hover dataTable dtr-inline">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.User[0].FirstName)
+                    @Html.DisplayNameFor(model => model.User[0].Forename)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.User[0].LastName)
+                    @Html.DisplayNameFor(model => model.User[0].Surname)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.User[0].Email)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.User[0].MobileNumber)
+                    @Html.DisplayNameFor(model => model.User[0].PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User[0].Country)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.User[0].IsAdmin)
@@ -42,16 +45,19 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
+                            @Html.DisplayFor(modelItem => item.Forename)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
+                            @Html.DisplayFor(modelItem => item.Surname)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MobileNumber)
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Country)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IsAdmin)
@@ -60,9 +66,9 @@
                             @Html.DisplayFor(modelItem => item.IsActive)
                         </td>
                         <td>
-                            <a asp-page="./Edit" asp-route-id="@item.UserID" class="btn btn-dark">Edit</a> |
-                            <a asp-page="./Details" asp-route-id="@item.UserID" class="btn btn-dark">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.UserID" class="btn btn-dark">Delete</a>
+                            @* <a asp-page="./Edit" asp-route-id="@item.UserID" class="btn btn-dark">Edit</a> | *@
+                            <a asp-page="./Details" asp-route-id="@item.UserID" class="btn btn-dark">Details</a> 
+                            @* | <a asp-page="./Delete" asp-route-id="@item.UserID" class="btn btn-dark">Delete</a> *@
                         </td>
                     </tr>
                 }

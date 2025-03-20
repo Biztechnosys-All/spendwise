@@ -4,7 +4,7 @@
     --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
     --primary: #676767;
     --color-green: #62a43f;
-    --color-green-one: #5fc371;
+    --color-green-one: #98FF98;
     --color-blue: #208bae;
     --color-white: #ffffff;
     --color-black: #000000;
@@ -1317,7 +1317,7 @@ body {
     .site-nav__menu {
         position: absolute;
         top: 184%;
-        background-color: rgba(95, 194, 113, 0.9);
+        background-color: rgb(152, 255, 152);
         z-index: 999
     }
 }

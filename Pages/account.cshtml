@@ -1,0 +1,276 @@
+﻿@page
+@model Spendwise_WebApp.Pages.accountModel
+@{
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+
+<div class="col-five clientpage">
+    <div class="container-inner">
+        <div style="display:none;">
+            <div id="efPageContent" class="ui-widget">
+                <div id="efAuthenticatedContent">
+                    <div class="efAccountMenu ui-corner-all ui-widget-content ui-widget-header">
+                        <ul class="efAccountMenuTabs">
+                            <li class="efAccountMainMenuLi">
+                                <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_MyAccount"><img src="/assets/icons/user_suit.png" alt="">My Account ▼</a>
+                                <ul class="efAccountSubMenuUl">
+                                    <li class="efAccountSubMenuLi current"><a href="/account/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_Overview"><img src="/assets/icons/user_suit.png" alt=""> Dashboard</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/my-details/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_MyDetails"><img src="/assets/icons/user_edit.png" alt="">My Details</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/?gle=logout" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_Logout"><img src="/assets/icons/door_in.png" alt="">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li class="efAccountMainMenuLi">
+                                <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_Orders"><img src="/assets/icons/book.png" alt="">Orders ▼</a>
+                                <ul class="efAccountSubMenuUl">
+                                    <li class="efAccountSubMenuLi"><a href="/order-history/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_ViewAllOrders"><img src="/assets/icons/book.png" alt="">View All Orders</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/order-history/?s=0" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_Incomplete"><img src="/assets/icons/book_error.png" alt="">Incomplete</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/order-history/?s=70,80,100,200,400,600" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_InProgress"><img src="/assets/icons/book_open.png" alt="">In Progress</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/order-history/?s=700" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_Completed"><img src="/assets/icons/book_go.png" alt="">Completed</a></li>
+                                </ul>
+                            </li>
+                            <li class="efAccountMainMenuLi">
+                                <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_Companies"><img src="/assets/icons/building.png" alt="">Companies ▼</a>
+                                <ul class="efAccountSubMenuUl">
+                                    <li class="efAccountSubMenuLi"><a href="/companies/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_ViewAllCompanies"><img src="/assets/icons/building.png" alt="">View All Companies</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/compare-packages/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_IncorporateNewCompany"><img src="/assets/icons/building_link.png" alt="">Incorporate New Company</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/company-add/" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_ImportCompanyviaAuth.Code"><img src="/assets/icons/building_add.png" alt="">Import Company via Auth. Code</a></li>
+                                </ul>
+                            </li>
+                            <li class="efAccountMainMenuLi">
+                                <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_Services"><img src="/assets/icons/plugin.png" alt="">Services ▼</a>
+                                <ul class="efAccountSubMenuUl">
+                                    <li class="efAccountSubMenuLi"><a href="/services/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_ViewAllServices"><img src="/assets/icons/plugin.png" alt="">View All Services</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/services/?e=31&amp;s=active" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_ExpiringServices"><img src="/assets/icons/error.png" alt="">Expiring Services</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/services/?e=31&amp;s=cancelled-expired" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_RenewExpiredServices"><img src="/assets/icons/exclamation.png" alt="">Renew Expired Services</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/processed-mail/" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_ProcessedMail"><img src="/assets/icons/email.png" alt="">Your Mail</a></li>
+                                </ul>
+                            </li>
+                            <li class="efAccountMainMenuLi">
+                                <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_Finances"><img src="/assets/icons/coins.png" alt="">Finances ▼</a>
+                                <ul class="efAccountSubMenuUl">
+                                    <li class="efAccountSubMenuLi"><a href="/payments/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_InvoiceHistory"><img src="/assets/icons/table.png" alt="">Invoice History</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/transaction-history/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_PaymentHistory"><img src="/assets/icons/money.png" alt="">Payment History</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/payment-on-account/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_PaymentOnAccount"><img src="/assets/icons/money_add.png" alt="">Payment On Account</a></li>
+                                    <li class="efAccountSubMenuLi"><a href="/payment-authority-setup/" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_CardManagement"><img src="/assets/icons/ruby_link.png" alt="">Card Management</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="efWebStateCompanySearch">
+                            <input class="efTextInput ui-corner-all ui-widget-content ui-autocomplete-input" value="Search my companies..." onfocus="if(this.value=='Search my companies...')this.value=''" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                        </div>
+                    </div>
+
+
+
+                    <script>
+                        jQuery(document).ready(function () {
+                            jQuery(".efWebStateCompanySearch input").autocomplete({
+                                source: "/ejax-company-search/",
+                                position: { my: "right top", at: "right bottom" },
+                                select: function (event, ui) {
+                                    event.preventDefault();
+                                    jQuery(".efWebStateCompanySearch input").val(ui.item.label);
+                                    document.location.href = "/account/company/?i=" + ui.item.value;
+                                }
+                            });
+                            var m = jQuery(".efAccountMenuTabs");
+                            m.find(".efAccountMainMenuItem").on('mouseover', function () {
+                                jQuery(this).addClass("ui-state-active");
+                            }).on('mouseleave', function () {
+                                jQuery(this).removeClass("ui-state-active");
+                            });
+                            m.find(".efAccountMainMenuLi").on('mouseover', function () {
+                                jQuery(this).find("ul").show();
+                            }).on('mouseleave', function () {
+                                jQuery(this).find("ul").hide();
+                            });
+                            m.find(".efAccountSubMenuItem").on('mouseover', function () {
+                                jQuery(this).addClass("ui-state-active");
+                            }).on('mouseleave', function () {
+                                jQuery(this).removeClass("ui-state-active");
+                            });
+                        });
+                    </script>
+
+                    <h2 id="efMyAccountTitle">My Account</h2><div id="efMyAccountContainer">
+                        <p>Welcome to your account overview. From here you can keep track of your orders, check their status and manage your account details.</p><div id="efMyAccountOrderControls">
+
+
+                            <div class="efPanel efAccountPanel ui-widget-content ui-corner-all" id="efPendingOrdersControl">
+                                <div class="efPanelHeader ui-widget-header"><img src="/assets/icons/book_error.png" alt="">Incomplete Orders</div>
+                                <div class="efPanelContent ui-corner-bottom" style="padding:0px">
+
+                                    <table class="efTable efTableCondensed efTableUnbordered ui-corner-bottom ui-widget-content">
+                                        <tbody>
+                                            <tr class="efTableSubheader ui-widget-content">
+                                                <td>Order ID</td>
+                                                <td>Package / Type</td>
+                                                <td>Description</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr class="efOdd">
+                                                <td>5043293</td>
+                                                <td>Digital Package</td>
+                                                <td>CODEPLUS</td>
+
+                                                <td style="text-align:right;padding-right:0px">
+                                                    <form method="post" id="delform_1" action="">
+                                                        <input type="hidden" name="action" value="namecheckpath">
+                                                        <input type="hidden" name="pa" value="deleteo">
+                                                        <input type="hidden" name="tmpoid" value="5043293">
+                                                        <a href="javascript:confirm_delete('1')" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/cross.png" alt="">Delete</span></a>
+                                                    </form>
+                                                    <form action="/payment-gateway/">
+                                                        <input type="hidden" name="action" value="namecheckpath">
+                                                        <input type="hidden" name="pt" value="d96d2580-04ae-11f0-866c-42010a84002e">
+                                                        <input type="hidden" name="csrf-token" value="3c64956afc7f20c5adc73357fe154a3ad362b7539eb0a0d01db24c45bea01169">
+
+
+
+                                                    </form>
+                                                </td>
+
+
+                                                <td style="text-align:right;padding-left:0px">
+
+                                                    <button type="submit" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Continue<img src="/assets/icons/arrow_right.png" alt=""></span></button>
+
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                            <div class="efAccountPanel efPanel ui-widget-content ui-corner-all" id="efNameCheckAccount">
+                                <div class="efPanelHeader ui-widget-header"><img src="/assets/icons/building_link.png" alt="">Create a new company</div>
+                                <div class="efPanelContent ui-corner-bottom" style="padding-top:0px;padding-bottom:0px">
+                                    <form method="get" action="/name-check/#namecheckpath">
+                                        <input type="hidden" name="action" value="namecheckpath">
+                                        <input type="hidden" name="gle" value="namecheck">
+                                        <p><span>Incorporate company:</span> <input type="text" class="efTextInput ui-widget-content" name="name" placeholder="Enter company name..."> <input type="submit" value="Check Availability »" class="efButton ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false"></p>
+                                        <p><span>Import company:</span><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="Import Company »" onclick="document.location.href='/company-add/'" role="button" aria-disabled="false"></p>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="efPanel efAccountPanel ui-widget-content ui-corner-all" id="efRecentlyPlacedOrders" style="">
+                                <div class="efPanelHeader ui-widget-header"><img src="/assets/icons/book.png" alt="">Recently Placed Orders</div>
+                                <div class="efPanelContent  ui-corner-bottom" style="padding:0px">
+                                    <table class="efTable efTableCondensed efTableUnbordered ui-corner-bottom ui-widget-content" style="border:none">
+                                        <tbody>
+                                            <tr class="efTableSubheader">
+                                            </tr>
+                                            <tr class="efOdd">
+                                                <td>5030038</td>
+                                                <td>06/03/2025</td>
+                                                <td>
+                                                    Limited Liability Part...
+                                                </td>
+                                                <td>
+                                                    A K PATEL LLP
+                                                </td>
+                                                <td>Complete</td>
+                                                <td style="text-align:right"><a href="/order-details/?o=5030038" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">Details</span></a></td>
+                                            </tr>
+                                            <tr class="efEven">
+                                                <td>5029857</td>
+                                                <td>06/03/2025</td>
+                                                <td>
+                                                    Limited Liability Part...
+                                                </td>
+                                                <td>
+                                                    DNAK LLP
+                                                </td>
+                                                <td>Complete</td>
+                                                <td style="text-align:right"><a href="/order-details/?o=5029857" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">Details</span></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="efPanel efAccountPanel ui-widget-content ui-corner-all" id="efRecentlyIncorporatedCompanies" style="">
+                                <div class="efPanelHeader ui-widget-header"><img src="/assets/icons/book.png" alt="">Recently Incorporated Companies</div>
+                                <div class="efPanelContent  ui-corner-bottom" style="padding:0px">
+                                    <table class="efTable efTableCondensed efTableUnbordered ui-corner-bottom ui-widget-content" style="border:none">
+                                        <tbody>
+                                            <tr class="efTableSubheader">
+                                                <td>Incorporated</td>
+                                                <td>Number</td>
+                                                <td>Auth. Code</td>
+                                                <td>Name</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="efOdd">
+                                                <td>12/03/2025</td>
+                                                <td>OC455861</td>
+                                                <td>F3LLCH</td>
+                                                <td>DNAK LLP</td>
+                                                <td style="text-align:right"><a href="/account/company/?i=2986203" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">Details</span></a></td>
+                                            </tr>
+                                            <tr class="efEven">
+                                                <td>10/03/2025</td>
+                                                <td>OC455827</td>
+                                                <td>8MK9AY</td>
+                                                <td>A K PATEL LLP</td>
+                                                <td style="text-align:right"><a href="/account/company/?i=2986287" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">Details</span></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="efMyAccountGlance">
+                            <div class="efPanel efAccountPanel ui-widget-content ui-corner-all" id="efGlanceFinances">
+                                <div class="efPanelHeader ui-widget-header"><img src="/assets/icons/user_suit.png" alt="">Account Overview</div>
+                                <div class="efPanelContent ui-corner-bottom">
+                                    <p>Welcome back, <span style="font-weight:bold;">Spendwise</span>!</p>
+                                    <table>
+                                        <tbody>
+                                            <tr><th>Balance:</th><td>£0.00</td></tr>
+                                            <tr><th>Credit Limit:</th><td>£0.00</td></tr>
+                                            <tr><th>Registered:</th><td>04/03/2025</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <script>
+
+                        function confirm_delete(fid) {
+                            var agree = confirm("Are you sure you wish to delete this order?");
+                            if (agree) {
+                                jQuery("#delform_" + fid).submit();
+                            }
+
+                        }
+
+                    </script>
+                </div>
+
+            </div>
+        </div>
+        <input type="hidden" name="account-balance" id="account-balance" value="0.00">
+        <input type="hidden" name="pr-user-email" id="pr-user-email" value="it@spendwiseacc.com">
+        <div id="efPageContent" class="ui-widget new-dashboard">
+            <div id="dashboard__inner">
+                <div class="dashboard__header">
+                    <h1>Customer Dashboard</h1>
+                </div>
+                <div id="dashboard__content">
+                    <div id="dashboard__alert">
+                        <p class="mr-0">Welcome back, <strong>Spendwise</strong>. From your customer dashboard you can navigate to the department you require.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
