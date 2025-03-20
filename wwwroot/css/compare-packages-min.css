@@ -1286,7 +1286,7 @@ body {
 }
 
 .site-nav__item--subnav:not(:last-child) a:hover {
-    color: #fcbe18 !important
+    color: var(--color-black) !important
 }
 
 .site-nav__item--myAccount > a > i, .site-nav__item--myAccount > a > svg {
