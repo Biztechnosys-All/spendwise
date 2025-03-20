@@ -1,5 +1,16 @@
-@charset "UTF-8";
-
+:root {
+    --font-family-body: Arial, Helvetica, sans-serif;
+    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
+    --primary: #676767;
+    --color-green: #98FF98;
+    --color-green-one: #98FF98;
+    --button-hover: #6acd7c;
+    --color-blue: #208bae;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #4c4e52;
+    --color-yellow: #ffe400;
+}
 body {
     color: #676767;
     padding: 0;
@@ -547,7 +558,7 @@ body {
 }
 
 .box--google-star-fill {
-    fill: #fcbe18
+    fill: var(--color-gray);
 }
 
 .box--google-star-fill-partial {
@@ -1176,12 +1187,12 @@ body {
 @media (min-width:75em) {
     .site-nav__body li:nth-child(1) a:hover {
         cursor: pointer;
-        color: #fcbe18 !important
+        color: var(--color-black) !important
     }
 
     .site-nav__body li:nth-child(2) a:hover {
         cursor: pointer;
-        color: #fcbe18 !important
+        color: var(--color-black) !important
     }
 }
 
@@ -1250,7 +1261,7 @@ body {
 
 .site-nav__item > a {
     font-family: "Myriad Semi Condensed",sans-serif;
-    color: #fff !important;
+    color: var(--color-gray) !important;
     font-size: 16px;
     font-size: 1rem;
     text-decoration: none !important
@@ -1395,7 +1406,7 @@ body {
 .site-nav__menu-heading {
     font-family: "Myriad Bold Semi Condensed",sans-serif !important;
     font-size: 1.125rem !important;
-    color: #fff !important;
+    color: var(--color-gray) !important;
     padding-left: 20px;
     margin-bottom: 10px
 }
@@ -1417,12 +1428,12 @@ body {
 .site-nav__menu-sub-item a {
     position: relative;
     text-decoration: none;
-    color: #fff !important
+    color: var(--color-gray) !important
 }
 
     .site-nav__menu-sub-item a:hover {
         cursor: pointer;
-        color: #fcbe18 !important
+        color: var(--color-black) !important
     }
 
     .site-nav__menu-sub-item a i, .site-nav__menu-sub-item a svg {
@@ -1544,7 +1555,7 @@ body {
         position: absolute;
         top: 210%;
         background-color: rgba(0,0,0,.9);
-        border-top: 3px solid #fcbe18;
+        border-top: 3px solid var(--color-gray);
         z-index: 999
     }
 }
@@ -2676,7 +2687,7 @@ form.static-form {
 }
 
 .compare-packages-hero__actions svg {
-    color: #fcbe18
+    color: var(--color-gray);
 }
 
 .compare-packages-hero__company-name {
@@ -2855,8 +2866,8 @@ form.static-form {
     font-size: 1.1875rem;
     display: block;
     font-family: "Myriad Semi Condensed",sans-serif;
-    color: #fff !important;
-    padding: .75rem 1.25rem
+    color: var(--color-white) !important;
+        padding: .75rem 1.25rem
 }
 
 .compare-packages-tabs__tab.active {
@@ -2864,7 +2875,7 @@ form.static-form {
 }
 
     .compare-packages-tabs__tab.active a {
-        color: #fff !important
+        color: var(--color-gray) !important
     }
 
 @media (min-width:62em) {
@@ -4729,6 +4740,6 @@ form.static-form {
             }
 
         .slick-dots li.slick-active button:before {
-            color: #fcbe18;
+            color: var(--color-gray);
             opacity: .75
         }

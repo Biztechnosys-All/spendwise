@@ -751,13 +751,13 @@ body {
 }
 
 .button--primary {
-    color: #fff !important;
+    color: var(--color-gray) !important;
     padding: 10px 50px;
     background-color: #31a5cb
 }
 
     .button--primary:hover {
-        color: #fff !important;
+        color: var(--color-black) !important;
         background-color: #56bfe1
     }
 
@@ -766,13 +766,13 @@ body {
     }
 
 .button--secondary {
-    color: #fff !important;
+    color: var(--color-gray) !important;
     padding: 10px 30px;
     background-color: #62a43f
 }
 
     .button--secondary:hover {
-        color: #fff !important;
+        color: var(--color-black) !important;
         background-color: #75c14c
     }
 
@@ -1165,12 +1165,12 @@ body {
 @media (min-width:75em) {
     .site-nav__body li:nth-child(1) a:hover {
         cursor: pointer;
-        color: #fcbe18 !important
+        color: var(--color-black) !important
     }
 
     .site-nav__body li:nth-child(2) a:hover {
         cursor: pointer;
-        color: #fcbe18 !important
+        color: var(--color-black) !important
     }
 }
 
@@ -1190,7 +1190,7 @@ body {
 }
 
 .site-nav__item:hover > a {
-    color: #fcbe18 !important;
+    color: var(--color-black) !important;
     box-sizing: border-box
 }
 
@@ -1207,7 +1207,7 @@ body {
 }
 
 .site-nav__item--login a i, .site-nav__item--login a svg {
-    color: var(--color-yellow);
+    color: var(--color-gray);
     padding: 0 5px 0 0;
     font-size: 16px;
     font-size: 1rem
@@ -1215,7 +1215,7 @@ body {
 
 @media (min-width:62em) {
     .site-nav__item--login a:hover {
-        color: #fcbe18 !important
+        color: var(--color-black) !important;
     }
 }
 
@@ -1242,7 +1242,7 @@ body {
     font-size: 1.0625rem;
     text-decoration: none !important;
     font-family: "Myriad Semi Condensed",sans-serif;
-    color: #fff !important
+    color: var(--color-gray) !important
 }
 
     .site-nav__item > a > span {
@@ -1264,7 +1264,7 @@ body {
 }
 
 .site-nav__item--subnav:not(:last-child) a:hover {
-    color: #fcbe18 !important
+    color: var(--color-gray) !important
 }
 
 .site-nav__item--myAccount > a > i, .site-nav__item--myAccount > a > svg {
@@ -1302,7 +1302,7 @@ body {
     display: block;
     font-size: 1.35rem;
     padding: .85rem 1rem;
-    border: 1px solid #fff;
+    border: 1px solid var(--color-gray);
     background-color: transparent;
     transition: border .3s ease;
     text-decoration: none
@@ -1310,7 +1310,7 @@ body {
 
     .site-nav__cta .button:hover {
         background-color: transparent;
-        border-color: #fcbe18
+        border-color: var(--color-black)
     }
 
 @media (min-width:62em) {
@@ -1385,7 +1385,7 @@ body {
 .site-nav__menu-heading {
     font-family: "Myriad Bold Semi Condensed",sans-serif !important;
     font-size: 1.125rem !important;
-    color: #fff !important;
+    color: var(--color-gray) !important;
     padding-left: 20px;
     margin-bottom: 10px
 }
@@ -1407,12 +1407,12 @@ body {
 .site-nav__menu-sub-item a {
     position: relative;
     text-decoration: none;
-    color: #fff !important
+    color: var(--color-gray) !important
 }
 
     .site-nav__menu-sub-item a:hover {
         cursor: pointer;
-        color: #fcbe18 !important
+        color: var(--color-black) !important
     }
 
     .site-nav__menu-sub-item a i, .site-nav__menu-sub-item a svg {

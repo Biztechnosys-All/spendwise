@@ -445,7 +445,7 @@ body {
     background-color: #5ea72d;
     font-family: MyriadW08-SemiCondensed !important;
     font-size: 1.5rem;
-    color: #fff !important;
+    color: var(--color-gray) !important;
 }
 
     .page-heading__button:hover {
