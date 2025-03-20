@@ -3432,7 +3432,7 @@ section {
 #section-one .home-packages__header h4 a:focus,
 #section-one .home-packages__header h4 a:hover,
 #section-one .home-packages__header h4 a:visited {
-  color: var(--color-yellow) !important;
+  color: var(--color-black) !important;
 }
 #section-one .home-packages__prices {
   display: flex;
