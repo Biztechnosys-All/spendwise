@@ -49,13 +49,44 @@
                                                         <option value="Lord">Lord</option>
                                                         <option value="Lady">Lady</option>
                                                     </select>
+                                                    <span asp-validation-for="User.Title" class="text-danger"></span>
                                                 </td>
                                             </tr>
-                                            <tr><td><label class="efRegisterLabel">Forename: <span class="required_mark">*</span></label></td><td><input asp-for="User.Forename" class="efTextInput" type="text" value=""></td></tr>
-                                            <tr><td><label class="efRegisterLabel">Surname: <span class="required_mark">*</span></label></td><td><input asp-for="User.Surname" class="efTextInput" type="text" value=""></td></tr>
-                                            <tr><td><label class="efRegisterLabel">Phone Number: <span class="required_mark">*</span></label></td><td><input asp-for="User.PhoneNumber" class="efTextInput" type="text" value=""></td></tr>
-                                            <tr><td><label class="efRegisterLabel">Email: <span class="required_mark">*</span></label></td><td><input asp-for="User.Email" class="efTextInput" type="text" value=""></td></tr>
-                                            <tr><td><label class="efRegisterLabel">Confirm Email: <span class="required_mark">*</span></label></td><td><input id="efUserConfirmEmailInput" class="efTextInput" type="text" name="EmailConfirm" value=""></td></tr>
+                                            <tr>
+                                                <td><label class="efRegisterLabel">Forename: <span class="required_mark">*</span></label></td>
+                                                <td>
+                                                    <input asp-for="User.Forename" class="efTextInput" type="text" value="">
+                                                    <span asp-validation-for="User.Forename" class="text-danger"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="efRegisterLabel">Surname: <span class="required_mark">*</span></label></td>
+                                                <td>
+                                                    <input asp-for="User.Surname" class="efTextInput" type="text" value="">
+                                                    <span asp-validation-for="User.Surname" class="text-danger"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="efRegisterLabel">Phone Number: <span class="required_mark">*</span></label></td>
+                                                <td>
+                                                    <input asp-for="User.PhoneNumber" class="efTextInput" type="text" value="">
+                                                    <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="efRegisterLabel">Email: <span class="required_mark">*</span></label></td>
+                                                    <td>
+                                                        <input asp-for="User.Email" class="efTextInput" type="text" value="">
+                                                    <span asp-validation-for="User.Email" class="text-danger"></span>
+                                                    </td>
+                                            </tr>
+                                            @* <tr>
+                                                <td><label class="efRegisterLabel">Confirm Email: <span class="required_mark">*</span></label></td>
+                                                <td>
+                                                    <input id="efUserConfirmEmailInput" class="efTextInput" type="text" name="EmailConfirm" value="">
+                                                 </td>
+                                            </tr> *@
                                             <tr>
                                                 <td>
                                                     <label class="efRegisterLabel">Password: <span class="required_mark">*</span></label>
@@ -63,6 +94,7 @@
                                                 <td>
                                                     <div class="efPasswordWrapper">
                                                         <input asp-for="User.Password" type="password" class="efTextInput js-password-constraints" value="">
+                                                        <span asp-validation-for="User.Password" class="text-danger"></span>
                                                         <div class="efPasswordEyeOpen efTogglePasswordControl ef-js-text-mask" data-owner="Password">
                                                             <div class="efPasswordEyeOpen">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 20">
@@ -111,15 +143,35 @@
                                                 <td style="vertical-align:top"><label class="efRegisterLabel">Post Code: <span class="required_mark">*</span></label></td>
                                                 <td>
                                                     <input class="efTextInput" type="text" name="PostCode_Lookup" value="">
+                                                    <span asp-validation-for="User.PostCode" class="text-danger"></span>
                                                     <button type="button" style="margin:5px 0" class="efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="webstate_postcode_lookup('PostCode_Lookup','Postcode Lookup')" role="button" aria-disabled="false"><span class="ui-button-text">Find Address</span></button>
                                                 </td>
                                             </tr>
-                                            <tr><td><label class="efRegisterLabel">House Name / Number: <span class="required_mark">*</span></label></td><td><input asp-for="User.HouseName" class="efTextInput" type="text" value=""></td></tr>
-                                            <tr><td><label class="efRegisterLabel">Street: <span class="required_mark">*</span></label></td><td><input asp-for="User.Street" class="efTextInput" type="text" value=""></td></tr>
-                                            <tr><td><label class="efRegisterLabel">Locality:</label></td><td><input asp-for="User.Locality" class="efTextInput" type="text" value=""></td></tr>
-                                            <tr><td><label class="efRegisterLabel">Town: <span class="required_mark">*</span></label></td><td><input asp-for="User.Town" class="efTextInput" type="text" value=""></td></tr>
-                                            <tr><td><label class="efRegisterLabel">County:</label></td><td><input asp-for="User.County" class="efTextInput" type="text" value=""></td></tr>
-                                            <tr><td><label class="efRegisterLabel">Post Code: <span class="required_mark">*</span></label></td>
+                                            <tr>
+                                                <td><label class="efRegisterLabel">House Name / Number: <span class="required_mark">*</span></label></td>
+                                                <td><input asp-for="User.HouseName" class="efTextInput" type="text" value="">
+                                                    <span asp-validation-for="User.HouseName" class="text-danger"></span>
+                                                    </td></tr>
+                                            <tr>
+                                                <td><label class="efRegisterLabel">Street: <span class="required_mark">*</span></label></td>
+                                                <td><input asp-for="User.Street" class="efTextInput" type="text" value="">
+                                                    <span asp-validation-for="User.Street" class="text-danger"></span>
+                                                </td></tr>
+                                            <tr>
+                                                <td><label class="efRegisterLabel">Locality:</label></td>
+                                                <td><input asp-for="User.Locality" class="efTextInput" type="text" value="">
+                                                    <span asp-validation-for="User.Locality" class="text-danger"></span>
+                                                    </td></tr>
+                                            <tr>
+                                                <td><label class="efRegisterLabel">Town: <span class="required_mark">*</span></label></td>
+                                                <td><input asp-for="User.Town" class="efTextInput" type="text" value="">
+                                                    <span asp-validation-for="User.Town" class="text-danger"></span>
+                                                    </td></tr>
+                                            <tr>
+                                                <td><label class="efRegisterLabel">County:</label></td>
+                                                <td><input asp-for="User.County" class="efTextInput" type="text" value=""></td></tr>
+                                            <tr>
+                                                <td><label class="efRegisterLabel">Post Code: <span class="required_mark">*</span></label></td>
                                                 <td><input asp-for="User.PostCode" class="efTextInput" type="text"></td>
                                             </tr>
                                             <tr>
@@ -371,6 +423,7 @@
                                                         <option value="Zambia">Zambia</option>
                                                         <option value="Zimbabwe">Zimbabwe</option>
                                                     </select>
+                                                    <input asp-for="User.Country" class="efTextInput" type="text">
                                                 </td>
                                             </tr>
                                         </tbody>

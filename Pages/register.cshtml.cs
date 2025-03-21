@@ -25,8 +25,35 @@ namespace Spendwise_WebApp.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
+                // List of required fields with custom error messages
+                var requiredFields = new Dictionary<string, string>
+                {
+                    { "User.Title", "Title is required." },
+                    { "User.Forename", "Forename is required." },
+                    { "User.Surname", "Surname is required." },
+                    { "User.PhoneNumber", "Phone number is required." },
+                    { "User.Email", "Email is required." },
+                    { "User.Password", "Password is required." },
+                    { "User.PostCode", "Postcode is required." },
+                    { "User.HouseName", "House name is required." },
+                    { "User.Street", "Street is required." },
+                    { "User.Town", "Town is required." },
+                    { "User.Country", "Country is required." }
+                };
+
+                // Iterate over required fields and add model errors
+                foreach (var field in requiredFields)
+                {
+                    if (ModelState.ContainsKey(field.Key) && ModelState[field.Key]?.Errors.Count > 0)
+                    {
+                        ModelState.AddModelError(field.Key, field.Value);
+                    }
+                }
+
+
                 return Page();
             }
 
