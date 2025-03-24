@@ -12,10 +12,12 @@ namespace Spendwise_WebApp.Pages
     {
 
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
+        private readonly JwtTokenService _jwtTokenService;
 
-        public loginModel(Spendwise_WebApp.DLL.AppDbContext context)
+        public loginModel(Spendwise_WebApp.DLL.AppDbContext context, JwtTokenService jwtTokenService)
         {
             _context = context;
+            _jwtTokenService = jwtTokenService;
         }
 
         [BindProperty]
@@ -65,7 +67,9 @@ namespace Spendwise_WebApp.Pages
             else
             {
                 var options = CookieOptionsHelper.GetDefaultOptions();
-                Response.Cookies.Append("UserName", User.Email, options);
+                Response.Cookies.Append("UserName", userData.Forename +" "+ userData.Surname, options);
+
+                HttpContext.Response.Cookies.Append("AuthToken", _jwtTokenService.GenerateJwtToken(User.Email), options);
 
                 return RedirectToPage("./account");
 
@@ -80,6 +84,8 @@ namespace Spendwise_WebApp.Pages
             {
                 Response.Cookies.Delete(cookie);
             }
+
+            HttpContext.Response.Cookies.Delete("AuthToken");
 
             return RedirectToPage("./Index");
         }

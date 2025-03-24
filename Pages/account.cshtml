@@ -231,7 +231,7 @@
                             <div class="efPanel efAccountPanel ui-widget-content ui-corner-all" id="efGlanceFinances">
                                 <div class="efPanelHeader ui-widget-header"><img src="/assets/icons/user_suit.png" alt="">Account Overview</div>
                                 <div class="efPanelContent ui-corner-bottom">
-                                    <p>Welcome back, <span style="font-weight:bold;">Spendwise</span>!</p>
+                                    <p>Welcome back, <span style="font-weight:bold;">@Model.LoginUserName</span>!</p>
                                     <table>
                                         <tbody>
                                             <tr><th>Balance:</th><td>£0.00</td></tr>
@@ -269,7 +269,7 @@
                 </div>
                 <div id="dashboard__content">
                     <div id="dashboard__alert">
-                        <p class="mr-0">Welcome back, <strong>Spendwise</strong>. From your customer dashboard you can navigate to the department you require.</p>
+                        <p class="mr-0">Welcome back, <strong>@Model.LoginUserName</strong>. From your customer dashboard you can navigate to the department you require.</p>
                     </div>
                     <div id="dashboard__links">
                         <div class="col-row">

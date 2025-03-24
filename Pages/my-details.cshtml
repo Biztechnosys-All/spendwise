@@ -1,0 +1,320 @@
+﻿@page
+@model Spendwise_WebApp.Pages.my_detailsModel
+@{
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+<div class="col-five clientpage">
+    <div class="container-inner">
+        <div id="efPageContent" class="ui-widget">
+            <div id="efAuthenticatedContent">
+                <div class="efAccountMenu ui-corner-all ui-widget-content ui-widget-header">
+                    <ul class="efAccountMenuTabs">
+                        <li class="efAccountMainMenuLi">
+                            <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_MyAccount"><img src="/assets/icons/user_suit.png" alt="">My Account ▼</a>
+                            <ul class="efAccountSubMenuUl">
+                                <li class="efAccountSubMenuLi"><a href="/account/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_Overview"><img src="/assets/icons/user_suit.png" alt=""> Dashboard</a></li>
+                                <li class="efAccountSubMenuLi current"><a href="/my-details/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_MyDetails"><img src="/assets/icons/user_edit.png" alt="">My Details</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/?gle=logout" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_Logout"><img src="/assets/icons/door_in.png" alt="">Logout</a></li>
+                            </ul>
+                        </li>
+                        <li class="efAccountMainMenuLi">
+                            <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_Orders"><img src="/assets/icons/book.png" alt="">Orders ▼</a>
+                            <ul class="efAccountSubMenuUl">
+                                <li class="efAccountSubMenuLi"><a href="/order-history/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_ViewAllOrders"><img src="/assets/icons/book.png" alt="">View All Orders</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/order-history/?s=0" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_Incomplete"><img src="/assets/icons/book_error.png" alt="">Incomplete</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/order-history/?s=70,80,100,200,400,600" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_InProgress"><img src="/assets/icons/book_open.png" alt="">In Progress</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/order-history/?s=700" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_Completed"><img src="/assets/icons/book_go.png" alt="">Completed</a></li>
+                            </ul>
+                        </li>
+                        <li class="efAccountMainMenuLi">
+                            <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_Companies"><img src="/assets/icons/building.png" alt="">Companies ▼</a>
+                            <ul class="efAccountSubMenuUl">
+                                <li class="efAccountSubMenuLi"><a href="/companies/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_ViewAllCompanies"><img src="/assets/icons/building.png" alt="">View All Companies</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/compare-packages/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_IncorporateNewCompany"><img src="/assets/icons/building_link.png" alt="">Incorporate New Company</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/company-add/" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_ImportCompanyviaAuth.Code"><img src="/assets/icons/building_add.png" alt="">Import Company via Auth. Code</a></li>
+                            </ul>
+                        </li>
+                        <li class="efAccountMainMenuLi">
+                            <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_Services"><img src="/assets/icons/plugin.png" alt="">Services ▼</a>
+                            <ul class="efAccountSubMenuUl">
+                                <li class="efAccountSubMenuLi"><a href="/services/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_ViewAllServices"><img src="/assets/icons/plugin.png" alt="">View All Services</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/services/?e=31&amp;s=active" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_ExpiringServices"><img src="/assets/icons/error.png" alt="">Expiring Services</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/services/?e=31&amp;s=cancelled-expired" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_RenewExpiredServices"><img src="/assets/icons/exclamation.png" alt="">Renew Expired Services</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/processed-mail/" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_ProcessedMail"><img src="/assets/icons/email.png" alt="">Your Mail</a></li>
+                            </ul>
+                        </li>
+                        <li class="efAccountMainMenuLi">
+                            <a href="#" class="ui-corner-all ui-widget-content ui-state-default efAccountMainMenuItem efAccountMenuItem_Finances"><img src="/assets/icons/coins.png" alt="">Finances ▼</a>
+                            <ul class="efAccountSubMenuUl">
+                                <li class="efAccountSubMenuLi"><a href="/payments/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_InvoiceHistory"><img src="/assets/icons/table.png" alt="">Invoice History</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/transaction-history/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_PaymentHistory"><img src="/assets/icons/money.png" alt="">Payment History</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/payment-on-account/" class="ui-widget-content ui-state-default  efAccountSubMenuItem efAccountMenuItem_PaymentOnAccount"><img src="/assets/icons/money_add.png" alt="">Payment On Account</a></li>
+                                <li class="efAccountSubMenuLi"><a href="/payment-authority-setup/" class="ui-widget-content ui-state-default ui-corner-bottom efAccountSubMenuItem efAccountMenuItem_CardManagement"><img src="/assets/icons/ruby_link.png" alt="">Card Management</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="efWebStateCompanySearch">
+                        <input class="efTextInput ui-corner-all ui-widget-content ui-autocomplete-input" value="Search my companies..." onfocus="if(this.value=='Search my companies...')this.value=''" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                    </div>
+                </div>
+
+
+
+                <script>
+                    jQuery(document).ready(function () {
+                        jQuery(".efWebStateCompanySearch input").autocomplete({
+                            source: "/ejax-company-search/",
+                            position: { my: "right top", at: "right bottom" },
+                            select: function (event, ui) {
+                                event.preventDefault();
+                                jQuery(".efWebStateCompanySearch input").val(ui.item.label);
+                                document.location.href = "/account/company/?i=" + ui.item.value;
+                            }
+                        });
+                        var m = jQuery(".efAccountMenuTabs");
+                        m.find(".efAccountMainMenuItem").on('mouseover', function () {
+                            jQuery(this).addClass("ui-state-active");
+                        }).on('mouseleave', function () {
+                            jQuery(this).removeClass("ui-state-active");
+                        });
+                        m.find(".efAccountMainMenuLi").on('mouseover', function () {
+                            jQuery(this).find("ul").show();
+                        }).on('mouseleave', function () {
+                            jQuery(this).find("ul").hide();
+                        });
+                        m.find(".efAccountSubMenuItem").on('mouseover', function () {
+                            jQuery(this).addClass("ui-state-active");
+                        }).on('mouseleave', function () {
+                            jQuery(this).removeClass("ui-state-active");
+                        });
+                    });
+                </script>
+
+
+                <div id="efUserDetailsPageWrapper">
+                    <h2>My Details</h2>
+                    <!-- The empty span tag in the error div refers to the server side validation , the id of the span is a specfic error, this allows for custom error events -->
+                    <div class="ui-state-error ui-corner-all efAlert" id="error-message" style="display:none">
+                        <span id="error-text"></span>
+                    </div>
+
+                    <div class="ui-state-highlight ui-corner-all efAlert" id="success-message" style="display:none">
+                        <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                        <span id="success-text">Details updated</span>
+                    </div>
+
+                    <!-- Main Form Content -->
+
+                    <form name="update-user-details" id="update-user-details" method="post" action="/my-details/">
+                        <input type="hidden" name="pa" value="update-details">
+
+                        <div class="efUserDetailsWrapper efPanel ui-widget-content ui-corner-top">
+                            <div class="ui-corner-top ui-widget-header efPanelHeader">Account Holder</div>
+                            <div class="ui-corner-bottom efPanelContent">
+                                <table class="efUserDetails efTableCondensed">
+                                    <tbody>
+                                        <tr style="display: none;">
+                                            <td>
+                                                <label class="efRegisterLabel">Organisation</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="efTextInput" name="Organisation" placeholder="Optional" value="Spendwise">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Title <span class="required_mark">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input id="user-title" class="efTextInput" type="text" placeholder="Title" name="UserTitle" value="Mr">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Firstname <span class="required_mark">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="efTextInput" name="FirstName" placeholder="First name" value="Spendwise">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Lastname <span class="required_mark">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="efTextInput" name="LastName" placeholder="Last name" value="Spendwise">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Username <span class="required_mark">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input required="required" type="text" class="efTextInput" placeholder="Username" name="Username" id="Username" value="it@spendwiseacc.com">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">New Password</label>
+                                            </td>
+                                            <td>
+                                                <input type="password" class="efTextInput" placeholder="Optional" name="Password" id="Password">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Confirm Password</label>
+                                            </td>
+                                            <td>
+                                                <input type="password" class="efTextInput" placeholder="Optional" name="PasswordConfirm" id="PasswordConfirm">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="efUserPostalAddressesWrapper efPanel ui-widget-content ui-corner-top">
+                            <div class="efPanelHeader ui-corner-top ui-widget-header">Contact Addresses</div>
+                            <div class="efPanelContent ui-corner-bottom">
+                                <table class="efPostalAddresses efTableCondensed">
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align:top">
+                                                <label class="efRegisterLabel">Primary <span class="required_mark">*</span></label>
+                                            </td>
+                                            <td>
+                                                <span class="efTextInput address" id="primaryPostalAddress" name="primaryPostalAddress" data-email-address="PRIMARY">2 Westglade Court, Woodgrange Close, Harrow, Middlesex, HA3 0XQ, ENGLAND</span>
+                                                <div>
+                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-primary" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/arrow_rotate_clockwise.png" alt=" "> Choose Another</span></button>
+                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-primary" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/pencil.png"> Edit</span></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <input type="hidden" name="primaryPostalAddressVal" id="primaryPostalAddressVal" value="3360154">
+                                        <tr>
+                                            <td style="vertical-align:top">
+                                                <label class="efRegisterLabel">Billing <span class="required_mark">*</span></label>
+                                            </td>
+                                            <td>
+                                                <span class="efTextInput address" id="billingPostalAddress" name="billingPostalAddress" data-email-address="BILLING">
+                                                    2 Westglade Court, Woodgrange Close, Harrow, Middlesex, HA3 0XQ, ENGLAND
+                                                </span>
+                                                <div>
+                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-billing" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/arrow_rotate_clockwise.png" alt=" ">Choose Another</span></button>
+                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-billing" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/pencil.png"> Edit</span></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <input type="hidden" name="billingPostalAddressVal" id="billingPostalAddressVal" value="3360154">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="efUserEmailAddressesWrapper efPanel ui-widget-content ui-corner-top">
+                            <div class="efPanelHeader ui-corner-top ui-widget-header">Email Addresses</div>
+                            <div class="efPanelContent ui-corner-bottom">
+                                <table class="efUserEmailAddresses efTableCondensed">
+                                    <tbody>
+                                        <tr>
+                                            <td><label class="efRegisterLabel">Primary <span class="required_mark">*</span></label></td>
+                                            <td>
+                                                <input type="text" billingnumber="" class="efTextInput email" name="primaryEmailAddress" value="it@spendwiseacc.com" data-email-address="PRIMARY">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Billing <span class="required_mark">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="efTextInput email" name="billingEmailAddress" value="it@spendwiseacc.com" data-email-address="BILLING">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="efUserNumbersWrapper efPanel ui-widget-content ui-corner-top">
+                            <div class="efPanelHeader ui-corner-top ui-widget-header">Phone Numbers</div>
+                            <div class="efPanelContent ui-corner-bottom">
+                                <table class="efUserNumbers efTableCondensed">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Primary</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="efTextInput number" name="primaryNumber" value="07411559002" data-email-address="PRIMARY">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Billing</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="efTextInput number" name="billingNumber" value="07411559002" data-email-address="BILLING">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="efUserDetailsWrapper efPanel ui-widget-content ui-corner-top">
+                            <div class="ui-corner-top ui-widget-header efPanelHeader">Notifications</div>
+                            <div class="ui-corner-bottom efPanelContent">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Newsletter</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="efNewsletterInput" name="newsletter">
+                                                I would like to sign up to the newsletter distribution list
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Confirmation Statement</label>
+                                            </td>
+                                            <td>
+                                                <label for="confirmationstatement">
+                                                    <input type="checkbox" id="confirmationstatement" checked="checked" name="returnreminders">
+                                                    I would like to receive updates on the confirmation statement
+                                                </label>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="efRegisterLabel">Accounts</label>
+                                            </td>
+                                            <td>
+                                                <label for="accounts">
+                                                    <input type="checkbox" id="accounts" checked="checked" name="accounts">
+                                                    I would like to receive updates on my accounts
+                                                </label>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="efRegisterSubmitButton">
+                            <button class="efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" role="button" aria-disabled="false"><span class="ui-button-text">Update Details</span></button>
+                        </div>
+                        <input type="hidden" name="token" value="fa74241e7dcaac492a7178265f851ab2fd25be5cde756b99e9fdc20f40c1b599">
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

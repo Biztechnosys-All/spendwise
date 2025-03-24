@@ -3,14 +3,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Spendwise_WebApp.Pages
 {
-    public class accountModel : PageModel
+    public class my_detailsModel : PageModel
     {
-        public string LoginUserName { get; set; } = "";
-
         public void OnGet()
         {
-            LoginUserName = Request.Cookies["UserName"] ?? "";
-
         }
     }
 }

@@ -9,7 +9,7 @@
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.Strict,
-                Expires = DateTime.UtcNow.AddDays(7) // 7 days expiry
+                Expires = DateTime.UtcNow.AddDays(3)
             };
         }
     }
