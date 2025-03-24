@@ -1,5 +1,7 @@
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Spendwise_WebApp.Models;
 using System.Security.Cryptography;
 using System.Text;
@@ -18,6 +20,9 @@ namespace Spendwise_WebApp.Pages
 
         [BindProperty]
         public new User User { get; set; } = default!;
+        public bool userExist { get; set; } = false!;
+        public bool isAgreeTerms  { get; set; } = false!;
+
 
         public void OnGet()
         {
@@ -25,7 +30,6 @@ namespace Spendwise_WebApp.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-
             if (!ModelState.IsValid)
             {
                 // List of required fields with custom error messages
@@ -56,7 +60,18 @@ namespace Spendwise_WebApp.Pages
 
                 return Page();
             }
+            if (!isAgreeTerms)
+            {
+                ModelState.AddModelError("isAgreeTerms", "Please agree to the Terms and Conditions & Privacy Policy to complete the registration process!");
+                return Page();
+            }
 
+            var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == User.Email);
+            if (userData != null)
+            {
+                userExist = true;
+                return Page();
+            }
             // Hash the password using MD5
             if (!string.IsNullOrEmpty(User.Password))
             {

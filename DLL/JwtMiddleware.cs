@@ -1,10 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System.Threading.Tasks;
 
 public class JwtMiddleware
 {
@@ -21,13 +18,35 @@ public class JwtMiddleware
     {
         var token = context.Request.Cookies["AuthToken"];
 
-        if (!string.IsNullOrEmpty(token) && ValidateToken(token, out ClaimsPrincipal claimsPrincipal))
+        // Check if token exists and validate it
+        if (string.IsNullOrEmpty(token) || !ValidateToken(token, out ClaimsPrincipal claimsPrincipal))
         {
-            context.User = claimsPrincipal; // Set claims to HttpContext
+            if (IsProtectedPage(context))
+            {
+                context.Response.Redirect("/Login");
+                return;
+            }
+        }
+        else
+        {
+            context.User = claimsPrincipal;
         }
 
         await _next(context);
     }
+
+    private bool IsProtectedPage(HttpContext context)
+    {
+        // Define protected paths
+        var protectedPaths = new List<string>
+        {
+            "/account",
+            "/my-details"
+        };
+
+        return protectedPaths.Any(path => context.Request.Path.StartsWithSegments(path, StringComparison.OrdinalIgnoreCase));
+    }
+
 
     private bool ValidateToken(string token, out ClaimsPrincipal claimsPrincipal)
     {
