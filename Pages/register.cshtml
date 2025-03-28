@@ -29,6 +29,12 @@
                         <p>The email address you entered is already registered. Please try logging in or use a different email address to register.</p>
                     </div>
                 }
+                @if (Model.AgreeTermsError)
+                {
+                    <div class="alert-danger p-2">
+                        <p>Please agree to the Terms and Conditions & Privacy Policy to complete the registration process!</p>
+                    </div>
+                }
                 <!-- Main Form Content -->
                 <form name="register" id="register" method="post">
                     <input type="hidden" name="pa" value="submit-registration">
@@ -458,8 +464,7 @@
                     <div class="efRegisterTermsWrapper efWidget ui-widget-content ui-corner-all">
                         <p><label><label><input id="efNewsletterInput" name="newsletter" type="checkbox"> I would like to receive updates from Spendwise</label></label></p>
                         <p style="display: none;"><label><input type="checkbox" id="efRemarketing" name="remarketing"> I would like to receive updates from our business partners</label></p>
-                        <p><label><input type="checkbox" asp-for="@Model.isAgreeTerms" name="terms"> I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a></label></p>
-                        <span asp-validation-for="@Model.isAgreeTerms" class="text-danger fw-bold p-1"></span>
+                        <p><label><input type="checkbox" asp-for="@Model.isAgreeTerms"> I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a></label></p>
                         <!-- captcha -->
 
                     </div>
@@ -505,8 +510,20 @@
     <script>
 
         function postcodeLookup() {
-            alert($(".txtPostCodeInput").val());
+            $.ajax({
+                type: "GET",
+                url: "/register?handler=CheckPostCode&PostCode=" + encodeURIComponent($(".txtPostCodeInput").val()),
+                success: function (isAvailable) {
+                    // Check if the response is a string and convert it to a boolean if necessary
+                    if (typeof isAvailable === 'string') {
+                        isAvailable = (isAvailable.toLowerCase() === 'true');
+                    }
+                    
+                },
+                error: function () {
+                    alert("Error checking company name.");
+                }
+            });
         }
-
     </script>
 }

@@ -2,6 +2,7 @@ using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Spendwise_WebApp.Models;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,16 +13,20 @@ namespace Spendwise_WebApp.Pages
     {
 
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public registerModel(Spendwise_WebApp.DLL.AppDbContext context)
+        public registerModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         [BindProperty]
         public new User User { get; set; } = default!;
         public bool userExist { get; set; } = false!;
-        public bool isAgreeTerms  { get; set; } = false!;
+        [BindProperty]
+        public required bool isAgreeTerms { get; set; }
+        public required bool AgreeTermsError { get; set; } = false!;
 
 
         public void OnGet()
@@ -45,7 +50,8 @@ namespace Spendwise_WebApp.Pages
                     { "User.HouseName", "House name is required." },
                     { "User.Street", "Street is required." },
                     { "User.Town", "Town is required." },
-                    { "User.Country", "Country is required." }
+                    { "User.Country", "Country is required." },
+                    { "isAgreeTerms", "Please agree to the Terms and Conditions & Privacy Policy to complete the registration process!" }
                 };
 
                 // Iterate over required fields and add model errors
@@ -62,7 +68,8 @@ namespace Spendwise_WebApp.Pages
             }
             if (!isAgreeTerms)
             {
-                ModelState.AddModelError("isAgreeTerms", "Please agree to the Terms and Conditions & Privacy Policy to complete the registration process!");
+                AgreeTermsError = true;
+                //ModelState.AddModelError("isAgreeTerms", "");
                 return Page();
             }
 
@@ -97,5 +104,30 @@ namespace Spendwise_WebApp.Pages
 
             return RedirectToPage("./Index");
         }
+
+
+        public async Task<IActionResult> OnGetCheckPostCode(string PostCode)
+        {
+            if (string.IsNullOrWhiteSpace(PostCode))
+            {
+                return new JsonResult(false);  // Return false if company name is empty
+            }
+
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.postcodes.io/postcodes/{PostCode}");
+
+            using (var httpClient = new HttpClient())
+            {
+                var result = await httpClient.SendAsync(request);
+                result.EnsureSuccessStatusCode();
+
+                string jsonResponse = await result.Content.ReadAsStringAsync();
+
+                JObject jsonObject = JObject.Parse(jsonResponse);
+                
+
+                return new JsonResult("");
+            }
+        }
+
     }
 }

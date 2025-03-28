@@ -68,6 +68,7 @@ namespace Spendwise_WebApp.Pages
             {
                 var options = CookieOptionsHelper.GetDefaultOptions();
                 Response.Cookies.Append("UserName", userData.Forename +" "+ userData.Surname, options);
+                Response.Cookies.Append("UserEmail", userData.Email, options);
 
                 HttpContext.Response.Cookies.Append("AuthToken", _jwtTokenService.GenerateJwtToken(User.Email), options);
 
