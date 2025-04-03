@@ -14,11 +14,12 @@ namespace Spendwise_WebApp.Pages
 
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
         private readonly IConfiguration _configuration;
-
-        public registerModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration configuration)
+        private readonly EmailSender _emailSender;
+        public registerModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration configuration, EmailSender emailSender)
         {
             _context = context;
             _configuration = configuration;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -97,10 +98,21 @@ namespace Spendwise_WebApp.Pages
                 }
             }
 
+            string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+            User.EmailVerificationToken = token;
+            User.IsEmailVerified = false;
             User.IsActive = true;
             User.created_on = DateTime.Now;
             _context.Users.Add(User);
             await _context.SaveChangesAsync();
+
+            var confirmationLink = Url.Page("/ConfirmEmail",
+                pageHandler: null,
+                values: new { email = User.Email, token = User.EmailVerificationToken },
+                protocol: Request.Scheme);
+
+            await _emailSender.SendEmailAsync(User.Email, "Verify Your Email",
+                $"Click <a href='{confirmationLink}'>here</a> to verify your email.");
 
             return RedirectToPage("./Index");
         }
@@ -123,7 +135,7 @@ namespace Spendwise_WebApp.Pages
                 string jsonResponse = await result.Content.ReadAsStringAsync();
 
                 JObject jsonObject = JObject.Parse(jsonResponse);
-                
+
 
                 return new JsonResult("");
             }

@@ -128,6 +128,12 @@
 
                 <div id="efLoginContainer">
                     <h2>Account Login</h2>
+                    @if (!Model.IsEmailVerified)
+                    {
+                        <div class="alert-danger p-2">
+                            <p><b>Please verify your email before logging in.</b></p>
+                        </div>
+                    }
                     <form method="post" class="ef-login-form cc-login-form">
                         <input type="hidden" name="pa" value="login">
                         <input type="hidden" name="k" value="">

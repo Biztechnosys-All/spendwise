@@ -23,6 +23,7 @@ namespace Spendwise_WebApp.Pages
         [BindProperty]
         public new User User { get; set; } = default!;
         public User UserData { get; set; } = default!;
+        public bool IsEmailVerified { get; set; } = true;
 
         public void OnGet()
         {
@@ -66,6 +67,13 @@ namespace Spendwise_WebApp.Pages
             }
             else
             {
+                if (!userData.IsEmailVerified)
+                {
+                    IsEmailVerified = false;
+                    ModelState.AddModelError("EmailNotVerified", "Please verify your email before logging in.");
+                    return Page();
+                }
+
                 var options = CookieOptionsHelper.GetDefaultOptions();
                 Response.Cookies.Append("UserName", userData.Forename +" "+ userData.Surname, options);
                 Response.Cookies.Append("UserEmail", userData.Email, options);

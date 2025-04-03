@@ -30,6 +30,8 @@ namespace Spendwise_WebApp.Models
         public required string County { get; set; }
         [Required]
         public required string Country { get; set; }
+        public string? EmailVerificationToken { get; set; }
+        public bool IsEmailVerified { get; set; }
 
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }

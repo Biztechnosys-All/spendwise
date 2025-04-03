@@ -41,6 +41,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<EmailSender>();
 
 var app = builder.Build();
 
