@@ -24,6 +24,7 @@ namespace Spendwise_WebApp.Pages
         public new User User { get; set; } = default!;
         public User UserData { get; set; } = default!;
         public bool IsEmailVerified { get; set; } = true;
+        public bool IsUserExists { get; set; } = true;
 
         public void OnGet()
         {
@@ -55,6 +56,7 @@ namespace Spendwise_WebApp.Pages
 
             if (userData == null)
             {
+                IsUserExists = false;
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return Page();
             }

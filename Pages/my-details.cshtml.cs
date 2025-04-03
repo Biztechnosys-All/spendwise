@@ -14,21 +14,24 @@ namespace Spendwise_WebApp.Pages
             _context = context;
         }
 
-        public new User User { get; set; }
-        public void OnGet()
+        [BindProperty]
+        public new User User { get; set; } = default!;
+
+        public async Task<IActionResult> OnGet()
         {
             var LoginEmail = Request.Cookies["UserEmail"] ?? "";
 
             if (!string.IsNullOrEmpty(LoginEmail))
             {
-                var userData = _context.Users.FirstOrDefaultAsync(x => x.Email == LoginEmail);
+                var userData = await _context.Users.FirstOrDefaultAsync(x =>  x.Email.ToLower() == LoginEmail.ToLower());
 
                 if (userData != null)
                 {
-                    //User = userData;
+                    User = userData;
 
                 }
             }
+            return Page();
         }
     }
 }

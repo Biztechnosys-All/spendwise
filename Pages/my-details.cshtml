@@ -126,7 +126,7 @@
                                                 <label class="efRegisterLabel">Title <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                <input id="user-title" class="efTextInput" type="text" placeholder="Title" name="UserTitle" value="Mr">
+                                                <input asp-for="User.Title" class="efTextInput" type="text" placeholder="Title">
                                             </td>
                                         </tr>
                                         <tr>
@@ -134,7 +134,7 @@
                                                 <label class="efRegisterLabel">Firstname <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="efTextInput" name="FirstName" placeholder="First name" value="Spendwise">
+                                                <input asp-for="User.Forename"  type="text" class="efTextInput" placeholder="First name">
                                             </td>
                                         </tr>
                                         <tr>

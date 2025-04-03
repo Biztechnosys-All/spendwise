@@ -134,6 +134,12 @@
                             <p><b>Please verify your email before logging in.</b></p>
                         </div>
                     }
+                    @if (!Model.IsUserExists)
+                    {
+                        <div class="alert-danger p-2">
+                            <p><b>User is not registred!</b></p>
+                        </div>
+                    }
                     <form method="post" class="ef-login-form cc-login-form">
                         <input type="hidden" name="pa" value="login">
                         <input type="hidden" name="k" value="">
