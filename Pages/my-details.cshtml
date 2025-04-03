@@ -134,7 +134,7 @@
                                                 <label class="efRegisterLabel">Firstname <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                <input asp-for="User.Forename"  type="text" class="efTextInput" placeholder="First name">
+                                                <input asp-for="User.Forename" type="text" class="efTextInput" placeholder="First name">
                                             </td>
                                         </tr>
                                         <tr>
@@ -142,7 +142,7 @@
                                                 <label class="efRegisterLabel">Lastname <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="efTextInput" name="LastName" placeholder="Last name" value="Spendwise">
+                                                <input asp-for="User.Surname" type="text" class="efTextInput" placeholder="Last name">
                                             </td>
                                         </tr>
                                         <tr>
@@ -150,7 +150,7 @@
                                                 <label class="efRegisterLabel">Username <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                <input required="required" type="text" class="efTextInput" placeholder="Username" name="Username" id="Username" value="it@spendwiseacc.com">
+                                                <input asp-for="User.Email" required="required" type="text" class="efTextInput" placeholder="Username">
                                             </td>
                                         </tr>
                                         <tr>
@@ -158,7 +158,7 @@
                                                 <label class="efRegisterLabel">New Password</label>
                                             </td>
                                             <td>
-                                                <input type="password" class="efTextInput" placeholder="Optional" name="Password" id="Password">
+                                                <input type="password" class="efTextInput" placeholder="Optional" autocomplete="off">
                                             </td>
                                         </tr>
                                         <tr>
@@ -184,7 +184,8 @@
                                                 <label class="efRegisterLabel">Primary <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                <span class="efTextInput address" id="primaryPostalAddress" name="primaryPostalAddress" data-email-address="PRIMARY">2 Westglade Court, Woodgrange Close, Harrow, Middlesex, HA3 0XQ, ENGLAND</span>
+                                                @* <span class="efTextInput address" id="primaryPostalAddress" name="primaryPostalAddress" data-email-address="PRIMARY">2 Westglade Court, Woodgrange Close, Harrow, Middlesex, HA3 0XQ, ENGLAND</span> *@
+                                                <input asp-for="User.HouseName" required="required" type="text" class="efTextInput address" data-email-address="PRIMARY" placeholder="Primary Address">
                                                 <div>
                                                     <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-primary" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/arrow_rotate_clockwise.png" alt=" "> Choose Another</span></button>
                                                     <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-primary" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/pencil.png"> Edit</span></button>
@@ -197,16 +198,17 @@
                                                 <label class="efRegisterLabel">Billing <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                <span class="efTextInput address" id="billingPostalAddress" name="billingPostalAddress" data-email-address="BILLING">
+                                                @* <span class="efTextInput address" id="billingPostalAddress" name="billingPostalAddress" data-email-address="BILLING">
                                                     2 Westglade Court, Woodgrange Close, Harrow, Middlesex, HA3 0XQ, ENGLAND
-                                                </span>
+                                                </span> *@
+                                                <input asp-for="User.HouseName" required="required" type="text" class="efTextInput address" data-email-address="BILLING" placeholder="Billing Address">
                                                 <div>
                                                     <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-billing" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/arrow_rotate_clockwise.png" alt=" ">Choose Another</span></button>
                                                     <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-billing" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/pencil.png"> Edit</span></button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <input type="hidden" name="billingPostalAddressVal" id="billingPostalAddressVal" value="3360154">
+                                        <input asp-for="User.PostCode" type="hidden" name="billingPostalAddressVal">
                                     </tbody>
                                 </table>
                             </div>
@@ -220,7 +222,7 @@
                                         <tr>
                                             <td><label class="efRegisterLabel">Primary <span class="required_mark">*</span></label></td>
                                             <td>
-                                                <input type="text" billingnumber="" class="efTextInput email" name="primaryEmailAddress" value="it@spendwiseacc.com" data-email-address="PRIMARY">
+                                                <input asp-for="User.Email" type="text" billingnumber="" class="efTextInput email" data-email-address="PRIMARY">
                                             </td>
                                         </tr>
                                         <tr>
@@ -228,7 +230,7 @@
                                                 <label class="efRegisterLabel">Billing <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="efTextInput email" name="billingEmailAddress" value="it@spendwiseacc.com" data-email-address="BILLING">
+                                                <input asp-for="User.Email" type="text" class="efTextInput email" data-email-address="BILLING">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -246,7 +248,7 @@
                                                 <label class="efRegisterLabel">Primary</label>
                                             </td>
                                             <td>
-                                                <input type="text" class="efTextInput number" name="primaryNumber" value="07411559002" data-email-address="PRIMARY">
+                                                <input asp-for="User.PhoneNumber" type="text" class="efTextInput number" data-email-address="PRIMARY">
                                             </td>
                                         </tr>
                                         <tr>
@@ -254,7 +256,7 @@
                                                 <label class="efRegisterLabel">Billing</label>
                                             </td>
                                             <td>
-                                                <input type="text" class="efTextInput number" name="billingNumber" value="07411559002" data-email-address="BILLING">
+                                                <input asp-for="User.PhoneNumber" type="text" class="efTextInput number" data-email-address="BILLING">
                                             </td>
                                         </tr>
                                     </tbody>

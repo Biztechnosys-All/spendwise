@@ -116,9 +116,9 @@
     }
 </style>
 <div class="col-five bg-image-packages gradient--green">
-	<div class="container-inner clientlog">
-		<h1 class="no-bg fc-white">Client Login</h1>
-	</div>
+    <div class="container-inner clientlog">
+        <h1 class="no-bg fc-white">Client Login</h1>
+    </div>
 </div>
 <div class="col-five client login-wrapper">
     <div class="container-inner">
@@ -153,15 +153,19 @@
                             </div>
                             <div class="login-box__field">
                                 <label>Password:</label>
-                                <input asp-for="User.Password" type="password" autocomplete="off">
+                                <input asp-for="User.Password" type="password" id="passwordField" autocomplete="off">
                                 <span asp-validation-for="User.Password" class="text-danger fw-bold p-1"></span>
-                                <span class="efPasswordEyeOpenIcon ef-js-text-mask" data-owner="efPasswordField">
+
+                                <!-- Eye Open Icon (Visible initially) -->
+                                <span class="efPasswordEyeOpenIcon ef-js-text-mask" id="showPassword" onclick="togglePassword()" style="cursor: pointer;">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
                                         <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
                                         <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
                                     </svg>
                                 </span>
-                                <span class="efPasswordEyeClosedIcon ef-js-text-mask efHide" data-owner="efPasswordField">
+
+                                <!-- Eye Slash Icon (Hidden initially) -->
+                                <span class="efPasswordEyeClosedIcon ef-js-text-mask" id="hidePassword" onclick="togglePassword()" style="cursor: pointer; display: none;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 18 22">
                                         <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"></path>
                                         <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
@@ -231,8 +235,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                    <p>Please enter your email address or username in the field below:</p>
-                    <p><input type="text" class="form-control" /></p>
+                <p>Please enter your email address or username in the field below:</p>
+                <p><input type="text" class="form-control" /></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Submit</button>
@@ -240,3 +244,24 @@
         </div>
     </div>
 </div>
+
+@section scripts
+{
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("passwordField");
+            var showPasswordIcon = document.getElementById("showPassword");
+            var hidePasswordIcon = document.getElementById("hidePassword");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                showPasswordIcon.style.display = "none";
+                hidePasswordIcon.style.display = "inline";
+            } else {
+                passwordField.type = "password";
+                showPasswordIcon.style.display = "inline";
+                hidePasswordIcon.style.display = "none";
+            }
+        }
+    </script>
+}
