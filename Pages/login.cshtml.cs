@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Spendwise_WebApp.DLL;
 using Spendwise_WebApp.Models;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Encodings.Web;
 
 namespace Spendwise_WebApp.Pages
 {
@@ -13,11 +17,15 @@ namespace Spendwise_WebApp.Pages
 
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
         private readonly JwtTokenService _jwtTokenService;
+        private readonly IConfiguration _config;
+        private readonly EmailSender _emailSender;
 
-        public loginModel(Spendwise_WebApp.DLL.AppDbContext context, JwtTokenService jwtTokenService)
+        public loginModel(Spendwise_WebApp.DLL.AppDbContext context, JwtTokenService jwtTokenService, IConfiguration config, EmailSender emailSender)
         {
             _context = context;
             _jwtTokenService = jwtTokenService;
+            _config = config;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -25,7 +33,7 @@ namespace Spendwise_WebApp.Pages
         public User UserData { get; set; } = default!;
         public bool IsEmailVerified { get; set; } = true;
         public bool IsUserExists { get; set; } = true;
-
+        public bool InvalidPass { get; set; } = true;
         public void OnGet()
         {
         }
@@ -57,14 +65,13 @@ namespace Spendwise_WebApp.Pages
             if (userData == null)
             {
                 IsUserExists = false;
-                ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return Page();
             }
 
             // Compare hashed passwords
             if (userData.Password != hashedPassword)
             {
-                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                InvalidPass = false;
                 return Page();
             }
             else
@@ -72,12 +79,11 @@ namespace Spendwise_WebApp.Pages
                 if (!userData.IsEmailVerified)
                 {
                     IsEmailVerified = false;
-                    ModelState.AddModelError("EmailNotVerified", "Please verify your email before logging in.");
                     return Page();
                 }
 
                 var options = CookieOptionsHelper.GetDefaultOptions();
-                Response.Cookies.Append("UserName", userData.Forename +" "+ userData.Surname, options);
+                Response.Cookies.Append("UserName", userData.Forename + " " + userData.Surname, options);
                 Response.Cookies.Append("UserEmail", userData.Email, options);
 
                 HttpContext.Response.Cookies.Append("AuthToken", _jwtTokenService.GenerateJwtToken(User.Email), options);
@@ -100,6 +106,71 @@ namespace Spendwise_WebApp.Pages
 
             return RedirectToPage("./Index");
         }
+
+        public async Task<IActionResult> OnGetForgotPassword(string customerEmail)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail))
+            {
+                return new JsonResult(false);  // Return false if company name is empty
+            }
+
+            string resetToken = Guid.NewGuid().ToString(); // Generate unique token
+            string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                await conn.OpenAsync();
+                string query = "UPDATE Users SET ResetToken = @Token, ResetTokenExpiry = @Expiry WHERE Email = @Email";
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Email", customerEmail);
+                    cmd.Parameters.AddWithValue("@Token", resetToken);
+                    cmd.Parameters.AddWithValue("@Expiry", DateTime.UtcNow.AddHours(1)); // Token expires in 1 hour
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                    if (rowsAffected == 0)
+                    {
+                        ModelState.AddModelError("", "Email not found.");
+                        return Page();
+                    }
+                }
+            }
+
+            // Step 2: Send reset email
+            string resetLink = Url.Page("/ResetPassword",
+                pageHandler: null,
+                values: new { email = customerEmail, token = resetToken ?? "" },
+                protocol: Request.Scheme) ?? "";
+
+            //await SendResetEmail(customerEmail, resetLink ?? "");
+            await _emailSender.SendEmailAsync(customerEmail, "Reset Your Password",
+                $"Click the link to reset your password:  <a href='{resetLink}'>Reset Password</a>.");
+
+            ViewData["Message"] = "A password reset link has been sent to your email.";
+            return Page();
+
+        }
+
+        //private async Task SendResetEmail(string email, string resetLink)
+        //{
+        //    var smtpClient = new SmtpClient(_config["EmailSettings:SmtpServer"] ?? "")
+        //    {
+        //        Port = int.Parse(_config["EmailSettings:Port"] ?? ""),
+        //        Credentials = new NetworkCredential(_config["EmailSettings:SenderEmail"], _config["EmailSettings:SenderPassword"] ?? ""),
+        //        EnableSsl = true
+        //    };
+
+        //    var mailMessage = new MailMessage
+        //    {
+        //        From = new MailAddress(_config["EmailSettings:SenderEmail"] ?? ""),
+        //        Subject = "Reset Your Password",
+        //        Body = $"Click the link to reset your password: <a href='{HtmlEncoder.Default.Encode(resetLink)}'>Reset Password</a>",
+        //        IsBodyHtml = true
+        //    };
+        //    mailMessage.To.Add(email);
+
+        //    await smtpClient.SendMailAsync(mailMessage);
+        //}
 
     }
 }

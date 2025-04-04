@@ -32,6 +32,8 @@ namespace Spendwise_WebApp.Models
         public required string Country { get; set; }
         public string? EmailVerificationToken { get; set; }
         public bool IsEmailVerified { get; set; }
+        public string? ResetToken { get; set; }
+        public DateTime? ResetTokenExpiry { get; set; }
 
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
