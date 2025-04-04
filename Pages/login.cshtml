@@ -140,6 +140,12 @@
                             <p><b>User is not registred!</b></p>
                         </div>
                     }
+                    @if (!Model.InvalidPass)
+                    {
+                        <div class="alert-danger p-2">
+                            <p><b>Invalid email or password!</b></p>
+                        </div>
+                    }
                     <form method="post" class="ef-login-form cc-login-form">
                         <input type="hidden" name="pa" value="login">
                         <input type="hidden" name="k" value="">
@@ -178,10 +184,7 @@
                                     <input type="submit" value="Login" class="efButton ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
                                 </div>
                                 <div class="login-box__actions--reset">
-                                    <p>Forgotten Username: Try your email address or call 020 3897 2233.</p>
-                                </div>
-                                <div class="login-box__actions--reset">
-                                    <p>Forgotten Password: Please <a data-bs-toggle="modal" data-bs-target="#exampleModal">click here</a> to reset.</p>
+                                    <p>Forgotten Password: Please <a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">click here</a> to reset.</p>
                                 </div>
                             </div>
                         </div>
@@ -205,12 +208,12 @@
 
 
                 @* <script>
-                    grecaptcha.ready(function () {
-                        grecaptcha.execute('6LctSPcUAAAAAGqGPCeWQHpISurU2OwIHk8P5BFB', { action: 'login' })
-                            .then(function (token) {
-                                document.getElementById('g-recaptcha-response').value = token;
-                            });
-                    });
+                grecaptcha.ready(function () {
+                grecaptcha.execute('6LctSPcUAAAAAGqGPCeWQHpISurU2OwIHk8P5BFB', { action: 'login' })
+                .then(function (token) {
+                document.getElementById('g-recaptcha-response').value = token;
+                });
+                });
 
                 </script> *@
 
@@ -227,27 +230,49 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Password Reset</h5>
+                <h5 class="modal-title" id="resetPasswordModalLabel">Password Reset</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Please enter your email address or username in the field below:</p>
-                <p><input type="text" class="form-control" /></p>
+                <div id="divResetinput">
+                    <p>Please enter your email address or username in the field below:</p>
+                    <p><input type="text" id="txtResetPassEmail" class="form-control" /></p>
+                </div>
+                <div id="divLinkSent" style="display:none">
+                    <p>Reset password link is shared to your email <span id="resEmail"></span>!</p>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary" id="btnResetPass">Submit</button>
             </div>
         </div>
     </div>
 </div>
 
-@section scripts
-{
+
+@section Scripts {
     <script>
+        $(document).ready(function () {
+            $("#btnResetPass").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/login?handler=ForgotPassword&customerEmail=" + encodeURIComponent($("#txtResetPassEmail").val()),
+                    success: function (isAvailable) {
+                        $("#resEmail").text($("#txtResetPassEmail").val());
+                        $("#divResetinput").hide();
+                        $("#divLinkSent").show();
+                    },
+                    error: function () {
+                        alert("Error checking company name.");
+                    }
+                });
+            });
+        });
+
         function togglePassword() {
             var passwordField = document.getElementById("passwordField");
             var showPasswordIcon = document.getElementById("showPassword");
@@ -263,5 +288,6 @@
                 hidePasswordIcon.style.display = "none";
             }
         }
+
     </script>
 }
