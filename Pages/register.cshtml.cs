@@ -98,6 +98,16 @@ namespace Spendwise_WebApp.Pages
                 }
             }
 
+            User.BillingEmail = User.Email;
+            User.BillingPhoneNumber = User.PhoneNumber;
+            User.BillingHouseName = User.HouseName;
+            User.BillingStreet = User.Street;
+            User.BillingTown = User.Town;
+            User.BillingLocality = User.Locality;
+            User.BillingPostCode = User.PostCode;
+            User.BillingCounty = User.County;
+            User.BillingCountry = User.Country;
+
             string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             User.EmailVerificationToken = token;
             User.IsEmailVerified = false;
