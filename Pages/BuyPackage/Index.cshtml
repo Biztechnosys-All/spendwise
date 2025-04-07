@@ -236,7 +236,33 @@
                 $("#divCopmanySearch").css("display", "none");
                 $("#efNameCheckResult").css("display", "block");
                 var searchedCompanyName = $("#company_name").val();
-                $("#spnSearchedCompanyName").html(searchedCompanyName);
+                $.ajax({
+                    type: "GET",
+                    url: "/Index?handler=CheckCompanyAvailability&companyName=" + encodeURIComponent($("#company_name").val()),
+                    success: function (isAvailable) {
+                        // Check if the response is a string and convert it to a boolean if necessary
+                        if (typeof isAvailable === 'string') {
+                            isAvailable = (isAvailable.toLowerCase() === 'true');
+                        }
+                        $("#CompanyName").removeClass("spinner-ring");
+                        if (isAvailable === true) {
+                            // $("#cName").text(companyName);
+                            // $("#hdnCompanyName").val(companyName);
+                            // $("#cNameAv").show();
+                            // $("#cNameNotAv").hide();
+                            alert("avalible");
+                        } else {
+                            // $("#cNameNoAv").text(companyName);
+                            // $("#cNameNotAv").show();
+                            // $("#cNameAv").hide();
+                            alert("not avalible");
+                        }
+                    },
+                    error: function () {
+                        alert("Error checking company name.");
+                    }
+                });
+                //$("#spnSearchedCompanyName").html(searchedCompanyName);
             }
         }
 
