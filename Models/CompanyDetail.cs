@@ -2,7 +2,7 @@
 
 namespace Spendwise_WebApp.Models
 {
-    public class CompanyDetails
+    public class CompanyDetail
     {
         [Key]
         public int CompanyId { get; set; }
