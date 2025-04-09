@@ -3,6 +3,14 @@
 @{
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
+
+<style>
+    .efTextInput.address {
+        border: 0;
+        margin-bottom: 5px;
+        display: block;
+    }
+</style>
 <div class="col-five clientpage">
     <div class="container-inner">
         <div id="efPageContent" class="ui-widget">
@@ -62,31 +70,31 @@
 
                 <script>
                     jQuery(document).ready(function () {
-                        jQuery(".efWebStateCompanySearch input").autocomplete({
-                            source: "/ejax-company-search/",
-                            position: { my: "right top", at: "right bottom" },
-                            select: function (event, ui) {
-                                event.preventDefault();
-                                jQuery(".efWebStateCompanySearch input").val(ui.item.label);
-                                document.location.href = "/account/company/?i=" + ui.item.value;
-                            }
-                        });
-                        var m = jQuery(".efAccountMenuTabs");
-                        m.find(".efAccountMainMenuItem").on('mouseover', function () {
-                            jQuery(this).addClass("ui-state-active");
-                        }).on('mouseleave', function () {
-                            jQuery(this).removeClass("ui-state-active");
-                        });
-                        m.find(".efAccountMainMenuLi").on('mouseover', function () {
-                            jQuery(this).find("ul").show();
-                        }).on('mouseleave', function () {
-                            jQuery(this).find("ul").hide();
-                        });
-                        m.find(".efAccountSubMenuItem").on('mouseover', function () {
-                            jQuery(this).addClass("ui-state-active");
-                        }).on('mouseleave', function () {
-                            jQuery(this).removeClass("ui-state-active");
-                        });
+                    jQuery(".efWebStateCompanySearch input").autocomplete({
+                    source: "/ejax-company-search/",
+                    position: { my: "right top", at: "right bottom" },
+                    select: function (event, ui) {
+                    event.preventDefault();
+                    jQuery(".efWebStateCompanySearch input").val(ui.item.label);
+                    document.location.href = "/account/company/?i=" + ui.item.value;
+                    }
+                    });
+                    var m = jQuery(".efAccountMenuTabs");
+                    m.find(".efAccountMainMenuItem").on('mouseover', function () {
+                    jQuery(this).addClass("ui-state-active");
+                    }).on('mouseleave', function () {
+                    jQuery(this).removeClass("ui-state-active");
+                    });
+                    m.find(".efAccountMainMenuLi").on('mouseover', function () {
+                    jQuery(this).find("ul").show();
+                    }).on('mouseleave', function () {
+                    jQuery(this).find("ul").hide();
+                    });
+                    m.find(".efAccountSubMenuItem").on('mouseover', function () {
+                    jQuery(this).addClass("ui-state-active");
+                    }).on('mouseleave', function () {
+                    jQuery(this).removeClass("ui-state-active");
+                    });
                     });
                 </script>
 
@@ -105,8 +113,9 @@
 
                     <!-- Main Form Content -->
 
-                    <form name="update-user-details" id="update-user-details" method="post" action="/my-details/">
+                    <form name="update-user-details" id="update-user-details" method="post">
                         <input type="hidden" name="pa" value="update-details">
+                        <input type="hidden" asp-for="User.UserID" />
 
                         <div class="efUserDetailsWrapper efPanel ui-widget-content ui-corner-top">
                             <div class="ui-corner-top ui-widget-header efPanelHeader">Account Holder</div>
@@ -121,12 +130,19 @@
                                                 <input type="text" class="efTextInput" name="Organisation" placeholder="Optional" value="Spendwise">
                                             </td>
                                         </tr>
+                                        <input asp-for="User.Street" class="efTextInput" type="hidden" placeholder="Title">
+                                        <input asp-for="User.Locality" class="efTextInput" type="hidden" placeholder="Title">
+                                        <input asp-for="User.Town" class="efTextInput" type="hidden" placeholder="Title">
+                                        <input asp-for="User.County" class="efTextInput" type="hidden" placeholder="Title">
+                                        <input asp-for="User.Country" class="efTextInput" type="hidden" placeholder="Title">
+
                                         <tr>
                                             <td>
                                                 <label class="efRegisterLabel">Title <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
                                                 <input asp-for="User.Title" class="efTextInput" type="text" placeholder="Title">
+                                                <span asp-validation-for="User.Title" class="text-danger fw-bold p-1"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -135,6 +151,7 @@
                                             </td>
                                             <td>
                                                 <input asp-for="User.Forename" type="text" class="efTextInput" placeholder="First name">
+                                                <span asp-validation-for="User.Forename" class="text-danger fw-bold p-1"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -143,6 +160,7 @@
                                             </td>
                                             <td>
                                                 <input asp-for="User.Surname" type="text" class="efTextInput" placeholder="Last name">
+                                                <span asp-validation-for="User.Surname" class="text-danger fw-bold p-1"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -151,6 +169,7 @@
                                             </td>
                                             <td>
                                                 <input asp-for="User.Email" required="required" type="text" class="efTextInput" placeholder="Username">
+                                                <span asp-validation-for="User.Email" class="text-danger fw-bold p-1"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -158,7 +177,8 @@
                                                 <label class="efRegisterLabel">New Password</label>
                                             </td>
                                             <td>
-                                                <input type="password" class="efTextInput" placeholder="Optional" autocomplete="off">
+                                                <input asp-for="User.Password" type="password" class="efTextInput" placeholder="Optional" autocomplete="off">
+                                                <span asp-validation-for="User.Password" class="text-danger fw-bold p-1"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -184,27 +204,43 @@
                                                 <label class="efRegisterLabel">Primary <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                @* <span class="efTextInput address" id="primaryPostalAddress" name="primaryPostalAddress" data-email-address="PRIMARY">2 Westglade Court, Woodgrange Close, Harrow, Middlesex, HA3 0XQ, ENGLAND</span> *@
-                                                <input asp-for="User.HouseName" required="required" type="text" class="efTextInput address" data-email-address="PRIMARY" placeholder="Primary Address">
+                                                <input asp-for="User.HouseName" type="hidden" class="efTextInput" />
+                                                <span class="efTextInput address" id="primaryPostalAddress" name="primaryPostalAddress" data-email-address="PRIMARY">
+                                                    @Model.User.HouseName, @Model.User.Street, @Model.User.Locality, @Model.User.Town, @Model.User.County, @Model.User.PostCode, @Model.User.Country
+                                                </span>
+                                                <span asp-validation-for="User.HouseName" class="text-danger fw-bold p-1"></span>
                                                 <div>
                                                     <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-primary" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/arrow_rotate_clockwise.png" alt=" "> Choose Another</span></button>
-                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-primary" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/pencil.png"> Edit</span></button>
+                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-billing" role="button" aria-disabled="false">
+                                                        <span class="ui-button-text" onclick="showPrimaryModal('primary')">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="color: black;" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                                                            </svg>
+                                                            Edit
+                                                        </span>
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <input type="hidden" name="primaryPostalAddressVal" id="primaryPostalAddressVal" value="3360154">
+                                        <input asp-for="User.PostCode" type="hidden">
                                         <tr>
                                             <td style="vertical-align:top">
                                                 <label class="efRegisterLabel">Billing <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                @* <span class="efTextInput address" id="billingPostalAddress" name="billingPostalAddress" data-email-address="BILLING">
-                                                    2 Westglade Court, Woodgrange Close, Harrow, Middlesex, HA3 0XQ, ENGLAND
-                                                </span> *@
-                                                <input asp-for="User.HouseName" required="required" type="text" class="efTextInput address" data-email-address="BILLING" placeholder="Billing Address">
+                                                <span class="efTextInput address" id="billingPostalAddress" name="billingPostalAddress" data-email-address="BILLING">
+                                                    @Model.User.BillingHouseName, @Model.User.BillingLocality, @Model.User.BillingLocality, @Model.User.BillingTown, @Model.User.BillingCounty, @Model.User.BillingPostCode, @Model.User.BillingCountry
+                                                </span>
                                                 <div>
                                                     <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-billing" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/arrow_rotate_clockwise.png" alt=" ">Choose Another</span></button>
-                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-billing" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/pencil.png"> Edit</span></button>
+                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-billing" role="button" aria-disabled="false">
+                                                        <span class="ui-button-text" onclick="showPrimaryModal('billing')">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="color: black;" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                                                            </svg>
+                                                            Edit
+                                                        </span>
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -223,6 +259,7 @@
                                             <td><label class="efRegisterLabel">Primary <span class="required_mark">*</span></label></td>
                                             <td>
                                                 <input asp-for="User.Email" type="text" billingnumber="" class="efTextInput email" data-email-address="PRIMARY">
+                                                <span asp-validation-for="User.Email" class="text-danger fw-bold p-1"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -230,7 +267,7 @@
                                                 <label class="efRegisterLabel">Billing <span class="required_mark">*</span></label>
                                             </td>
                                             <td>
-                                                <input asp-for="User.Email" type="text" class="efTextInput email" data-email-address="BILLING">
+                                                <input asp-for="User.BillingEmail" type="text" class="efTextInput email" data-email-address="BILLING">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -249,6 +286,7 @@
                                             </td>
                                             <td>
                                                 <input asp-for="User.PhoneNumber" type="text" class="efTextInput number" data-email-address="PRIMARY">
+                                                <span asp-validation-for="User.PhoneNumber" class="text-danger fw-bold p-1"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -256,7 +294,7 @@
                                                 <label class="efRegisterLabel">Billing</label>
                                             </td>
                                             <td>
-                                                <input asp-for="User.PhoneNumber" type="text" class="efTextInput number" data-email-address="BILLING">
+                                                <input asp-for="User.BillingPhoneNumber" type="text" class="efTextInput number" data-email-address="BILLING">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -320,3 +358,230 @@
 
     </div>
 </div>
+
+<input asp-for="@Model.AddressType" type="hidden" name="AddressType" form="secondaryForm">
+
+<!-- Billing Address Modal -->
+<div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content ui-dialog ui-draggable ui-resizable" style="padding: .2em;">
+            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                <span id="ui-id-9" class="ui-dialog-title">
+                    Confirmation Required
+                </span>
+                <button type="button" style="margin-left: 28px;" class="btn-close" onclick="hidePrimaryModal()" aria-label="Close"></button>
+            </div>
+
+            <div id="efEditInlineAddressDialog" class="ui-dialog-content ui-widget-content" scrolltop="0" scrollleft="0" style="display: block; border-width: 0; width: auto; min-height: 0px; height: 40px;">
+                <p>Are you sure you wish to edit this address?</p>
+                <p>Do not use this option if you wish to use a different address.</p>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="border-width: 1px 0 0 0;">
+                    <div class="ui-dialog-buttonset" style="float: right; margin-top: 5px;">
+                        <button type="button" text="confirm" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                            <span class="ui-button-text" onclick="openSecondaryFromPrimary()">
+                                Confirm
+                            </span>
+                        </button>
+                        <button type="button" text="cancel" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                            <span class="ui-button-text" onclick="hidePrimaryModal()">
+                                Cancel
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-resizable-handle ui-resizable-n" style="z-index: 1000;"></div>
+            <div class="ui-resizable-handle ui-resizable-n" style="z-index: 1000;"></div>
+            <div class="ui-resizable-handle ui-resizable-n" style="z-index: 1000;"></div>
+            <div class="ui-resizable-handle ui-resizable-n" style="z-index: 1000;"></div>
+            <div class="ui-resizable-handle ui-resizable-n" style="z-index: 1000;"></div>
+            <div class="ui-resizable-handle ui-resizable-n" style="z-index: 1000;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateAddressModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content ui-dialog ui-draggable ui-resizable" style="padding: .2em;">
+            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                <span id="ui-id-3" class="ui-dialog-title">
+                    Edit Address
+                </span>
+                <button type="button" style="margin-left: 28px;" class="btn-close" onclick="hideSecondaryModal()" aria-label="Close"></button>
+            </div>
+
+            <div id="efEditThisAddress" class="ui-dialog-content ui-widget-content" style="display: block; width: auto; min-height: 0px; height: 251px;" scrolltop="0" scrollleft="0">
+                <form method="post" asp-page-handler="UpdateAddress" id="secondaryForm">
+                    <input type="hidden" asp-for="User.UserID" />
+                    <table id="billingAddress" class="efPostalAddresses efTableCondensed">
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Name / Number: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.BillingHouseName" class="efTextInput" id="houseNameTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Street: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.BillingStreet" class="efTextInput" id="streetTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Locality: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.BillingLocality" class="efTextInput" id="localityTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Town: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.BillingTown" class="efTextInput" id="townTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">County: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.BillingCounty" class="efTextInput" id="countyTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Post Code: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.BillingPostCode" class="efTextInput" id="postCodeTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Country: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.BillingCountry" class="efTextInput" id="countryTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="primaryAddress" class="efPostalAddresses efTableCondensed">
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Name / Number: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.HouseName" class="efTextInput" id="houseNameTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Street: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.Street" class="efTextInput" id="streetTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Locality: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.Locality" class="efTextInput" id="localityTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Town: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.Town" class="efTextInput" id="townTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">County: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.County" class="efTextInput" id="countyTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Post Code: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.PostCode" class="efTextInput" id="postCodeTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">
+                                    <label class="efRegisterLabel">Country: <span class="required_mark">*</span></label>
+                                </td>
+                                <td>
+                                    <input asp-for="User.Country" class="efTextInput" id="countryTextInput" type="text" placeholder="Title">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input type="submit" value="Submit Changes" style="font-size:12px;margin-top:10px;width:120px;float:right;" class="ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        const primaryModal = new bootstrap.Modal(document.getElementById('addressModal'));
+        const secondaryModal = new bootstrap.Modal(document.getElementById('updateAddressModal'));
+
+        function hidePrimaryModal() {
+          primaryModal.hide();
+        }
+
+        function openSecondaryFromPrimary() {
+            primaryModal.hide(); // Hide primary first
+            setTimeout(() => {
+                if( $('#AddressType').val() == "billing"){
+                    $('#primaryAddress').hide();
+                    $('#billingAddress').show();
+                    $("#primaryAddress").find("input").prop("disabled", true);
+                    $("#billingAddress").find("input").prop("disabled", false);
+                }
+                else{
+                    $('#billingAddress').hide();
+                    $('#primaryAddress').show();
+                    $("#billingAddress").find("input").prop("disabled", true);
+                    $("#primaryAddress").find("input").prop("disabled", false);
+                }
+                secondaryModal.show(); // Then show secondary
+            }, 100); // Wait for transition to finish
+        }
+
+        function hideSecondaryModal() {
+          secondaryModal.hide();
+        }
+
+        function showPrimaryModal(type) {
+            $('#AddressType').val(type);
+            $('#addressModal').modal('show');
+        }
+
+        $('#updateAddressModal').on('show.bs.modal', function () {
+            const source = $('#AddressType').val();
+            $('input[name="AddressType"]').val(source);
+        });
+    </script>
+}
