@@ -285,7 +285,7 @@
     }
 
     function removePackageItem(itemId) {
-
+        debugger;
 
         let ItemPrice = parseFloat($(`#CheckOut_included_${itemId}_Price`).text().replace('£', ''));
         var NetAmount = parseFloat($("#spmNetAmount").text().replace('£', ''));
@@ -305,6 +305,32 @@
         const targetDiv = $(`div[data-id='${itemId}']`);
         targetDiv.css("display", "block");
         
+        //remove items from 
+        if (Array.isArray(selectedPackageItems)) {
+            const filteredItems = CheckOutSelectedItems.filter(function (item) {
+                const match = item.match(/id="CheckOut_included_(\d+)"/);
+                if (match) {
+                    const itemId = match[1];
+                    return itemId !== itemId; // Keep all except the one to remove
+                }
+                return true; // Keep if not matched
+            });
+
+            selectedPackageItems = filteredItems;
+        }
+        if (Array.isArray(selectedAdditionalPackageItems)) {
+            const filteredItems = CheckOutSelectedItems.filter(function (item) {
+                const match = item.match(/id="CheckOut_included_(\d+)"/);
+                if (match) {
+                    const itemId = match[1];
+                    return itemId !== itemId; // Keep all except the one to remove
+                }
+                return true; // Keep if not matched
+            });
+
+            selectedAdditionalPackageItems = filteredItems;
+        }
+
         const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
 
         var CheckOutSelectedItems = JSON.parse(Cookies.get("selectedPackageItems") || "[]");
@@ -325,6 +351,7 @@
             // Update cookie
             Cookies.set("selectedPackageItems", JSON.stringify(filteredItems), expires);
         }
+        
 
         if (Array.isArray(CheckOutAdditionalSelectedItems)) {
             const filteredItems = CheckOutAdditionalSelectedItems.filter(function (item) {
