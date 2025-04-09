@@ -133,7 +133,12 @@
                             <div id="efPackageNet">Net:<span id="spmNetAmount">£@Model.SelectedPackage.Price</span></div>
                             <div id="efPackageTax">VAT:<span id="spmVatAmount">£1.60</span></div>
                             <div id="efPackageTotal">Order Total:<span id="spnTotalAmount">£59.58</span></div>
-                            <div id="efPackageAgreeTerms"><input type="checkbox" id="ChkCheckoutTerms" name="ChkCheckoutTerms" class="cy-accept-tnc"> <label for="tcagree" id="tcagree-checkbox-label"> I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a> </label> </div>
+                            <div id="efPackageAgreeTerms">
+                                <input type="checkbox" id="ChkCheckoutTerms" name="ChkCheckoutTerms" class="cy-accept-tnc">
+                                <label for="tcagree" id="tcagree-checkbox-label">
+                                    I agree to the <a href="/terms/" target="_blank">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank">Privacy Policy</a>
+                                </label>
+                            </div>
                             <div id="efPackageCheckout">
                                 <span class="efPackageCheckoutButtonLoader efHide"></span>
                                 <input id="spPackageCheckoutButton" type="button" class="efButton ui-button ui-widget cy-package-buy ui-state-default ui-corner-all" value="Checkout" role="button" onclick="btnCheckoutClick()" aria-disabled="false">
@@ -209,14 +214,37 @@
 </div>
 
 <script>
+    window.selectedPackageItems = window.selectedPackageItems || [];
+    window.selectedAdditionalPackageItems = window.selectedAdditionalPackageItems || [];
     $(document).ready(function () {
+        debugger;
         var NetAmount = parseFloat($("#spmNetAmount").text().replace('£', ''));
         let vat = NetAmount * 0.20;
         $("#spmVatAmount").text("£" + vat.toFixed(2));
         let TotalAmount = NetAmount + vat;
         $("#spnTotalAmount").text("£" + TotalAmount.toFixed(2));
+        var CheckOutSelectedItems = JSON.parse(Cookies.get("selectedPackageItems"));
+        console.log("CheckOutSelectedItems", CheckOutSelectedItems);
+        if (Array.isArray(CheckOutSelectedItems)) {
+            CheckOutSelectedItems.forEach(function (item, index) {
+                //selectedPackageItems.push(item);
+                const match = item.match(/id="CheckOut_included_(\d+)"/);
+                if (match) {
+                    const itemId = match[1];
+                    const targetDiv = $(`div[data-id='${itemId}']`);
+                    targetDiv.css("display", "none");
+
+                    //$("#CheckoutItems").append(item);
+                    AddItemToCheckout(itemId);
+                }
+                
+            });
+        }
     });
-    let selectedPackageItems = [];
+
+    // if (typeof selectedPackageItems === 'undefined') {
+    //     let selectedPackageItems = [];
+    // }
     function AddItemToCheckout(itemId) {
         var PackItems = $("#PackageItem_" + itemId).children();
         var ItemName = $(PackItems[0]).text();
@@ -224,14 +252,19 @@
         console.log("PackItems", PackItems)
 
         const CheckoutItemStr = `
-                                                <tr id="CheckOut_included_${itemId}" class="efOptionalTrProduct efEven">
-                                                            <td colspan="3">${ItemName}</td>
-                                        <td style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="X" onclick="removePackageItem(${itemId})" role="button" aria-disabled="false"></td>
-                                                    <td style="text-align:right" id="CheckOut_included_${itemId}_Price">£${ItemPrice}</td>
-                                                </tr>
-                                        `
+                                                        <tr id="CheckOut_included_${itemId}" class="efOptionalTrProduct efEven">
+                                                                    <td colspan="3">${ItemName}</td>
+                                                <td style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="X" onclick="removePackageItem(${itemId})" role="button" aria-disabled="false"></td>
+                                                            <td style="text-align:right" id="CheckOut_included_${itemId}_Price">£${ItemPrice}</td>
+                                                        </tr>
+                                                `;
         selectedPackageItems.push(CheckoutItemStr);
-        $("#CheckoutItems").append(CheckoutItemStr);
+        if (CheckoutItemStr != "") {
+            $("#CheckoutItems").append(CheckoutItemStr);
+        }
+
+        const ItemStr = `<li class="efOrderContentsListItem" id="CheckOut_included_${itemId}">${ItemName} <span class="OrderContentsListItemPrice">£${ItemPrice}</span></li> `;
+        selectedAdditionalPackageItems.push(ItemStr);
         const targetDiv = $(`div[data-id='${itemId}']`);
         targetDiv.css("display", "none");
 
@@ -271,6 +304,41 @@
         $(`#CheckOut_included_${itemId}`).remove();
         const targetDiv = $(`div[data-id='${itemId}']`);
         targetDiv.css("display", "block");
+        
+        const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+
+        var CheckOutSelectedItems = JSON.parse(Cookies.get("selectedPackageItems") || "[]");
+        var CheckOutAdditionalSelectedItems = JSON.parse(Cookies.get("selectedAdditionalPackageItems") || "[]");
+        if (Array.isArray(CheckOutSelectedItems)) {
+            const filteredItems = CheckOutSelectedItems.filter(function (item) {
+                const match = item.match(/id="CheckOut_included_(\d+)"/);
+                if (match) {
+                    const itemId = match[1];
+                    return itemId !== itemId; // Keep all except the one to remove
+                }
+                return true; // Keep if not matched
+            });
+
+            Cookies.set("NetAmount", $("#spmNetAmount").text(), expires);
+            Cookies.set("VatAmount", $("#spmVatAmount").text(), expires);
+            Cookies.set("TotalAmount", $("#spnTotalAmount").text(), expires);
+            // Update cookie
+            Cookies.set("selectedPackageItems", JSON.stringify(filteredItems), expires);
+        }
+
+        if (Array.isArray(CheckOutAdditionalSelectedItems)) {
+            const filteredItems = CheckOutAdditionalSelectedItems.filter(function (item) {
+                const match = item.match(/id="CheckOut_included_(\d+)"/);
+                if (match) {
+                    const itemId = match[1];
+                    return itemId !== itemId; // Keep all except the one to remove
+                }
+                return true; // Keep if not matched
+            });
+
+            Cookies.set("selectedAdditionalPackageItems", JSON.stringify(filteredItems), expires);
+        }
+
     }
     (function tooltipModal() {
         var infobox = $(".infobox"),
@@ -320,16 +388,18 @@
             Cookies.set("NetAmount", $("#spmNetAmount").text(), expires);
             Cookies.set("VatAmount", $("#spmVatAmount").text(), expires);
             Cookies.set("TotalAmount", $("#spnTotalAmount").text(), expires);
+            Cookies.set("selectedPackageItems", JSON.stringify(selectedPackageItems), expires);
+            Cookies.set("selectedAdditionalPackageItems", JSON.stringify(selectedAdditionalPackageItems), expires);
             $.ajax({
                 url: "/BuyPackage/CompanyDetails",
                 type: "get",
                 success: function (result) {
                     $(".packageTab").removeClass("active");
                     $("#PackageTabContent").html(result);
-                    $('a[href="#CompanyDetails"]').addClass("active");
-                    $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                    $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
-                    $('a[href="#Checkout"]').addClass("PackTabProcessed");
+                    $("#spnCompanyDetails").addClass("active");
+                    $("#spnCompanyName").addClass("PackTabProcessed");
+                    $("#spnSelectPackage").addClass("PackTabProcessed");
+                    $("#spnCheckout").addClass("PackTabProcessed");
                     $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
                 }
             })

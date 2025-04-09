@@ -38,6 +38,10 @@
                     <select asp-for="Package.PackageFeatures" asp-items="Model.PackageFeatureList" multiple="multiple" class="select2"></select>
                     <span asp-validation-for="Package.PackageFeatures" class="text-danger"></span>
                 </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Package.IsLimitedCompanyPkg" class="control-label"></label>
+                    <input asp-for="Package.IsLimitedCompanyPkg" type="checkbox" />
+                </div>
                 <div class="form-group mt-2">
                     <input type="submit" value="Save" class="btn btn-dark" />
                     <a asp-page="./Index" class="btn btn-dark">Back to List</a>

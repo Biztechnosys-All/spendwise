@@ -2726,7 +2726,7 @@ section {
 @media (min-width: 62em) {
   .home-hero .company-name-search h2.mainheading {
     font-size: 72px;
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     font-weight: 600;
     line-height: 1.1;
     text-shadow: 4px 4px 45px var(--color-black);

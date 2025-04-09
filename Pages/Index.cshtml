@@ -6,10 +6,10 @@
 
 <section class="home-hero">
     <div class="home-hero__main">
-        <div class="group-logo">
+        @* <div class="group-logo">
             <span>Part of</span>
             <img loading="eager" src="images/Logo-for-website-SpendWise-Logo-New.png" class="bsq-logo" alt="SpendWise" />
-        </div>
+        </div> *@
 
         <header class="site-header">
             <div class="container site-header__wrap">
@@ -3090,6 +3090,7 @@
                     },
                     error: function () {
                         alert("Error checking company name.");
+                        $("#CompanyName").removeClass("spinner-ring");
                     }
                 });
             });

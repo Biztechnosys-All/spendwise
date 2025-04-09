@@ -95,6 +95,7 @@ body.pace-running {
 
 #payment-gateway .efOrderDefaultContents {
     padding: 0;
+    border: 3px solid #73b810;
 }
 
 #payment-gateway h1 {
@@ -671,6 +672,22 @@ body.pace-running {
         height: 0;
         padding: 0;
     }
+
+#payment-gateway ul.efOrderContentsList li span.OrderContentsListItemPrice {
+    float: right;
+}
+
+#payment-gateway .efOrderContentsHeaders {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+}
 
 .ui-dialog h3 {
     font-family: MyriadW08-BoldSemiConde !important;

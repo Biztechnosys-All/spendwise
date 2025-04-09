@@ -61,8 +61,8 @@
         </div>
     </div>
 </div>
-<div id="efNameCheckResult" style="display:none;">
-    <div id="efNameCheckResult_GREEN" class="efNameCheckResult">
+<div id="efNameCheckResult">
+    <div id="efNameCheckResult_GREEN" class="efNameCheckResult" style="display:none;">
         <div class="custom greencontent">
             <div class="float-left">
                 <i class="fa fa-check-circle fa-4x fc-green" aria-hidden="true"></i>
@@ -74,6 +74,30 @@
             <div class="btn-savencon">
                 <a href="#" onclick="MoveToNextPackageStep()">Continue</a>
             </div>
+        </div>
+    </div>
+    <div id="efNameCheckResult_AMBER" class="efNameCheckResult" style="display:none;">
+        <div class="custom contentamber">
+            <div class="float-left">
+                <i class="fa fa-times-circle fa-4x fc-red" aria-hidden="true"></i>
+            </div>
+            <p class="box4 fs-thirty-one">
+                <span class="ncgreen-title fc-red" id="spnSearchedAMBERCompanyName">FACEBOOK</span>
+                Unfortunately, this name is not available for registration. Please select another.<br>
+            </p>
+
+        </div>
+
+        <div class="custom ncinput-wrap searchagain">
+            <hr class="hr-searchagain">
+            <p class="searchagain-title"><span>Search for another name</span></p>
+            <!-- THE NAMECHECK FORM -->
+            <form method="post" asp-page="CompanyName" data-ajax-complete="firstCompleted">
+                <input class="efInputText" id="company_name" name="name" type="text" placeholder="Enter your new company name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your company name'">
+                <button type="button" class="btn btn-primary" onclick="CheckCompanyName()">Submit</button>
+                <label id="errorCompanyname" style="display:none;color:red;">Please write company name</label>
+            </form>
+            <!-- END: THE NAMECHECK FORM -->
         </div>
     </div>
 </div>

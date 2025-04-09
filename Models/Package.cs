@@ -19,6 +19,8 @@ namespace Spendwise_WebApp.Models
         [Required]
         [DisplayName("Package Features")]
         public string PackageFeatures { get; set; }
+        [DisplayName("Is Limited Company")]
+        public bool IsLimitedCompanyPkg { get; set; }
         public DateTime? created_on { get; set; }
     }
 }

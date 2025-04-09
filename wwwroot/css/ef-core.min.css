@@ -2802,7 +2802,7 @@ ul.efOrderContentsList {
 
         ul.efOrderContentsList li.efOrderContentsListItem span.efOrderContentsListItemPrice {
             float: right;
-            display: none
+            /*display: none*/
         }
 
         ul.efOrderContentsList li.efOrderContentsListItem:first-of-type {
