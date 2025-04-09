@@ -15,7 +15,7 @@
     <link href="/css/inner-style.css" rel="stylesheet" />
     <link href="/css/ef-core.min.css" rel="stylesheet" />
     <link href="/css/theme.css" rel="stylesheet" />
-<link href="/css/base-rev-2-0-min-gzip.css?=v9" rel="stylesheet" type="text/css">
+    <link href="/css/base-rev-2-0-min-gzip.css?=v9" rel="stylesheet" type="text/css">
 </head>
 <body>
     <header class="nav-section">
@@ -452,30 +452,31 @@
                             }
                             @if (string.IsNullOrEmpty(userName))
                             {
-            <li class="site-nav__item site-nav__item--subnav site-nav__item--login" id="clientLogin">
-                <a href="/login/"><i class="fa fa-lock"></i> Client Login</a>
-            </li>
+                <li class="site-nav__item site-nav__item--subnav site-nav__item--login" id="clientLogin">
+                    <a href="/login/"><i class="fa fa-lock"></i> Client Login</a>
+                </li>
                             }
-                            else{
-            <li class="site-nav__item site-nav__item--dropdown site-nav__item--subnav site-nav__item--myAccount" id="myAccount">
-                <a href="#" class="">
-                    <span>+</span>
-                    My Account
-                    <span class="site-nav__item--caret"><i class="fa-solid fa-angle-down" aria-hidden="true"></i></span>
-                </a>
-                <div class="site-nav__menu site-nav__menu--inactive">
-                    <div class="site-nav__menu-body">
-                        <ul class="site-nav__menu-links">
-                            <li class="site-nav__menu-sub-item">
-                                <a href="/account/">Dashboard</a>
-                            </li>
-                            <li class="site-nav__menu-sub-item">
-                                <a href="#" onclick="logOut()">Log Out</a>
-                            </li>
-                        </ul>
+                            else
+                            {
+                <li class="site-nav__item site-nav__item--dropdown site-nav__item--subnav site-nav__item--myAccount" id="myAccount">
+                    <a href="#" class="">
+                        <span>+</span>
+                        My Account
+                        <span class="site-nav__item--caret"><i class="fa-solid fa-angle-down" aria-hidden="true"></i></span>
+                    </a>
+                    <div class="site-nav__menu site-nav__menu--inactive">
+                        <div class="site-nav__menu-body">
+                            <ul class="site-nav__menu-links">
+                                <li class="site-nav__menu-sub-item">
+                                    <a href="/account/">Dashboard</a>
+                                </li>
+                                <li class="site-nav__menu-sub-item">
+                                    <a href="#" onclick="logOut()">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
                             }
         </ul>
         </div>
@@ -493,22 +494,33 @@
         </main>
     </div>
 
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+        <div id="myToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage">
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
     @await Html.PartialAsync("_Footer")
 
     <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/site.js" asp-append-version="true"></script>    
+    <script src="/js/site.js" asp-append-version="true"></script>
 
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main-min.js"></script>
     <script type="text/javascript" src="/js/slick.min.js"></script>
     <script type="text/javascript" src="/js/sha1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
         $(function () {
             var userName = Cookies.get("UserName");
             $("#hdnUserName").val(userName);
-            
+
             // if (userName && $.trim(userName) != "") {
             //     alert(true);
             //     $("#clientLogin").hide();
@@ -520,9 +532,18 @@
             //     $("#myAccount").hide();
             // }
         });
-        function logOut(){
+        function logOut() {
             Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
-            window.location.href = '/Login?handler=Logout'; 
+            window.location.href = '/Login?handler=Logout';
+        }
+        function showToast(message, type = 'success') {
+            // Update message and color
+            $('#toastMessage').text(message);
+            $('#myToast').removeClass('bg-success bg-danger bg-warning').addClass(`bg-${type}`);
+
+            // Show the toast
+            var toast = new bootstrap.Toast(document.getElementById('myToast'));
+            toast.show();
         }
     </script>
 </body>

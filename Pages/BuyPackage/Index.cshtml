@@ -8,12 +8,13 @@
         width: 20%;
     }
 
-    a.active.nav-link.packageTab {
+    span.active.nav-link.packageTab {
         border-top: none;
         border-left: none;
         border-right: none;
         border-bottom: 4px solid #73B810;
         border-radius: 5px;
+        color: #73b810;
     }
 
     ul.nav.nav-tabs.justify-content-center {
@@ -34,12 +35,13 @@
         color: #676767;
     }
 
-    a.PackTabProcessed.nav-link.packageTab {
+    span.PackTabProcessed.nav-link.packageTab {
         border-top: none;
         border-left: none;
         border-right: none;
         border-bottom: 4px solid #73B810;
         border-radius: 5px;
+        color: #73b810;
     }
 </style>
 <div>
@@ -47,20 +49,20 @@
     <input type="hidden" id="hdnSelectedCompany" />
     <ul class="nav nav-tabs justify-content-center">
         <li class="nav-item">
-            <a class="nav-link packageTab active" data-toggle="tab" role="tab" aria-controls="CompanyName"
-               href="#CompanyName" onclick="ShowSelectedTab('CompanyName')">1. Company Name</a>
+            <span class="nav-link packageTab active" id="spnCompanyName" data-toggle="tab" role="tab" aria-controls="CompanyName">1. Company Name</span>
+            @*  href="#CompanyName" onclick="ShowSelectedTab('CompanyName')" *@
         </li>
         <li class="nav-item">
-            <a class="nav-link packageTab" data-toggle="tab" role="tab" aria-controls="SelectPackage"
-               href="#SelectPackage" onclick="ShowSelectedTab('SelectPackage')">2. Select Package</a>
+            <span class="nav-link packageTab" id="spnSelectPackage" data-toggle="tab" role="tab" aria-controls="SelectPackage">2. Select Package</span>
+            @*   href="#SelectPackage" onclick="ShowSelectedTab('SelectPackage')" *@
         </li>
         <li class="nav-item">
-            <a class="nav-link packageTab" data-toggle="tab" role="tab" aria-controls="Checkout"
-               href="#Checkout" onclick="ShowSelectedTab('Checkout')">3. Checkout</a>
+            <span class="nav-link packageTab" id="spnCheckout" data-toggle="tab" role="tab" aria-controls="Checkout">3. Checkout</span>
+            @*   href="#Checkout" onclick="ShowSelectedTab('Checkout')" *@
         </li>
         <li class="nav-item">
-            <a class="nav-link packageTab" data-toggle="tab" role="tab" aria-controls="CompanyDetails"
-               href="#CompanyDetails" onclick="ShowSelectedTab('CompanyDetails')">4. Company Details</a>
+            <span class="nav-link packageTab" id="spnCompanyDetails" data-toggle="tab" role="tab" aria-controls="CompanyDetails">4. Company Details</span>
+            @*href="#CompanyDetails" onclick="ShowSelectedTab('CompanyDetails')" *@
         </li>
     </ul>
 </div>
@@ -87,20 +89,28 @@
 {
     <script>
         $(function () {
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            Cookies.set("SelectedPackage", $("#hdnSelectedPackage").val(), expires);
             $("#hdnSelectedCompany").val(Cookies.get("companyName"));
 
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
             if (UrlPrams.length > 1 && $("#hdnSelectedCompany").val() != "") {
+                Cookies.remove("NetAmount");
+                Cookies.remove("VatAmount");
+                Cookies.remove("TotalAmount");
+                Cookies.remove("selectedPackageItems");
+                Cookies.remove("selectedAdditionalPackageItems");
+
                 $.ajax({
                     url: "/BuyPackage/Checkout?packageName=" + $("#hdnSelectedPackage").val(),
                     type: "get",
                     success: function (result) {
                         $(".packageTab").removeClass("active");
                         $("#PackageTabContent").html(result);
-                        $('a[href="#Checkout"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
+                        $("#spnCheckout").addClass("active");
+                        $("#spnCompanyName").addClass("PackTabProcessed");
+                        $("#spnSelectPackage").addClass("PackTabProcessed");
                     }
                 })
             }
@@ -111,7 +121,7 @@
                     success: function (result) {
                         $(".packageTab").removeClass("active");
                         $("#PackageTabContent").html(result);
-                        $('a[href="#CompanyName"]').addClass("active");
+                        $("#spnCompanyName").addClass("active");
                         $("#PackageNameSpan").html($("#hdnSelectedPackage").val().toUpperCase() + " PACKAGE");
                     }
                 })
@@ -123,10 +133,10 @@
                     success: function (result) {
                         $(".packageTab").removeClass("active");
                         $("#PackageTabContent").html(result);
-                        $('a[href="#SelectPackage"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $("#spnSelectPackage").addClass("active");
+                        $("#spnCompanyName").addClass("PackTabProcessed");
+                        $("#spnCheckout").removeClass("PackTabProcessed");
+                        $("#spnCompanyDetails").removeClass("PackTabProcessed");
                         if ($("#hdnSelectedCompany").val() != "") {
                             $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
                             $("#selectPackageCompnameDiv").css("display", "flex");
@@ -137,10 +147,10 @@
                             type: "get",
                             success: function (result) {
                                 $("#CompanyTypeBasedPackage").html(result);
-                                // $('a[href="#SelectPackage"]').addClass("active");
-                                $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                                $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                                $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                                // $("#spnSelectPackage").addClass("active");
+                                $("#spnCompanyName").addClass("PackTabProcessed");
+                                $("#spnCheckout").removeClass("PackTabProcessed");
+                                $("#spnCompanyDetails").removeClass("PackTabProcessed");
                             }
                         })
 
@@ -157,10 +167,10 @@
                     success: function (result) {
                         $(".packageTab").removeClass("active");
                         $("#PackageTabContent").html(result);
-                        $('a[href="#CompanyName"]').addClass("active");
-                        $('a[href="#SelectPackage"]').removeClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $("#spnCompanyName").addClass("active");
+                        $("#spnSelectPackage").removeClass("PackTabProcessed");
+                        $("#spnCheckout").removeClass("PackTabProcessed");
+                        $("#spnCompanyDetails").removeClass("PackTabProcessed");
                     }
                 })
             }
@@ -171,19 +181,19 @@
                     success: function (result) {
                         $(".packageTab").removeClass("active");
                         $("#PackageTabContent").html(result);
-                        $('a[href="#SelectPackage"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $("#spnSelectPackage").addClass("active");
+                        $("#spnCompanyName").addClass("PackTabProcessed");
+                        $("#spnCheckout").removeClass("PackTabProcessed");
+                        $("#spnCompanyDetails").removeClass("PackTabProcessed");
                         $.ajax({
                             url: "/BuyPackage/limited-company",
                             type: "get",
                             success: function (result) {
                                 $("#CompanyTypeBasedPackage").html(result);
-                                $('a[href="#SelectPackage"]').addClass("active");
-                                $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                                $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                                $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                                $("#spnSelectPackage").addClass("active");
+                                $("#spnCompanyName").addClass("PackTabProcessed");
+                                $("#spnCheckout").removeClass("PackTabProcessed");
+                                $("#spnCompanyDetails").removeClass("PackTabProcessed");
                             }
                         })
                     }
@@ -197,10 +207,10 @@
                         success: function (result) {
                             $(".packageTab").removeClass("active");
                             $("#PackageTabContent").html(result);
-                            $('a[href="#Checkout"]').addClass("active");
-                            $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                            $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
-                            $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                            $("#spnCheckout").addClass("active");
+                            $("#spnCompanyName").addClass("PackTabProcessed");
+                            $("#spnSelectPackage").addClass("PackTabProcessed");
+                            $("#spnCompanyDetails").removeClass("PackTabProcessed");
                         }
                     })
                 }
@@ -215,10 +225,10 @@
                     success: function (result) {
                         $(".packageTab").removeClass("active");
                         $("#PackageTabContent").html(result);
-                        $('a[href="#CompanyDetails"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').addClass("PackTabProcessed");
+                        $("#spnCompanyDetails").addClass("active");
+                        $("#spnCompanyName").addClass("PackTabProcessed");
+                        $("#spnSelectPackage").addClass("PackTabProcessed");
+                        $("#spnCheckout").addClass("PackTabProcessed");
                         alert($("#hdnSelectedCompany").val());
                         $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
                     }
@@ -228,13 +238,11 @@
         }
 
         function CheckCompanyName() {
+            alert();
             if ($("#company_name").val() == "") {
                 $("#errorCompanyname").css("display", "block");
             }
             else {
-                $("#errorCompanyname").css("display", "none");
-                $("#divCopmanySearch").css("display", "none");
-                $("#efNameCheckResult").css("display", "block");
                 var searchedCompanyName = $("#company_name").val();
                 $.ajax({
                     type: "GET",
@@ -244,25 +252,27 @@
                         if (typeof isAvailable === 'string') {
                             isAvailable = (isAvailable.toLowerCase() === 'true');
                         }
-                        $("#CompanyName").removeClass("spinner-ring");
+
                         if (isAvailable === true) {
-                            // $("#cName").text(companyName);
-                            // $("#hdnCompanyName").val(companyName);
-                            // $("#cNameAv").show();
-                            // $("#cNameNotAv").hide();
-                            alert("avalible");
+                            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+                            Cookies.set("companyName", searchedCompanyName, expires);
+
+                            $("#errorCompanyname").css("display", "none");
+                            $("#divCopmanySearch").css("display", "none");
+                            $("#efNameCheckResult_GREEN").show();
+                            $("#spnSearchedCompanyName").html(searchedCompanyName);
+
                         } else {
-                            // $("#cNameNoAv").text(companyName);
-                            // $("#cNameNotAv").show();
-                            // $("#cNameAv").hide();
-                            alert("not avalible");
+                            $("#errorCompanyname").css("display", "none");
+                            $("#divCopmanySearch").css("display", "none");
+                            $("#spnSearchedAMBERCompanyName").html(searchedCompanyName);
+                            $("#efNameCheckResult_AMBER").show();
                         }
                     },
                     error: function () {
                         alert("Error checking company name.");
                     }
                 });
-                //$("#spnSearchedCompanyName").html(searchedCompanyName);
             }
         }
 
@@ -277,9 +287,9 @@
                     success: function (result) {
                         $(".packageTab").removeClass("active");
                         $("#PackageTabContent").html(result);
-                        $('a[href="#Checkout"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#SelectPackage"]').addClass("PackTabProcessed");
+                        $("#spnCheckout").addClass("active");
+                        $("#spnCompanyName").addClass("PackTabProcessed");
+                        $("#spnSelectPackage").addClass("PackTabProcessed");
                     }
                 })
             }
@@ -290,10 +300,10 @@
                     success: function (result) {
                         $(".packageTab").removeClass("active");
                         $("#PackageTabContent").html(result);
-                        $('a[href="#SelectPackage"]').addClass("active");
-                        $('a[href="#CompanyName"]').addClass("PackTabProcessed");
-                        $('a[href="#Checkout"]').removeClass("PackTabProcessed");
-                        $('a[href="#CompanyDetails"]').removeClass("PackTabProcessed");
+                        $("#spnSelectPackage").addClass("active");
+                        $("#spnCompanyName").addClass("PackTabProcessed");
+                        $("#spnCheckout").removeClass("PackTabProcessed");
+                        $("#spnCompanyDetails").removeClass("PackTabProcessed");
                     }
                 })
             }
@@ -306,7 +316,7 @@
                     type: "get",
                     success: function (result) {
                         $("#CompanyTypeBasedPackage").html(result);
-                        // $('a[href="#SelectPackage"]').addClass("active");
+                        // $("#spnSelectPackage").addClass("active");
                         $('a[href="#limited-company"]').parent().addClass("active");
                         $('a[href="#Non-residents"]').parent().removeClass("active");
                         $('a[href="#LLP"]').parent().removeClass("active");

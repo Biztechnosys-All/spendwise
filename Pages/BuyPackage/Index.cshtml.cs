@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Spendwise_WebApp.DLL;
 using Spendwise_WebApp.Models;
 
 namespace Spendwise_WebApp.Pages.BuyPackage
@@ -20,6 +21,9 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         {
             if(!string.IsNullOrEmpty(packageName))
             {
+                var options = CookieOptionsHelper.GetDefaultOptions();
+                Response.Cookies.Append("packageName", packageName, options);
+
                 PackageName = packageName;
                 SelectedPackage = await _context.packages.Where(x => x.PackageName.ToLower() == packageName.ToLower()).FirstOrDefaultAsync();
 

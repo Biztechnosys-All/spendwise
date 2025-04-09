@@ -44,7 +44,7 @@ namespace Spendwise_WebApp.Pages
             }
 
             var PackageFeatureList = await _context.PackageFeatures.ToListAsync();
-            Package = await _context.packages.ToListAsync();
+            Package = await _context.packages.Where(x=>x.IsLimitedCompanyPkg == true).ToListAsync();
 
             foreach (var item in Package)
             {

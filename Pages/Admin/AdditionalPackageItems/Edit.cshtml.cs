@@ -38,7 +38,7 @@ namespace Spendwise_WebApp.Pages.Admin.AdditionalPackageItems
             PackageList = _context.packages.Select(p => new SelectListItem
             {
                 Text = p.PackageName,
-                Value = p.PackageId.ToString()
+                Value = p.PackageName.ToString()
             }).ToList();
 
             var AdditionalPackageItem = await _context.AdditionalPackageItems.FirstOrDefaultAsync(m => m.AdditionalPackageItemId == id);
