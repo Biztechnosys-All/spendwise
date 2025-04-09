@@ -17,7 +17,6 @@ namespace Spendwise_WebApp.Pages
         private readonly IConfiguration _configuration;
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
 
-        public CompanyList? companyList { get; set; }
         public IList<Package> Package { get; set; } = default!;
         [BindProperty]
         public string CompanyName { get; set; } = "";

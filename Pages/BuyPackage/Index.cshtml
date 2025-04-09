@@ -89,18 +89,23 @@
 {
     <script>
         $(function () {
-            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
-            Cookies.set("SelectedPackage", $("#hdnSelectedPackage").val(), expires);
             $("#hdnSelectedCompany").val(Cookies.get("companyName"));
 
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
             if (UrlPrams.length > 1 && $("#hdnSelectedCompany").val() != "") {
-                Cookies.remove("NetAmount");
-                Cookies.remove("VatAmount");
-                Cookies.remove("TotalAmount");
-                Cookies.remove("selectedPackageItems");
-                Cookies.remove("selectedAdditionalPackageItems");
+                debugger;
+                console.log("hdnSelectedPackage", $("#hdnSelectedPackage").val());
+                console.log("Cookies packageName", Cookies.get("SelectedPackage"));
+                if ($("#hdnSelectedPackage").val() != Cookies.get("SelectedPackage")) {
+                    Cookies.remove("NetAmount");
+                    Cookies.remove("VatAmount");
+                    Cookies.remove("TotalAmount");
+                    Cookies.remove("selectedPackageItems");
+                    Cookies.remove("selectedAdditionalPackageItems");
+                    const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+                    Cookies.set("SelectedPackage", $("#hdnSelectedPackage").val(), expires);
+                }
 
                 $.ajax({
                     url: "/BuyPackage/Checkout?packageName=" + $("#hdnSelectedPackage").val(),
