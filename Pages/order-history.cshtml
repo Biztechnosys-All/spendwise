@@ -1,0 +1,55 @@
+﻿@page
+@model Spendwise_WebApp.Pages.order_historyModel
+@{
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+
+<div class="col-five clientpage">
+    <div class="container-inner">
+        <div id="efPageContent" class="ui-widget">
+            <div id="efAuthenticatedContent">
+                <h2>Order History</h2>
+                @* <script>
+                    function confirm_delete(fid)
+                    {
+                        var agree=confirm("Are you sure you wish to delete this order?");
+                        if (agree)
+                        {
+                            jQuery("#delform_"+fid).submit();
+                        }
+
+                    }
+
+                </script> *@
+                <div class="efAccountPanel">
+                    <table class="efTable ui-widget-content">
+                        <tbody>
+                            <tr class="ui-widget-header">
+                                <td>Order ID</td>
+                                <td>Invoiced</td>
+                                <td>Package / Type</td>
+                                <td>Description</td>
+                                <td>Status <span class="status-helper"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="efOdd">
+                                <td><a href="/order-details/?o=5030038">5030038</a></td>
+                                <td>06/03/2025</td>
+                                <td>Limited Liability Partners...</td>
+                                <td>A K PATEL LLP</td>
+                                <td>Complete</td>
+                                <td style="text-align:right">
+                                </td>
+                                <td style="text-align:right">
+                                    <a href="/order-details/?o=5030038" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">Details</span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="overflow:hidden;margin-top:10px;"><a class="efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float:right" href="/order-history/?p=1" role="button" aria-disabled="false"><span class="ui-button-text">Next Page »</span></a></div>
+            </div>
+        </div>
+    </div>
+</div>
