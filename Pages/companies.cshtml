@@ -1,0 +1,67 @@
+﻿@page
+@model Spendwise_WebApp.Pages.companiesModel
+@{
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+<div class="col-five clientpage">
+    <div class="container-inner">
+        <div id="efPageContent" class="ui-widget">
+            <div id="efAuthenticatedContent">
+                <h2>Companies List</h2>
+                <div class="efHeaderControlsContainer ui-widget-content efWidget ui-corner-all">
+                    <form method="get" action="/companies/">
+                        <span class="efInputLabel">
+                            Sort by:
+                        </span>
+                        <select class="efSelectInput" name="sort" style="width:auto">
+                            <option value="cn">Company Name</option>
+                            <option value="id" selected="selected">Incorporation Date</option>
+                            <option value="st">Status</option>
+                        </select>
+                        &nbsp; &nbsp; &nbsp;
+                        <span class="efInputLabel">
+                            Show only:
+                        </span>
+                        <select class="efSelectInput" name="sf" style="width:auto" id="efCompanyStatusSelector">
+                            <option value="ALLSTATUSES">All</option>
+                            <option value="0">Incomplete</option>
+                            <option value="100">Submitted</option>
+                            <option value="160">Rejected</option>
+                            <option value="170">Validating</option>
+                            <option value="180">Supplied</option>
+                            <option value="190">Awaiting Documents</option>
+                            <option value="200">Accepted</option>
+                            <option value="300">Action Required</option>
+                            <option value="900">Cancelled</option>
+                            <option value="700">Imported</option>
+                        </select>
+                        <input type="submit" value="Submit" class="efButton ui-button ui-widget efRight ui-state-default ui-corner-all" role="button" aria-disabled="false">
+                    </form>
+                </div>
+                <table class="efTable ui-widget-content">
+                    <tbody>
+                        <tr class="ui-widget-header">
+                            <td>ID</td>
+                            <td>Incorporated</td>
+                            <td>Name</td>
+                            <td>Number</td>
+                            <td>Auth. Code</td>
+                            <td>Status <span class="status-helper"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/company-details/?i=2986203">2986203</a></td>
+                            <td>12/03/2025</td>
+                            <td><a href="/account/company/?i=2986203">DNAK LLP</a></td>
+                            <td>OC455861</td>
+                            <td>F3LLCH</td>
+                            <td>Accepted</td>
+                            <td style="text-align:right"><a class="efButton efEditButton efDetailsButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="/account/company/?i=2986203" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">View</span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="overflow:hidden;margin-top:10px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
