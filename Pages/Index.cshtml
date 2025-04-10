@@ -490,22 +490,20 @@
                         <a href="#" class="button button--secondary button--hide">Choose a Package</a>
                     </form>
                             @* <p id="resultMessage"></p> *@
-                    <div id="nameCheckNotification">
-                        <div class="company-name-search__notification company-name-search__notification--green" id="cNameAv" style="display:none;">
-                            <span class="icon"></span><h3 id="cName"></h3>
-                            <input type="hidden" id="hdnCompanyName" />
-                            <p>Congratulations! This company name is available.</p>
-                            <span class="company-name-search__notification--button"><a href="#" onclick="onBuyPackage()" id="continue-button" class="button button--secondary button--hide button--show">Choose a Package</a></span>
-                        </div>
-                        <div class="company-name-search__notification company-name-search__notification--red" id="cNameNotAv" style="display:none;">
-                            <span class="icon"></span><h3 id="cNameNoAv"></h3>
-                            <p>Sorry, this company name is unavailable.</p>
-                        </div>
+                    
+                </div>
+                <div id="nameCheckNotification">
+                    <div class="company-name-search__notification company-name-search__notification--green" id="cNameAv" style="display:none;">
+                        <span class="icon"></span><h3 id="cName"></h3>
+                        <input type="hidden" id="hdnCompanyName" />
+                        <p>Congratulations! This company name is available.</p>
+                        <span class="company-name-search__notification--button"><a href="#" onclick="onBuyPackage()" id="continue-button" class="button button--secondary button--hide button--show">Choose a Package</a></span>
+                        <div class="company-name-search__clear-button"><a href="#" onclick="onSearchAgain()">Or search again</a></div>
                     </div>
-                    <div class="company-name-search__clear-button button--hide">
-                        <a href="#" id="clear-button">Or search again</a>
+                    <div class="company-name-search__notification company-name-search__notification--red" id="cNameNotAv" style="display:none;">
+                        <span class="icon"></span><h3 id="cNameNoAv"></h3>
+                        <p>Sorry, this company name is unavailable.</p>
                     </div>
-                    <div class="company-name-search__video-button">New to company formation? <a href="#" id="video-feature">Watch our video</a></div>
                 </div>
             </div>
         </div>
@@ -3077,6 +3075,7 @@
                             isAvailable = (isAvailable.toLowerCase() === 'true');
                         }
                         $("#CompanyName").removeClass("spinner-ring");
+                        $(".company-name-search").hide();
                         if (isAvailable === true) {
                             $("#cName").text(companyName);
                             $("#hdnCompanyName").val(companyName);
@@ -3107,6 +3106,12 @@
             Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
             window.location.href = '/Login?handler=Logout';
 
+        }
+
+        function onSearchAgain(){
+            $("#cNameAv").hide();
+            $("#cNameNotAv").hide();
+            $(".company-name-search").show();
         }
     </script>
 }

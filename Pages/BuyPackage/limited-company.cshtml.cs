@@ -22,7 +22,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         }
         public async Task OnGet()
         {
-            Package = await _context.packages.ToListAsync();
+            Package = await _context.packages.Where(x => x.IsLimitedCompanyPkg == true).ToListAsync();
             packageFeatureList = await _context.PackageFeatures.ToListAsync();
         }
     }

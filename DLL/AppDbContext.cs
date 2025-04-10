@@ -13,5 +13,8 @@ namespace Spendwise_WebApp.DLL
         public virtual DbSet<PackageFeature> PackageFeatures { get; set; }
         public virtual DbSet<AdditionalPackageItem> AdditionalPackageItems { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<CompanyDetail> CompanyDetails { get; set; }
+        public virtual DbSet<CompanyOffice> CompanyOffices { get; set; }
+        public virtual DbSet<CompanyOfficer> CompanyOfficers { get; set; }
     }
 }
