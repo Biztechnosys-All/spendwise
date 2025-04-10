@@ -26861,3 +26861,29 @@ ol.super {
 .numColor {
     color: #323336 !important
 }
+
+
+.efOptionalTrProduct.efEven {
+    background: none !important;
+}
+.efOptionalTrProduct .efButton.ui-button.ui-widget.ui-state-default.ui-corner-all {
+    width: 25px;
+    font-weight: bold;
+}
+.field-msg {
+    width: 100%;
+    clear: both;
+    display: block;
+}
+.efPasswordEyeOpenIcon.ef-js-text-mask {
+    position: absolute !important;
+    right: 25px !important;
+    top: 5px !important;
+}
+.col-form-label {
+font-weight:bold;
+
+}
+
+
+
