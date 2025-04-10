@@ -3634,7 +3634,7 @@ a.order-button-three {
     }
 
 a.button-five, a.order-button-four {
-    color: #fff;
+    color: var(--color-gray);
     line-height: 14px;
     font-size: 14px;
     text-decoration: none
@@ -7621,7 +7621,7 @@ ul.efAccountMenuTabs li.efAccountMainMenuLi a {
 .package-bc-blue, .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     background: none repeat-x scroll 50% 50% var(--color-green) !important;
     border: 0 solid var(--color-green) !important;
-    color: #fff;
+    color: var(--color-gray);
     font-weight: 400
 }
 
