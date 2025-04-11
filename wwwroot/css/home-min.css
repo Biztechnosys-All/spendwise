@@ -328,7 +328,7 @@ body {
     .static-pages a,
     .static-pages a:active,
     .static-pages a:visited {
-        color: var(--color-gray);
+        color: var(--color-green-one);
         -webkit-transition: color 0.3s ease;
         -moz-transition: color 0.3s ease;
         -ms-transition: color 0.3s ease;
