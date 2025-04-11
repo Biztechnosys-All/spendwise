@@ -46,13 +46,13 @@
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Organisation (if applicable):</label>
                                         <div class="col-sm-7">
-                                            <input id="efUserOrganisationInput" class="efTextInput" type="text" name="Organisation" value="">
+                                            <input id="efUserOrganisationInput" class="form-control" type="text" name="Organisation" value="">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Title: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <select class="efSelectInput" asp-for="User.Title">
+                                            <select class="form-select" asp-for="User.Title">
                                                 <option value="">Please select...</option>
                                                 <option value="Mr">Mr</option>
                                                 <option value="Mrs">Mrs</option>
@@ -72,35 +72,35 @@
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Forename: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Forename" class="efTextInput" type="text" value="">
+                                            <input asp-for="User.Forename" class="form-control" type="text" value="">
                                             <span asp-validation-for="User.Forename" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Surname: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                                <input asp-for="User.Surname" class="efTextInput" type="text" value="">
+                                            <input asp-for="User.Surname" class="form-control" type="text" value="">
                                                 <span asp-validation-for="User.Surname" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Phone Number: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.PhoneNumber" class="efTextInput" type="text" value="">
+                                            <input asp-for="User.PhoneNumber" class="form-control" type="text" value="">
                                             <span asp-validation-for="User.PhoneNumber" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Email: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Email" class="efTextInput" type="text" value="">
+                                            <input asp-for="User.Email" class="form-control" type="text" value="">
                                             <span asp-validation-for="User.Email" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Password: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Password" id="passwordField" type="password" class="efTextInput js-password-constraints" value="">
+                                            <input asp-for="User.Password" id="passwordField" type="password" class="form-control js-password-constraints" value="">
                                             <span asp-validation-for="User.Password" class="text-danger fw-bold p-1 field-msg"></span>
                                             <!-- Eye Open Icon (Visible initially) -->
                                             <span class="efPasswordEyeOpenIcon ef-js-text-mask" id="showPassword" onclick="togglePassword()" style="cursor: pointer;">
@@ -148,55 +148,55 @@
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Post Code: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input class="txtPostCodeInput" type="text" value="">
+                                            <input class="form-control" type="text" value="">
                                             <button type="button" style="margin:5px 0" class="efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="postcodeLookup()" role="button" aria-disabled="false"><span class="ui-button-text">Find Address</span></button>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">House Name / Number: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.HouseName" class="efTextInput" type="text" value="">
+                                            <input asp-for="User.HouseName" class="form-control" type="text" value="">
                                             <span asp-validation-for="User.HouseName" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Street: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Street" class="efTextInput" type="text" value="">
+                                            <input asp-for="User.Street" class="form-control" type="text" value="">
                                             <span asp-validation-for="User.Street" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Locality:</label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Locality" class="efTextInput" type="text" value="">
+                                            <input asp-for="User.Locality" class="form-control" type="text" value="">
                                             <span asp-validation-for="User.Locality" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Town: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Town" class="efTextInput" type="text" value="">
+                                            <input asp-for="User.Town" class="form-control" type="text" value="">
                                             <span asp-validation-for="User.Town" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">County:</label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.County" class="efTextInput" type="text" value="">
+                                            <input asp-for="User.County" class="form-control" type="text" value="">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Post Code: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.PostCode" class="efTextInput" type="text">
+                                            <input asp-for="User.PostCode" class="form-control" type="text">
                                             <span asp-validation-for="User.PostCode" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Country: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <select style="" asp-for="User.Country" class="ui-widget-select efSelectInput">
+                                            <select style="" asp-for="User.Country" class="ui-widget-select form-select">
                                                 <option value="Afghanistan">Afghanistan</option>
                                                 <option value="Åland Islands">Åland Islands</option>
                                                 <option value="Albania">Albania</option>
@@ -442,7 +442,7 @@
                                                 <option value="Zambia">Zambia</option>
                                                 <option value="Zimbabwe">Zimbabwe</option>
                                             </select>
-                                            <input asp-for="User.Country" class="efTextInput" type="text">
+                                            <input asp-for="User.Country" class="form-control" type="text">
                                         </div>
                                     </div>                                    
                                 </div>
@@ -478,7 +478,7 @@
                 <form action="/login/" method="post">
                     <input type="hidden" name="pa" value="reminder">
                     <p>Please enter your email address or username in the field below:</p>
-                    <p><input class="efTextInput" name="identifier" type="text" style="width:460px"></p>
+                    <p><input class="form-control" name="identifier" type="text" style="width:460px"></p>
                     <p><input type="submit" value="Submit" class="efButton  ui-button ui-widget ui-state-default ui-corner-all" style="float:right" role="button" aria-disabled="false"></p>
                 </form>
             </div>

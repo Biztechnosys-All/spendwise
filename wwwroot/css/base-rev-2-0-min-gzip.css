@@ -26877,8 +26877,8 @@ ol.super {
 }
 .efPasswordEyeOpenIcon.ef-js-text-mask {
     position: absolute !important;
-    right: 25px !important;
-    top: 5px !important;
+    right: 15px !important;
+    top: 10px !important;
 }
 .col-form-label {
 font-weight:bold;
