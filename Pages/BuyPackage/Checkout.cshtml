@@ -123,7 +123,7 @@
                                 </thead>
                                 <tbody id="CheckoutItems">
                                     <tr class="efIncludedItemTableRow efOdd" data-pattern="formation">
-                                        <td class="fs-15"><b>@Model.SelectedPackage.PackageName</b></td>
+                                        <td class="fs-15" id="spmPackageName"><b>@Model.SelectedPackage.PackageName</b></td>
                                         <td style="text-align:center" class="remove-column fs-15"><input type="hidden" name="quantity[P2043]" value="1"> 1</td>
                                         <td align="right" class="fs-15">£@Model.SelectedPackage.Price</td>
                                     </tr>
@@ -213,6 +213,10 @@
     }
 </div>
 
+<form id="antiForgeryForm" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
 <script>
     window.selectedPackageItems = window.selectedPackageItems || [];
     window.selectedAdditionalPackageItems = window.selectedAdditionalPackageItems || [];
@@ -237,7 +241,7 @@
                     //$("#CheckoutItems").append(item);
                     AddItemToCheckout(itemId);
                 }
-                
+
             });
         }
     });
@@ -304,8 +308,8 @@
         $(`#CheckOut_included_${itemId}`).remove();
         const targetDiv = $(`div[data-id='${itemId}']`);
         targetDiv.css("display", "block");
-        
-        //remove items from 
+
+        //remove items from
         if (Array.isArray(selectedPackageItems)) {
             const filteredItems = CheckOutSelectedItems.filter(function (item) {
                 const match = item.match(/id="CheckOut_included_(\d+)"/);
@@ -351,7 +355,7 @@
             // Update cookie
             Cookies.set("selectedPackageItems", JSON.stringify(filteredItems), expires);
         }
-        
+
 
         if (Array.isArray(CheckOutAdditionalSelectedItems)) {
             const filteredItems = CheckOutAdditionalSelectedItems.filter(function (item) {
@@ -410,6 +414,7 @@
 
     function btnCheckoutClick() {
         let isChecked = $('#ChkCheckoutTerms').prop('checked');
+        var token = $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
         if (isChecked) {
             const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
             Cookies.set("NetAmount", $("#spmNetAmount").text(), expires);
@@ -418,16 +423,30 @@
             Cookies.set("selectedPackageItems", JSON.stringify(selectedPackageItems), expires);
             Cookies.set("selectedAdditionalPackageItems", JSON.stringify(selectedAdditionalPackageItems), expires);
             $.ajax({
-                url: "/BuyPackage/CompanyDetails",
-                type: "get",
-                success: function (result) {
-                    $(".packageTab").removeClass("active");
-                    $("#PackageTabContent").html(result);
-                    $("#spnCompanyDetails").addClass("active");
-                    $("#spnCompanyName").addClass("PackTabProcessed");
-                    $("#spnSelectPackage").addClass("PackTabProcessed");
-                    $("#spnCheckout").addClass("PackTabProcessed");
-                    $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
+                type: 'POST',
+                url: '/BuyPackage/Checkout?handler=AddCheckOutDetails',
+                headers: {
+                    'RequestVerificationToken': token
+                },
+                processData: false, // Important when sending no data
+                contentType: false,
+                success: function (data) {
+                    debugger;
+                    if(data.success == true && data.orderId > 0){
+                        $.ajax({
+                            url: "/BuyPackage/CompanyDetails?id=" + data.orderId,
+                            type: "get",
+                            success: function (result) {
+                                $(".packageTab").removeClass("active");
+                                $("#PackageTabContent").html(result);
+                                $("#spnCompanyDetails").addClass("active");
+                                $("#spnCompanyName").addClass("PackTabProcessed");
+                                $("#spnSelectPackage").addClass("PackTabProcessed");
+                                $("#spnCheckout").addClass("PackTabProcessed");
+                                $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
+                            }
+                        })
+                    }                    
                 }
             })
         }

@@ -93,8 +93,23 @@
 
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
-            if (UrlPrams.length > 1 && $("#hdnSelectedCompany").val() != "") {
-                debugger;
+            if(UrlPrams.length > 1 && UrlPrams[0] == "id"){
+                 $.ajax({
+                    url: "/BuyPackage/CompanyDetails?id=" + UrlPrams[1],
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $("#spnCompanyDetails").addClass("active");
+                        $("#spnCompanyName").addClass("PackTabProcessed");
+                        $("#spnSelectPackage").addClass("PackTabProcessed");
+                        $("#spnCheckout").addClass("PackTabProcessed");
+                        $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
+                    }
+                })
+            }
+            else if (UrlPrams.length > 1 && $("#hdnSelectedCompany").val() != "") {
+                //debugger;
                 console.log("hdnSelectedPackage", $("#hdnSelectedPackage").val());
                 console.log("Cookies packageName", Cookies.get("SelectedPackage"));
                 if ($("#hdnSelectedPackage").val() != Cookies.get("SelectedPackage")) {
