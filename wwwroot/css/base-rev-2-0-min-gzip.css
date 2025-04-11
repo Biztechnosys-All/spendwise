@@ -3630,7 +3630,7 @@ a.order-button-three {
 }
 
     .button-five:hover, .order-button-four:hover {
-        background-color: #1387ad
+        background-color: var(--color-green-one)
     }
 
 a.button-five, a.order-button-four {
