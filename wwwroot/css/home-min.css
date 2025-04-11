@@ -722,7 +722,7 @@ body {
     }
 
     .button--primary:focus {
-        background-color: var(--color-blue);
+        background-color: var(--color-green-one);
     }
 
 .button--secondary {
