@@ -391,22 +391,30 @@
                     </div>
 
                     </div> *@
-
                     <div class="efOrderDefaultContents">
                         <!-- div can be empted and rendered in JS -->
                         <h1 class="efPaymentGatewayTitle">Your Basket</h1>
 
-                        <h3 class="efPaymentGatewayOrderId">Order Ref: <span>5100040</span></h3>
+                        <h3 class="efPaymentGatewayOrderId">Order Ref: <span> @Model.Order.OrderId </span></h3>
                         <div class="efOrderContentsHeaders"><span>Item</span><span>Price</span></div>
                         <ul class="efOrderContentsList">
                             <li class="efOrderContentsListItem">
                                 <strong>
-                                    @Model.SelectedPackage.PackageName
+                                    @Model.Order.PackageName
                                 </strong><span class="OrderContentsListItemPrice">£@Model.SelectedPackage.Price</span>
                             </li>
 
-                            @* <li class="efOrderContentsListItem" style="display: none;">LLP Formation <span class="efOrderContentsListItemPrice">£24.99</span></li>
-                            <li class="efOrderContentsListItem" style="display: none;">Email Copy of Certificate of Incorporation <span class="efOrderContentsListItemPrice">£0.00</span></li>
+                            @foreach (var item in Model.additionalPackageItems)
+                            {
+                                <li class="efOrderContentsListItem">
+                                    @item.ItemName
+                                    <span class="efOrderContentsListItemPrice">
+                                        £@item.price
+                                    </span>
+                                </li>
+                            }
+
+                            @*<li class="efOrderContentsListItem" style="display: none;">Email Copy of Certificate of Incorporation <span class="efOrderContentsListItemPrice">£0.00</span></li>
                             <li class="efOrderContentsListItem" style="display: none;">Email Copy of Company Register with First Entries <span class="efOrderContentsListItemPrice">£0.00</span></li>
                             <li class="efOrderContentsListItem" style="display: none;">Email Copy of Draft LLP Agreement <span class="efOrderContentsListItemPrice">£0.00</span></li>
                             <li class="efOrderContentsListItem" style="display: none;">Printed Certificate of Incorporation <span class="efOrderContentsListItemPrice">£0.00</span></li>
@@ -434,16 +442,15 @@
                         </tbody>
                         </table> *@
                         <div class="efPaymentGatewayTotals">
-
-                            <p class="efPaymentGatewayNetPrice">Price:&nbsp;<span id="spnPrice">£</span></p>
-                            <p class="efPaymentGatewayVATPrice">VAT:&nbsp;<span id="spnVat">£13.80</span></p>
-                            <p class="efPaymentGatewayGrossPrice">Total:&nbsp;<span id="spnTotal">£132.78</span></p>
+                            <p class="efPaymentGatewayNetPrice">Price:&nbsp; <span id="spnPrice">£@Model.Order.NetAmount</span></p>
+                            <p class="efPaymentGatewayVATPrice">VAT:&nbsp;  <span id="spnVat">£@Model.Order.VatAmount</span></p>
+                            <p class="efPaymentGatewayGrossPrice">Total:&nbsp;  <span id="spnTotal">£@Model.Order.TotalAmount</span></p>
                         </div>
 
-                        <h3 class="efPaymentGatewayAmountDuePrice">Amount Due:&nbsp;<span id="spnAmountDue">£132.78</span></h3>
+                        <h3 class="efPaymentGatewayAmountDuePrice">Amount Due:&nbsp;  <span id="spnAmountDue">£@Model.Order.TotalAmount</span></h3>
 
                         <div class="efPoweredBySt">
-                            <div class="efOrderReferenceNumber">Order reference:&nbsp;<span>#5100040</span></div><div class="efOrderMerchantName">Merchant name: <span id="spnSelectCompName">1st Formations</span><div></div></div>
+                            <div class="efOrderReferenceNumber">Order reference:&nbsp; <span> #@Model.Order.OrderId </span></div><div class="efOrderMerchantName">Merchant name: <span id="spnSelectCompName">1st Formations</span><div></div></div>
                             <div class="efPoweredByStripe">Powered by <img src="https://s3.eu-west-1.amazonaws.com/bso.media.cdn/generic/logos/stripe-logo.png" alt="Powered by Stripe"></div>
                         </div>
 
@@ -576,21 +583,21 @@
     </div>
 </div>
 <script>
-    $(function () {
-        debugger;
-        var CheckOutSelectedItems = JSON.parse(Cookies.get("selectedAdditionalPackageItems"));
-        console.log("CheckOutSelectedItems", CheckOutSelectedItems);
-        if (Array.isArray(CheckOutSelectedItems)) {
-            CheckOutSelectedItems.forEach(function (item, index) {
-                console.log("foreach item", item);
-                $(".efOrderContentsList").append(item);
-            });
-        }
+    // $(function () {
+    //     debugger;
+    //     var CheckOutSelectedItems = JSON.parse(Cookies.get("selectedAdditionalPackageItems"));
+    //     console.log("CheckOutSelectedItems", CheckOutSelectedItems);
+    //     if (Array.isArray(CheckOutSelectedItems)) {
+    //         CheckOutSelectedItems.forEach(function (item, index) {
+    //             console.log("foreach item", item);
+    //             $(".efOrderContentsList").append(item);
+    //         });
+    //     }
 
-        $("#spnPrice").text(Cookies.get("NetAmount"));
-        $("#spnVat").text(Cookies.get("VatAmount"));
-        $("#spnTotal").text(Cookies.get("TotalAmount"));
-        $("#spnAmountDue").text(Cookies.get("TotalAmount"));
-    });
+    //     // $("#spnPrice").text(Cookies.get("NetAmount"));
+    //     // $("#spnVat").text(Cookies.get("VatAmount"));
+    //     // $("#spnTotal").text(Cookies.get("TotalAmount"));
+    //     // $("#spnAmountDue").text(Cookies.get("TotalAmount"));
+    // });
 
 </script>
