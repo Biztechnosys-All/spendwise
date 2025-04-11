@@ -1,6 +1,7 @@
 ﻿@page
 @model Spendwise_WebApp.Pages.order_historyModel
 @{
+    ViewData["Title"] = "order-history";
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
 
@@ -33,18 +34,57 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <tr class="efOdd">
-                                <td><a href="/order-details/?o=5030038">5030038</a></td>
-                                <td>06/03/2025</td>
-                                <td>Limited Liability Partners...</td>
-                                <td>A K PATEL LLP</td>
-                                <td>Complete</td>
-                                <td style="text-align:right">
-                                </td>
-                                <td style="text-align:right">
-                                    <a href="/order-details/?o=5030038" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">Details</span></a>
-                                </td>
-                            </tr>
+                            @foreach (var item in Model.Order)
+                            {
+                                <tr class="efOdd">
+                                    <td> @item.OrderId </td>
+                                    <td> @item.OrderDate </td>
+                                    <td> @item.PackageName </td>
+                                    <td> @item.CompanyName </td>
+                                    @if (item.IsOrderComplete == false)
+                                    {
+                                        <td> Incomplete </td>
+                                        <td>
+                                            <button type="button" data-id="@item.OrderId" onclick="handleOrderDelete(@item.OrderId)" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                                                <span class="ui-button-text">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="color: red;" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                                    </svg>
+                                                    Delete
+                                                </span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="submit" onclick="btnContinueClick(@item.OrderId)" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                                                <span class="ui-button-text">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="color: black;" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+                                                    </svg>
+                                                    Continue Order
+                                                </span>
+                                            </button>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td> Incomplete </td>
+                                        <td></td>
+                                        <td>
+                                            <a href="#" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                                                <span class="ui-button-text">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                                    </svg>
+                                                    Details
+                                                </span>
+                                            </a>
+                                        </td>
+                                    }
+                                    @* <td> @item.IsOrderComplete == 0 ? "Incomplete" : "Complete" </td> *@
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -53,3 +93,37 @@
         </div>
     </div>
 </div>
+
+<form id="antiForgeryForm" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+@section Scripts {
+    <script>
+        function handleOrderDelete(id){
+            // var id = $(this).data("id");
+            var token = $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
+            if(confirm("Are you sure you want to delete this?")) {
+                $.ajax({
+                    url: "/order-history?handler=Delete",
+                    type: "POST",
+                    data: JSON.stringify({ id: id }),
+                    headers: {
+                        'RequestVerificationToken': token
+                    },
+                    contentType: "application/json",
+                    success: function () {
+                        location.reload(); // or remove row from table without reload
+                    },
+                    error: function (err) {
+                        alert("Error deleting record.");
+                    }
+                });
+            }
+        };
+
+        function btnContinueClick(id) {
+            window.location.href = '/BuyPackage?id=' + id;
+        };
+    </script>
+}

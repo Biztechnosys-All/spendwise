@@ -129,7 +129,7 @@ namespace Spendwise_WebApp.Pages
                 }
             }
 
-            return RedirectToPage("./Index");
+            return Page();
         }
 
         private bool UserExists(int id)

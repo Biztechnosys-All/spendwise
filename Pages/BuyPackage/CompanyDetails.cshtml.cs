@@ -15,15 +15,33 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         }
 
         public string PackageName { get; set; } = string.Empty;
-        public Package SelectedPackage { get; set; }
+        public Package? SelectedPackage { get; set; }
+        public Orders? Order { get; set; }
+        public List<AdditionalPackageItem>? additionalPackageItems { get; set; }
 
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet(int? id)
         {
             var packageName = Request.Cookies["packageName"] ?? "";
             if (!string.IsNullOrEmpty(packageName))
             {
-                SelectedPackage = await _context.packages.Where(x => x.PackageName.ToLower() == packageName.ToLower()).FirstOrDefaultAsync();
+                Order = await _context.Orders.Where(x => x.OrderId == id).FirstOrDefaultAsync();
+
+                SelectedPackage = await _context.packages.Where(x => x.PackageId == Order.PackageID).FirstOrDefaultAsync();
+
+                var SelectedAddPackageItems = Order != null ? Order.AdditionalPackageItemIds : string.Empty;
+                var AddPackageItemIds = SelectedAddPackageItems.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                       .Select(int.Parse)
+                       .ToList();
+
+                if(AddPackageItemIds == null || AddPackageItemIds.Count() == 0)
+                {
+                    additionalPackageItems = new List<AdditionalPackageItem>();
+                    return Page();
+                }
+
+                additionalPackageItems = await _context.AdditionalPackageItems.Where(x => AddPackageItemIds.Contains(x.AdditionalPackageItemId)).ToListAsync();
             }
+            return Page();
         }
     }
 }

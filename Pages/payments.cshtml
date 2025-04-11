@@ -13,29 +13,42 @@
                         <tr class="ui-widget-header">
                             <td>ID</td>
                             <td>Invoiced</td>
-                            <td>Status <span class="status-helper"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span></td>
                             <td>Company</td>
                             <td>Description</td>
-                            <td style="text-align:right">Net</td>
-                            <td style="text-align:right">Gross</td>
+                            <td>Net</td>
+                            <td>Gross</td>
+                            <td>Status <span class="status-helper"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span></td>
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr class="efOdd">
-                            <td><a href="/order-details/?o=5030038">5030038</a></td>
-                            <td>06/03/2025</td>
-                            <td>Complete</td>
-                            <td>
-                                <abbr title="A K PATEL LLP">A K PATEL LLP</abbr>
-                            </td>
-                            <td>
-                                A K PATEL LLP
-                            </td>
-                            <td style="text-align:right">79.98</td>
-                            <td style="text-align:right">85.98</td>
-                            <td style="text-align:right"><a target="_blank" rel="noopener" href="/efiling-view-invoice/?o=5030038">Invoice</a></td>
-                            <td style="text-align:right"><a href="/order-details/?o=5030038" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img style="float:left;margin-right:3px;" src="/assets/icons/magnifier.png" alt="">Details</span></a></td>
-                        </tr>
+                        @foreach (var item in Model.Order)
+                        {
+                            <tr class="efOdd">
+                                <td> @item.OrderId </td>
+                                <td> @item.InvoicedDate </td>
+                                <td> @item.CompanyName </td>
+                                <td> @item.CompanyName </td>
+                                <td> @item.NetAmount </td>
+                                <td> @item.TotalAmount </td>
+                                @if (item.IsOrderComplete == false)
+                                {
+                                    <td> Incomplete </td>
+                                }
+                                else
+                                {
+                                    <td> Complete </td>
+                                    <td> Invoice </td>
+                                    <td>
+                                        <a href="/order-details/?o=5029857" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                                            <span class="ui-button-text">
+                                                @* <img style="float:left;margin-right:3px;" src="/assets/icons/magnifier.png" alt=""> *@
+                                                Details
+                                            </span>
+                                        </a>
+                                    </td>
+                                }
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

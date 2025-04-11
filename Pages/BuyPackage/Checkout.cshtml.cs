@@ -4,6 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Spendwise_WebApp.Models;
+using Microsoft.AspNetCore.Authentication;
+using System.Net;
+using System.Globalization;
+using System.Text.Json;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Spendwise_WebApp.Pages.BuyPackage
 {
@@ -17,6 +23,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         }
 
         public Package SelectedPackage { get; set; }
+        public User User { get; set; }
         public List<AdditionalPackageItem> additionalPackageItems { get; set; }
 
         public async Task OnGet(string packageName)
@@ -35,9 +42,72 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             AdditionalPackageItem additionalItem = new AdditionalPackageItem();
             if (ItemId > 0)
             {
-               additionalItem = _context.AdditionalPackageItems.Where(x => x.AdditionalPackageItemId == ItemId).FirstOrDefault();
+                additionalItem = _context.AdditionalPackageItems.Where(x => x.AdditionalPackageItemId == ItemId).FirstOrDefault();
             }
             return additionalItem;
+        }
+
+        [ValidateAntiForgeryToken]
+        public IActionResult OnPostAddCheckOutDetails()
+        {
+            var userEmail = Request.Cookies["UserEmail"];
+
+            var userIp = userEmail == null ? HttpContext.Connection.RemoteIpAddress.ToString() : "";
+
+            string? netAmount = Request.Cookies["NetAmount"];
+
+            User = userEmail != null ? _context.Users.Where(x => x.Email == userEmail).FirstOrDefault() : null;
+
+            string SelectedItemIdsCsv = string.Empty;
+
+            var rawCookie = Request.Cookies["selectedPackageItems"];
+            if (!string.IsNullOrEmpty(rawCookie))
+            {
+                // 2. URL-decode the cookie string
+                var decodedJson = HttpUtility.UrlDecode(rawCookie);
+
+                // 3. Deserialize the JSON array into a List<string>
+                List<string> items = JsonSerializer.Deserialize<List<string>>(decodedJson);
+
+                // 4. Use regex to extract item IDs
+                var regex = new Regex("id=\\\"CheckOut_included_(\\d+)\\\"");
+                List<string> itemIds = new List<string>();
+
+                foreach (var item in items)
+                {
+                    var match = regex.Match(item);
+                    if (match.Success)
+                    {
+                        itemIds.Add(match.Groups[1].Value);
+                    }
+                }
+
+                SelectedItemIdsCsv = string.Join(",", itemIds);
+            }
+
+            var selectedPackage = _context.packages.Where(x => x.PackageName.ToLower() == (Request.Cookies["SelectedPackage"] ?? "").ToLower()).FirstOrDefault();
+
+            var order = new Orders
+            {
+                OrderBy = User != null ? User.UserID : 0,
+                OrderByIP = userIp,
+                OrderDate = DateTime.Now,
+                PackageID = selectedPackage.PackageId,
+                PackageName = selectedPackage.PackageName,
+                CompanyName = Request.Cookies["companyName"],
+                NetAmount = Convert.ToDouble(Request.Cookies["NetAmount"].Replace("£","")),
+                VatAmount = Convert.ToDouble(Request.Cookies["VatAmount"].Replace("£", "")),
+                TotalAmount = Convert.ToDouble(Request.Cookies["TotalAmount"].Replace("£", "")),
+                AmountDue = Convert.ToDouble(Request.Cookies["TotalAmount"].Replace("£", "")),
+                AdditionalPackageItemIds = SelectedItemIdsCsv,
+                IsOrderComplete = false,
+                InvoicedDate = DateTime.Now,
+            };
+            
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+            int orderId = order.OrderId;
+            return new JsonResult(new { success = true, orderId = orderId });
         }
     }
 }
