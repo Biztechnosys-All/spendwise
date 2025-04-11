@@ -7621,7 +7621,7 @@ ul.efAccountMenuTabs li.efAccountMainMenuLi a {
 .package-bc-blue, .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     background: none repeat-x scroll 50% 50% var(--color-green) !important;
     border: 0 solid var(--color-green) !important;
-    color: var(--color-gray);
+    color: var(--color-white);
     font-weight: 400
 }
 

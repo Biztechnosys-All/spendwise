@@ -4670,6 +4670,8 @@ section {
     align-items: center;
     justify-content: center;
     margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .home-company-formation-easy__number {
