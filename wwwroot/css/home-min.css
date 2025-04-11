@@ -328,7 +328,7 @@ body {
     .static-pages a,
     .static-pages a:active,
     .static-pages a:visited {
-        color: var(--color-gray);
+        color: var(--color-green-one);
         -webkit-transition: color 0.3s ease;
         -moz-transition: color 0.3s ease;
         -ms-transition: color 0.3s ease;
@@ -722,7 +722,7 @@ body {
     }
 
     .button--primary:focus {
-        background-color: var(--color-blue);
+        background-color: var(--color-green);
     }
 
 .button--secondary {
@@ -4008,7 +4008,7 @@ section {
 @media (min-width: 62em) {
     #section-one .home-packages__packages {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-gap: 15px;
         margin-top: 0;
     }
@@ -4670,6 +4670,8 @@ section {
     align-items: center;
     justify-content: center;
     margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .home-company-formation-easy__number {

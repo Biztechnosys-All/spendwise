@@ -113,19 +113,19 @@
                         <div id="efEverythingInTheOrderContainer">
                             <h3 id="efPackageIncludedItemsTitle">Your Basket</h3>
                             <p id="efPackageIncludedItemsSubtitle">Checkout &amp; proceed to payment</p>
-                            <table class="efTable efPackageTable ui-widget-content" id="efIncludedTable">
+                            <table class="efTable efPackageTable ui-widget-content" id="efIncludedTable" width="100%">
                                 <thead>
                                     <tr class="ui-widget-header">
-                                        <td>Item</td>
-                                        <td style="text-align:center" class="remove-column">Quantity</td>
-                                        <td>Price</td>
-                                    </tr>
+                                        <td width="30%">Item</td>
+                                        <td width="30%" style="text-align:center" class="remove-column">Quantity</td>
+                                        <td width="40%" style="position:absolute;right:30px">Price</td>
+									</tr>
                                 </thead>
-                                <tbody id="CheckoutItems">
-                                    <tr class="efIncludedItemTableRow efOdd" data-pattern="formation">
-                                        <td class="fs-15" id="spmPackageName"><b>@Model.SelectedPackage.PackageName</b></td>
-                                        <td style="text-align:center" class="remove-column fs-15"><input type="hidden" name="quantity[P2043]" value="1"> 1</td>
-                                        <td align="right" class="fs-15">£@Model.SelectedPackage.Price</td>
+								<tbody id="CheckoutItems">
+									<tr class="efIncludedItemTableRow efOdd" data-pattern="formation">
+                                        <td width="30%"><b>@Model.SelectedPackage.PackageName</b></td>
+                                        <td width="30%" style="text-align:center" class="remove-column fs-15"><input type="hidden" name="quantity[P2043]" value="1"> 1</td>
+                                        <td width="40%" align="right" class="fs-15" style="position:absolute;right:30px">£@Model.SelectedPackage.Price</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -141,7 +141,7 @@
                             </div>
                             <div id="efPackageCheckout">
                                 <span class="efPackageCheckoutButtonLoader efHide"></span>
-                                <input id="spPackageCheckoutButton" type="button" class="efButton ui-button ui-widget cy-package-buy ui-state-default ui-corner-all" value="Checkout" role="button" onclick="btnCheckoutClick()" aria-disabled="false">
+                                <input id="spPackageCheckoutButton" type="button" class="btn button--secondary" value="Checkout" role="button" onclick="btnCheckoutClick()" aria-disabled="false">
                             </div>
                         </div>
                     </form>

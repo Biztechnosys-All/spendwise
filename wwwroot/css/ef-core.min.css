@@ -2835,7 +2835,8 @@ ul.efOrderContentsList {
     text-align: right;
     font-weight: 400;
     font-size: 20px;
-    line-height: 28px
+    line-height: 28px;
+    padding: 5px 0;
 }
 
     .efPaymentGatewayAmountDuePrice span {

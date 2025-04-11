@@ -3630,11 +3630,11 @@ a.order-button-three {
 }
 
     .button-five:hover, .order-button-four:hover {
-        background-color: #1387ad
+        background-color: var(--color-green)
     }
 
 a.button-five, a.order-button-four {
-    color: #fff;
+    color: var(--color-gray);
     line-height: 14px;
     font-size: 14px;
     text-decoration: none
@@ -7621,7 +7621,7 @@ ul.efAccountMenuTabs li.efAccountMainMenuLi a {
 .package-bc-blue, .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     background: none repeat-x scroll 50% 50% var(--color-green) !important;
     border: 0 solid var(--color-green) !important;
-    color: #fff;
+    color: var(--color-white);
     font-weight: 400
 }
 
@@ -26861,3 +26861,29 @@ ol.super {
 .numColor {
     color: #323336 !important
 }
+
+
+.efOptionalTrProduct.efEven {
+    background: none !important;
+}
+.efOptionalTrProduct .efButton.ui-button.ui-widget.ui-state-default.ui-corner-all {
+    width: 25px;
+    font-weight: bold;
+}
+.field-msg {
+    width: 100%;
+    clear: both;
+    display: block;
+}
+.efPasswordEyeOpenIcon.ef-js-text-mask {
+    position: absolute !important;
+    right: 15px !important;
+    top: 10px !important;
+}
+.col-form-label {
+font-weight:bold;
+
+}
+
+
+
