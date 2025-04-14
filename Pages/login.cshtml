@@ -113,7 +113,30 @@
         .login-box__field input {
             min-width: 100%;
         }
+
+        
     }
+
+    .login-box__field .text-danger {
+        display: block
+    }
+
+    .fileld-position {
+        position: relative
+    }
+
+        .fileld-position .efPasswordEyeOpenIcon.ef-js-text-mask{
+            top: 36px !important;
+        }
+
+    .efPasswordEyeClosedIcon.ef-js-text-mask{
+        position: absolute;
+        top: 35px;
+        margin-left: -28px;
+        cursor: pointer;
+        right: 15px;
+    }
+
 </style>
 <div class="col-five bg-image-packages gradient--green">
     <div class="container-inner clientlog">
@@ -154,12 +177,12 @@
                         <div class="login-box__wrapper" id="efLoginBoxContent">
                             <div class="login-box__field">
                                 <label>Username:</label>
-                                <input class="efTextInput" type="text" asp-for="User.Email" autocomplete="off">
+                                <input class="form-control" type="text" asp-for="User.Email" autocomplete="off">
                                 <span asp-validation-for="User.Email" class="text-danger fw-bold p-1"></span>
                             </div>
-                            <div class="login-box__field">
+                            <div class="login-box__field fileld-position">
                                 <label>Password:</label>
-                                <input asp-for="User.Password" type="password" id="passwordField" autocomplete="off">
+                                <input class="form-control" asp-for="User.Password" type="password" id="passwordField" autocomplete="off">
                                 <span asp-validation-for="User.Password" class="text-danger fw-bold p-1"></span>
 
                                 <!-- Eye Open Icon (Visible initially) -->

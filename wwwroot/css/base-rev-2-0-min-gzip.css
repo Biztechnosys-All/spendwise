@@ -5,6 +5,7 @@
     --primary: #676767;
     --color-green: #62a43f;
     --color-green-one: #98FF98;
+    --color-green-two: #73b810;
     --color-blue: #208bae;
     --color-white: #ffffff;
     --color-black: #000000;
@@ -2895,9 +2896,9 @@ p.fc-green.fw-600.ffsave-two {
 
 .container-inner {
     position: relative;
-    width: 100%;
+    width: 100% !important;
+    max-width: 71.25rem !important;
     margin: 0 auto;
-    max-width: 1024px;
     height: auto;
     padding: 0 10px
 }
@@ -19699,7 +19700,7 @@ BUTTON.efButton.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-tex
     height: 35px;
     width: 100px !important;
     font-size: 14px;
-    font-family: Arial,Helvetica,sans-serif
+    color: var(--color-gray);
 }
 
 .col-five.client .efRegisterUserWrapper {
@@ -26833,7 +26834,7 @@ a.cd-btn, a.cd-btn2, a.cd-btn3 {
 }
 
 .progress-bar.green.active:after {
-    background: #73b810
+    background: var(--color-green-two);
 }
 
 ol.super {
@@ -26885,5 +26886,33 @@ font-weight:bold;
 
 }
 
+.nav.nav-tabs.justify-content-center .nav-item { text-align:center}
+    .nav.nav-tabs.justify-content-center .nav-item .nav-link {
+        color:var(--color-gray);
+    }
 
+    .nav.nav-tabs.justify-content-center .nav-item span.active.nav-link.packageTab, .nav.nav-tabs.justify-content-center .nav-item .nav-link.packageTab.PackTabProcessed {
+        color: var(--color-green-two);
+    }
 
+input.efButton:hover, .button--register.button-five:hover {
+    background: var(--color-green-two) !important;
+    color: var(--color-white) !important;
+}
+
+button.efButton:hover {
+    background: var(--color-green-two) !important;
+    color: var(--color-white) !important;
+}
+.efPasswordEyeClosedIcon.ef-js-text-mask {
+    position: absolute;
+    top: 10px;
+    margin-left: -28px;
+    cursor: pointer;
+    right: 15px;
+}
+.check-icon {
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--color-green-two);
+}

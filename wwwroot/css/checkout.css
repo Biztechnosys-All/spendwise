@@ -1485,7 +1485,7 @@ form.static-form {
 
 @media (min-width:62em) {
     .site-header__contact {
-        margin-top: 0;
+        margin-top: 10px;
         max-height: 75px
     }
 
@@ -4580,17 +4580,6 @@ form.static-form {
     display: none
 }
 
-.slick-loading .slick-list {
-    background: #fff url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/images/ajax-loader.gif) 50% no-repeat
-}
-
-@font-face {
-    font-family: slick;
-    src: url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.eot);
-    src: url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.eot#iefix) format("embedded-opentype"),url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.woff) format("woff"),url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.ttf) format("truetype"),url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.svg#slick) format("svg");
-    font-weight: 400;
-    font-style: normal
-}
 
 .slick-next, .slick-prev {
     position: absolute;
@@ -4734,3 +4723,17 @@ form.static-form {
                 color: #fcbe18;
                 opacity: .75
             }
+@media (min-width: 62em) {
+    .container {
+        width: 100% !important;
+        max-width: 71.25rem !important;
+    }
+}
+
+@media (min-width: 62em) {
+    .container {
+        max-width: 64rem;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

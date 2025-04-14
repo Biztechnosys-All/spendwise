@@ -8,6 +8,7 @@
     --color-green-one: #98FF98;
     --button-hover: #6acd7c;
     --color-blue: #208bae;
+    --color-blue-one: #1387ad;
     --color-white: #ffffff;
     --color-black: #000000;
     --color-gray: #4c4e52;
@@ -328,7 +329,7 @@ body {
     .static-pages a,
     .static-pages a:active,
     .static-pages a:visited {
-        color: var(--color-green-one);
+        color: var(--color-blue-one);
         -webkit-transition: color 0.3s ease;
         -moz-transition: color 0.3s ease;
         -ms-transition: color 0.3s ease;
@@ -4608,6 +4609,7 @@ section {
 .home-company-formation-easy__title {
     text-align: center;
     margin: 0 0 60px;
+    padding-top:100px;
 }
 
     .home-company-formation-easy__title h3 {
@@ -5279,7 +5281,7 @@ section {
 .home-checklist {
     overflow: hidden;
     text-align: center;
-    padding: 60px 0;
+    padding: 0px 0;
 }
 
 @media (min-width: 48em) {
@@ -5774,7 +5776,7 @@ section {
 
 @media (min-width: 48em) {
     .home-business-guides {
-        padding: 100px 0;
+        padding: 40px 0;
     }
 }
 
