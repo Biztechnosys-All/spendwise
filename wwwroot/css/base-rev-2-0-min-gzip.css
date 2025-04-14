@@ -26916,3 +26916,18 @@ button.efButton:hover {
     text-align: center;
     color: var(--color-green-two);
 }
+
+@media (min-width: 62em) {
+    .container {
+        width: 100% !important;
+        max-width: 71.25rem !important;
+    }
+}
+
+@media (min-width: 62em) {
+    .container {
+        max-width: 64rem;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
