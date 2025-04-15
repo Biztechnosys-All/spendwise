@@ -30,10 +30,10 @@
                             <td>@feature.Feature</td>
                             @foreach (var packageitem in Model.Package)
                             {
-                                <td>
+                                <td class="check-icon">
                                     @if (packageitem.PackageFeatures.Contains(feature.FeatureId.ToString()))
                                     {
-                                        <span style="color: green; font-weight: bold;">✔</span>
+                                        <i class="fa fa-check" aria-hidden="true"></i>
                                     }
                                 </td>
                             }

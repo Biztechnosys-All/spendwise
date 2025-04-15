@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Title: <span class="text-danger">*</span></label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-7" style="padding: 10px 10px 4px 10px;">
                                             <select class="form-select" asp-for="User.Title">
                                                 <option value="">Please select...</option>
                                                 <option value="Mr">Mr</option>
@@ -188,14 +188,14 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Post Code: <span class="text-danger">*</span></label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-7" style="padding:10px 10px 0px 10px">
                                             <input asp-for="User.PostCode" class="form-control" type="text">
                                             <span asp-validation-for="User.PostCode" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Country: <span class="text-danger">*</span></label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-7" style="padding:0px 10px 0px 10px">
                                             <select style="" asp-for="User.Country" class="ui-widget-select form-select">
                                                 <option value="Afghanistan">Afghanistan</option>
                                                 <option value="Åland Islands">Åland Islands</option>
@@ -442,9 +442,15 @@
                                                 <option value="Zambia">Zambia</option>
                                                 <option value="Zimbabwe">Zimbabwe</option>
                                             </select>
-                                            <input asp-for="User.Country" class="form-control" type="text">
+                                            
                                         </div>
                                     </div>                                    
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">&nbsp;</label>
+                                        <div class="col-sm-7" style="padding:8px 10px 0px 10px">
+                                            <input asp-for="User.Country" class="form-control" type="text">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

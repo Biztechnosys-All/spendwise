@@ -816,3 +816,9 @@ button .ui-button-text {
         width: 100% !important;
     }
 }
+.fileld-position {
+position:relative}
+
+    .fileld-position .efPasswordEyeOpenIcon.ef-js-text-mask {
+        top: 55px !important;
+    }

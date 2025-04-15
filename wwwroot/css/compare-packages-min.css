@@ -657,7 +657,7 @@ body {
 }
 
 .button--primary {
-    color: #fff !important;
+    color: var(--color-gray) !important;
     padding: 10px 50px;
     background-color: #31a5cb
 }
@@ -3983,3 +3983,14 @@ form.static-form {
             color: var(--color-gray);
             opacity: .75
         }
+.nav.nav-tabs.justify-content-center .nav-link:focus, .nav-tabs .nav-link:hover {
+    border:none !important;
+}
+.nav.nav-tabs.justify-content-center .nav-link {
+    transition: none !important;
+}
+
+.compare-packages-grid__price {
+display:inline-block;
+padding:15px 0;
+}
