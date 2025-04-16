@@ -822,3 +822,8 @@ position:relative}
     .fileld-position .efPasswordEyeOpenIcon.ef-js-text-mask {
         top: 55px !important;
     }
+}
+}
+.ef-hide {
+    display: none !important;
+}

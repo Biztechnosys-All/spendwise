@@ -151,22 +151,11 @@
 
                 <div id="efLoginContainer">
                     <h2>Account Login</h2>
-                    @if (!Model.IsEmailVerified)
+                    
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
                     {
                         <div class="alert-danger p-2">
-                            <p><b>Please verify your email before logging in.</b></p>
-                        </div>
-                    }
-                    @if (!Model.IsUserExists)
-                    {
-                        <div class="alert-danger p-2">
-                            <p><b>User is not registred!</b></p>
-                        </div>
-                    }
-                    @if (!Model.InvalidPass)
-                    {
-                        <div class="alert-danger p-2">
-                            <p><b>Invalid email or password!</b></p>
+                            <p><b>@Model.ErrorMessage</b></p>
                         </div>
                     }
                     <form method="post" class="ef-login-form cc-login-form">
@@ -292,7 +281,7 @@
                             $("#btnResetPass").hide();
                         },
                         error: function () {
-                            alert("Error checking company name.");
+                            console.log("Error checking company name.");
                         }
                     });
                 }

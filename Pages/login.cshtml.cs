@@ -31,9 +31,10 @@ namespace Spendwise_WebApp.Pages
         [BindProperty]
         public new User User { get; set; } = default!;
         public User UserData { get; set; } = default!;
-        public bool IsEmailVerified { get; set; } = true;
-        public bool IsUserExists { get; set; } = true;
-        public bool InvalidPass { get; set; } = true;
+        public string ErrorMessage { get; set; } = string.Empty;
+        //public bool IsEmailVerified { get; set; } = true;
+        //public bool IsUserExists { get; set; } = true;
+        //public bool InvalidPass { get; set; } = true;
         public void OnGet()
         {
         }
@@ -42,7 +43,7 @@ namespace Spendwise_WebApp.Pages
         {
             if (string.IsNullOrEmpty(User.Email) || string.IsNullOrEmpty(User.Password))
             {
-                ModelState.AddModelError(string.Empty, "Email and Password are required.");
+                ErrorMessage = "Email and Password are required.";
                 return Page();
             }
 
@@ -64,21 +65,21 @@ namespace Spendwise_WebApp.Pages
 
             if (userData == null)
             {
-                IsUserExists = false;
+                ErrorMessage = "User is not registred.";
                 return Page();
             }
 
             // Compare hashed passwords
             if (userData.Password != hashedPassword)
             {
-                InvalidPass = false;
+                ErrorMessage = "Invalid email or password.";
                 return Page();
             }
             else
             {
                 if (!userData.IsEmailVerified)
                 {
-                    IsEmailVerified = false;
+                    ErrorMessage = "Please verify your email before logging in.";
                     return Page();
                 }
 

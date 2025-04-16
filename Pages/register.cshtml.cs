@@ -124,7 +124,7 @@ namespace Spendwise_WebApp.Pages
             await _emailSender.SendEmailAsync(User.Email, "Verify Your Email",
                 $"Click <a href='{confirmationLink}'>here</a> to verify your email.");
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/login");
         }
 
 

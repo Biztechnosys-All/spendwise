@@ -503,6 +503,7 @@
                     <div class="company-name-search__notification company-name-search__notification--red" id="cNameNotAv" style="display:none;">
                         <span class="icon"></span><h3 id="cNameNoAv"></h3>
                         <p>Sorry, this company name is unavailable.</p>
+                        <div class="company-name-search__clear-button"><a href="#" onclick="onSearchAgain()">search again</a></div>
                     </div>
                 </div>
             </div>
@@ -3066,7 +3067,7 @@
                 var companyName = $("#CompanyName").val().trim();
 
                 if (companyName === "") {
-                    alert("Please enter a company name.");
+                    //alert("Please enter a company name.");
                     $("#cNameAv").hide();
                     $("#cNameNotAv").hide();
                     $("#CompanyName").removeClass("spinner-ring");
@@ -3095,7 +3096,7 @@
                         }
                     },
                     error: function () {
-                        alert("Error checking company name.");
+                        console.log("Error checking company name.");
                         $("#CompanyName").removeClass("spinner-ring");
                     }
                 });

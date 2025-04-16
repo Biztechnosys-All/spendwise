@@ -6,7 +6,7 @@
         {
             return new CookieOptions
             {
-                HttpOnly = true,
+                HttpOnly = false,
                 Secure = true,
                 SameSite = SameSiteMode.Strict,
                 Expires = DateTime.UtcNow.AddDays(3)
