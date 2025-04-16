@@ -22,8 +22,8 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         public async Task<IActionResult> OnGet(int? id)
         {
             var packageName = Request.Cookies["packageName"] ?? "";
-            if (!string.IsNullOrEmpty(packageName))
-            {
+            //if (!string.IsNullOrEmpty(packageName))
+            //{
                 Order = await _context.Orders.Where(x => x.OrderId == id).FirstOrDefaultAsync();
 
                 SelectedPackage = await _context.packages.Where(x => x.PackageId == Order.PackageID).FirstOrDefaultAsync();
@@ -40,7 +40,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                 }
 
                 additionalPackageItems = await _context.AdditionalPackageItems.Where(x => AddPackageItemIds.Contains(x.AdditionalPackageItemId)).ToListAsync();
-            }
+           // }
             return Page();
         }
     }

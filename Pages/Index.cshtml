@@ -490,7 +490,7 @@
                         <a href="#" class="button button--secondary button--hide">Choose a Package</a>
                     </form>
                             @* <p id="resultMessage"></p> *@
-                    
+
                 </div>
                 <div id="nameCheckNotification">
                     <div class="company-name-search__notification company-name-search__notification--green" id="cNameAv" style="display:none;">
@@ -3053,6 +3053,13 @@
 
             $("#cNameAv").hide();
             $("#cNameNotAv").hide();
+
+            $('#CompanyName').keypress(function (e) {
+                if (e.which === 13) {
+                    e.preventDefault(); // Prevent form submission
+                    $('#CompanynamecheckBtn').click(); // Simulate button click
+                }
+            });
 
             $("#CompanynamecheckBtn").click(function () {
                 $("#CompanyName").addClass("spinner-ring");

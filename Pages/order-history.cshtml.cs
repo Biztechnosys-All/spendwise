@@ -6,6 +6,7 @@ using System.Text.Json;
 
 namespace Spendwise_WebApp.Pages
 {
+    [IgnoreAntiforgeryToken]
     public class order_historyModel : PageModel
     {
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
@@ -47,7 +48,6 @@ namespace Spendwise_WebApp.Pages
             public int Id { get; set; }
         }
 
-        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> OnPostDeleteAsync([FromBody] RequestModel request)
         {
             var item = await _context.Orders.FindAsync(request.Id);
