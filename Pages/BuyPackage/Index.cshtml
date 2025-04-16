@@ -93,9 +93,28 @@
            
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
-            if(UrlPrams.length > 1 && UrlPrams[0] == "id"){
-                 $.ajax({
-                    url: "/BuyPackage/CompanyDetails?id=" + UrlPrams[1],
+            debugger;
+            if (UrlPrams.length > 1 && UrlPrams[0] == "id" && UrlPrams[1].indexOf("token") !== -1) {
+                var id = searchParams.get("id");
+                var token = searchParams.get("token");
+                $.ajax({
+                    url: "/BuyPackage/CompanyDetails?id=" + id + "&token=" + token,
+                    type: "get",
+                    success: function (result) {
+                        $(".packageTab").removeClass("active");
+                        $("#PackageTabContent").html(result);
+                        $("#spnCompanyDetails").addClass("active");
+                        $("#spnCompanyName").addClass("PackTabProcessed");
+                        $("#spnSelectPackage").addClass("PackTabProcessed");
+                        $("#spnCheckout").addClass("PackTabProcessed");
+                        $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
+                    }
+                })
+            }
+            else if (UrlPrams.length > 1 && UrlPrams[0] == "id") {
+                var id = searchParams.get("id");
+                $.ajax({
+                    url: "/BuyPackage/CompanyDetails?id=" + id,
                     type: "get",
                     success: function (result) {
                         $(".packageTab").removeClass("active");
@@ -235,7 +254,8 @@
                     })
                 }
                 else {
-                    alert("please select package");
+                    //alert("please select package");
+                    showToast("please select package", 'warning');
                 }
             }
             else if (TabName == "CompanyDetails") {
@@ -249,7 +269,7 @@
                         $("#spnCompanyName").addClass("PackTabProcessed");
                         $("#spnSelectPackage").addClass("PackTabProcessed");
                         $("#spnCheckout").addClass("PackTabProcessed");
-                        alert($("#hdnSelectedCompany").val());
+                        // alert($("#hdnSelectedCompany").val());
                         $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
                     }
                 })
@@ -258,7 +278,7 @@
         }
 
         function CheckCompanyName() {
-            alert();
+            // alert();
             if ($("#company_name").val() == "") {
                 $("#errorCompanyname").css("display", "block");
             }
@@ -290,7 +310,7 @@
                         }
                     },
                     error: function () {
-                        alert("Error checking company name.");
+                        console.log("Error checking company name.");
                     }
                 });
             }
@@ -298,7 +318,7 @@
 
         function MoveToNextPackageStep() {
             var searchParams = new URLSearchParams(window.location.search);
-            alert(searchParams);
+            //alert(searchParams);
             var UrlPrams = searchParams.toString().split('=');
             if (UrlPrams[1] != "") {
                 $.ajax({
