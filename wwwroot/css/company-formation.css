@@ -1,0 +1,477 @@
+﻿
+
+/*Appoinments*/
+.ef-add-officer-wrapper {
+    padding: 20px !important;
+    background-color: #EAEFF2;
+    margin-bottom: 20px;
+}
+
+.ef-add-officer-wrapper h2 {
+    box-shadow: none !important;
+    position: relative;
+    margin: 30px 0 10px;
+    font-size: 22px !important;
+    line-height: 22px !important;
+    color: #2a3135 !important;
+    padding-top: 10px;
+    padding-bottom: 10px !important;
+    font-family: 'MyriadW08-BoldSemiConde' !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+}
+
+.ef-add-officer-buttons {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 15px 0px !important;
+    display: block;
+    background-color: transparent;
+    text-align: center;
+}
+
+.ef-add-officer.person {
+    margin-left: 0 !important;
+    background-position: 10px 50%;
+    background-size: 29px;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+.ef-add-officer.person:before {
+    content: "\f234";
+    font-family: fontawesome;
+    color: #FFFFFF;
+    padding-right: 5px;
+}
+
+.ef-add-officer.corporate {
+    margin-bottom: 0;
+    background-position: 10px 50%;
+    background-size: 31px;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+.ef-add-officer.corporate:before {
+    content: "\f1ad";
+    font-family: fontawesome;
+    color: #FFFFFF;
+    padding-right: 5px;
+}
+
+.ef-add-officer {
+    background-image: none !important;
+    background-color: #ff7b00 !important;
+    border-color: #ff7b00 !important;
+}
+
+.ef-add-officer.nominee {
+    background-color: #FFFFFF !important;
+    border: 1px solid #FF7B00 !important;
+    color: #FF7B00 !important;
+    background-position: 9px 50%;
+    background-size: 28px;
+    background-repeat: no-repeat;
+    margin-bottom: 0;
+}
+
+.ef-add-officer.nominee:before {
+    color: inherit !important;
+    content: "\f0b1";
+    font-family: fontawesome;
+    padding-right: 5px;
+}
+
+.ef-btn {
+    padding: 10px 15px !important;
+    width: auto !important;
+    font-size: 14px !important;
+    outline: none;
+}
+
+.ef-btn.prevstep {
+    background-color: #babdc0 !important;
+    border: 1px solid #babdc0 !important;
+    color: #FFFFFF !important;
+    background-image: none !important;
+    font-family: 'MyriadW08-SemiCondensed';
+    font-size: 18px !important;
+    display: block;
+    margin-right: 0;
+    margin-bottom: 20px;
+    float: left;
+    background-position: 3% 50%;
+    background-size: 22px;
+    background-repeat: no-repeat;
+    box-shadow: none;
+    font-weight: 400;
+}
+
+.ef-btn.prevstep:hover {
+    background-color: #a6a9ab !important;
+    border: 1px solid #a6a9ab !important;
+}
+
+.ef-btn.prevstep:before {
+    content: "\f060";
+    font-family: fontawesome;
+    color: #FFFFFF;
+    padding-right: 20px;
+}
+
+.w-tabs {
+    position: relative;
+}
+
+.w-tabs:before {
+    content: " ";
+    display: table;
+}
+
+.ef-officer-form-tab-menu {
+    border-bottom-width: 2px !important;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #b3b3b3;
+}
+
+.w-tab-menu {
+    position: relative;
+}
+
+.ef-tab-link.w--current {
+    background-color: #31a5cb !important;
+    border-color: #31a5cb !important;
+    color: #FFFFFF !important;
+    border-top-left-radius: 0;
+    font-weight: 600;
+}
+
+.ef-tab-link {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    background-color: #FFFFFF !important;
+    border-color: #abb5ba !important;
+    color: #abb5ba !important;
+    font-size: 14px;
+    border-style: solid solid none;
+    border-width: 1px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.w-tab-link {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-decoration: none;
+    padding: 8px 30px;
+    cursor: pointer;
+    max-width: 100%;
+}
+
+/*PersonOfficerPositionTab*/
+
+.w-tab-content {
+    position: relative;
+    display: block;
+}
+
+.ef-tab-pane-position {
+    padding-right: 10px;
+    padding-left: 11px;
+}
+
+.w-tab-pane {
+    position: relative;
+}
+
+.ef-information-box {
+    display: block;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #a5c7d9;
+    border-radius: 0;
+    background-color: #d9edf7;
+    background-image: url(/assets/efiling/wizard-v2/images//education-icon@High.png);
+    background-position: 17px 22px;
+    background-size: 35px;
+    background-repeat: no-repeat;
+}
+
+.ef-information-box h2 {
+    box-shadow: none !important;
+    position: relative;
+    margin: 30px 0 10px;
+    margin-top: 0 !important;
+    line-height: 21px !important;
+    border-bottom: none !important;
+}
+
+.ef-information-box-title {
+    display: block;
+    padding-left: 47px;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 22px !important;
+    color: #2a3135 !important;
+    padding-top: 10px;
+    padding-bottom: 10px !important;
+    font-family: 'MyriadW08-BoldSemiConde' !important;
+}
+
+ef-information-box p {
+    line-height: 21px;
+    margin-left: 0px !important;
+    padding-top: 5px;
+}
+
+
+.ef-alert-box.success, .ef-alert-box.fail, .ef-alert-box.warning {
+    background-color: #EAEFF2 !important;
+    border-color: #EAEFF2 !important;
+}
+
+.ef-alert-box.fail {
+    padding: 20px;
+    color: #a94442;
+}
+
+.ef-alert-box {
+    border-width: 1px !important;
+    margin-bottom: 15px;
+    border: 2px solid #59a16a;
+}
+
+.ef-alert-box.fail .ef-alert-box-main-text {
+    color: #E91C12 !important;
+}
+
+.ef-form-wrap {
+    margin-top: 0 !important;
+    background-color: #FFFFFF;
+    margin: 40px 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    display: block;
+}
+
+.ef-form-wrap h2{
+    box-shadow: none !important;
+    position: relative;
+    margin: 30px 0 10px;
+}
+
+.hr-line-1 {
+    margin-bottom: 30px !important;
+    height: 1px;
+    margin-top: 10px;
+    clear: both;
+    border-bottom: 1px solid #ccc;
+}
+
+.mr-bot-30 {
+    margin-bottom: 30px;
+}
+
+.lh-18 {
+    line-height: 18px;
+}
+
+.fs-14 {
+    font-size: 14px !important;
+}
+
+.role-select-wrapper {
+    padding: 20px !important;
+    background-color: #EAEFF2;
+    margin-bottom: 20px;
+}
+
+.role-select-wrapper > .row-role-select {
+    padding: 0;
+}
+
+.w-row:after, .w-row:before {
+    content: " ";
+    display: table;
+}
+
+.w-col {
+    position: relative;
+    float: left;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.w-checkbox, .w-radio {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.w-checkbox:after, .w-checkbox:before, .w-radio:after, .w-radio:before {
+    content: " ";
+    display: table;
+}
+
+.w-form-label {
+    display: inline !important;
+    cursor: pointer;
+    font-weight: 400;
+    margin-bottom: 0;
+    font-size: 18px;
+}
+
+.w-row:after {
+    clear: both;
+}
+
+.w-checkbox-input {
+    margin-top: 2px !important;
+}
+
+.ef-back-btn {
+    background-color: #babdc0 !important;
+    border: 1px solid #babdc0 !important;
+    color: #FFFFFF !important;
+}
+
+.ef-back-btn:hover {
+    background-color: #a6a9ab !important;
+    border: 1px solid #a6a9ab !important;
+}
+
+.ef-btn.ef-primary-btn {
+    border-radius: 0;
+    transition-delay: initial;
+    font-weight: 300;
+    margin-right: 0;
+    float: right;
+}
+
+.ef-submit-btn:after {
+    content: "\f061";
+    font-family: fontawesome;
+    color: #FFFFFF;
+    padding-left: 20px;
+    font-weight: normal;
+}
+
+.simple-row-elem {
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+    padding: 6px 0 6px 0;
+}
+
+.w-clearfix:after, .w-clearfix:before {
+    content: " ";
+    display: table;
+}
+
+.ef-panel-row {
+    display: block;
+    margin-bottom: 0;
+}
+
+.w-col-8 {
+    width: 66.66666667%;
+}
+
+.w-col-4 {
+    width: 33.33333333%;
+}
+
+/*Person Details*/
+
+.row-margin {
+    padding: 5px 0;
+    margin-bottom: 10px;
+}
+
+.w-col-6 {
+    width: 50%;
+}
+
+.w-row .w-row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.w-col .w-col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.w-input, .w-select {
+    margin-bottom: 20px;
+    border: 1px solid #84888a !important;
+    font-size: 14px !important;
+}
+
+.appointments-field {
+    width: 93%;
+}
+
+#residential-address-wrapper {
+    margin-bottom: 25px;
+    background-color: #eef1f4;
+    padding: 15px 20px !important;
+}
+
+.w-col-12 {
+    width: 100%;
+}
+
+#residential-address-wrapper h3[for="officer-residential-address"] {
+    font-size: 22px !important;
+    margin-bottom: 15px;
+    line-height: 18px !important;
+    font-family: 'MyriadW08-BoldSemiConde' !important;
+    color: #2a3135 !important;
+}
+
+.ef-primary-btn:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    color: #FFFFFF !important;
+}
+
+.w-col-10 {
+    width: 83.33333333%;
+}
+
+.officer-paq-wrapper h3 {
+    font-size: 20px !important;
+    line-height: 18px !important;
+    font-family: 'MyriadW08-BoldSemiConde' !important;
+    color: #2a3135 !important;
+    margin: 10px 0 10px 0;
+}
+
+.w-col-3 {
+    width: 25%;
+}
+
+.w-col-5 {
+    width: 41.66666667%;
+}
+
+.w-col-1 {
+    width: 8.33333333%;
+}
+
+.field-label {
+    font-size: 17px;
+    line-height: 18px;
+    color: rgb(42, 49, 53);
+    margin-bottom: 10px;
+    font-weight: initial;
+    font-family: MyriadW08-BoldSemiConde;
+}

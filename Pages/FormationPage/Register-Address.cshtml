@@ -1,0 +1,337 @@
+﻿@page
+@model Spendwise_WebApp.Pages.FormationPage.Register_AddressModel
+@{
+    Layout = null;
+}
+
+<style>
+    .ef-registered-email-section h2 {
+        box-shadow: none !important;
+        position: relative;
+        margin: 30px 0 10px;
+    }
+
+    .ef-input-supplement-text {
+        color: #696969;
+        font-size: 11px;
+        font-style: normal;
+        margin-top: -6px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .ef-item-box.ef-selected {
+        border-color: #59a16a;
+        background-color: #deffe6;
+    }
+
+    .ef-item-box {
+        border-width: 1px !important;
+        position: relative;
+        margin-bottom: 20px;
+        padding-top: 0;
+        padding-right: 0;
+        padding-left: 0;
+        border: 2px solid #ccc;
+    }
+
+    .ef-item-content {
+        padding: 18px 0px !important;
+        position: relative;
+    }
+
+    .ef-selected .ef-item-bottom-border {
+        border: none !important;
+    }
+
+    .ef-item-bottom-border {
+        margin: 30px 15px;
+        padding-bottom: 1px;
+    }
+
+    .ef-panel-row {
+        display: block;
+    }
+
+    .w-col-8 {
+        width: 66.66666667%;
+    }
+
+        .w-col-8 h3 {
+            margin: 10px 0 10px 0;
+        }
+
+    h3 {
+        font-size: 20px !important;
+        line-height: 18px !important;
+        font-family: 'MyriadW08-BoldSemiConde' !important;
+        color: #2a3135 !important;
+    }
+
+    .item-box-price {
+        float: right;
+        text-align: right;
+        width: 100%;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    .ef-included-tick-text {
+        float: none;
+        margin-bottom: 8px;
+    }
+
+    .renewal {
+        /* color: #d90000 !important; */
+        color: #333;
+        font-size: 12px !important;
+        margin-bottom: 10px;
+        float: right;
+        clear: right;
+    }
+
+    .ef-included-text {
+        display: inline-block;
+        margin-right: 0;
+        margin-left: 10px;
+        color: #009245;
+        font-size: 19px;
+        font-weight: 600;
+    }
+
+    .ef-panel-icon {
+        margin-top: 0 !important;
+        margin-bottom: 30px;
+        padding-top: 0;
+        text-align: center;
+    }
+
+    .ef-product-icon.ef-product-2047 {
+        background-image: url(https://cdn-brand.s3.eu-west-1.amazonaws.com/assets/images/71-75SheltonStreetXL.jpg) !important;
+        height: 230px !important;
+        background-size: cover;
+        width: 100%;
+    }
+
+    .ef-product-icon {
+        background-repeat: no-repeat;
+        margin: 0 auto;
+    }
+
+    .ef-protect h3 {
+        margin: 10px 0 10px 0;
+    }
+
+    .savings-amount-row {
+        margin-bottom: 20px;
+    }
+
+    .add-col {
+        padding-right: 10px;
+        text-align: right;
+    }
+
+    .item-show-details {
+        background-color: #FFFFFF !important;
+        border: 1px solid #84888a !important;
+        color: #6f7b82 !important;
+    }
+
+    .ef-remove-btn {
+        background-color: #fff !important;
+        border: 1px solid #d90000 !important;
+        color: #d90000 !important;
+    }
+
+    .ef-btn.prevstep {
+        background-color: #babdc0 !important;
+        border: 1px solid #babdc0 !important;
+        color: #FFFFFF !important;
+        background-image: none !important;
+        font-family: 'MyriadW08-SemiCondensed';
+        font-size: 18px !important;
+        display: block;
+        margin-right: 0;
+        margin-bottom: 20px;
+        float: left;
+        background-position: 3% 50%;
+        background-size: 22px;
+        background-repeat: no-repeat;
+        box-shadow: none;
+    }
+
+        .ef-btn.prevstep:before {
+            content: "\f060";
+            font-family: fontawesome;
+            color: #FFFFFF;
+            padding-right: 20px;
+        }
+</style>
+
+<div class="w-container ef-content-wrapper" id="ef-content-wrapper">
+    <div class="ef-panel-wrapper">
+        <div class="head-02" id="ef-panel-title">
+            <h1>Registered Address</h1>
+        </div>
+        <div class="ef-registered-office-step" id="ef-panel-content">
+            <div id="ef-panel-inner-content">
+                <div id="ef-registered-addres-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
+                    <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
+                </div>
+                <div>
+                    <!--  educational text -->
+                    <div class="ef-information-box">
+                        <h2 class="ef-information-box-title">Registered Office (required)</h2>
+                        <ul>
+                            <li>All companies require having a registered office address located in the same country as they are registered.</li>
+                            <li>It is the address to which all Companies House, HMRC and other official letters will be sent and must always be a physical address (e.g. not a PO Box or DX).</li>
+                            <li><b>The address of the registered office must appear on all company correspondence and publications.</b></li>
+                            <li><b>A company’s registered office address is available to view by the public free of charge.</b></li>
+                            <li>If you purchased our Registered Office Address Service, we will scan and email all official mail to an email address of your choice, with the exception of items of value which will be forwarded by post to your forwarding address.</li>
+                        </ul>
+                    </div>
+                    <div class="w-clearfix">
+                        <div class="ef-registered-email-section">
+                            <h2>Registered Email</h2>
+                            <div class="ef-form-wrap">
+                                <div class="w-row">
+                                    <div class="w-col w-col-6">
+                                        <label for="ef-company-email">
+                                            Registered Email
+                                            <span class="ef-modal-help-icon" data-ref="HELP|REGISTERED_EMAIL">
+                                                <img class="ef-help-icon-img" src="/assets/icons/help.png">
+                                            </span>
+                                        </label>
+                                        <input class="w-input ef-company-email-field" id="ef-company-email" type="text" name="company-email" value="it@spendwiseacc.com" onkeyup="FormBuilder.setCompanyRegisteredEmail(this.value)">
+                                        <span class="ef-company-email-supplement-text ef-input-supplement-text">
+                                            The official email address of the company - this can be changed at any time.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ef-registered-office-section">
+                            <h2>Registered Office</h2>
+                            <!--  start choose your own -->
+                            <!-- <div class="hr-line-1"></div> -->
+                            <div id="ef-use-own-reg-office" class="ef-item-box" style="display:none">
+                                <div class="ef-item-content">
+                                    <div class="w-row ef-panel-row">
+                                        <div class="w-col w-col-8">
+                                            <h3>Choose to use your own address</h3>
+                                        </div>
+                                        <div class="w-col w-col-4 w-clearfix add-col">
+                                            <button type="button" class="ef-btn ef-primary-btn ef-submit-btn ef-use-own-address-btn" onclick="FormBuilder.ChooseOwnBusinessAddress();">Choose Address</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  <div class="hr-line-1"></div> -->
+                            <!-- included address -->
+                            <!--  selected product -->
+                            <div class="ef-item-box ef-selected">
+                                <div class="ef-item-content">
+                                    <div class="w-row ef-panel-row ef-item-bottom-border">
+                                        <div class="w-col w-col-8">
+                                            <h3>Registered Office - London</h3>
+                                        </div>
+                                        <div class="w-col w-col-4 w-clearfix">
+                                            <div class="w-clearfix item-box-price">
+                                                <div class="ef-included-tick-text">
+                                                    <img src="/assets/efiling/wizard-v2/images/green-tick.png" width="30" alt="green-tick.png">
+                                                    <div class="ef-included-text ef-included-text-top">Currently Selected</div>
+                                                </div>
+                                                <div class="renewal">Renewed annually at £39.00</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-row ef-panel-row">
+                                        <div class="w-col w-col-4 ef-panel-icon">
+                                            <div class="ef-product-icon ef-registered-office-icon ef-product-2047">
+                                                <!-- <img src="/assets/efiling/wizard-v2/images/regoffice@High.png" width="70" alt="reg-office-image"> -->
+                                            </div>
+                                        </div>
+                                        <div class="w-col w-col-8 ef-protect">
+                                            <p></p>
+                                            <h3>Protect the privacy of your home address</h3>
+                                            <p>Use our Covent Garden, London, WC2 address as the <br class="m-hide">official address of your company and protect the privacy of your home address.</p>
+                                            <p><strong>London:</strong> 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ</p>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <div class="w-row ef-panel-row">
+                                        <div class="w-col w-col-4 savings-amount-row">
+                                        </div>
+                                        <div class="w-col w-col-8 w-clearfix add-col">
+                                            <button type="button" class="ef-btn ef-primary-btn ef-alt-btn ef-details-btn item-show-details collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
+                                                Details
+                                            </button>
+                                            <button type="button" class="ef-btn ef-primary-btn ef-remove-btn ef-unassign-2047">Remove</button>
+                                        </div>
+                                    </div>
+                                    <!-- item details -->
+                                    <div class="ef-item-details collapse" id="collapseOne">
+                                        <div class="w-row">
+                                            <div class="w-col w-col-12">
+                                                <h3 class="ef-item-bottom-border">Why would I use your Registered Address Service?</h3>
+                                            </div>
+                                            <div class="w-col w-col-6">
+                                                <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/shield.svg" width="50" alt="light bulb"> Protect your privacy</h4>
+                                                <p>Protect the privacy of your home with our prestigious London registered office address.</p>
+                                                <p>This service allows you to maintain the privacy of your home address, as our prestigious Covent Garden, London address will appear on public record as the official address of your company. We will then scan and email all statutory company mail to you from a number of official government bodies, free of charge.</p>
+                                                <p>Mail from the following government bodies are covered by this service: Companies House, HMRC, Government Gateway, Department for Work &amp; Pensions (DWP), Office for National Statistics, Information Commissioner’s Office (ICO) and Court documents.</p>
+                                                <p>This service is renewable on a 12 monthly basis at the cost of £39.00 +VAT.</p>
+                                            </div>
+                                            <div class="w-col w-col-6">
+                                                <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/bulb.svg" width="50" alt="light bulb"> Benefits of our Registered Address Service</h4>
+                                                <ul class="fa-ul fs-14">
+                                                    <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> It will enable you to keep your home address off the public record at Companies House.</li>
+                                                    <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> It prevents unsolicited mail and visitors from arriving at your private residence.</li>
+                                                    <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> Creates a professional, corporate image as the registered office address requires being displayed on company paperwork and website.</li>
+                                                    <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> Gives the impression of a large, established business.</li>
+                                                </ul>
+                                            </div>
+                                            <div class="w-col w-col-12">
+                                                <p><strong>Please note:</strong> The forwarding of official government mail by scan and email is free. Mail will be forwarded on a daily basis.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  Forwarding address -->
+                            <div class="ef-item-box ef-selected">
+                                <div class="ef-item-content">
+                                    <div class="w-row ef-panel-row">
+                                        <div class="w-col">
+                                            <h3 class="">Forwarding Address:</h3>
+                                        </div>
+                                    </div>
+                                    <div class="w-row ef-panel-row">
+                                        <div class="w-col w-col-8">
+                                            <div class="">
+                                                <span class="ef-js-forwarding-address">15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM</span>
+                                            </div>
+                                        </div>
+                                        <div class="w-col w-col-4 w-clearfix add-col">
+                                            <button id="efForwardingAddressEditButton" type="button" class="ef-btn ef-primary-btn ef-alt-btn ef-edit-btn">Edit</button>
+                                            <button type="button" class="ef-btn ef-primary-btn ef-choose-btn ef-completed-btn">Choose Another</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end forwarding address -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-row ef-next-prev-btn" id="ef-next-prev-btn">
+        <div class="w-col w-col-6" style="padding-left: 0px;">
+            <button type="button" id="prevstep" class="ef-btn prevstep" onclick="showFormationBasePage('particular')">Previous: Particulars</button>
+        </div>
+        <div class="w-col w-col-6" style="padding-right: 0px;">
+            <button type="button" id="nextstep" class="ef-btn nextstep" onclick="showFormationBasePage('business-Address')">Save &amp; continue</button>
+        </div>
+    </div>
+</div>

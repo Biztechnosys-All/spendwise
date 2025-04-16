@@ -1,0 +1,56 @@
+﻿@page
+@model Spendwise_WebApp.Pages.FormationPage.CompanyFormationSubTabModel
+@{
+    Layout = null;
+}
+<style>
+    .ef-order-form-nav-item-text {
+        text-decoration: none;
+        cursor: pointer;
+        color: #abb5ba !important;
+    }
+
+    .ef-order-form-nav-item-text.active {
+        text-decoration: none;
+        cursor: pointer;
+        color: #fff !important;
+    }
+</style>
+
+<div class="ef-order-form-nav-step-wrapper">
+    <div class="w-container ef-order-form-nav-step-content">
+        <a class="ef-order-form-nav-item ef-companyformation-steps" id="particulars" onclick="showFormationBasePage('particular')">
+            <div class="ef-order-form-nav-item-text " id="particular">
+                <div class="ef-order-form-nav-item-indicator step-1-active"></div>
+                Particulars
+            </div>
+        </a>
+        <a class="ef-order-form-nav-item ef-companyformation-steps" id="registerAddress" onclick="showFormationBasePage('register-address')">
+            <div class="ef-order-form-nav-item-text " id="address">
+                <div class="ef-order-form-nav-item-indicator step-2-todo"></div>
+                Addresses
+            </div>
+        </a>
+        <a class="ef-order-form-nav-item ef-companyformation-steps" id="business-Address" onclick="showFormationBasePage('business-Address')">
+            <div class="ef-order-form-nav-item-text " id="businessAddress">
+                <div class="ef-order-form-nav-item-indicator step-3-todo"></div>
+                Business Address
+            </div>
+        </a>
+        <a class="ef-order-form-nav-item ef-companyformation-steps" id="appointments" onclick="showFormationBasePage('appointments')">
+            <div class="ef-order-form-nav-item-text " id="appointment">
+                <div class="ef-order-form-nav-item-indicator step-4-todo"></div>
+                Appointments
+            </div>
+        </a>
+        <a class="ef-order-form-nav-item ef-companyformation-steps" id="documents" onclick="showFormationBasePage('documents')">
+            <div class="ef-order-form-nav-item-text " id="document">
+                <div class="ef-order-form-nav-item-indicator step-5-todo"></div>
+                Documents
+            </div>
+        </a>
+    </div>
+</div>
+
+<div id="formationTab">
+</div>
