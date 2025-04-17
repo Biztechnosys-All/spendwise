@@ -4043,7 +4043,7 @@ section {
 @media (min-width: 62em) {
     #section-one .home-packages__header {
         min-height: 105px;
-        background: var(--color-green-one);
+        /*background: var(--color-green-one);*/
         padding: 10px;
     }
 }

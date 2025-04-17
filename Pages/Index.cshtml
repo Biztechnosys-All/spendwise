@@ -3,12 +3,17 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<style>
+    #section-one .home-packages__header h4 a:active, #section-one .home-packages__header h4 a:focus, #section-one .home-packages__header h4 a:hover, #section-one .home-packages__header h4 a:visited {
+        color: #fcbe18 !important;
+    }
+</style>
 
 <section class="home-hero">
     <div class="home-hero__main">
         @* <div class="group-logo">
-            <span>Part of</span>
-            <img loading="eager" src="images/Logo-for-website-SpendWise-Logo-New.png" class="bsq-logo" alt="SpendWise" />
+        <span>Part of</span>
+        <img loading="eager" src="images/Logo-for-website-SpendWise-Logo-New.png" class="bsq-logo" alt="SpendWise" />
         </div> *@
 
         <header class="site-header">
@@ -627,13 +632,18 @@
                                 {
                                     <div class="home-packages__package">
                                         <div class="home-packages__header">
-                                            <h4><a asp-page="/Package" asp-route-packageName="@item.PackageName">@item.PackageName</a></h4>
+                                            <h4><a asp-page="/Package" asp-route-packageName="@item.PackageName" style="color:#fcbe18;">@item.PackageName</a></h4>
                                             <div class="home-packages__prices">
                                                 <div class="home-packages__price">£ @item.Price</div>
+                                                <span class="home-packages__chFee" style="padding:10px 0 10px 0;">Includes £50 Companies House Fee</span>
                                             </div>
+                                            @* <p>Basic package for Start ups.</p> *@
+                                        </div>
+                                        <div class="home-packages__buttons">
+                                            <a class="button button--secondary" href="/BuyPackage?packageName=@item.PackageName">Buy Now</a>
                                         </div>
                                         <div class="home-packages__content">
-                                            <p class="home-packages__feature-title">Top Features</p>
+                                            <p class="home-packages__feature-title">Package details:</p>
                                             @{
                                                 List<string> Features = item.PackageFeatures.Split(',').ToList();
                                             }
@@ -645,7 +655,6 @@
                                             </ul>
                                         </div>
                                         <div class="home-packages__buttons">
-                                            <a class="button button--secondary" href="/BuyPackage?packageName=@item.PackageName">Buy Now</a>
                                             <a class="button button--alt" asp-page="/Package" asp-route-packageName="@item.PackageName">Read More</a>
                                         </div>
                                     </div>
@@ -3116,7 +3125,7 @@
 
         }
 
-        function onSearchAgain(){
+        function onSearchAgain() {
             $("#cNameAv").hide();
             $("#cNameNotAv").hide();
             $(".company-name-search").show();
