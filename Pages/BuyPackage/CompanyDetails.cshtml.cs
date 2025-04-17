@@ -129,8 +129,18 @@ namespace Spendwise_WebApp.Pages.BuyPackage
 
                 HttpContext.Response.Cookies.Append("AuthToken", AuthToken, options);
 
+
                 int savedOrderId = (int)TempData["OrderId"];
                 string authToken = AuthToken;
+
+
+               var OrderData = await _context.Orders.Where(x => x.OrderId == savedOrderId).FirstOrDefaultAsync();
+                if(OrderData != null)
+                {
+                    OrderData.OrderBy = userData.UserID;
+                    _context.Attach(OrderData).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
 
                 return new JsonResult(new
                 {

@@ -76,7 +76,7 @@
                                         <input type="text" asp-for="Email" class="efTextInput ef-js-existing-uname">
                                         <span class="ef-validate-icon"></span>
                                     </div>
-                                    <div class="efPaymentGatewayField">
+                                    <div class="efPaymentGatewayField fileld-position">
                                         <label class="efPaymentGatewayLabel">Password:</label>
                                         <input asp-for="Password" type="password" class="efTextInput ef-js-existing-pass" autocomplete="off">
                                         <span class="efPasswordEyeOpenIcon ef-js-text-mask" data-owner="efExistingPasswordInput">
@@ -157,7 +157,7 @@
                                             <label class="efPaymentGatewayLabel">Email</label>
                                             <input type="text" class="efTextInput ef-js-user-email" asp-for="User.Email" autocomplete="off">
                                         </div>
-                                        <div class="efPaymentGatewayField">
+                                        <div class="efPaymentGatewayField fileld-position">
                                             <label class="efPaymentGatewayLabel">Create Password</label>
                                             <input type="password" class="efTextInput ef-js-user-password" asp-for="User.Password" autocomplete="off">
                                             <span class="efPasswordEyeOpenIcon ef-js-text-mask" data-owner="efUserPasswordInput">
@@ -779,7 +779,7 @@
                         <h3 class="efPaymentGatewayAmountDuePrice">Amount Due:&nbsp;  <span id="spnAmountDue">£@Model.Order.TotalAmount</span></h3>
 
                         <div class="efPoweredBySt">
-                            <div class="efOrderReferenceNumber">Order reference:&nbsp; <span> #@Model.Order.OrderId </span></div><div class="efOrderMerchantName">Merchant name: <span id="spnSelectCompName">1st Formations</span><div></div></div>
+                            <div class="efOrderReferenceNumber">Order reference:&nbsp; <span> #@Model.Order.OrderId </span></div><div class="efOrderMerchantName">Merchant name: <span>Spendwise</span><div></div></div>
                             <div class="efPoweredByStripe">Powered by <img src="https://s3.eu-west-1.amazonaws.com/bso.media.cdn/generic/logos/stripe-logo.png" alt="Powered by Stripe"></div>
                         </div>
 
