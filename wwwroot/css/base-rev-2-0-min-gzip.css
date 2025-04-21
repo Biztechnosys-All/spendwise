@@ -26942,3 +26942,12 @@ button.efButton:hover {
     font-size: 1.3rem;
     border-bottom: 1px solid #ccc;
 }
+.required_mark {
+    color: #ff0000;
+}
+a.btn.btn-success {
+    color: var(--color-white) !important;
+}
+a.btn.btn-success svg{
+    color: var(--color-white) !important;
+}
