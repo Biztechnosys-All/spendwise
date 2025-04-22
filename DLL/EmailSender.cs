@@ -13,24 +13,33 @@ public class EmailSender
 
     public async Task SendEmailAsync(string email, string subject, string message)
     {
-        var smtpClient = new SmtpClient(_config["EmailSettings:SmtpServer"])
+        try
         {
-            Port = int.Parse(_config["EmailSettings:Port"] ?? ""),
-            Credentials = new NetworkCredential(_config["EmailSettings:SenderEmail"], _config["EmailSettings:SenderPassword"]),
-            EnableSsl = true,
-            DeliveryMethod = SmtpDeliveryMethod.Network,
-            UseDefaultCredentials = false
-        };
+            var smtpClient = new SmtpClient(_config["EmailSettings:SmtpServer"])
+            {
+                Port = int.Parse(_config["EmailSettings:Port"] ?? ""),
+                Credentials = new NetworkCredential(_config["EmailSettings:SenderEmail"], _config["EmailSettings:SenderPassword"]),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
 
-        var mailMessage = new MailMessage
-        {
-            From = new MailAddress(_config["EmailSettings:SenderEmail"] ?? ""),
-            Subject = subject,
-            Body = message,
-            IsBodyHtml = true
-        };
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress(_config["EmailSettings:SenderEmail"] ?? ""),
+                Subject = subject,
+                Body = message,
+                IsBodyHtml = true
+            };
+            mailMessage.Headers.Add("X-Priority", "3");
+            mailMessage.Headers.Add("X-Mailer", "Microsoft Outlook");
+            mailMessage.Headers.Add("Return-Path", _config["EmailSettings:SenderEmail"]);
 
-        mailMessage.To.Add(email);
-        await smtpClient.SendMailAsync(mailMessage);
+            mailMessage.To.Add(email);
+            await smtpClient.SendMailAsync(mailMessage);
+        }
+        catch(Exception ex) {
+            Console.WriteLine("Email Sender Error: " + ex.Message);
+        }
     }
 }
