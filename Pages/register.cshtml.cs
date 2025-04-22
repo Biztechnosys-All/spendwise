@@ -121,8 +121,25 @@ namespace Spendwise_WebApp.Pages
                 values: new { email = User.Email, token = User.EmailVerificationToken },
                 protocol: Request.Scheme);
 
-            await _emailSender.SendEmailAsync(User.Email, "Verify Your Email",
-                $"Click <a href='{confirmationLink}'>here</a> to verify your email.");
+            string EnailBody = $@"
+                <p>Hi there,</p>
+                
+                <p>Welcome to <strong>SpendWise</strong>! We’re excited to have you on board.</p>
+                
+                <p>To get started, please verify your email address by clicking the button below:</p>
+                
+                <p style='text-align: center;'>
+                  <a href='{confirmationLink}' 
+                     style='display: inline-block; padding: 12px 24px; background-color: #4CAF50; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold;'>
+                     Verify Email
+                  </a>
+                </p>
+                
+                <p>Thanks,<br>The SpendWise Team</p>
+                ";
+
+            await _emailSender.SendEmailAsync(User.Email, "Welcome to SpendWise – Please Verify Your Email Address",
+                EnailBody);
 
             return RedirectToPage("/login");
         }
