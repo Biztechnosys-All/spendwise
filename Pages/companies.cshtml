@@ -10,32 +10,33 @@
                 <h2>Companies List</h2>
                 <div class="efHeaderControlsContainer ui-widget-content efWidget ui-corner-all">
                     <form method="get" action="/companies/">
-                        <span class="efInputLabel">
-                            Sort by:
-                        </span>
-                        <select class="efSelectInput" name="sort" style="width:auto">
-                            <option value="cn">Company Name</option>
-                            <option value="id" selected="selected">Incorporation Date</option>
-                            <option value="st">Status</option>
-                        </select>
-                        &nbsp; &nbsp; &nbsp;
-                        <span class="efInputLabel">
-                            Show only:
-                        </span>
-                        <select class="efSelectInput" name="sf" style="width:auto" id="efCompanyStatusSelector">
-                            <option value="ALLSTATUSES">All</option>
-                            <option value="0">Incomplete</option>
-                            <option value="100">Submitted</option>
-                            <option value="160">Rejected</option>
-                            <option value="170">Validating</option>
-                            <option value="180">Supplied</option>
-                            <option value="190">Awaiting Documents</option>
-                            <option value="200">Accepted</option>
-                            <option value="300">Action Required</option>
-                            <option value="900">Cancelled</option>
-                            <option value="700">Imported</option>
-                        </select>
-                        <input type="submit" value="Submit" class="efButton ui-button ui-widget efRight ui-state-default ui-corner-all" role="button" aria-disabled="false">
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Sort by:</label>
+                            <div class="col-sm-3">
+                                <select class="form-select" name="sort" style="width:auto">
+                                    <option value="cn">Company Name</option>
+                                    <option value="id" selected="selected">Incorporation Date</option>
+                                    <option value="st">Status</option>
+                                </select>
+                            </div>
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Show only:</label>
+                            <div class="col-sm-3">
+                                <select class="form-select" name="sf" style="width:auto" id="efCompanyStatusSelector">
+                                    <option value="ALLSTATUSES">All</option>
+                                    <option value="0">Incomplete</option>
+                                    <option value="100">Submitted</option>
+                                    <option value="160">Rejected</option>
+                                    <option value="170">Validating</option>
+                                    <option value="180">Supplied</option>
+                                    <option value="190">Awaiting Documents</option>
+                                    <option value="200">Accepted</option>
+                                    <option value="300">Action Required</option>
+                                    <option value="900">Cancelled</option>
+                                    <option value="700">Imported</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2"><input type="submit" value="Submit" class="efRight btn btn-success" role="button" aria-disabled="false"></div>
+                        </div>
                     </form>
                 </div>
                 <table class="efTable ui-widget-content">
@@ -56,7 +57,7 @@
                             <td>OC455861</td>
                             <td>F3LLCH</td>
                             <td>Accepted</td>
-                            <td style="text-align:right"><a class="efButton efEditButton efDetailsButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="/account/company/?i=2986203" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">View</span></a></td>
+                            <td style="text-align:right"><a class="btn btn-success" href="/account/company/?i=2986203" role="button" aria-disabled="false"><img src="/assets/icons/magnifier.png" alt="">View</a></td>
                         </tr>
                     </tbody>
                 </table>
