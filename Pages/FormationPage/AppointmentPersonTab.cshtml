@@ -1,0 +1,1793 @@
+﻿@page
+@model Spendwise_WebApp.Pages.FormationPage.AppointmentPersonTabModel
+@{
+    Layout = null;
+}
+
+<style>
+    .tab-link.w--current {
+        background-color: #31a5cb !important;
+        border-color: #31a5cb !important;
+        color: #FFFFFF !important;
+        border-top-left-radius: 0;
+        font-weight: 600;
+    }
+</style>
+<div class="ef-panel-wrapper">
+    <div class="head-04" id="ef-panel-title">
+        <h1>Appointments</h1>
+    </div>
+    <div class="" id="ef-panel-content">
+        <div id="ef-panel-inner-content">
+            <div id="ef-global-officer-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
+                <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
+            </div>
+            <div class="w-tabs" id="ef-officer-form-wrapper">
+                <!-- start tabs -->
+                <div class="w-tab-menu ef-officer-form-tab-menu">
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link " aria-current="page" href="#position">
+                        <div>Position</div>
+                    </a>
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link " href="#officer">
+                        <div>Officer</div>
+                    </a>
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link" href="#details">
+                        <div>Details</div>
+                    </a>
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link" href="#addressing">
+                        <div>Addressing</div>
+                    </a>
+                    @* <a class="w-tab-link w-inline-block ef-tab-link" id="tab-link-nature-of-control" data-tab-selector="nature-of-control" onclick="FormBuilder.ChangeTab('nature-of-control')" style="display:none;">
+                        <div>Nature of Control</div>
+                    </a>
+                    <a class="w-tab-link w-inline-block ef-tab-link" id="tab-link-holdings" style="display:none;" data-tab-selector="holdings" onclick="FormBuilder.ChangeTab('holdings')">
+                        <div>Share Holdings</div>
+                    </a> *@
+                </div>
+                <!-- end tabs -->
+                <div data-bs-spy="scroll" data-bs-target="#nefrozon-navs" data-bs-smooth-scroll="true" class="tab-content-scrollable" tabindex="0">
+                    <div class="tab-pane current" id="Formation">
+                        <div id="position" class="appointment-section">
+                            <div class="w-tab-content">
+                                <div class="w-tab-pane w--tab-active ef-tab-pane-position" data-tab="position">
+                                    <div class="head-01">
+                                        <h1>Position</h1>
+                                    </div>
+                                    <div class="ef-information-box">
+                                        <h2 class="ef-information-box-title">Directors and Shareholders</h2>
+                                        <p>A limited company must have at least one director and one shareholder. One person may hold both of these positions. </p>
+                                        <h2 class="ef-information-box-title icon">Persons with Significant Control (PSCs)</h2>
+                                        <p>Any person who ultimately controls more than 25% of the company is a Person with Significant Control (PSC). </p>
+                                        <p><b>It is now a legal requirement to identify the PSCs of a company. Please tick the Person with Significant Control (PSC) box if you qualify as a PSC of this company (see below).</b></p>
+                                        <p>A Person with Significant Control (PSC) is anyone who meets one or more of the following conditions: </p>
+                                        <ul>
+                                            <li>owns more than 25% of the company’s shares.</li>
+                                            <li>holds more than 25% of the company’s voting rights.</li>
+                                            <li>holds the right to appoint or remove the majority of directors.</li>
+                                            <li>has the right to, or actually exercises significant influence or control.</li>
+                                            <li>holds the right to exercise or actually exercises significant control over a trust or company that meets one of the first 4 conditions.</li>
+                                        </ul>
+                                        <h3>Am I a PSC?</h3>
+                                        <p>If you are a shareholder with more than 25% of the company's shares - yes, you are a PSC, and you should also <b>tick the Person with Significant Control (PSC) box below</b>. </p>
+                                    </div>
+                                    <div style="display:none;" class="ef-alert-box fail" id="position-error">
+                                        <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                    </div>
+                                    <div class="ef-form-wrap">
+                                        <h2>Choose Position</h2>
+                                        <div class="hr-line-1"></div>
+                                        <p class="officer-extra-text mr-bot-30 fs-14 lh-18">Please tick all boxes that are relevant to this person. If this person is to hold more than one position, eg. Will be a director, shareholder and PSC, make all appointments now, by ticking 3 boxes.</p>
+                                        <div class="role-select-wrapper">
+                                            <div class="w-row row-role-select">
+                                                <div class="w-col">
+                                                    <div class="w-checkbox">
+                                                        <input class="w-checkbox-input" id="officer-topdog" type="checkbox" name="officer-topdog" data-name="officer-topdog">
+                                                        <label class="w-form-label" for="officer-topdog">Director</label>
+                                                        <span class="ef-modal-help-icon" data-ref="HELP|TOP_DOG_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col">
+                                                    <div class="w-checkbox">
+                                                        <input class="w-checkbox-input" id="officer-holder" type="checkbox" name="officer-holder" data-name="officer-holder">
+                                                        <label class="w-form-label" for="officer-holder">Shareholder</label>
+                                                        <span class="ef-modal-help-icon" data-ref="HELP|HOLDER_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col">
+                                                    <div class="w-checkbox">
+                                                        <input class="w-checkbox-input" id="officer-secretary" type="checkbox" name="officer-secretary" data-name="officer-secretary">
+                                                        <label class="w-form-label" for="officer-secretary">Secretary</label>
+                                                        <span class="ef-modal-help-icon" data-ref="HELP|SECRETARY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col">
+                                                    <div class="w-checkbox">
+                                                        <input class="w-checkbox-input" id="officer-PSC" type="checkbox" name="officer-PSC" data-name="officer-PSC">
+                                                        <label class="w-form-label" for="officer-PSC">Person with Significant Control (PSC)</label>
+                                                        <span class="ef-modal-help-icon" data-ref="HELP|PSC"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col officer-constent-to-act-wrapper" style="margin-top:20px; display:none;">
+                                                    <div class="w-checkbox">
+                                                        <input type="checkbox" class="w-checkbox-input ef-consent-to-act-checkbox" name="consent-to-act" id="consent-to-act">
+                                                        <label class="field-label ef-consent-to-act-label" for="consent-to-act">The officers confirm they have consented to act as a Director or Secretary</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-row">&nbsp;</div>
+                                <div class="w-row">
+                                    <div class="w-col">
+                                        @* <button type="button" class="ef-btn ef-back-btn" onclick="FormBuilder.ShowLoader('Loading...'); FormBuilder.ReloadStep();">Cancel</button> *@
+                                        <button type="button" data-nextstep="pick-officer" id="officer-submit-position-tab" class="ef-btn ef-submit-btn ef-officer-next-step">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end position tab -->
+                            <div id="efOfficerInProgressWarningContainer" style="display:none">
+                                <div class="ef-form-wrap" style="margin-bottom:25px">
+                                    <h2>Confirmation Required</h2>
+                                    <p>Are you sure you wish to use this officer? It has currently been assigned to another incorporation which is in progress.</p>
+                                    <p>Changing details here will also update the details in the other companies in which this officer is assigned.</p>
+                                    <div>
+                                        <button type="button" class="ef-btn ef-back-btn" onclick="OfficerForm.DontPickLimboOfficer();">Cancel</button>
+                                        <button type="button" class="ef-btn ef-primary-btn" onclick="OfficerForm.PickLimboOfficer();">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-tab-pane ef-tab-pane-pick-officer" style="display:none" data-tab="Tab 2">
+                                <div class="define-new-hide ef-form-wrap ef-recent-officer-box">
+                                    <h2>Recent Officers</h2>
+                                    <div class="" style="margin-bottom:25px">
+                                        <div class="w-clearfix simple-row-elem">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-8">
+                                                    <p>Pratibha Patel</p>
+                                                </div>
+                                                <div class="w-col w-col-4 w-clearfix add-col">
+                                                    <button class="ef-btn ef-primary-btn ef-choose-btn" type="button" onclick="FormBuilder.ChangeTab(OfficerForm.PickOfficer(TmpO_2521296) ? 'details' : 'pick-officer');">Choose</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-clearfix simple-row-elem">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-8">
+                                                    <p>Kishan Patel</p>
+                                                </div>
+                                                <div class="w-col w-col-4 w-clearfix add-col">
+                                                    <button class="ef-btn ef-primary-btn ef-choose-btn" type="button" onclick="FormBuilder.ChangeTab(OfficerForm.PickOfficer(TmpO_2521250) ? 'details' : 'pick-officer');">Choose</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-clearfix simple-row-elem">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-8">
+                                                    <p>Arjun Patel</p>
+                                                </div>
+                                                <div class="w-col w-col-4 w-clearfix add-col">
+                                                    <button class="ef-btn ef-primary-btn ef-choose-btn" type="button" onclick="FormBuilder.ChangeTab(OfficerForm.PickOfficer(TmpO_2521249) ? 'details' : 'pick-officer');">Choose</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ef-form-wrap define-new-hide ef-create-officer-box" style="margin-bottom:25px">
+                                    <h2>New Officer</h2>
+                                    <div class="w-clearfix simple-row-elem">
+                                        <div class="w-row ef-panel-row">
+                                            <div class="w-col w-col-8">
+                                                <p><strong>Create a new Officer</strong></p>
+                                            </div>
+                                            <div class="w-col w-col-4 w-clearfix add-col">
+                                                <button type="button" id="ef-create-new-officer" class="ef-btn ef-primary-btn" onclick="OfficerForm.PickOfficer(NewOfficer);FormBuilder.ChangeTab('details');">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ef-back-next ef-back-next-officers-tab">
+                                    <div class="w-row">&nbsp;</div>
+                                    <div class="w-row">
+                                        <div class="w-col">
+                                            <button type="button" class="ef-btn ef-back-btn ef-js-back-tab" onclick="">Back</button>
+                                            <button type="button" id="officer-submit-pick-officer-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step" onclick="FormBuilder.ChangeTab('details')">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-tab-pane ef-tab-pane-details" style="display:none" data-tab="Tab 3">
+                                <div class="ef-information-box">
+                                    <h2 class="ef-information-box-title">Personal Details</h2>
+                                    <p>It is recommended you enter your name as it appears on your ID, eg. passport or drivers licence.</p>
+                                </div>
+                                <div style="display:none;" class="ef-alert-box fail" id="details-error">
+                                    <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                </div>
+                                <div style="display:none;" class="ef-alert-box fail" id="no-officer-nationality">
+                                    <span style="float:right;" class="ef-modal-help-icon nationality-help" data-ref="HELP|NATIONALITY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                    <div id="" class="ef-alert-box-main-text main-error-text"></div>
+                                </div>
+                                <div id="officer-details-div">
+                                    <div class="ef-form-wrap">
+                                        <h2 id="preselected-officer">
+                                            Officer Details
+                                        </h2>
+                                        <div class="hr-line-1"></div>
+                                        <div class="w-row row-margin">
+                                            <div class="w-col w-col-6" style="">
+                                                <div id="officer-title-wrapper">
+                                                    <div id="officer-label-wrapper">
+                                                    </div>
+                                                    <div class="ef-autocomplete-wrapper">
+                                                        <label class="field-label" for="officer-title">Title</label>
+                                                        <input id="officer-title" class="w-input" type="text" placeholder="Title" name="officer-title" value="" data-lastvalue="" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div id="officer-firstname-wrapper">
+                                                    <label class="field-label" for="officer-firstname">First name(s)</label>
+                                                    <input class="w-input" id="officer-firstname" type="text" placeholder="First name" name="officer-firstname" value="" data-lastvalue="" autocomplete="off">
+                                                </div>
+                                                <div id="officer-lastname-wrapper">
+                                                    <label class="field-label" for="officer-lastname">Last name</label>
+                                                    <input class="w-input" id="officer-lastname" type="text" placeholder="Last name" name="officer-lastname" value="" data-lastvalue="" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="w-col w-col-6">
+                                                <div id="officer-dob-wrapper">
+                                                    <div class="w-row">
+                                                        <label class="field-label" for="date-of-birth">Date of Birth</label>
+                                                    </div>
+                                                    <div class="w-row">
+                                                        <div class="w-col w-col-4 dob">
+                                                            <select class="w-select appointments-field" id="dob-day" name="dob-day">
+                                                                <option value="">dd</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="w-col w-col-4">
+                                                            <select class="w-select appointments-field" id="dob-month" name="dob-month">
+                                                                <option value="">mm</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="w-col w-col-4 dob">
+                                                            <select class="w-select appointments-field" id="dob-year" name="dob-year">
+                                                                <option value="">yyyy</option>
+                                                                <option value="2025">2025</option>
+                                                                <option value="2024">2024</option>
+                                                                <option value="2023">2023</option>
+                                                                <option value="2022">2022</option>
+                                                                <option value="2021">2021</option>
+                                                                <option value="2020">2020</option>
+                                                                <option value="2019">2019</option>
+                                                                <option value="2018">2018</option>
+                                                                <option value="2017">2017</option>
+                                                                <option value="2016">2016</option>
+                                                                <option value="2015">2015</option>
+                                                                <option value="2014">2014</option>
+                                                                <option value="2013">2013</option>
+                                                                <option value="2012">2012</option>
+                                                                <option value="2011">2011</option>
+                                                                <option value="2010">2010</option>
+                                                                <option value="2009">2009</option>
+                                                                <option value="2008">2008</option>
+                                                                <option value="2007">2007</option>
+                                                                <option value="2006">2006</option>
+                                                                <option value="2005">2005</option>
+                                                                <option value="2004">2004</option>
+                                                                <option value="2003">2003</option>
+                                                                <option value="2002">2002</option>
+                                                                <option value="2001">2001</option>
+                                                                <option value="2000">2000</option>
+                                                                <option value="1999">1999</option>
+                                                                <option value="1998">1998</option>
+                                                                <option value="1997">1997</option>
+                                                                <option value="1996">1996</option>
+                                                                <option value="1995">1995</option>
+                                                                <option value="1994">1994</option>
+                                                                <option value="1993">1993</option>
+                                                                <option value="1992">1992</option>
+                                                                <option value="1991">1991</option>
+                                                                <option value="1990">1990</option>
+                                                                <option value="1989">1989</option>
+                                                                <option value="1988">1988</option>
+                                                                <option value="1987">1987</option>
+                                                                <option value="1986">1986</option>
+                                                                <option value="1985">1985</option>
+                                                                <option value="1984">1984</option>
+                                                                <option value="1983">1983</option>
+                                                                <option value="1982">1982</option>
+                                                                <option value="1981">1981</option>
+                                                                <option value="1980">1980</option>
+                                                                <option value="1979">1979</option>
+                                                                <option value="1978">1978</option>
+                                                                <option value="1977">1977</option>
+                                                                <option value="1976">1976</option>
+                                                                <option value="1975">1975</option>
+                                                                <option value="1974">1974</option>
+                                                                <option value="1973">1973</option>
+                                                                <option value="1972">1972</option>
+                                                                <option value="1971">1971</option>
+                                                                <option value="1970">1970</option>
+                                                                <option value="1969">1969</option>
+                                                                <option value="1968">1968</option>
+                                                                <option value="1967">1967</option>
+                                                                <option value="1966">1966</option>
+                                                                <option value="1965">1965</option>
+                                                                <option value="1964">1964</option>
+                                                                <option value="1963">1963</option>
+                                                                <option value="1962">1962</option>
+                                                                <option value="1961">1961</option>
+                                                                <option value="1960">1960</option>
+                                                                <option value="1959">1959</option>
+                                                                <option value="1958">1958</option>
+                                                                <option value="1957">1957</option>
+                                                                <option value="1956">1956</option>
+                                                                <option value="1955">1955</option>
+                                                                <option value="1954">1954</option>
+                                                                <option value="1953">1953</option>
+                                                                <option value="1952">1952</option>
+                                                                <option value="1951">1951</option>
+                                                                <option value="1950">1950</option>
+                                                                <option value="1949">1949</option>
+                                                                <option value="1948">1948</option>
+                                                                <option value="1947">1947</option>
+                                                                <option value="1946">1946</option>
+                                                                <option value="1945">1945</option>
+                                                                <option value="1944">1944</option>
+                                                                <option value="1943">1943</option>
+                                                                <option value="1942">1942</option>
+                                                                <option value="1941">1941</option>
+                                                                <option value="1940">1940</option>
+                                                                <option value="1939">1939</option>
+                                                                <option value="1938">1938</option>
+                                                                <option value="1937">1937</option>
+                                                                <option value="1936">1936</option>
+                                                                <option value="1935">1935</option>
+                                                                <option value="1934">1934</option>
+                                                                <option value="1933">1933</option>
+                                                                <option value="1932">1932</option>
+                                                                <option value="1931">1931</option>
+                                                                <option value="1930">1930</option>
+                                                                <option value="1929">1929</option>
+                                                                <option value="1928">1928</option>
+                                                                <option value="1927">1927</option>
+                                                                <option value="1926">1926</option>
+                                                                <option value="1925">1925</option>
+                                                                <option value="1924">1924</option>
+                                                                <option value="1923">1923</option>
+                                                                <option value="1922">1922</option>
+                                                                <option value="1921">1921</option>
+                                                                <option value="1920">1920</option>
+                                                                <option value="1919">1919</option>
+                                                                <option value="1918">1918</option>
+                                                                <option value="1917">1917</option>
+                                                                <option value="1916">1916</option>
+                                                                <option value="1915">1915</option>
+                                                                <option value="1914">1914</option>
+                                                                <option value="1913">1913</option>
+                                                                <option value="1912">1912</option>
+                                                                <option value="1911">1911</option>
+                                                                <option value="1910">1910</option>
+                                                                <option value="1909">1909</option>
+                                                                <option value="1908">1908</option>
+                                                                <option value="1907">1907</option>
+                                                                <option value="1906">1906</option>
+                                                                <option value="1905">1905</option>
+                                                                <option value="1904">1904</option>
+                                                                <option value="1903">1903</option>
+                                                                <option value="1902">1902</option>
+                                                                <option value="1901">1901</option>
+                                                                <option value="1900">1900</option>
+                                                            </select>
+                                                            <input type="hidden" value="1" name="mlc" id="mlc">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="officer-nationality-wrapper">
+                                                    <div class="ef-autocomplete-wrapper">
+                                                        <label class="field-label" for="officer-nationality--disabled">
+                                                            Nationality
+                                                            <span class="ef-modal-help-icon nationality-help" data-ref="HELP|NATIONALITY"> - <span>List of accepted nationalities</span>&nbsp;</span>
+                                                        </label>
+                                                        <input class="w-input data-hj-whitelist" id="officer-nationality" type="text" placeholder="Nationality" name="officer-nationality" value="" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div id="officer-occupation-wrapper">
+                                                    <label class="field-label" for="officer-occupation">Occupation</label>
+                                                    <input class="w-input" id="officer-occupation" type="text" placeholder="Occupation" name="officer-occupation" value="" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="w-row">&nbsp;</div>
+                                            <!-- start res address -->
+                                            <div class="w-col w-col-12" id="residential-address-wrapper">
+                                                <h3 for="officer-residential-address">Residential Address </h3>
+                                                <span class="residential-address-help-text mr-bot-20 block"><strong>Please Note: It is a legal requirement to provide your actual residential address. Supplying an address which is not your actual residential address, will lead to the rejection of your new company registration.</strong></span>
+                                                <div id="ef-residential-address">
+                                                    <div class="w-row ef-panel-row">
+                                                        <div class="w-col w-col-8">
+                                                            <div class="officer-residential-address">
+                                                                <span>None Selected</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-col w-col-4 w-clearfix ef-officer-residential-btns">
+                                                            <button type="button" id="officer-residential-choose-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0, 'residential', jQuery('#residential-address-wrapper h2').text());" style="">Choose Address</button>
+                                                            <button type="button" id="officer-residential-edit-address" class="ef-btn ef-primary-btn  ef-alt-btn" onclick="FormBuilder.ChooseOfficerAddress(jQuery('input[name=officer-residential-address]').val(), 'residential', jQuery('#residential-address-wrapper h2').text());" style="display:none;">Edit</button>
+                                                            <button type="button" id="officer-residential-choose-another-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0, 'residential', jQuery('#residential-address-wrapper h2').text());" style="display:none;">Choose Another</button>
+                                                            <input type="hidden" name="officer-residential-address" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end res address -->
+                                            <div class="w-row row-margin">
+                                                <div class="w-col w-col-10" style="">
+                                                    <div class="officer-paq-wrapper" style="display:none ">
+                                                        <h3>Authentication Questions</h3>
+                                                        <div class="w-row">
+                                                            <div class="w-col w-col-3">
+                                                                <label class="field-label" id="pac-q1-label" for="pac-q1">Select First 3 letters of</label>
+                                                            </div>
+                                                            <div class="w-col w-col-5">
+                                                                <select class="w-select appointments-field" id="pac-q1" name="pac-q1">
+                                                                    <option value="MUM" selected="selected" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                    <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
+                                                                    <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
+                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
+                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-col w-col-1">
+                                                                <label class="field-label" for="pac-a1">Answer</label>
+                                                            </div>
+                                                            <div class="w-col w-col-3 w-clearfix">
+                                                                <input class="w-input ef-pac-answer" id="pac-a1" type="text" name="pac-a1" value="" maxlength="3" size="3">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-row">
+                                                            <div class="w-col w-col-3">
+                                                                <label class="field-label" id="pac-q2-label" for="pac-q2">Select First 3 letters of</label>
+                                                            </div>
+                                                            <div class="w-col w-col-5">
+                                                                <select class="w-select appointments-field" id="pac-q2" name="pac-q2">
+                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                    <option value="DAD" selected="selected" data-label="Select First 3 letters of">Father's Forename</option>
+                                                                    <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
+                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
+                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-col w-col-1">
+                                                                <label class="field-label" for="pac-a2">Answer</label>
+                                                            </div>
+                                                            <div class="w-col w-col-3 w-clearfix">
+                                                                <input class="w-input ef-pac-answer" id="pac-a2" type="text" name="pac-a2" value="" maxlength="3" size="3">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-row last-margin">
+                                                            <div class="w-col w-col-3">
+                                                                <label class="field-label" id="pac-q3-label" for="pac-q3">Select First 3 letters of</label>
+                                                            </div>
+                                                            <div class="w-col w-col-5">
+                                                                <select class="w-select appointments-field" id="pac-q3" name="pac-q3">
+                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                    <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
+                                                                    <option value="BIRTOWN" selected="selected" data-label="Select First 3 letters of">Town Of Birth</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
+                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
+                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-col w-col-1">
+                                                                <label class="field-label" for="pac-a3">Answer</label>
+                                                            </div>
+                                                            <div class="w-col w-col-3 w-clearfix">
+                                                                <input class="w-input ef-pac-answer" id="pac-a3" type="text" name="pac-a3" value="" maxlength="3" size="3">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-row">&nbsp;</div>
+                                <div class="w-row">
+                                    <div class="w-col">
+                                        <button type="button" id="officer-submit-details-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step" onclick=""> Save </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-tab-pane ef-tab-pane-nature-of-control" style="display:none" data-tab="Tab 4">
+                                <div class="ef-information-box">
+                                    <h2 class="ef-information-box-title">Nature of Control</h2>
+                                    <div class="nature-of-control-edutext">
+                                        <div class="nature-of-control-edutext">
+                                            <p>For each PSC you must detail the nature of their control. The types of controls are as follows:</p>
+                                            <ul>
+                                                <li>owns more than 25% of the shares</li>
+                                                <li>holds more than 25% of the voting rights</li>
+                                                <li>holds the right to appoint and remove a majority of the board of directors</li>
+                                                <li>they otherwise have significant influence or control over the company</li>
+                                            </ul>
+                                            <h3>Guidance in completing this section</h3>
+                                            <p><b>When answering the question "Does this officer have a controlling interest in this company?" Please see our guidance notes below:</b></p>
+                                            <ul>
+                                                <li><b>Ownership of shares – select percentage of shares held.</b></li>
+                                                <li><b>Voting rights – select percentage of voting rights held (same as above).</b></li>
+                                                <li>
+                                                    <b>Appoint and remove directors </b>
+                                                    <ul>
+                                                        <li class="pd-top-5"><b>Select Yes, if you hold more than 50% of the votes</b></li>
+                                                        <li class="pd-bot-0-imp"><b>Select No, if you do not hold more than 50% of the votes</b></li>
+                                                    </ul>
+                                                </li>
+                                                <li><b>Other Significant influences or control - select No.</b></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display:none;" class="ef-alert-box fail" id="nature-of-control-error">
+                                    <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                </div>
+                                <div class="ef-form-wrap">
+                                    <div id="ef-officer-nature-of-control">
+                                        <h2 id="preselected-officer">
+                                            Nature of Control
+                                        </h2>
+                                        <div class="hr-line-1"></div>
+                                        <h3 class="ef-psc-question-header">Does this officer have a controlling interest in this company?</h3>
+                                        <div id="psc-questions-for-company" class="officer-psc-questions psc-as-company ef-psc-question-block-company">
+                                            <div class="w-row ef-normal-select-container">
+                                                <div class="w-col w-col-3">
+                                                    <label class="field-label" for="question-&quot;1&quot;">Ownership of shares</label>
+                                                </div>
+                                                <div class="w-col w-col-5">
+                                                    <select name="psc-question-1" id="ef-psc-question-1" class="w-input appointments-field ef-normal-select ef-psc-question">
+                                                        <option class="ef-negative-value" value="psc-option-na">N/A</option>
+                                                        <option value="psc-option-1">
+                                                            More than 25% but not more than 50%
+                                                        </option>
+                                                        <option value="psc-option-2">
+                                                            More than 50% but less than 75%
+                                                        </option>
+                                                        <option value="psc-option-3">
+                                                            75% or more
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_OWNERSHIPOFSHARES"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </div>
+                                            <div class="w-row ef-normal-select-container">
+                                                <div class="w-col w-col-3">
+                                                    <label class="field-label" for="question-&quot;2&quot;">Voting Rights</label>
+                                                </div>
+                                                <div class="w-col w-col-5">
+                                                    <select name="psc-question-2" id="ef-psc-question-2" class="w-input appointments-field ef-normal-select ef-psc-question">
+                                                        <option class="ef-negative-value" value="psc-option-na">N/A</option>
+                                                        <option value="psc-option-4">
+                                                            More than 25% but not more than 50%
+                                                        </option>
+                                                        <option value="psc-option-5">
+                                                            More than 50% but less than 75%
+                                                        </option>
+                                                        <option value="psc-option-6">
+                                                            75% or more
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_VOTINGRIGHTS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </div>
+                                            <div class="w-row ef-normal-select-container">
+                                                <div class="w-col w-col-3">
+                                                    <label class="field-label" for="question-&quot;3&quot;">Appoint or remove the majority of the board of directors</label>
+                                                </div>
+                                                <div class="w-col w-col-5">
+                                                    <select name="psc-question-3" id="ef-psc-question-3" class="w-input appointments-field ef-normal-select ef-psc-question">
+                                                        <option value="1">Yes</option>
+                                                        <option class="ef-negative-value" value="0" selected="">No</option>
+                                                    </select>
+                                                </div>
+                                                <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_RIGHTTOAPPOINTANDREMOVEDIRECTORS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </div>
+                                            <div class="w-row ef-other-select-container">
+                                                <div class="w-col w-col-3">
+                                                    <label class="field-label" for="question-&quot;4&quot;">Other Significant influences or control</label>
+                                                </div>
+                                                <div class="w-col w-col-5">
+                                                    <select name="psc-question-4" id="ef-psc-question-4" class="w-input appointments-field ef-other-select ef-psc-question">
+                                                        <option value="1">Yes</option>
+                                                        <option class="ef-negative-value" value="0" selected="">No</option>
+                                                    </select>
+                                                </div>
+                                                <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_SIGINFLUENCECONTROL"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </div>
+                                        </div>
+                                        <div class="officer-psc-question-wrapper psc-as-firm">
+                                            <div class="hr-line-1"></div>
+                                            <h3 class="ef-psc-question-header">Does this officer have a controlling influence over a Firm(s) and/or the Members of that Firm(s), which also has a controlling influence in this company?</h3>
+                                            <label style="display : inline-block;" for="ef-as-firm-no">No</label>  <input class="radio-psc-of-firm" type="radio" name="as_firm" id="ef-as-firm-no" value="0" checked="checked">
+                                            <label style="display : inline-block;" for="ef-as-firm-yes">Yes</label> <input class="radio-psc-of-firm" type="radio" name="as_firm" id="ef-as-firm-yes" value="1">
+                                            <div id="psc-questions-for-firm" class="officer-psc-questions ef-hide ef-psc-question-block-firm">
+                                                <h3 class="ef-psc-question-header">What influence or control does this officer have over this company in their capacity within the Firm(s) ? </h3>
+                                                <div class="w-row ef-normal-select-container">
+                                                    <div class="w-col w-col-3">
+                                                        <label class="field-label" for="question-&quot;7&quot;">Ownership of shares</label>
+                                                    </div>
+                                                    <div class="w-col w-col-5">
+                                                        <select name="psc-question-7" id="ef-psc-question-7" class="w-input appointments-field ef-normal-select ef-psc-question">
+                                                            <option class="ef-negative-value" value="psc-option-na">N/A</option>
+                                                            <option value="psc-option-13">
+                                                                More than 25% but not more than 50%
+                                                            </option>
+                                                            <option value="psc-option-14">
+                                                                More than 50% but less than 75%
+                                                            </option>
+                                                            <option value="psc-option-15">
+                                                                75% or more
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_OWNERSHIPOFSHARES_AS_FIRM"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                </div>
+                                                <div class="w-row ef-normal-select-container">
+                                                    <div class="w-col w-col-3">
+                                                        <label class="field-label" for="question-&quot;8&quot;">Voting rights</label>
+                                                    </div>
+                                                    <div class="w-col w-col-5">
+                                                        <select name="psc-question-8" id="ef-psc-question-8" class="w-input appointments-field ef-normal-select ef-psc-question">
+                                                            <option class="ef-negative-value" value="psc-option-na">N/A</option>
+                                                            <option value="psc-option-16">
+                                                                More than 25% but not more than 50%
+                                                            </option>
+                                                            <option value="psc-option-17">
+                                                                More than 50% but less than 75%
+                                                            </option>
+                                                            <option value="psc-option-18">
+                                                                75% or more
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_VOTINGRIGHTS_AS_FIRM"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                </div>
+                                                <div class="w-row ef-normal-select-container">
+                                                    <div class="w-col w-col-3">
+                                                        <label class="field-label" for="question-&quot;9&quot;">Appoint or remove the majority of the board of directors</label>
+                                                    </div>
+                                                    <div class="w-col w-col-5">
+                                                        <select name="psc-question-9" id="ef-psc-question-9" class="w-input appointments-field ef-normal-select ef-psc-question">
+                                                            <option value="1">Yes</option>
+                                                            <option class="ef-negative-value" value="0" selected="">No</option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_RIGHTTOAPPOINTANDREMOVEDIRECTORS_AS_FIRM"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                </div>
+                                                <div class="w-row ef-other-select-container">
+                                                    <div class="w-col w-col-3">
+                                                        <label class="field-label" for="question-&quot;10&quot;">Other significant influence or control</label>
+                                                    </div>
+                                                    <div class="w-col w-col-5">
+                                                        <select name="psc-question-10" id="ef-psc-question-10" class="w-input appointments-field ef-other-select ef-psc-question">
+                                                            <option value="1">Yes</option>
+                                                            <option class="ef-negative-value" value="0" selected="">No</option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_SIGINFLUENCECONTROL_AS_FIRM"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="officer-psc-questions-wrapper psc-as-trust ">
+                                            <div class="hr-line-1"></div>
+                                            <h3 class="ef-psc-question-header">Does this officer have a controlling influence over a trust(s) and/or the trustees of that trust(s), which has a controlling interest in this company?</h3>
+                                            <label style="display : inline-block;" for="ef-as-trust-no">No</label>  <input class="radio-psc-of-trust" type="radio" name="as_trust" id="ef-as-trust-no" value="0" checked="checked">
+                                            <label style="display : inline-block;" for="ef-as-trust-yes">Yes</label> <input class="radio-psc-of-trust" type="radio" name="as_trust" id="ef-as-trust-yes" value="1">
+                                            <div id="psc-questions-for-trust" class="officer-psc-questions ef-hide ef-psc-question-block-trust">
+                                                <h5>What control or influence does this officer have over this company in their capacity within the Trust(s) ? </h5>
+                                                <div class="w-row ef-normal-select-container">
+                                                    <div class="w-col w-col-3">
+                                                        <label class="field-label" for="question-&quot;13&quot;">Ownership of shares</label>
+                                                    </div>
+                                                    <div class="w-col w-col-5">
+                                                        <select name="psc-question-13" id="ef-psc-question-13" class="w-input appointments-field ef-normal-select ef-psc-question">
+                                                            <option class="ef-negative-value" value="psc-option-na">N/A</option>
+                                                            <option value="psc-option-22">
+                                                                More than 25% but not more than 50%
+                                                            </option>
+                                                            <option value="psc-option-23">
+                                                                More than 50% but less than 75%
+                                                            </option>
+                                                            <option value="psc-option-24">
+                                                                75% or more
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_OWNERSHIPOFSHARES_AS_TRUST"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                </div>
+                                                <div class="w-row ef-normal-select-container">
+                                                    <div class="w-col w-col-3">
+                                                        <label class="field-label" for="question-&quot;14&quot;">Voting rights</label>
+                                                    </div>
+                                                    <div class="w-col w-col-5">
+                                                        <select name="psc-question-14" id="ef-psc-question-14" class="w-input appointments-field ef-normal-select ef-psc-question">
+                                                            <option class="ef-negative-value" value="psc-option-na">N/A</option>
+                                                            <option value="psc-option-25">
+                                                                More than 25% but not more than 50%
+                                                            </option>
+                                                            <option value="psc-option-26">
+                                                                More than 50% but less than 75%
+                                                            </option>
+                                                            <option value="psc-option-27">
+                                                                75% or more
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_VOTINGRIGHTS_AS_TRUST"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                </div>
+                                                <div class="w-row ef-normal-select-container">
+                                                    <div class="w-col w-col-3">
+                                                        <label class="field-label" for="question-&quot;15&quot;">Appoint or remove the majority of the board of directors</label>
+                                                    </div>
+                                                    <div class="w-col w-col-5">
+                                                        <select name="psc-question-15" id="ef-psc-question-15" class="w-input appointments-field ef-normal-select ef-psc-question">
+                                                            <option value="1">Yes</option>
+                                                            <option class="ef-negative-value" value="0" selected="">No</option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_RIGHTTOAPPOINTANDREMOVEDIRECTORS_AS_TRUST"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                </div>
+                                                <div class="w-row ef-other-select-container">
+                                                    <div class="w-col w-col-3">
+                                                        <label class="field-label" for="question-&quot;17&quot;">Other significant control or influence</label>
+                                                    </div>
+                                                    <div class="w-col w-col-5">
+                                                        <select name="psc-question-17" id="ef-psc-question-17" class="w-input appointments-field ef-other-select ef-psc-question">
+                                                            <option value="1">Yes</option>
+                                                            <option class="ef-negative-value" value="0" selected="">No</option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="ef-modal-help-icon" data-ref="HELP|NATURE_OF_CONTROL_SIGINFLUENCECONTROL_AS_TRUST"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-row">&nbsp;</div>
+                                <div class="w-row">
+                                    <div class="w-col">
+                                        <button type="button" class="ef-btn ef-back-btn ef-js-back-tab" onclick="">Back</button>
+                                        <button type="button" id="officer-submit-nature-of-control-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step" onclick="">Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-tab-pane ef-tab-pane-addressing" style="display:none" data-tab="Tab 5">
+                                <div style="display:none;" class="ef-alert-box name-check-result fail" id="addressing-error">
+                                    <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                </div>
+                                <div class="ef-form-wrap" id="service-address-wrapper">
+                                    <h2>Service Address</h2>
+                                    <div class="hr-line-1"></div>
+                                    <div class="ef-information-box">
+                                        <h2 class="ef-information-box-title">Service Address</h2>
+                                        <p class="service-address-p1">Directors, subscribers (shareholders at the time of company incorporation), secretaries and PSCs (eg. shareholders who own more than 25% of the company's shares) are obliged to file a Service Address with the Registrar of Companies. The Service Address is made public.</p>
+                                        <p class="service-address-p2">There is nothing to stop you from using your Residential Address as your Service Address, but if you would prefer to keep this information confidential and off the public register, then using our London address will provide this confidentiality. We will then forward all statutory mail with no additional postage charges.</p>
+                                    </div>
+                                    <!-- use own address block -->
+                                    <div class="ef-item-box  " style="" id="my-own-service-address">
+                                        <div class="ef-item-content">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col">
+                                                    <h3>Choose to use your own address</h3>
+                                                </div>
+                                            </div>
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-7">
+                                                    <div class="">
+                                                        <span class="officer-service-address">None Selected</span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col w-col-5 w-clearfix add-col">
+                                                    <button type="button" id="officer-service-choose-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0,'service','Service Address');" style="">Choose Address</button>
+                                                    <button id="officer-service-edit-address" class="ef-btn ef-primary-btn ef-alt-btn" onclick="FormBuilder.ChooseOfficerAddress(jQuery('input[name=officer-service-address]').val(), 'service', 'Service Address');" style="display:none;">Edit</button>
+                                                    <button id="officer-service-choose-another-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0,'service', 'Service Address');" style="display:none;">Choose Another</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- -end use own address -->
+                                    <!-- options -->
+                                    <input type="hidden" id="officer-fwding-address" name="officer-fwding-address" value="0">
+                                    <input type="hidden" id="officer-service-address" name="officer-service-address" value="0">
+                                    <input type="hidden" id="service-address-line" name="service-address-line" value="0">
+                                    <input type="hidden" id="service-address-product" name="service-address-product" value="0">
+                                    <!-- end options -->
+                                    <!-- orderlines / products already in the order. -->
+                                    <!-- // end orderlines loop -->
+                                    <!-- start 'other' products -->
+                                    <div class="ef-extra-products ef-item-box service-address-upsell  " id="service-pid-22185">
+                                        <div class="ef-item-content">
+                                            <div class="w-row ef-panel-row ef-item-bottom-border">
+                                                <div class="w-col w-col-9">
+                                                    <h3>Service Address - Pay Monthly</h3>
+                                                </div>
+                                                <div class="w-col w-col-3 w-clearfix">
+                                                    <div class="w-clearfix item-box-price">
+                                                        <div class="price">£2.99</div>
+                                                        <div class="renewal">Renewed monthly at £2.99</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-4 ef-panel-icon">
+                                                    <div class="ef-product-icon ef-service-address-icon ef-product-22185">
+                                                    </div>
+                                                </div>
+                                                <div class="w-col w-col-8">
+                                                    <p></p>
+                                                    <h3>Protect the privacy of your home address</h3>
+                                                    <p>Use our London WC2 address as your service address<br class="m-hide"> and keep your residential address off the public record.</p>
+                                                    <p><strong>London:</strong> 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ</p>
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-4 savings-amount-row">
+                                                </div>
+                                                <div class="w-col w-col-8 w-clearfix add-col">
+                                                    <button type="button" class="ef-btn ef-primary-btn ef-alt-btn item-show-details">Details</button>
+                                                    <button id="ef-assign-22185" type="button" class="ef-btn ef-primary-btn ef-primary-btn__select ef-assign-select-serv-product" onclick="FormBuilder.AssignOfficerAddress('0','22185', this)">Buy Now</button>
+                                                    <button id="ef-unassign-22185" type="button" class="ef-btn ef-primary-btn ef-primary-btn__remove ef-hide ef-assign-remove-serv-product" onclick="FormBuilder.RemoveOfficerAddress('0','22185', this)">Remove</button>
+                                                </div>
+                                            </div>
+                                            <!--  item details -->
+                                            <div class="ef-item-details" style="display: none;">
+                                                <div class="w-row">
+                                                    <div class="w-col w-col-12">
+                                                        <h3 class="ef-item-bottom-border">Why would I use your Service Address?</h3>
+                                                    </div>
+                                                    <div class="w-col w-col-6">
+                                                        <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/shield.svg" width="50" alt="light bulb"> Protect your privacy</h4>
+                                                        <p>Protect the privacy of your home with our prestigious London service address.</p>
+                                                        <p>This service allows you to maintain the privacy of your home address, as our prestigious Covent Garden, London address will appear on public record as the official address of a company officer. This service includes the scanning and emailing of all official government mail addressed to a company officer, from a number of official government bodies, free of charge.</p>
+                                                        <p>Mail from the following government bodies are covered by this service: Companies House, HMRC, Government Gateway, Department for Work &amp; Pensions (DWP), Office for National Statistics, Information Commissioner’s Office (ICO) and Court documents.</p>
+                                                        <p>This service is renewable on a monthly basis at the cost of £2.99 +VAT.</p>
+                                                    </div>
+                                                    <div class="w-col w-col-6">
+                                                        <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/bulb.svg" width="50" alt="light bulb"> Benefits of our Service Address</h4>
+                                                        <ul class="fa-ul fs-14">
+                                                            <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> Our London service address will protect the privacy of your home address.</li>
+                                                            <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> It prevents unsolicited mail and visitors from arriving at their private residence.</li>
+                                                            <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> A prestigious London service address will enhance your professional image.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="w-col w-col-12">
+                                                        <p><strong>Please note:</strong> Forwarding of service address mail by scan and email is free of charge. Mail will be forwarded on a daily basis.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end item details -->
+                                        </div>
+                                    </div>
+                                    <!-- original ForwardingAddress-->
+                                    <div class="ef-item-box service-fwding-container ef-js-forwarding-address ef-selected" id="service-fwding-container" style="display:none">
+                                        <div class="ef-item-content">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col">
+                                                    <h3 class="">Forwarding Address:</h3>
+                                                </div>
+                                            </div>
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-8">
+                                                    <div class="">
+                                                        <!--<span class="officer-fwding-address"></span> -->
+                                                        <span class="officer-fwding-address">None Selected</span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col w-col-4 w-clearfix add-col">
+                                                    <button id="efForwardingAddressEditButton" type="button" class="ef-btn ef-primary-btn ef-alt-btn" onclick="FormBuilder.ChooseOfficerAddress(jQuery('input[name=officer-fwding-address]').val(), 'fwding', 'Service Address');">Edit</button>
+                                                    <button type="button" id="officer-fwding-choose-another-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0,'fwding', 'Forwarding Address');">Choose Another</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-2"></div>
+                                </div>
+                                <!-- end of service address wrappeer -->
+                                <div class="w-row">&nbsp;</div>
+                                <div class="w-row">
+                                    <div class="w-col">
+                                        <button type="button" class="ef-btn ef-back-btn ef-js-back-tab" onclick="">Back</button>
+                                        <button type="button" id="officer-submit-addressing-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step" onclick="">Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- holdings -->
+                            <div class="w-tab-pane ef-tab-pane-holdings" style="display:none" data-tab="holdings">
+                                <div style="display:none;" class="ef-alert-box fail" id="shareholdings-error">
+                                    <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                </div>
+                                <div class="w-row row-choose-holding-class" style="">
+                                    <div class="w-col w-col-6">
+                                        <h3>Shareholdings</h3>
+                                        <button style="" type="button" class="ef-btn ef-primary-btn officer-add-holding" onclick="OfficerForm.AddNewHolding()"> Add Share Class</button>
+                                    </div>
+                                </div>
+                                <div style="display:none;" class="ef-alert-box name-check-result fail" id="no-shareholdings-error">
+                                    <div class="ef-alert-box-main-text">No Shareholdings</div>
+                                    <div>Please add a shareholding to this officer.</div>
+                                </div>
+                                <div class="w-row assigned-shares-list row-choose-holding-class last-margin">
+                                    <table id="assigned-shares-list-table" class="ef-primary-table" style="display:none">
+                                        <thead>
+                                            <tr>
+                                                <th id="">Quantity</th>
+                                                <th id="">Share Class</th>
+                                                <th id="">Price</th>
+                                                <th id="">Currency</th>
+                                                <th id=""></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>No Shares</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div id="officer-holdings-form" style="display:none;">
+                                    <div class="w-row ef-row-holdings-data">
+                                        <div class="w-col w-col-3" style="">
+                                            <label>
+                                                Class
+                                                <span class="ef-modal-help-icon" data-ref="HELP|SHARE_CLASS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <span class="ef-read-only-holding-class">ORDINARY</span>
+                                            <input type="hidden" value="ORDINARY" name="officer-holdings-class" id="officer-holdings-class" class="w-input ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                                        </div>
+                                        <div class="w-col w-col-2" style="">
+                                            <div>
+                                                <label>Quantity</label>
+                                                <input type="number" min="1" value="" name="officer-holdings-qty" placeholder="Quantity" id="officer-holdings-qty" class="w-input">
+                                            </div>
+                                        </div>
+                                        <div class="w-col w-col-2" style="">
+                                            <label>Currency</label>
+                                            <select class="w-select" name="officer-holdings-currency" id="officer-holdings-currency">
+                                                <option value="AED">AED</option>
+                                                <option value="AFA">AFA</option>
+                                                <option value="ALL">ALL</option>
+                                                <option value="AMD">AMD</option>
+                                                <option value="ANG">ANG</option>
+                                                <option value="AOA">AOA</option>
+                                                <option value="ARS">ARS</option>
+                                                <option value="AUD">AUD</option>
+                                                <option value="AWG">AWG</option>
+                                                <option value="AZM">AZM</option>
+                                                <option value="BAM">BAM</option>
+                                                <option value="BBD">BBD</option>
+                                                <option value="BDT">BDT</option>
+                                                <option value="BGN">BGN</option>
+                                                <option value="BHD">BHD</option>
+                                                <option value="BIF">BIF</option>
+                                                <option value="BMD">BMD</option>
+                                                <option value="BND">BND</option>
+                                                <option value="BOB">BOB</option>
+                                                <option value="BRL">BRL</option>
+                                                <option value="BSD">BSD</option>
+                                                <option value="BTN">BTN</option>
+                                                <option value="BWP">BWP</option>
+                                                <option value="BYR">BYR</option>
+                                                <option value="BZD">BZD</option>
+                                                <option value="CAD">CAD</option>
+                                                <option value="CDF">CDF</option>
+                                                <option value="CHF">CHF</option>
+                                                <option value="CLP">CLP</option>
+                                                <option value="CNY">CNY</option>
+                                                <option value="COP">COP</option>
+                                                <option value="CRC">CRC</option>
+                                                <option value="CUP">CUP</option>
+                                                <option value="CVE">CVE</option>
+                                                <option value="CYP">CYP</option>
+                                                <option value="CZK">CZK</option>
+                                                <option value="DJF">DJF</option>
+                                                <option value="DKK">DKK</option>
+                                                <option value="DOP">DOP</option>
+                                                <option value="DZD">DZD</option>
+                                                <option value="EEK">EEK</option>
+                                                <option value="EGP">EGP</option>
+                                                <option value="ERN">ERN</option>
+                                                <option value="ETB">ETB</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="FJD">FJD</option>
+                                                <option value="FKP">FKP</option>
+                                                <option value="GBP" selected="selected">GBP</option>
+                                                <option value="GEL">GEL</option>
+                                                <option value="GGP">GGP</option>
+                                                <option value="GHC">GHC</option>
+                                                <option value="GIP">GIP</option>
+                                                <option value="GMD">GMD</option>
+                                                <option value="GNF">GNF</option>
+                                                <option value="GTQ">GTQ</option>
+                                                <option value="GYD">GYD</option>
+                                                <option value="HKD">HKD</option>
+                                                <option value="HNL">HNL</option>
+                                                <option value="HRK">HRK</option>
+                                                <option value="HTG">HTG</option>
+                                                <option value="HUF">HUF</option>
+                                                <option value="IDR">IDR</option>
+                                                <option value="ILS">ILS</option>
+                                                <option value="IMP">IMP</option>
+                                                <option value="INR">INR</option>
+                                                <option value="IQD">IQD</option>
+                                                <option value="IRR">IRR</option>
+                                                <option value="ISK">ISK</option>
+                                                <option value="JEP">JEP</option>
+                                                <option value="JMD">JMD</option>
+                                                <option value="JOD">JOD</option>
+                                                <option value="JPY">JPY</option>
+                                                <option value="KES">KES</option>
+                                                <option value="KGS">KGS</option>
+                                                <option value="KHR">KHR</option>
+                                                <option value="KMF">KMF</option>
+                                                <option value="KPW">KPW</option>
+                                                <option value="KRW">KRW</option>
+                                                <option value="KWD">KWD</option>
+                                                <option value="KYD">KYD</option>
+                                                <option value="KZT">KZT</option>
+                                                <option value="LAK">LAK</option>
+                                                <option value="LBP">LBP</option>
+                                                <option value="LKR">LKR</option>
+                                                <option value="LRD">LRD</option>
+                                                <option value="LSL">LSL</option>
+                                                <option value="LTL">LTL</option>
+                                                <option value="LVL">LVL</option>
+                                                <option value="LYD">LYD</option>
+                                                <option value="MAD">MAD</option>
+                                                <option value="MDL">MDL</option>
+                                                <option value="MGA">MGA</option>
+                                                <option value="MKD">MKD</option>
+                                                <option value="MMK">MMK</option>
+                                                <option value="MNT">MNT</option>
+                                                <option value="MOP">MOP</option>
+                                                <option value="MRO">MRO</option>
+                                                <option value="MTL">MTL</option>
+                                                <option value="MUR">MUR</option>
+                                                <option value="MVR">MVR</option>
+                                                <option value="MWK">MWK</option>
+                                                <option value="MXN">MXN</option>
+                                                <option value="MYR">MYR</option>
+                                                <option value="MZM">MZM</option>
+                                                <option value="NAD">NAD</option>
+                                                <option value="NGN">NGN</option>
+                                                <option value="NIO">NIO</option>
+                                                <option value="NOK">NOK</option>
+                                                <option value="NPR">NPR</option>
+                                                <option value="NZD">NZD</option>
+                                                <option value="OMR">OMR</option>
+                                                <option value="PAB">PAB</option>
+                                                <option value="PEN">PEN</option>
+                                                <option value="PGK">PGK</option>
+                                                <option value="PHP">PHP</option>
+                                                <option value="PKR">PKR</option>
+                                                <option value="PLN">PLN</option>
+                                                <option value="PYG">PYG</option>
+                                                <option value="QAR">QAR</option>
+                                                <option value="RON">RON</option>
+                                                <option value="RUB">RUB</option>
+                                                <option value="RWF">RWF</option>
+                                                <option value="SAR">SAR</option>
+                                                <option value="SBD">SBD</option>
+                                                <option value="SCR">SCR</option>
+                                                <option value="SDD">SDD</option>
+                                                <option value="SEK">SEK</option>
+                                                <option value="SGD">SGD</option>
+                                                <option value="SHP">SHP</option>
+                                                <option value="SIT">SIT</option>
+                                                <option value="SKK">SKK</option>
+                                                <option value="SLL">SLL</option>
+                                                <option value="SOS">SOS</option>
+                                                <option value="SPL">SPL</option>
+                                                <option value="SRG">SRG</option>
+                                                <option value="STD">STD</option>
+                                                <option value="SVC">SVC</option>
+                                                <option value="SYP">SYP</option>
+                                                <option value="SZL">SZL</option>
+                                                <option value="THB">THB</option>
+                                                <option value="TJS">TJS</option>
+                                                <option value="TMM">TMM</option>
+                                                <option value="TND">TND</option>
+                                                <option value="TOP">TOP</option>
+                                                <option value="TRY">TRY</option>
+                                                <option value="TTD">TTD</option>
+                                                <option value="TVD">TVD</option>
+                                                <option value="TWD">TWD</option>
+                                                <option value="TZS">TZS</option>
+                                                <option value="UAH">UAH</option>
+                                                <option value="UGX">UGX</option>
+                                                <option value="USD">USD</option>
+                                                <option value="UYU">UYU</option>
+                                                <option value="UZS">UZS</option>
+                                                <option value="VEB">VEB</option>
+                                                <option value="VND">VND</option>
+                                                <option value="VUV">VUV</option>
+                                                <option value="WST">WST</option>
+                                                <option value="XAF">XAF</option>
+                                                <option value="XAG">XAG</option>
+                                                <option value="XAU">XAU</option>
+                                                <option value="XCD">XCD</option>
+                                                <option value="XDR">XDR</option>
+                                                <option value="XOF">XOF</option>
+                                                <option value="XPD">XPD</option>
+                                                <option value="XPF">XPF</option>
+                                                <option value="XPT">XPT</option>
+                                                <option value="YER">YER</option>
+                                                <option value="YUM">YUM</option>
+                                                <option value="ZAR">ZAR</option>
+                                                <option value="ZMK">ZMK</option>
+                                                <option value="ZWD">ZWD</option>
+                                            </select>
+                                        </div>
+                                        <div class="w-col w-col-2">
+                                            <label>Price per share</label>
+                                            <input type="text" value="" name="officer-holdings-amount" placeholder="Price" id="officer-holdings-amount" class="w-input" onblur="javascript:this.value=FormBuilder.ValidateHoldingPrice(this.value);">
+                                        </div>
+                                    </div>
+                                    <div class="w-row ef-row-holdings-particulars" style="">
+                                        <div class="w-col">
+                                            <label>
+                                                Particulars
+                                                <span class="ef-modal-help-icon" data-ref="HELP|SHARE_PARTICULARS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <textarea class="w-input officer-holdings-particulars" id="officer-holdings-particulars" name="officer-holdings-particulars"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="w-row ef-row-holdings-save">
+                                        <div class="w-col">
+                                            <input type="hidden" value="" name="officer-holdings-temp-token" id="officer-holdings-temp-token" class="w-input">
+                                            <input type="hidden" value="" name="officer-holdings-temp-action" id="officer-holdings-temp-action" class="w-input">
+                                            <button type="button" class="ef-btn ef-primary-btn ef-submit-btn" id="cc-save-holding-btn" onclick="OfficerForm.SaveHolding();">Save</button>
+                                            <button type="button" class="ef-btn ef-back-btn" onclick="OfficerForm.CancelHolding();">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-row ef-officer-holding-buttons">
+                                    <div class="w-col">
+                                        <button type="button" class="ef-btn ef-back-btn ef-js-back-tab" onclick="">Back</button>
+                                        <button type="button" class="ef-save-officer-button-1 ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step" id="cc-holder-save-btn" onclick="FormBuilder.SaveOfficer();">Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="officer" class="appointment-section">
+                            <div class="w-tab-pane ef-tab-pane-pick-officer" data-tab="Tab 2" style="display: block;">
+                                <div class="head-02">
+                                    <h1> Officer </h1>
+                                </div>
+                                <div class="define-new-hide ef-form-wrap ef-recent-officer-box" style="">
+                                    <h2>Recent Officers</h2>
+                                    <div class="" style="margin-bottom:25px">
+                                        <div class="w-clearfix simple-row-elem">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-8">
+                                                    <p>Pratibha Patel</p>
+                                                </div>
+                                                <div class="w-col w-col-4 w-clearfix add-col">
+                                                    <button class="ef-btn ef-primary-btn ef-choose-btn" type="button" data-bs-toggle="modal" data-bs-target="#confirmationModal">Choose</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-clearfix simple-row-elem">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-8">
+                                                    <p>Kishan Patel</p>
+                                                </div>
+                                                <div class="w-col w-col-4 w-clearfix add-col">
+                                                    <button class="ef-btn ef-primary-btn ef-choose-btn" type="button" onclick="FormBuilder.ChangeTab(OfficerForm.PickOfficer(TmpO_2521250) ? 'details' : 'pick-officer');">Choose</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-clearfix simple-row-elem">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-8">
+                                                    <p>Arjun Patel</p>
+                                                </div>
+                                                <div class="w-col w-col-4 w-clearfix add-col">
+                                                    <button class="ef-btn ef-primary-btn ef-choose-btn" type="button" onclick="FormBuilder.ChangeTab(OfficerForm.PickOfficer(TmpO_2521249) ? 'details' : 'pick-officer');">Choose</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ef-form-wrap define-new-hide ef-create-officer-box" style="margin-bottom: 25px;">
+                                    <h2>New Officer</h2>
+                                    <div class="w-clearfix simple-row-elem">
+                                        <div class="w-row ef-panel-row">
+                                            <div class="w-col w-col-8">
+                                                <p><strong>Create a new Officer</strong></p>
+                                            </div>
+                                            <div class="w-col w-col-4 w-clearfix add-col">
+                                                <button type="button" id="ef-create-new-officer" class="ef-btn ef-primary-btn" onclick="OfficerForm.PickOfficer(NewOfficer);FormBuilder.ChangeTab('details');">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ef-back-next ef-back-next-officers-tab" style="">
+                                    <div class="w-row">&nbsp;</div>
+                                    <div class="w-row">
+                                        <div class="w-col">
+                                            <button type="button" id="officer-submit-pick-officer-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step" onclick=""> Save </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Conformation Modal *@
+
+                            <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5"> Confirmation Required </h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="efOfficerInProgressWarningContainer" style="display: block;">
+                                                <div class="ef-form-wrap" style="margin-bottom:25px">
+                                                    <p>Are you sure you wish to use this officer? It has currently been assigned to another incorporation which is in progress.</p>
+                                                    <p>Changing details here will also update the details in the other companies in which this officer is assigned.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="ef-btn ef-back-btn" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="ef-btn ef-primary-btn"> Proceed </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="details" class="appointment-section">
+                            <div class="w-tab-pane ef-tab-pane-details" data-tab="Tab 3" style="display: block;">
+                                <div class="head-03">
+                                    <h1> Details </h1>
+                                </div>
+                                <div class="ef-information-box">
+                                    <h2 class="ef-information-box-title">Personal Details</h2>
+                                    <p>It is recommended you enter your name as it appears on your ID, eg. passport or drivers licence.</p>
+                                </div>
+                                <div style="display:none;" class="ef-alert-box fail" id="details-error">
+                                    <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                </div>
+                                <div style="display:none;" class="ef-alert-box fail" id="no-officer-nationality">
+                                    <span style="float:right;" class="ef-modal-help-icon nationality-help" data-ref="HELP|NATIONALITY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                    <div id="" class="ef-alert-box-main-text main-error-text"></div>
+                                </div>
+                                <div id="officer-details-div">
+                                    <div class="ef-form-wrap">
+                                        <h2 id="preselected-officer">Pratibha Patel</h2>
+                                        <div class="hr-line-1"></div>
+                                        <div class="w-row row-margin">
+                                            <div class="w-col w-col-6" style="">
+                                                <div id="officer-title-wrapper">
+                                                    <div id="officer-label-wrapper">
+                                                    </div>
+                                                    <div class="ef-autocomplete-wrapper">
+                                                        <label class="field-label" for="officer-title">Title</label>
+                                                        <input id="officer-title" class="w-input" type="text" placeholder="Title" name="officer-title" value="Miss" data-lastvalue="" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div id="officer-firstname-wrapper">
+                                                    <label class="field-label" for="officer-firstname">First name(s)</label>
+                                                    <input class="w-input" id="officer-firstname" type="text" placeholder="First name" name="officer-firstname" value="Pratibha" data-lastvalue="" autocomplete="off">
+                                                </div>
+                                                <div id="officer-lastname-wrapper">
+                                                    <label class="field-label" for="officer-lastname">Last name</label>
+                                                    <input class="w-input" id="officer-lastname" type="text" placeholder="Last name" name="officer-lastname" value="Patel" data-lastvalue="" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="w-col w-col-6">
+                                                <div id="officer-dob-wrapper">
+                                                    <div class="w-row">
+                                                        <label class="field-label" for="date-of-birth">Date of Birth</label>
+                                                    </div>
+                                                    <div class="w-row">
+                                                        <div class="w-col w-col-4 dob">
+                                                            <select class="w-select appointments-field" id="dob-day" name="dob-day">
+                                                                <option value="">dd</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17" selected="selected">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="w-col w-col-4">
+                                                            <select class="w-select appointments-field" id="dob-month" name="dob-month">
+                                                                <option value="">mm</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10" selected="selected">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="w-col w-col-4 dob">
+                                                            <select class="w-select appointments-field" id="dob-year" name="dob-year">
+                                                                <option value="">yyyy</option>
+                                                                <option value="2025">2025</option>
+                                                                <option value="2024">2024</option>
+                                                                <option value="2023">2023</option>
+                                                                <option value="2022">2022</option>
+                                                                <option value="2021">2021</option>
+                                                                <option value="2020">2020</option>
+                                                                <option value="2019">2019</option>
+                                                                <option value="2018">2018</option>
+                                                                <option value="2017">2017</option>
+                                                                <option value="2016">2016</option>
+                                                                <option value="2015">2015</option>
+                                                                <option value="2014">2014</option>
+                                                                <option value="2013">2013</option>
+                                                                <option value="2012">2012</option>
+                                                                <option value="2011">2011</option>
+                                                                <option value="2010">2010</option>
+                                                                <option value="2009">2009</option>
+                                                                <option value="2008">2008</option>
+                                                                <option value="2007">2007</option>
+                                                                <option value="2006">2006</option>
+                                                                <option value="2005">2005</option>
+                                                                <option value="2004">2004</option>
+                                                                <option value="2003">2003</option>
+                                                                <option value="2002">2002</option>
+                                                                <option value="2001">2001</option>
+                                                                <option value="2000">2000</option>
+                                                                <option value="1999">1999</option>
+                                                                <option value="1998">1998</option>
+                                                                <option value="1997">1997</option>
+                                                                <option value="1996">1996</option>
+                                                                <option value="1995">1995</option>
+                                                                <option value="1994">1994</option>
+                                                                <option value="1993">1993</option>
+                                                                <option value="1992">1992</option>
+                                                                <option value="1991">1991</option>
+                                                                <option value="1990">1990</option>
+                                                                <option value="1989">1989</option>
+                                                                <option value="1988">1988</option>
+                                                                <option value="1987">1987</option>
+                                                                <option value="1986">1986</option>
+                                                                <option value="1985">1985</option>
+                                                                <option value="1984">1984</option>
+                                                                <option value="1983">1983</option>
+                                                                <option value="1982">1982</option>
+                                                                <option value="1981">1981</option>
+                                                                <option value="1980">1980</option>
+                                                                <option value="1979">1979</option>
+                                                                <option value="1978">1978</option>
+                                                                <option value="1977">1977</option>
+                                                                <option value="1976">1976</option>
+                                                                <option value="1975">1975</option>
+                                                                <option value="1974">1974</option>
+                                                                <option value="1973">1973</option>
+                                                                <option value="1972">1972</option>
+                                                                <option value="1971">1971</option>
+                                                                <option value="1970">1970</option>
+                                                                <option value="1969">1969</option>
+                                                                <option value="1968">1968</option>
+                                                                <option value="1967">1967</option>
+                                                                <option value="1966">1966</option>
+                                                                <option value="1965">1965</option>
+                                                                <option value="1964">1964</option>
+                                                                <option value="1963">1963</option>
+                                                                <option value="1962">1962</option>
+                                                                <option value="1961">1961</option>
+                                                                <option value="1960">1960</option>
+                                                                <option value="1959">1959</option>
+                                                                <option value="1958">1958</option>
+                                                                <option value="1957">1957</option>
+                                                                <option value="1956">1956</option>
+                                                                <option value="1955">1955</option>
+                                                                <option value="1954">1954</option>
+                                                                <option value="1953">1953</option>
+                                                                <option value="1952">1952</option>
+                                                                <option value="1951">1951</option>
+                                                                <option value="1950">1950</option>
+                                                                <option value="1949">1949</option>
+                                                                <option value="1948">1948</option>
+                                                                <option value="1947">1947</option>
+                                                                <option value="1946">1946</option>
+                                                                <option value="1945">1945</option>
+                                                                <option value="1944" selected="selected">1944</option>
+                                                                <option value="1943">1943</option>
+                                                                <option value="1942">1942</option>
+                                                                <option value="1941">1941</option>
+                                                                <option value="1940">1940</option>
+                                                                <option value="1939">1939</option>
+                                                                <option value="1938">1938</option>
+                                                                <option value="1937">1937</option>
+                                                                <option value="1936">1936</option>
+                                                                <option value="1935">1935</option>
+                                                                <option value="1934">1934</option>
+                                                                <option value="1933">1933</option>
+                                                                <option value="1932">1932</option>
+                                                                <option value="1931">1931</option>
+                                                                <option value="1930">1930</option>
+                                                                <option value="1929">1929</option>
+                                                                <option value="1928">1928</option>
+                                                                <option value="1927">1927</option>
+                                                                <option value="1926">1926</option>
+                                                                <option value="1925">1925</option>
+                                                                <option value="1924">1924</option>
+                                                                <option value="1923">1923</option>
+                                                                <option value="1922">1922</option>
+                                                                <option value="1921">1921</option>
+                                                                <option value="1920">1920</option>
+                                                                <option value="1919">1919</option>
+                                                                <option value="1918">1918</option>
+                                                                <option value="1917">1917</option>
+                                                                <option value="1916">1916</option>
+                                                                <option value="1915">1915</option>
+                                                                <option value="1914">1914</option>
+                                                                <option value="1913">1913</option>
+                                                                <option value="1912">1912</option>
+                                                                <option value="1911">1911</option>
+                                                                <option value="1910">1910</option>
+                                                                <option value="1909">1909</option>
+                                                                <option value="1908">1908</option>
+                                                                <option value="1907">1907</option>
+                                                                <option value="1906">1906</option>
+                                                                <option value="1905">1905</option>
+                                                                <option value="1904">1904</option>
+                                                                <option value="1903">1903</option>
+                                                                <option value="1902">1902</option>
+                                                                <option value="1901">1901</option>
+                                                                <option value="1900">1900</option>
+                                                            </select>
+                                                            <input type="hidden" value="1" name="mlc" id="mlc">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="officer-nationality-wrapper">
+                                                    <div class="ef-autocomplete-wrapper">
+                                                        <label class="field-label" for="officer-nationality--disabled">
+                                                            Nationality
+                                                            <span class="ef-modal-help-icon nationality-help" data-ref="HELP|NATIONALITY"> - <span>List of accepted nationalities</span>&nbsp;</span>
+                                                        </label>
+                                                        <input class="w-input data-hj-whitelist" id="officer-nationality" type="text" placeholder="Nationality" name="officer-nationality" value="British" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div id="officer-occupation-wrapper">
+                                                    <label class="field-label" for="officer-occupation">Occupation</label>
+                                                    <input class="w-input" id="officer-occupation" type="text" placeholder="Occupation" name="officer-occupation" value="Retired" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="w-row">&nbsp;</div>
+                                            <!-- start res address -->
+                                            <div class="w-col w-col-12" id="residential-address-wrapper">
+                                                <h3 for="officer-residential-address">Residential Address </h3>
+                                                <span class="residential-address-help-text mr-bot-20 block"><strong>Please Note: It is a legal requirement to provide your actual residential address. Supplying an address which is not your actual residential address, will lead to the rejection of your new company registration.</strong></span>
+                                                <div id="ef-residential-address">
+                                                    <div class="w-row ef-panel-row">
+                                                        <div class="w-col w-col-8">
+                                                            <div class="officer-residential-address">15, Harrow Way, Watford, WD19 5EH, UNITED KINGDOM</div>
+                                                        </div>
+                                                        <div class="w-col w-col-4 w-clearfix ef-officer-residential-btns">
+                                                            <button type="button" id="officer-residential-edit-address" class="ef-btn ef-alt-btn" onclick="" style="">Edit</button>
+                                                            <button type="button" id="officer-residential-choose-another-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0, 'residential', jQuery('#residential-address-wrapper h2').text());" style="">Choose Another</button>
+                                                            <input type="hidden" name="officer-residential-address" value="3361655">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end res address -->
+                                            <div class="w-row row-margin">
+                                                <div class="w-col w-col-10" style="">
+                                                    <div class="officer-paq-wrapper" style="display:none ">
+                                                        <h3>Authentication Questions</h3>
+                                                        <div class="w-row">
+                                                            <div class="w-col w-col-3">
+                                                                <label class="field-label" id="pac-q1-label" for="pac-q1">Select First 3 letters of</label>
+                                                            </div>
+                                                            <div class="w-col w-col-5">
+                                                                <select class="w-select appointments-field" id="pac-q1" name="pac-q1">
+                                                                    <option value="MUM" selected="selected" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                    <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
+                                                                    <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
+                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
+                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-col w-col-1">
+                                                                <label class="field-label" for="pac-a1">Answer</label>
+                                                            </div>
+                                                            <div class="w-col w-col-3 w-clearfix">
+                                                                <input class="w-input ef-pac-answer" id="pac-a1" type="text" name="pac-a1" value="PAT" maxlength="3" size="3">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-row">
+                                                            <div class="w-col w-col-3">
+                                                                <label class="field-label" id="pac-q2-label" for="pac-q2">Select Last 3 digits of</label>
+                                                            </div>
+                                                            <div class="w-col w-col-5">
+                                                                <select class="w-select appointments-field" id="pac-q2" name="pac-q2">
+                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                    <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
+                                                                    <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of" selected="selected">Telephone Number</option>
+                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
+                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-col w-col-1">
+                                                                <label class="field-label" for="pac-a2">Answer</label>
+                                                            </div>
+                                                            <div class="w-col w-col-3 w-clearfix">
+                                                                <input class="w-input ef-pac-answer" id="pac-a2" type="text" name="pac-a2" value="000" maxlength="3" size="3">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-row last-margin">
+                                                            <div class="w-col w-col-3">
+                                                                <label class="field-label" id="pac-q3-label" for="pac-q3">Select First 3 letters of</label>
+                                                            </div>
+                                                            <div class="w-col w-col-5">
+                                                                <select class="w-select appointments-field" id="pac-q3" name="pac-q3">
+                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                    <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
+                                                                    <option value="BIRTOWN" selected="selected" data-label="Select First 3 letters of">Town Of Birth</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
+                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
+                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-col w-col-1">
+                                                                <label class="field-label" for="pac-a3">Answer</label>
+                                                            </div>
+                                                            <div class="w-col w-col-3 w-clearfix">
+                                                                <input class="w-input ef-pac-answer" id="pac-a3" type="text" name="pac-a3" value="DAR" maxlength="3" size="3">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-row">&nbsp;</div>
+                                <div class="w-row">
+                                    <div class="w-col">
+                                        <button type="button" id="officer-submit-details-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step" onclick=""> Save </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="addressing" class="appointment-section">
+                            <div class="w-tab-pane ef-tab-pane-addressing" data-tab="Tab 5" style="display: block;">
+                                <div class="head-04">
+                                    <h1> Addressing </h1>
+                                </div>
+                                <div style="display:none;" class="ef-alert-box name-check-result fail" id="addressing-error">
+                                    <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                </div>
+                                <div class="ef-form-wrap" id="service-address-wrapper">
+                                    <h2>Service Address</h2>
+                                    <div class="hr-line-1"></div>
+                                    <div class="ef-information-box">
+                                        <h2 class="ef-information-box-title">Service Address</h2>
+                                        <p class="service-address-p1">Directors, subscribers (shareholders at the time of company incorporation), secretaries and PSCs (eg. shareholders who own more than 25% of the company's shares) are obliged to file a Service Address with the Registrar of Companies. The Service Address is made public.</p>
+                                        <p class="service-address-p2">There is nothing to stop you from using your Residential Address as your Service Address, but if you would prefer to keep this information confidential and off the public register, then using our London address will provide this confidentiality. We will then forward all statutory mail with no additional postage charges.</p>
+                                    </div>
+                                    <!-- use own address block -->
+                                    <div class="ef-item-box" style="" id="my-own-service-address">
+                                        <div class="ef-item-content">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col">
+                                                    <h3>Choose to use your own address</h3>
+                                                </div>
+                                            </div>
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-7">
+                                                    <div class="">
+                                                        <span class="officer-service-address">None Selected</span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col w-col-5 w-clearfix add-col">
+                                                    <button type="button" id="officer-service-choose-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0,'service','Service Address');" style="">Choose Address</button>
+                                                    <button id="officer-service-edit-address" class="ef-btn ef-primary-btn ef-alt-btn" onclick="FormBuilder.ChooseOfficerAddress(jQuery('input[name=officer-service-address]').val(), 'service', 'Service Address');" style="display:none;">Edit</button>
+                                                    <button id="officer-service-choose-another-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0,'service', 'Service Address');" style="display:none;">Choose Another</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- -end use own address -->
+                                    <!-- options -->
+                                    <input type="hidden" id="officer-fwding-address" name="officer-fwding-address" value="0">
+                                    <input type="hidden" id="officer-service-address" name="officer-service-address" value="0">
+                                    <input type="hidden" id="service-address-line" name="service-address-line" value="0">
+                                    <input type="hidden" id="service-address-product" name="service-address-product" value="0">
+                                    <!-- end options -->
+                                    <!-- orderlines / products already in the order. -->
+                                    <!-- // end orderlines loop -->
+                                    <!-- start 'other' products -->
+                                    <div class="ef-extra-products ef-item-box service-address-upsell  " id="service-pid-22185">
+                                        <div class="ef-item-content">
+                                            <div class="w-row ef-panel-row ef-item-bottom-border">
+                                                <div class="w-col w-col-9">
+                                                    <h3>Service Address - Pay Monthly</h3>
+                                                </div>
+                                                <div class="w-col w-col-3 w-clearfix">
+                                                    <div class="w-clearfix item-box-price">
+                                                        <div class="price">£2.99</div>
+                                                        <div class="renewal">Renewed monthly at £2.99</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-4 ef-panel-icon">
+                                                    <div class="ef-product-icon ef-service-address-icon ef-product-22185">
+                                                    </div>
+                                                </div>
+                                                <div class="w-col w-col-8">
+                                                    <p></p>
+                                                    <h3>Protect the privacy of your home address</h3>
+                                                    <p>Use our London WC2 address as your service address<br class="m-hide"> and keep your residential address off the public record.</p>
+                                                    <p><strong>London:</strong> 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ</p>
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-4 savings-amount-row">
+                                                </div>
+                                                <div class="w-col w-col-8 w-clearfix add-col">
+                                                    <button type="button" class="ef-btn item-show-details collapsed" data-bs-toggle="collapse" data-bs-target="#address-collapse" aria-expanded="false" aria-controls="address-collapse">Details</button>
+                                                    <button id="ef-assign-22185" type="button" class="ef-btn ef-primary-btn ef-primary-btn__select ef-assign-select-serv-product" onclick="">Buy Now</button>
+                                                    @* <button id="ef-unassign-22185" type="button" class="ef-btn ef-primary-btn ef-primary-btn__remove ef-hide ef-assign-remove-serv-product" onclick="FormBuilder.RemoveOfficerAddress('0','22185', this)">Remove</button> *@
+                                                </div>
+                                            </div>
+                                            <!--  item details -->
+                                            <div class="ef-item-details collapse" id="address-collapse">
+                                                <div class="w-row">
+                                                    <div class="w-col w-col-12">
+                                                        <h3 class="ef-item-bottom-border">Why would I use your Service Address?</h3>
+                                                    </div>
+                                                    <div class="w-col w-col-6">
+                                                        <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/shield.svg" width="50" alt="light bulb"> Protect your privacy</h4>
+                                                        <p>Protect the privacy of your home with our prestigious London service address.</p>
+                                                        <p>This service allows you to maintain the privacy of your home address, as our prestigious Covent Garden, London address will appear on public record as the official address of a company officer. This service includes the scanning and emailing of all official government mail addressed to a company officer, from a number of official government bodies, free of charge.</p>
+                                                        <p>Mail from the following government bodies are covered by this service: Companies House, HMRC, Government Gateway, Department for Work &amp; Pensions (DWP), Office for National Statistics, Information Commissioner’s Office (ICO) and Court documents.</p>
+                                                        <p>This service is renewable on a monthly basis at the cost of £2.99 +VAT.</p>
+                                                    </div>
+                                                    <div class="w-col w-col-6">
+                                                        <h4><img src="//qualityformationsblog.co.uk/dev/images/fonts/svg/bulb.svg" width="50" alt="light bulb"> Benefits of our Service Address</h4>
+                                                        <ul class="fa-ul fs-14">
+                                                            <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> Our London service address will protect the privacy of your home address.</li>
+                                                            <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> It prevents unsolicited mail and visitors from arriving at their private residence.</li>
+                                                            <li><i class="fa-li fa fa-check fs-green" aria-hidden="true"></i> A prestigious London service address will enhance your professional image.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="w-col w-col-12">
+                                                        <p><strong>Please note:</strong> Forwarding of service address mail by scan and email is free of charge. Mail will be forwarded on a daily basis.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end item details -->
+                                        </div>
+                                    </div>
+                                    <!-- original ForwardingAddress-->
+                                    <div class="ef-item-box service-fwding-container ef-js-forwarding-address ef-selected" id="service-fwding-container" style="display:none">
+                                        <div class="ef-item-content">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col">
+                                                    <h3 class="">Forwarding Address:</h3>
+                                                </div>
+                                            </div>
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-col w-col-8">
+                                                    <div class="">
+                                                        <!--<span class="officer-fwding-address"></span> -->
+                                                        <span class="officer-fwding-address">None Selected</span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col w-col-4 w-clearfix add-col">
+                                                    <button id="efForwardingAddressEditButton" type="button" class="ef-btn ef-primary-btn ef-alt-btn" onclick="FormBuilder.ChooseOfficerAddress(jQuery('input[name=officer-fwding-address]').val(), 'fwding', 'Service Address');">Edit</button>
+                                                    <button type="button" id="officer-fwding-choose-another-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0,'fwding', 'Forwarding Address');">Choose Another</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-2"></div>
+                                </div>
+                                <!-- end of service address wrappeer -->
+                                <div class="w-row">&nbsp;</div>
+                                <div class="w-row">
+                                    <div class="w-col">
+                                        <button type="button" class="ef-btn ef-back-btn ef-js-back-tab" onclick="">Back</button>
+                                        <button type="button" id="officer-submit-addressing-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step" onclick=""> Save </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 ﻿@page
 @model Spendwise_WebApp.Pages.companiesModel
 @{
+    ViewData["Title"] = "companies";
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
 <div class="col-five clientpage">
@@ -50,15 +51,18 @@
                             <td>Status <span class="status-helper"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span></td>
                             <td></td>
                         </tr>
-                        <tr>
-                            <td><a href="/company-details/?i=2986203">2986203</a></td>
-                            <td>12/03/2025</td>
-                            <td><a href="/account/company/?i=2986203">DNAK LLP</a></td>
-                            <td>OC455861</td>
-                            <td>F3LLCH</td>
-                            <td>Accepted</td>
-                            <td style="text-align:right"><a class="btn btn-success" href="/account/company/?i=2986203" role="button" aria-disabled="false"><img src="/assets/icons/magnifier.png" alt="">View</a></td>
-                        </tr>
+                        @foreach (var item in Model.Companies)
+                        {
+                            <tr>
+                                <td> @item.CompanyId </td>
+                                <td> @(item.ApprovedDate != null ? @item.ApprovedDate : "-") </td>
+                                <td> @item.CompanyName </td>
+                                <td> @(item.CompanyNumber != null ? @item.CompanyNumber : "-") </td>
+                                <td> @(item.CompanyAuthCode != null ? @item.CompanyAuthCode : "-") </td>
+                                <td> @item.CompanyStatus </td>
+                                <td style="text-align:right"><a class="efButton efEditButton efDetailsButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="/account/company/?i=2986203" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">View</span></a></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
                 <div style="overflow:hidden;margin-top:10px;"></div>

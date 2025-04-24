@@ -3,54 +3,455 @@
 @{
     Layout = null;
 }
-<style>
-    .ef-order-form-nav-item-text {
-        text-decoration: none;
-        cursor: pointer;
-        color: #abb5ba !important;
-    }
 
-    .ef-order-form-nav-item-text.active {
-        text-decoration: none;
-        cursor: pointer;
-        color: #fff !important;
-    }
-</style>
+<div id="parentTabs">
+    <div class="ef-order-form-nav-step-wrapper">
+        <div class="w-container ef-order-form-nav-step-content" id="nefrozon-nav">
+            <a class="nav-link ef-companyformation-steps" aria-current="page" href="#particular" style="height: 40px; float: left;">
+                <div class="ef-order-form-nav-item-text">
+                    <div class="ef-order-form-nav-item-indicator step-1-active"></div>
+                    Particular
+                </div>
+            </a>
+            <a class="nav-link ef-companyformation-steps" href="#address" style="height: 40px; float: left;">
+                <div class="ef-order-form-nav-item-text">
+                    <div class="ef-order-form-nav-item-indicator step-2-todo"></div>
+                    Addresses
+                </div>
+            </a>
+            <a class="nav-link ef-companyformation-steps" href="#business-address" style="height: 40px; float: left;">
+                <div class="ef-order-form-nav-item-text">
+                    <div class="ef-order-form-nav-item-indicator step-3-todo"></div>
+                    Business Address
+                </div>
+            </a>
+            <a class="nav-link ef-companyformation-steps" href="#appointment" style="height: 40px; float: left;">
+                <div class="ef-order-form-nav-item-text">
+                    <div class="ef-order-form-nav-item-indicator step-4-todo"></div>
+                    Appointments
+                </div>
+            </a>
+            <a class="nav-link ef-companyformation-steps" href="#document" style="height: 40px; float: left;">
+                <div class="ef-order-form-nav-item-text">
+                    <div class="ef-order-form-nav-item-indicator step-5-todo"></div>
+                    Documents
+                </div>
+            </a>
+        </div>
+    </div>
 
-<div class="ef-order-form-nav-step-wrapper">
-    <div class="w-container ef-order-form-nav-step-content">
-        <a class="ef-order-form-nav-item ef-companyformation-steps" id="particulars" onclick="showFormationBasePage('particular')">
-            <div class="ef-order-form-nav-item-text " id="particular">
-                <div class="ef-order-form-nav-item-indicator step-1-active"></div>
-                Particulars
+    <div data-bs-spy="scroll" data-bs-target="#nefrozon-nav" data-bs-smooth-scroll="true" class="tab-content-scrollable" tabindex="0">
+        <div class="tab-pane current" id="Formation">
+            <div class="w-container ef-content-wrapper ef-particulars-step" id="ef-content-wrapper">
+                <div id="particular" class="section">
+                    <div class="ef-panel-wrapper">
+                        <div class="head-01">
+                            <h1>Particular</h1>
+                        </div>
+                        <div class="ef-information-box mr-top-20">
+                            <h2 class="ef-information-box-title">Company Name</h2>
+                            <p>This is the name that will appear on your certificate of incorporation and will also appear on the public record at Companies House.</p>
+                            <p>Remember to add <strong id="LLP-extention">LLP</strong> to the end of your company name<span id="limited-liability-partnership-ex-text"></span>. </p>
+                        </div>
+                        <div id="ef-panel-inner-content">
+                            <div id="ef-particulars-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
+                                <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
+                            </div>
+                            <div>
+                                <h2 class="ef-hide">Particulars</h2>
+                                <!--  results -->
+                                <div class="ef-alert-box netural name-check-placeholder ef-js-check-name-alert" style="display: none;">
+                                    <div class="ef-alert-box-main-text">
+                                        Checking availability of "<span class="ef-namecheck-choosen-name">CODEPLUS</span>"
+                                        <span class="ef-inline-loader"></span>
+                                    </div>
+                                </div>
+                                <!-- GREEN -->
+                                <div class="ef-alert-box success name-check-result" style="display:none">
+                                    <div class="ef-alert-box-main-text">
+                                        Congratulations,"
+                                        <span class="ef-namecheck-choosen-name">CODEPLUS</span>" is available for registration.
+                                    </div>
+                                </div>
+                                <!-- RED -->
+                                <div class="ef-alert-box fail name-check-result" style="display:none">
+                                    <div class="ef-alert-box-main-text">
+                                        <span class="ef-namecheck-choosen-name">CODEPLUS</span> is not available for registration.
+                                    </div>
+                                    <p class="ef-js-namecheck-meta-text">You will need to provide a valid Company ending: LLP, LIMITED LIABILITY PARTNERSHIP</p>
+                                </div>
+                                <!-- AMBER -->
+                                <div class="ef-alert-box warning name-check-result" style="display: none;">
+                                    <div class="ef-alert-box-main-text">
+                                        <span class="ef-namecheck-choosen-name">CODEPLUS</span> is available for registration.
+                                    </div>
+                                    <p class="ef-js-namecheck-meta-text">You will need to provide a valid Company ending: LLP, LIMITED LIABILITY PARTNERSHIP</p>
+                                    <div class="supp-same-as-req supp-sensitive-req" style="display:none">
+                                        <p class="sup-type supp-same-as-req" style="display:none">Name authorisation from <strong class="permission-from"></strong></p>
+                                        <p class="sup-type supp-sensitive-req" style="display:none">Sensitive word authorisation for <strong class="sensitive-list"></strong></p>
+                                        <p class="sup-type supp-sensitive-req" style="display: none;"> Please attach supporting documentation (either PDF, RTF, DOC or DOCX), below:</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="ef-namecheck-wrapper w-row ef-form-wrap">
+                                        <div class="ef-namecheck-label-row w-col w-col-9"></div>
+                                        <div class="w-col w-col-5">
+                                            <label for="ef-company-name">
+                                                Company Name
+                                                <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_NAME"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <input class="w-input ef-company-name-field" id="ef-company-name" type="text" name="company-name" value="CODEPLUS" onkeyup="progress_is_namecheck()">
+                                        </div>
+                                        <div class="w-col w-col-4" style="margin-top: 1px;">
+                                            <label for="ef-namecheck-button">&nbsp;</label>
+                                            <button type="button" id="ef-namecheck-button" class="ef-btn ef-primary-btn" name="ef-name-check-btn" onclick="FormBuilder.NameCheck(jQuery('#ef-company-name').val()); ">Check another name</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="ef-same-as-doc" value="0" id="ef-same-as-doc">
+                                <input type="hidden" name="ef-sensitive-doc" value="0" id="ef-sensitive-doc">
+                                <div class="ef-form-wrap supp-doc-container" style="display:none" id="same-as-container">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-12">
+                                            <label>Name Authorisation</label>
+                                            <p>You need permission from <span class="permission-from"></span> to use this company name.</p>
+                                            <p>Please obtain permission and upload file here.</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-row ef-supporting-doc-attachment-wrapper" style="clear:both">
+                                        <div class="w-col w-col-8">
+                                            <label>Supporting Document</label>
+                                            <input class="w-input file-upload" type="file" name="file-upload-same-as" id="file-upload-same-as">
+                                            <button class="ef-btn ef-primary-btn attach-button js-attach-same-as" data-doc-type="same-as">Attach</button>
+                                        </div>
+                                        <div class="w-col w-col-12 same-as-col ef-upload-result">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ef-form-wrap supp-doc-container" style="display:none" id="sensitive-container">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-12">
+                                            <label>Sensitive Words</label>
+                                            <div class="sensitive-guidance"></div>
+                                        </div>
+                                    </div>
+                                    <div class="w-row ef-supporting-doc-attachment-wrapper" style="clear:both">
+                                        <div class="w-col w-col-8">
+                                            <div>
+                                                <label>Supporting Document</label>
+                                                <input class="w-input file-upload" type="file" name="file-upload-sensitive" id="file-upload-sensitive">
+                                                <button type="button" class="ef-btn ef-primary-btn attach-button js-attach-sensitive-name" data-doc-type="sensitive">Attach</button>
+                                            </div>
+                                        </div>
+                                        <div class="w-col w-col-12 sensitive-col ef-upload-result">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ef-form-wrap last-margin">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-6">
+                                            <label for="company-type">
+                                                Type of Company
+                                                <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_TYPE"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <select class="w-select" id="company-type" name="company-type" onchange="FormBuilder.ChangeCompanyType()">
+                                                <option value="4" selected="selected">
+                                                    Limited Liability Partnership
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="w-col w-col-6">
+                                            <label for="company-jur">
+                                                Jurisdiction
+                                                <span class="ef-modal-help-icon" data-ref="HELP|JURISDICTION"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <select class="w-select" id="company-jur" name="company-jur">
+                                                <option value="EW" selected="selected">
+                                                    England &amp; Wales
+                                                </option>
+                                                <option value="WA">
+                                                    Wales
+                                                </option>
+                                                <option value="SC">
+                                                    Scotland
+                                                </option>
+                                                <option value="NI">
+                                                    Northern Ireland
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--  there can be multiple -->
+                                    <div class="w-row">
+                                        <div class="w-col w-col-6">
+                                            <!-- sic codes -->
+                                            <label>
+                                                What are your business activities
+                                                <span class="ef-modal-help-icon" data-ref="HELP|SIC_CODES"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <div class="" id="ef-js-sic-codes">
+                                                <div class="" id="ef-js-sic-codes__categories">
+                                                    <select class="w-select" name="" id="ef-js-sic-codes__categories__options">
+                                                        <option value="none-selected">Select a category:</option>
+                                                        <option value="all-categories">All</option>
+                                                        <option value="A">A: Agriculture, Forestry and Fishing</option>
+                                                        <option value="B">B: Mining and Quarrying</option>
+                                                        <option value="C">C: Manufacturing</option>
+                                                        <option value="D">D: Electricity, gas, steam and air conditioning supply</option>
+                                                        <option value="E">E: Water supply, sewerage, waste management and remediation activities</option>
+                                                        <option value="F">F: Construction</option>
+                                                        <option value="G">G: Wholesale and retail trade; repair of motor vehicles and motorcycles</option>
+                                                        <option value="H">H: Transportation and storage</option>
+                                                        <option value="I">I: Accommodation and food service activities</option>
+                                                        <option value="J">J: Information and communication</option>
+                                                        <option value="K">K: Financial and insurance activities</option>
+                                                        <option value="L">L: Real estate activities</option>
+                                                        <option value="M">M: Professional, scientific and technical activities</option>
+                                                        <option value="N">N: Administrative and support service activities</option>
+                                                        <option value="O">O: Public administration and defence; compulsory social security</option>
+                                                        <option value="P">P: Education</option>
+                                                        <option value="Q">Q: Human health and social work activities</option>
+                                                        <option value="R">R: Arts, entertainment and recreation</option>
+                                                        <option value="S">S: Other service activities</option>
+                                                        <option value="T">T: Activities of households as employers; undifferentiated goods and services producing activities of households for own use</option>
+                                                        <option value="U">U: Activities of extraterritorial organisations and bodies</option>
+                                                    </select>
+                                                </div>
+                                                <div class="ef-js-sic-codes__loader ef-sic-codes__loader">
+                                                    <span class="ef-sic-codes__loader__img">
+                                                        <!-- loader -->
+                                                    </span>
+                                                </div>
+                                                <div class="w-input ef-sic-code-filter" id="ef-js-sic-codes__filter" style="display:none;">
+                                                    <div class="ef-js-sic-codes__filter__label">
+                                                        Filter: <input type="text" name="name" value="" class="ef-js-sic-codes__filter__input" id="ef-js-sic-codes__filter__input" autocomplete="off">
+                                                    </div>
+                                                    <div class="" id="ef-js-sic-codes__filter__found"></div>
+                                                    <div class="ef-js-sic-code-error" style=""></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-col w-col-6">
+                                            <div id="ef-js-sic-codes__selected" class="ef-sic-codes-selected">
+                                                <label class="ef-sic-codes-selected-label">
+                                                    Selected SIC codes
+                                                </label>
+                                                <!-- <div class="ef-selected-sic-codes" id="ef-js-sic-codes__selected__picked"> -->
+                                                <ul id="ef-sic-code-list" class="ef-sic-code-list">
+                                                    <li class="ef-no-sic-code">None Selected</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="particular-save">
+                                <button type="button" id="pseudo-nextstep" class="ef-btn nextstep">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="address" class="section">
+                    <div class="ef-panel-wrapper">
+                        <div class="head-02">
+                            <h1>Registered Address</h1>
+                        </div>
+                        <div class="ef-registered-office-step" id="ef-panel-content">
+                            <div id="ef-panel-inner-content">
+                                <div id="ef-registered-addres-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
+                                    <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
+                                </div>
+                                <div>
+                                    <!--  educational text -->
+                                    <div class="ef-information-box">
+                                        <h2 class="ef-information-box-title">Registered Office (required)</h2>
+                                        <ul>
+                                            <li>All companies require having a registered office address located in the same country as they are registered.</li>
+                                            <li>It is the address to which all Companies House, HMRC and other official letters will be sent and must always be a physical address (e.g. not a PO Box or DX).</li>
+                                            <li><b>The address of the registered office must appear on all company correspondence and publications.</b></li>
+                                            <li><b>A company’s registered office address is available to view by the public free of charge.</b></li>
+                                            <li>If you purchased our Registered Office Address Service, we will scan and email all official mail to an email address of your choice, with the exception of items of value which will be forwarded by post to your forwarding address.</li>
+                                        </ul>
+                                    </div>
+                                    <div class="w-clearfix">
+                                        <div class="ef-registered-email-section">
+                                            <h2>Registered Email</h2>
+                                            <div class="ef-form-wrap">
+                                                <div class="w-row">
+                                                    <div class="w-col w-col-6">
+                                                        <label for="ef-company-email">
+                                                            Registered Email
+                                                            <span class="ef-modal-help-icon" data-ref="HELP|REGISTERED_EMAIL">
+                                                                <img class="ef-help-icon-img" src="/assets/icons/help.png">
+                                                            </span>
+                                                        </label>
+                                                        <input class="w-input ef-company-email-field" id="ef-company-email" type="text" name="company-email" value="it@spendwiseacc.com" onkeyup="FormBuilder.setCompanyRegisteredEmail(this.value)">
+                                                        <span class="ef-company-email-supplement-text ef-input-supplement-text">
+                                                            The official email address of the company - this can be changed at any time.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ef-registered-office-section">
+                                            <h2>Registered Office</h2>
+                                            <!--  start choose your own -->
+                                            <!-- <div class="hr-line-1"></div> -->
+                                            <div id="ef-use-own-reg-office" class="ef-item-box" style="display:none">
+                                                <div class="ef-item-content">
+                                                    <div class="w-row ef-panel-row">
+                                                        <div class="w-col w-col-8">
+                                                            <h3>Choose to use your own address</h3>
+                                                        </div>
+                                                        <div class="w-col w-col-4 w-clearfix add-col">
+                                                            <button type="button" class="ef-btn ef-primary-btn ef-submit-btn ef-use-own-address-btn" onclick="FormBuilder.ChooseOwnBusinessAddress();">Choose Address</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--  <div class="hr-line-1"></div> -->
+                                            <!-- included address -->
+                                            <!--  Forwarding address -->
+                                            <div class="ef-item-box ef-selected">
+                                                <div class="ef-item-content">
+                                                    <div class="w-row ef-panel-row">
+                                                        <div class="w-col">
+                                                            <h3 class="forward-address">Forwarding Address:</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-row ef-panel-row">
+                                                        <div class="w-col w-col-8">
+                                                            <div class="">
+                                                                <span class="ef-js-forwarding-address">15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-col w-col-4 w-clearfix add-col">
+                                                            <button id="efForwardingAddressEditButton" type="button" class="ef-btn ef-alt-btn ef-edit-btn">Edit</button>
+                                                            <button type="button" class="ef-btn ef-choose-btn ef-completed-btn">Choose Another</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end forwarding address -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="add-save">
+                            <button type="button" id="pseudo-nextstep" class="ef-btn nextstep">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="business-address" class="section">
+                    <div class="ef-panel-wrapper">
+                        <div class="head-03">
+                            <h1>Business <span class="m-hide t-hide">Address</span></h1>
+                        </div>
+                        <div class="" id="ef-panel-content">
+                            <div id="ef-panel-inner-content">
+                                <div id="ef-registered-addres-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
+                                    <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
+                                </div>
+                                <div>
+                                    <h2 class="ef-hide">Trading Address</h2>
+                                    <!--  educational text -->
+                                    <div class="ef-information-box">
+                                        <h2 class="ef-information-box-title">Business Address Service (optional)</h2>
+                                        <ul>
+                                            <li>A business address service provides a general business correspondence address for your company, and this is the address which is displayed at the top of your letterheads and stationery as your business location.</li>
+                                            <li>If you choose to purchase this service, we will forward all business correspondence (non-government mail) to you by scan and email on the same day we receive it.</li>
+                                            <li>Any items of value, such as bank cards, will be forwarded on by Royal Mail.</li>
+                                            <li>This service does not include a registered office service, which should be purchased separately.</li>
+                                            <li><b>You are not required to provide a business address to form a company, however, you may wish to use our Covent Garden, WC2 address to enhance your corporate image and provide privacy for your home address.</b></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="add-save">
+                            <button type="button" id="pseudo-nextstep" class="ef-btn nextstep">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="appointment" class="section">
+                    <div class="ef-panel-wrapper">
+                        <div class="head-04" id="ef-panel-title">
+                            <h1>Appointments</h1>
+                        </div>
+                        <div class="" id="ef-panel-content">
+                            <div class="" id="ef-panel-inner-content">
+                                <div id="ef-psc-warning" class="ef-primary-warning-msg ef-alert-box warning" style="display:none;">
+                                    <h2 class="">Warning</h2>
+                                    <div class="ef-alert-box-main-text" id="">
+                                        <div class="ef-alert-box-main-text">
+                                            <p class="fc-red">It is now a legal requirement to identify the Persons with Significant Control (PSCs) of a company.</p>
+                                            <p class="fc-red">Any person who ultimately controls more than 25% of the company is a PSC. If you are a shareholder with more than 25% of the company's shares - you are a PSC.</p>
+                                            <p class="fc-red"><strong class="fc-red">There are currently no PSCs appointed.</strong></p>
+                                            <br>
+                                            <p><strong>Please choose one of the following options to proceed:</strong></p>
+                                            <div class="col nine">
+                                                <p class="lh-31"><strong>1.</strong> I want to go to Current Appointments below, and click 'Select' to add a PSC(s).</p>
+                                            </div>
+                                            <div class="col three mr-bot-10"><a class="scroll ef-btn ef-primary-btn" href="#ef-current-appointment-wrapper" style="padding:5px 15px!important">Select</a></div>
+                                            <div class="col nine">
+                                                <p class="lh-31"><strong>2.</strong> I want 1st Formations to add a PSC(s) for me, free of charge.</p>
+                                            </div>
+                                            <div class="col three mr-bot-10"><a class="ef-btn ef-primary-btn" href="#" onclick="addPSC();" style="padding:5px 15px!important">Select</a></div>
+                                            <div class="col nine">
+                                                <p class="lh-31"><strong>3.</strong> I want to continue forming my company regardless of the warning - <strong>not recommended.</strong></p>
+                                            </div>
+                                            <div class="col three mr-bot-10">
+                                                <a class="scroll ef-btn ef-primary-btn" style="padding:5px 15px!important" href="#" onclick="FormBuilder.LoadNextStep();">Select</a>
+                                                <p></p>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ef-registered-addres-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
+                                    <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
+                                </div>
+                                <div>
+                                    <div id="current-appointments-wrapper">
+                                        <div class="ef-information-box">
+                                            <h2 class="ef-information-box-title">Appointments</h2>
+                                            <p>A private company must have at least one director, being a natural person aged 16 years or over, and at least one shareholder; both roles may be fulfilled by the same individual.</p>
+                                            <p>Please use the <b>Person</b> button to appoint an individual as an <b>Officer, Shareholder</b> or <b>PSC</b> of the Company.</p>
+                                            <p>Use the <b>Corporate</b> button to appoint a corporate entity as an <b>Officer, Shareholder</b> or <b>PSC</b> of the Company.</p>
+                                            <p>Use the <b>Other Legal Entity</b> Button if you want to appoint an other legal entity (e.g. a corporation sole, a national or local government, or an international organisation) as a <b>PSC</b> of the Company.</p>
+                                        </div>
+                                        <div class="ef-add-officer-wrapper">
+                                            <h2>Add Another Officer</h2>
+                                            <p>Click on one of the buttons below to add an officer to your company.</p>
+                                            <div class="">
+                                                <div class="ef-add-officer-buttons">
+                                                    <button type="button" class="ef-btn ef-add-officer person" onclick="showAppointmentTab('person')">Person</button>
+                                                    <button type="button" class="ef-btn ef-add-officer corporate" onclick="showAppointmentTab('corporate')">Corporate</button>
+                                                    <button type="button" class="ef-btn ef-add-officer corporate nominee" onclick="showAppointmentTab('other-legal-entity')">Other Legal Entity</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </a>
-        <a class="ef-order-form-nav-item ef-companyformation-steps" id="registerAddress" onclick="showFormationBasePage('register-address')">
-            <div class="ef-order-form-nav-item-text " id="address">
-                <div class="ef-order-form-nav-item-indicator step-2-todo"></div>
-                Addresses
-            </div>
-        </a>
-        <a class="ef-order-form-nav-item ef-companyformation-steps" id="business-Address" onclick="showFormationBasePage('business-Address')">
-            <div class="ef-order-form-nav-item-text " id="businessAddress">
-                <div class="ef-order-form-nav-item-indicator step-3-todo"></div>
-                Business Address
-            </div>
-        </a>
-        <a class="ef-order-form-nav-item ef-companyformation-steps" id="appointments" onclick="showFormationBasePage('appointments')">
-            <div class="ef-order-form-nav-item-text " id="appointment">
-                <div class="ef-order-form-nav-item-indicator step-4-todo"></div>
-                Appointments
-            </div>
-        </a>
-        <a class="ef-order-form-nav-item ef-companyformation-steps" id="documents" onclick="showFormationBasePage('documents')">
-            <div class="ef-order-form-nav-item-text " id="document">
-                <div class="ef-order-form-nav-item-indicator step-5-todo"></div>
-                Documents
-            </div>
-        </a>
+        </div>
     </div>
 </div>
 
-<div id="formationTab">
-</div>
+<div id="appointmentTab"></div>
+
