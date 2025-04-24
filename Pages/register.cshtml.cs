@@ -2,6 +2,7 @@ using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Spendwise_WebApp.Models;
 using System.Security.Cryptography;
@@ -145,28 +146,69 @@ namespace Spendwise_WebApp.Pages
         }
 
 
-        public async Task<IActionResult> OnGetCheckPostCode(string PostCode)
+        //public async Task<JsonResult> OnGetCheckPostCode(string PostCode)
+        //{
+        //    if (string.IsNullOrWhiteSpace(PostCode))
+        //    {
+        //        return new JsonResult(false);  // Return false if company name is empty
+        //    }
+
+        //    string AddressAPikey = _configuration.GetValue<string>("GetAddressApiKey") ?? " ";
+        //    var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.getAddress.io/autocomplete/{PostCode}?api-key={AddressAPikey}");
+
+        //    using (var httpClient = new HttpClient())
+        //    {
+        //        var result = await httpClient.SendAsync(request);
+        //        result.EnsureSuccessStatusCode();
+
+        //        string jsonResponse = await result.Content.ReadAsStringAsync();
+        //        JObject jsonObject = JObject.Parse(jsonResponse);
+
+        //        return new JsonResult(new { suggestions = jsonObject["suggestions"] });
+        //    }
+        //}
+
+        public async Task<JsonResult> OnGetCheckPostCodeAsync(string postCode)
         {
-            if (string.IsNullOrWhiteSpace(PostCode))
+            if (string.IsNullOrWhiteSpace(postCode))
             {
-                return new JsonResult(false);  // Return false if company name is empty
+                return new JsonResult(new { success = false, message = "Postcode is required.", suggestions = new List<object>() });
             }
 
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.postcodes.io/postcodes/{PostCode}");
+            var apiKey = _configuration.GetValue<string>("GetAddressApiKey") ?? " ";
+            var encodedPostCode = Uri.EscapeDataString(postCode);
+            var apiUrl = $"https://api.getAddress.io/autocomplete/{encodedPostCode}?api-key={apiKey}";
 
-            using (var httpClient = new HttpClient())
+            using var httpClient = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
+            var response = await httpClient.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
             {
-                var result = await httpClient.SendAsync(request);
-                result.EnsureSuccessStatusCode();
-
-                string jsonResponse = await result.Content.ReadAsStringAsync();
-
-                JObject jsonObject = JObject.Parse(jsonResponse);
-
-
-                return new JsonResult("");
+                return new JsonResult(new { success = false, message = "Failed to fetch address suggestions.", suggestions = new List<object>() });
             }
+
+            var content = await response.Content.ReadAsStringAsync();
+            var json = JObject.Parse(content);
+            var suggestionsToken = json["suggestions"];
+
+            // Convert JToken (JArray) to strongly typed list
+            var suggestions = suggestionsToken?.ToObject<List<AddressSuggestion>>();
+
+            return new JsonResult(new { success = true, suggestions });
         }
 
+
+    }
+    public class AddressSuggestion
+    {
+        [JsonProperty("address")]
+        public string Address { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
     }
 }
