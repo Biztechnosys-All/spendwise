@@ -7,6 +7,13 @@
     #section-one .home-packages__header h4 a:active, #section-one .home-packages__header h4 a:focus, #section-one .home-packages__header h4 a:hover, #section-one .home-packages__header h4 a:visited {
         color: #fcbe18 !important;
     }
+    @@media (min-width: 62em) {
+    #section-one .home-packages__packages {
+        display: grid;
+        grid-gap: 15px;
+        margin-top: 0;
+    }
+}
 </style>
 
 <section class="home-hero">
@@ -625,7 +632,10 @@
                         </div>
                     </div>
                     <div class="home-packages__wrap hidden-md">
-                        <div class="home-packages__packages">
+                        @{
+                            int PackageCount = Model.Package.Count();
+                        }
+                        <div class="home-packages__packages" style="grid-template-columns: repeat(@PackageCount, 1fr);">
                             @if (Model.Package != null && Model.Package.Any())
                             {
                                 @foreach (var item in Model.Package)
