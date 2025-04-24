@@ -42,7 +42,7 @@
                         <div class="col-md-6">
                             <div class="efRegisterUserWrapper efPanel ui-widget-content ui-corner-top">
                                 <div class="ui-corner-top ui-widget-header efPanelHeader">Account Holder</div>
-                                <div class="ui-corner-bottom efPanelContent">                                    
+                                <div class="ui-corner-bottom efPanelContent">
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Organisation (if applicable):</label>
                                         <div class="col-sm-7">
@@ -80,7 +80,7 @@
                                         <label class="col-sm-5 col-form-label">Surname: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <input asp-for="User.Surname" class="form-control" type="text" value="">
-                                                <span asp-validation-for="User.Surname" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <span asp-validation-for="User.Surname" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -120,8 +120,8 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <table class="efRegisterUser"> 
-                                        <tbody>  
+                                    <table class="efRegisterUser">
+                                        <tbody>
                                             <tr>
                                                 <td></td>
                                                 <td>
@@ -148,7 +148,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Post Code: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input class="form-control" type="text" value="">
+                                            <input class="form-control txtPostCodeInput" type="text" value="">
                                             <button type="button" style="margin:5px 0" class="efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="postcodeLookup()" role="button" aria-disabled="false"><span class="ui-button-text">Find Address</span></button>
                                         </div>
                                     </div>
@@ -496,25 +496,121 @@
 
     </div>
 </div>
+
+<!-- Button to trigger modal (optional) -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addressModal">
+    Show Addresses
+</button>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="addressModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select an Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <ul id="addressList" class="list-group"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @section scripts
 {
     <script>
 
         function postcodeLookup() {
+            const postCode = $(".txtPostCodeInput").val();
+
+            if (!postCode) {
+                alert("Please enter a postcode.");
+                return;
+            }
+
             $.ajax({
                 type: "GET",
-                url: "/register?handler=CheckPostCode&PostCode=" + encodeURIComponent($(".txtPostCodeInput").val()),
-                success: function (isAvailable) {
-                    // Check if the response is a string and convert it to a boolean if necessary
-                    if (typeof isAvailable === 'string') {
-                        isAvailable = (isAvailable.toLowerCase() === 'true');
+                url: `/register?handler=CheckPostCode&postCode=${encodeURIComponent(postCode)}`,
+                dataType: "json",
+                success: function (response) {
+                    if (!response.success || !Array.isArray(response.suggestions)) {
+                        alert("No suggestions found.");
+                        return;
                     }
-                    
+                    console.log("response", response);
+                    console.log("response.suggestions", response.suggestions);
+
+                    populateAddressList(response.suggestions);
                 },
-                error: function () {
-                    console.log("Error checking company name.");
+                error: function (xhr) {
+                    console.error("AJAX error:", xhr);
+                    alert("Error fetching postcode suggestions.");
                 }
             });
+        }
+
+        function populateAddressList(suggestions) {
+            const list = document.getElementById("addressList");
+            list.innerHTML = ''; // Clear previous items
+
+            suggestions.forEach(item => {
+                const li = document.createElement("li");
+                li.className = "list-group-item d-flex justify-content-between align-items-center";
+
+                const addressText = document.createElement("span");
+                addressText.textContent = item.address;
+
+                const selectBtn = document.createElement("button");
+                selectBtn.className = "btn btn-success btn-sm";
+                selectBtn.textContent = "Select";
+                selectBtn.dataset.addressId = item.id;
+
+                // 👇 API call on select
+                selectBtn.onclick = function () {
+                    const id = this.dataset.addressId;
+                    const apiKey = 'k2fpqS_lSUeh0z2ISb57ng45543'; // Replace with actual or server-stored key
+                    const url = `https://api.getaddress.io/get/${id}?api-key=${apiKey}`;
+
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Full address data:", data);
+                            bindAddressToForm(data);
+                            bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
+                        })
+                        .catch(err => {
+                            console.error("Error fetching full address:", err);
+                            alert("Unable to fetch full address details.");
+                        });
+                };
+
+                li.appendChild(addressText);
+                li.appendChild(selectBtn);
+                list.appendChild(li);
+            });
+
+            new bootstrap.Modal(document.getElementById('addressModal')).show();
+        }
+
+        function bindAddressToForm(data) {
+            if (!data) return;
+            console.log("data", data);
+            const lines = data.line_1.split(' ');
+
+            document.getElementById('User_HouseName').value = data.building_number || '';
+            document.getElementById('User_Street').value = lines[1] + ' ' + lines[2]?.trim() || '';
+            document.getElementById('User_Town').value = data.town_or_city || '';
+            document.getElementById('User_County').value = data.county || '';
+            document.getElementById('User_PostCode').value = data.postcode || '';
+            if (data.country == "England") {
+                document.getElementById('User_Country').value = "United Kingdom";
+            }
+            else {
+                document.getElementById('User_Country').value = data.country || '';
+            }
         }
 
         function togglePassword() {
