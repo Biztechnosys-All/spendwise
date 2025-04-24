@@ -26931,3 +26931,23 @@ button.efButton:hover {
         padding-right: 10px;
     }
 }
+.modal-header {
+    background: var(--color-green-one);
+}
+.modal-title {
+    font-size: 1.5rem;
+}
+#efPageContent h3 {
+    margin: 10px 0 10px 0;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #ccc;
+}
+.required_mark {
+    color: #ff0000;
+}
+a.btn.btn-success {
+    color: var(--color-white) !important;
+}
+a.btn.btn-success svg{
+    color: var(--color-white) !important;
+}

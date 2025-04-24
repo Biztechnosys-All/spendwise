@@ -73,12 +73,12 @@
                                     <h1>Login</h1>
                                     <div class="efPaymentGatewayField">
                                         <label class="efPaymentGatewayLabel">Email:</label>
-                                        <input type="text" asp-for="Email" class="efTextInput ef-js-existing-uname">
+                                        <input type="text" asp-for="Email" class="form-control">
                                         <span class="ef-validate-icon"></span>
                                     </div>
                                     <div class="efPaymentGatewayField fileld-position">
                                         <label class="efPaymentGatewayLabel">Password:</label>
-                                        <input asp-for="Password" type="password" class="efTextInput ef-js-existing-pass" autocomplete="off">
+                                        <input asp-for="Password" type="password" class="form-control" autocomplete="off">
                                         <span class="efPasswordEyeOpenIcon ef-js-text-mask" data-owner="efExistingPasswordInput">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
                                                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
@@ -155,11 +155,11 @@
                                         <h2>Account Details</h2>
                                         <div class="efPaymentGatewayField">
                                             <label class="efPaymentGatewayLabel">Email</label>
-                                            <input type="text" class="efTextInput ef-js-user-email" asp-for="User.Email" autocomplete="off">
+                                            <input type="text" class="form-control" asp-for="User.Email" autocomplete="off">
                                         </div>
                                         <div class="efPaymentGatewayField fileld-position">
                                             <label class="efPaymentGatewayLabel">Create Password</label>
-                                            <input type="password" class="efTextInput ef-js-user-password" asp-for="User.Password" autocomplete="off">
+                                            <input type="password" class="form-control" asp-for="User.Password" autocomplete="off">
                                             <span class="efPasswordEyeOpenIcon ef-js-text-mask" data-owner="efUserPasswordInput">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
                                                     <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
@@ -192,21 +192,21 @@
                                     <h2>Billing Details</h2>
                                     <div class="efPaymentGatewayField">
                                         <label class="efPaymentGatewayLabel">Title (Mr, Mrs, Ms, etc.)</label>
-                                        <input type="text" class="efTextInput ef-js-billing-title" asp-for="User.Title" autocomplete="off">
+                                        <input type="text" class="form-control" asp-for="User.Title" autocomplete="off">
                                     </div><div class="efPaymentGatewayFields">
                                         <div class="efPaymentGatewayField">
                                             <label class="efPaymentGatewayLabel">First name</label>
-                                            <input type="text" class="efTextInput ef-js-billing-fname" asp-for="User.Forename" autocomplete="off">
+                                            <input type="text" class="form-control" asp-for="User.Forename" autocomplete="off">
                                         </div><div class="efPaymentGatewayField">
                                             <label class="efPaymentGatewayLabel">Last name(s)</label>
-                                            <input type="text" class="efTextInput ef-js-billing-lname" asp-for="User.Surname" autocomplete="off">
+                                            <input type="text" class="form-control" asp-for="User.Surname" autocomplete="off">
                                         </div>
                                     </div>
 
 
                                     <div class="efPaymentGatewayField">
                                         <label class="efPaymentGatewayLabel">Phone</label>
-                                        <input type="text" class="efTextInput ef-js-billing-phone" asp-for="User.PhoneNumber" autocomplete="off">
+                                        <input type="text" class="form-control" asp-for="User.PhoneNumber" autocomplete="off">
                                     </div>
                                     <div class="efPaymentGatewayField efPaymentGatewayAddressWrapper">
                                         <div class="efPaymentGatewayAddress">
@@ -289,7 +289,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">County:</label>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-8" style="margin-bottom:5px">
                                                 <input asp-for="User.County" class="form-control" type="text" value="">
                                             </div>
                                         </div>
@@ -552,14 +552,14 @@
                                             </div>
 
                                         </div>
-                                        <div class="form-group row text-center">
-                                            <div class="col-sm-6 text-end p-2">
-                                                <button type="button" class="btn btn-primary p-3" onclick="submitAddress()">Submit Address</button>
-                                            </div>
-                                            <div class="col-sm-6 text-start p-2">
-                                                <button type="button" class="btn btn-secondary p-3" data-bs-dismiss="modal">Close</button>
+                                        <div class="form-group row text-center">&nbsp;</div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 col-form-label">&nbsp;</div>
+                                            <div class="col-sm-8">
+                                                <button type="button" class="btn btn-success" onclick="submitAddress()">Submit Address</button>&nbsp; <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -622,7 +622,7 @@
                                 <div class="ef-js-non-paypal ">
                                     <div class="efCardDetailsField">
                                         <label class="efPaymentGatewayLabel">Card Number</label>
-                                        <input type="text" class="efTextInput ef-js-card-pan" name="ef-pan" data-st-field="pan" autocomplete="off" value="">
+                                        <input type="text" class="form-control" name="ef-pan" data-st-field="pan" autocomplete="off" value="">
                                     </div>
                                     <div class="efCardDetailsField">
                                         <label class="efPaymentGatewayLabel">Expiry</label>
@@ -660,7 +660,7 @@
                                     </div>
                                     <div class="efCardDetailsField">
                                         <label class="efPaymentGatewayLabel">CVC/CVV</label>
-                                        <input type="text" class="efTextInput efCVC" name="ef-cvc" size="4" data-st-field="securitycode" autocomplete="off">
+                                        <input type="text" class="form-control efCVC" name="ef-cvc" size="4" data-st-field="securitycode" autocomplete="off">
                                         <img src="/images/cvv2.png" class="efPaymentPageCVV">
                                     </div>
                                 </div>

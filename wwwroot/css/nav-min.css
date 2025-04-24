@@ -766,14 +766,15 @@ body {
     }
 
 .button--secondary {
-    color: var(--color-gray) !important;
+    color: var(--color-white) !important;
     padding: 10px 30px;
-    background-color: #62a43f
+    background-color: #62a43f;
+    font-weight: 700;
 }
 
     .button--secondary:hover {
-        color: var(--color-black) !important;
-        background-color: #75c14c
+        color: var(--color-white) !important;
+        background-color: #75c14c;
     }
 
     .button--secondary:focus {
