@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Web;
+using Spendwise_WebApp.DLL;
 
 namespace Spendwise_WebApp.Pages.BuyPackage
 {
@@ -95,19 +96,33 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                 PackageID = selectedPackage.PackageId,
                 PackageName = selectedPackage.PackageName,
                 CompanyName = Request.Cookies["companyName"],
-                NetAmount = Convert.ToDouble(Request.Cookies["NetAmount"].Replace("£","")),
+                NetAmount = Convert.ToDouble(Request.Cookies["NetAmount"].Replace("£", "")),
                 VatAmount = Convert.ToDouble(Request.Cookies["VatAmount"].Replace("£", "")),
                 TotalAmount = Convert.ToDouble(Request.Cookies["TotalAmount"].Replace("£", "")),
                 AmountDue = Convert.ToDouble(Request.Cookies["TotalAmount"].Replace("£", "")),
                 AdditionalPackageItemIds = SelectedItemIdsCsv,
                 IsOrderComplete = false,
-                InvoicedDate = DateTime.Now,
             };
-            
+
+            var companyDetails = new CompanyDetail
+            {
+                CompanyName = Request.Cookies["companyName"],
+                CompanyStatus = "InComplete",
+                CompanyType = selectedPackage.PackageName,
+                Createdby = User != null ? User.UserID : 0,
+                Createdon = DateTime.Now,
+            };
+
             _context.Orders.Add(order);
+            _context.CompanyDetails.Add(companyDetails);
             _context.SaveChanges();
+
             int orderId = order.OrderId;
-            return new JsonResult(new { success = true, orderId = orderId });
+            return new JsonResult(new
+            {
+                success = true,
+                orderId = orderId
+            });
         }
     }
 }

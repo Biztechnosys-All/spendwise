@@ -210,7 +210,12 @@
                                                 </span>
                                                 <span asp-validation-for="User.HouseName" class="text-danger fw-bold p-1"></span>
                                                 <div>
-                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-primary" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/arrow_rotate_clockwise.png" alt=" "> Choose Another</span></button>
+                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-primary" role="button" aria-disabled="false">
+                                                        <span class="ui-button-text">
+                                                            <img src="~/images/arrow_rotate_clockwise.png" alt=" ">
+                                                            Choose Another
+                                                        </span>
+                                                    </button>
                                                     <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-billing" role="button" aria-disabled="false">
                                                         <span class="ui-button-text" onclick="showPrimaryModal('primary')">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="color: black;" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -232,7 +237,12 @@
                                                     @Model.User.BillingHouseName, @Model.User.BillingLocality, @Model.User.BillingLocality, @Model.User.BillingTown, @Model.User.BillingCounty, @Model.User.BillingPostCode, @Model.User.BillingCountry
                                                 </span>
                                                 <div>
-                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-billing" role="button" aria-disabled="false"><span class="ui-button-text"> <img src="/assets/icons/arrow_rotate_clockwise.png" alt=" ">Choose Another</span></button>
+                                                    <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-new-primary" role="button" aria-disabled="false">
+                                                        <span class="ui-button-text">
+                                                            <img src="~/images/arrow_rotate_clockwise.png" alt=" ">
+                                                            Choose Another
+                                                        </span>
+                                                    </button>
                                                     <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ef-js-edit-billing" role="button" aria-disabled="false">
                                                         <span class="ui-button-text" onclick="showPrimaryModal('billing')">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="color: black;" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
