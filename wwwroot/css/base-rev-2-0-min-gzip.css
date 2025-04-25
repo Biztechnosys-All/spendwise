@@ -3,10 +3,14 @@
     --font-family-body: Arial, Helvetica, sans-serif;
     --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
     --primary: #676767;
-    --color-green: #62a43f;
-    --color-green-one: #98FF98;
-    --color-green-two: #73b810;
+    --color-green: #38761d;
+    --color-green-one: #6aa84f;
+    --color-green-two: #93c47d;
+    --color-green-three: #b6d7a8;
+    --color-green-four: #d7f5cb;
+    --button-hover: #6aa84f;
     --color-blue: #208bae;
+    --color-blue-one: #1387ad;
     --color-white: #ffffff;
     --color-black: #000000;
     --color-gray: #4c4e52;
@@ -62,18 +66,6 @@
     src: url(/fonts/ac6f9713-7381-423e-bc2f-977ad9fd67a9.eot?#iefix) format("eot"), url(/fonts/836d2999-31ef-40e8-86dc-3b88e3f60e33.woff2) format("woff2"), url(/fonts/ec88a881-dc74-44d5-b60f-80794e122fc3.woff) format("woff"), url(/fonts/5c1586dc-a89c-4e63-a6bc-42ec6fb1f41f.ttf) format("truetype"), url(/fonts/c060fe91-a420-4db4-983e-b4364b9b6434.svg#c060fe91-a420-4db4-983e-b4364b9b6434) format("svg");
     font-weight: 700;
     font-style: normal;
-}
-:root {
-    --font-family-body: Arial, Helvetica, sans-serif;
-    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
-    --primary: #676767;
-    --color-green: #98FF98;
-    --color-green-one: #98FF98;
-    --color-blue: #208bae;
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-gray: #4c4e52;
-    --color-yellow: #ffe400;
 }
 #efSection60Row, .pp_social, .visible-mobile, td.res-new-td span.res-title-td {
     display: none !important
@@ -2494,7 +2486,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a:active, a:link, a:visited {
-    color: #1387ad;
+    color: var(--color-green);
     text-decoration: none !important;
     -webkit-tap-highlight-color: transparent
 }
@@ -2940,7 +2932,7 @@ p.fc-green.fw-600.ffsave-two {
 }
 
 .bc-f4f3ef {
-    background-color: #f4f3ef
+    background-color: var(--color-green-four)
 }
 
 .bc-e3e3e3 {
@@ -19612,13 +19604,13 @@ INPUT.efButton.efRight.ui-button.ui-widget.ui-state-default.ui-corner-all {
 }
 
 .ui-widget-header {
-    background-color: #6e737c !important;
+    background-color: var(--color-green) !important;
     border: 0;
     background-image: none !important
 }
 
 #efGoPayNowForm .ui-widget-header {
-    background-color: #63656b !important;
+    background-color: var(--color-green) !important;
     border: 0;
     background-image: none !important
 }
@@ -26892,7 +26884,7 @@ font-weight:bold;
     }
 
     .nav.nav-tabs.justify-content-center .nav-item span.active.nav-link.packageTab, .nav.nav-tabs.justify-content-center .nav-item .nav-link.packageTab.PackTabProcessed {
-        color: var(--color-green-two);
+        color: var(--color-green);
     }
 
 input.efButton:hover, .button--register.button-five:hover {
@@ -26933,6 +26925,7 @@ button.efButton:hover {
 }
 .modal-header {
     background: var(--color-green-one);
+    color: var(--color-white);
 }
 .modal-title {
     font-size: 1.5rem;
