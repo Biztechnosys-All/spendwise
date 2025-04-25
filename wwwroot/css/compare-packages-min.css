@@ -2,10 +2,14 @@
     --font-family-body: Arial, Helvetica, sans-serif;
     --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
     --primary: #676767;
-    --color-green: #98FF98;
-    --color-green-one: #98FF98;
-    --button-hover: #6acd7c;
+    --color-green: #38761d;
+    --color-green-one: #6aa84f;
+    --color-green-two: #93c47d;
+    --color-green-three: #b6d7a8;
+    --color-green-four: #d7f5cb;
+    --button-hover: #6aa84f;
     --color-blue: #208bae;
+    --color-blue-one: #1387ad;
     --color-white: #ffffff;
     --color-black: #000000;
     --color-gray: #4c4e52;
@@ -657,18 +661,18 @@ body {
 }
 
 .button--primary {
-    color: var(--color-gray) !important;
+    color: var(--color-white) !important;
     padding: 10px 50px;
-    background-color: #31a5cb
+    background-color: var(--color-green)
 }
 
     .button--primary:hover {
-        color: #fff !important;
-        background-color: #56bfe1
+        color: var(--color-four) !important;
+        background-color: var(--color-green-one)
     }
 
     .button--primary:focus {
-        background-color: #208bae
+        background-color: : var(--color-green-one)
     }
 
 .button--secondary {
@@ -1194,7 +1198,7 @@ footer {
 }
 
 .site-footer__col p {
-    color: #bdc2cd;
+    color: var(--color-white);
     margin-bottom: 25px;
     line-height: 18px
 }
@@ -2091,8 +2095,8 @@ form.static-form {
 }
 
 .compare-packages-tabs__tab {
-    background-color: #a0a6b4;
-    color: #fff
+    background-color: var(--color-green-one);
+    color: var(--color-white);
 }
 
 @media (min-width:48em) {
@@ -2111,11 +2115,11 @@ form.static-form {
 }
 
 .compare-packages-tabs__tab.active {
-    background-color: #98FF98
+    background-color: var(--color-green)
 }
 
     .compare-packages-tabs__tab.active a {
-        color: var(--color-gray) !important
+        color: var(--color-white) !important
     }
 
 @media (min-width:62em) {

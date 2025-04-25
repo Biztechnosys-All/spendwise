@@ -1,8 +1,19 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
+:root {
+    --font-family-body: Arial, Helvetica, sans-serif;
+    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
+    --primary: #676767;
+    --color-green: #38761d;
+    --color-green-one: #6aa84f;
+    --color-green-two: #93c47d;
+    --color-green-three: #b6d7a8;
+    --color-green-four: #d7f5cb;
+    --button-hover: #6aa84f;
+    --color-blue: #208bae;
+    --color-blue-one: #1387ad;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #4c4e52;
+    --color-yellow: #ffe400;
 }
 
 .contactContainer__right h2, .contactContainer__left h2 {
@@ -48,7 +59,7 @@ h4 {
 
 .contactContainer__left__faq h2 {
     padding: 15px;
-    background-color: rgb(140, 148, 169);
+    background-color: var(--color-green);
     color: white;
     outline: 1px solid rgb(255, 255, 255);
     margin-bottom: 0;
@@ -232,7 +243,7 @@ table.callus__table td, table.callus__table th {
     font-weight: 400;
     line-height: 30px;
     box-sizing: border-box;
-    background-color: rgb(181, 187, 201);
+    background-color: var(--color-green-one);
     color: rgb(255, 255, 255);
 }
 
@@ -342,17 +353,17 @@ table.callus__table td, table.callus__table th {
 
 .contactContainer__left__faq__body__links a {
     text-decoration: none;
-    color: rgb(49, 165, 203);
+    color: var(--color-green)
 }
 
 .faq_answer a {
     text-decoration: none;
-    color: rgb(41, 132, 174);
+    color: var(--color-green-two)
 }
 
-.faq_answer a:hover {
-    color: rgb(25, 95, 128);
-}
+    .faq_answer a:hover {
+        color: var(--color-green-two)
+    }
 
 .contactContainer__left__faq__body__dropdown {
     width: 100%;
@@ -422,15 +433,13 @@ input[id="efContactSubmitButton"] {
     width: 125px;
     float: right !important;
     padding: 10px;
-    color: rgb(255, 255, 255);
+    color: var(--color-white);
     border-radius: 0 !important;
     border: 0 !important;
-    background-color: rgb(77, 201, 0) !important;
+    background-color: var(--color-green);
     font-size: 16px !important;
     text-transform: uppercase;
     font-family: Arial, Helvetica, sans-serif;
-    ;
-    ;
 }
 
 textarea[name="question"] {

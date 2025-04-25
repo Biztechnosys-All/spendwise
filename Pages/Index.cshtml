@@ -5,7 +5,7 @@
 }
 <style>
     #section-one .home-packages__header h4 a:active, #section-one .home-packages__header h4 a:focus, #section-one .home-packages__header h4 a:hover, #section-one .home-packages__header h4 a:visited {
-        color: #fcbe18 !important;
+        color: var(--color-green) !important;
     }
     @@media (min-width: 62em) {
     #section-one .home-packages__packages {
@@ -642,7 +642,7 @@
                                 {
                                     <div class="home-packages__package">
                                         <div class="home-packages__header">
-                                            <h4><a asp-page="/Package" asp-route-packageName="@item.PackageName" style="color:#fcbe18;">@item.PackageName</a></h4>
+                                            <h4><a asp-page="/Package" asp-route-packageName="@item.PackageName">@item.PackageName</a></h4>
                                             <div class="home-packages__prices">
                                                 <div class="home-packages__price">£@item.Price</div>
                                                 <span class="home-packages__chFee" style="padding:10px 0 10px 0;">Includes £50 Companies House Fee</span>

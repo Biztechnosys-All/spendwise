@@ -2,10 +2,14 @@
     --font-family-body: Arial, Helvetica, sans-serif;
     --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
     --primary: #676767;
-    --color-green: #98FF98;
-    --color-green-one: #98FF98;
-    --button-hover: #6acd7c;
+    --color-green: #38761d;
+    --color-green-one: #6aa84f;
+    --color-green-two: #93c47d;
+    --color-green-three: #b6d7a8;
+    --color-green-four: #d7f5cb;
+    --button-hover: #6aa84f;
     --color-blue: #208bae;
+    --color-blue-one: #1387ad;
     --color-white: #ffffff;
     --color-black: #000000;
     --color-gray: #4c4e52;
@@ -91,8 +95,8 @@ div#dashboard__content {
 
 #dashboard__alert {
     padding: 20px;
-    color: #474747;
-    background-color: #f4f3ef;
+    color: var(--color-black);
+    background-color: var(--color-green-four);
     margin-bottom: 20px;
 }
 
@@ -255,8 +259,8 @@ div#dashboard__content {
         }
 
 .dashboard__link {
-    border: 1px solid #c7c7c7;
-    background-color: #f4f3ef;
+    border: 1px solid var(--color-green-three);
+    background-color: var(--color-green-four);
     padding: 15px;
     margin-bottom: 20px;
     box-sizing: border-box;
@@ -265,8 +269,8 @@ div#dashboard__content {
 }
 
     .dashboard__link:hover {
-        background-color: #4c4e52;
-        border-color: #4c4e52;
+        background-color: var(--color-green-two);
+        border-color: var(--color-green);
         color: #fff;
     }
 
@@ -283,14 +287,14 @@ div#dashboard__content {
 
     .dashboard__link h3 {
         margin-top: 0 !important;
-        color: #4c4e52 !important;
+  
         font-size: 21px !important;
         font-weight: 700;
         font-family: var(--font-family-myriad) !important;
     }
 
     .dashboard__link h4 {
-        color: #4c4e52 !important;
+        color: var(--color-white) !important;
         font-size: 16px !important;
         font-weight: 700;
         font-family: var(--font-family-myriad) !important;
@@ -304,14 +308,14 @@ div#dashboard__content {
 .dashboard__link--partnerships {
     position: relative;
     padding: 25px 15px;
-    border-color: #ecbd3d;
-    background: linear-gradient(109.6deg, rgb(255, 219, 47) 11.2%, rgb(244, 253, 0) 100.2%);
+    border-color: var(--color-green);
+    background: linear-gradient(109.6deg, rgb(56, 118, 29) 11.2%, rgb(106, 159, 70) 100.2%);
 }
 
     .dashboard__link--partnerships:hover {
-        background: #4c4e52;
-        border-color: #4c4e52;
-        color: #fff;
+        background: var(--color-green-one);
+        border-color: var(--color-green-two);
+        color: var(--color-white);
     }
 
     .dashboard__link--partnerships .dashboard__tag {
@@ -319,21 +323,22 @@ div#dashboard__content {
         bottom: 1rem;
         right: 1rem;
         padding: 0.45rem 0.8rem 0.3rem 0.8rem;
-        background-color: #fe7323;
-        color: #fff;
+        background-color: var(--color-green-three);
+        color: var(--color-black);
         font-size: 1rem;
     }
-
-    .dashboard__link--partnerships h3,
+    a.dashboard__link--partnerships h3 {
+        color: var(--color-white);
+    }
     .dashboard__link--partnerships p,
     .dashboard__link--partnerships p strong {
-        color: #333 !important;
+        color: var(--color-white);
     }
 
     .dashboard__link--partnerships:hover h3,
     .dashboard__link--partnerships:hover p,
     .dashboard__link--partnerships:hover p strong {
-        color: #fff !important;
+        color: var(--color-white);
     }
 
 .dashboard__link .dashboard__my-companies {
