@@ -822,7 +822,7 @@ i.fa.checkbox-big:before {
 
 .section {
     padding: 40px 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 3px solid #ccc;
 }
 
 /*PersonOfficerPositionTab*/
@@ -1108,6 +1108,7 @@ ef-information-box p {
     line-height: 18px !important;
     font-family: 'MyriadW08-BoldSemiConde' !important;
     color: #2a3135 !important;
+    border-bottom: none
 }
 
 .ef-primary-btn:hover {
@@ -1194,6 +1195,7 @@ ef-information-box p {
     font-family: 'MyriadW08-BoldSemiConde' !important;
     color: #2a3135 !important;
     font-weight: 600;
+    border-bottom: none;
 }
 
 .w-col-7 {
@@ -1299,4 +1301,78 @@ ef-information-box p {
 .ef-primary-btn__remove {
     margin-right: 4px;
     display: none;
+}
+
+.tab-link.active {
+    background-color: #31a5cb !important;
+    border-color: #31a5cb !important;
+    color: #FFFFFF !important;
+    border-top-left-radius: 0;
+    font-weight: 600;
+}
+
+.scroll-container {
+    height: 300px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+}
+
+.ef-corporate-save {
+    background-color: #5ea72d !important;
+    border: 1px solid #5ea72d !important;
+    color: #FFFFFF !important;
+    float: right;
+}
+
+.ef-corporate-save:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    text-decoration: none !important;
+}
+
+.appointment-section {
+    padding: 40px 10px;
+    border-bottom: 3px solid #ccc;
+}
+
+.ef-other-save {
+    background-color: #5ea72d !important;
+    border: 1px solid #5ea72d !important;
+    color: #FFFFFF !important;
+    float: right;
+}
+
+.ef-other-save:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    text-decoration: none !important;
+}
+
+.other-service-address {
+    font-size: 20px !important;
+    line-height: 18px !important;
+    font-family: 'MyriadW08-BoldSemiConde' !important;
+    color: #2a3135 !important;
+    margin: 10px 0 10px 0;
+}
+
+.ef-other-service-address-title {
+    margin: 10px 0 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc !important;
+    font-size: 20px !important;
+    line-height: 18px !important;
+    font-family: 'MyriadW08-BoldSemiConde' !important;
+    color: #2a3135 !important;
+}
+
+.ef-order-form-nav-step-wrapper.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    width: 70rem;
 }

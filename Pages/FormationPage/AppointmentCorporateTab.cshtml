@@ -1,0 +1,309 @@
+﻿@page
+@model Spendwise_WebApp.Pages.FormationPage.AppointmentCorporateTabModel
+@{
+    Layout = null;
+}
+
+<div class="ef-panel-wrapper" id="appCorporateTab">
+    <div class="head-04" id="ef-panel-title">
+        <h1>Appointments</h1>
+    </div>
+    <div class="" id="ef-panel-content">
+        <div id="ef-panel-inner-content">
+            <div id="ef-global-officer-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
+                <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
+            </div>
+            <div class="w-tabs" id="ef-officer-form-wrapper">
+                <!-- start tabs -->
+                <div class="w-tab-menu ef-officer-form-tab-menu">
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link " aria-current="page" href="#corporate-position">
+                        <div> Position </div>
+                    </a>
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link " href="#corporate-details">
+                        <div> Details </div>
+                    </a>
+                </div>
+                <!-- end tabs -->
+                <div class="scroll-container" id="scrollContainer">
+                    <div class="tab-pane current">
+                        <div id="corporate-position" class="appointment-section">
+                            <div class="w-tab-content">
+                                <div class="w-tab-pane w--tab-active ef-tab-pane-position" data-tab="position">
+                                    <div class="head-01">
+                                        <h1>Position</h1>
+                                    </div>
+                                    <div class="ef-information-box">
+                                        <h2 class="ef-information-box-title">Directors and Shareholders</h2>
+                                        <p>A limited company must have at least one director and one shareholder. One person may hold both of these positions. </p>
+                                        <h2 class="ef-information-box-title icon">Persons with Significant Control (PSCs)</h2>
+                                        <p>Any person who ultimately controls more than 25% of the company is a Person with Significant Control (PSC). </p>
+                                        <p><b>It is now a legal requirement to identify the PSCs of a company. Please tick the Person with Significant Control (PSC) box if you qualify as a PSC of this company (see below).</b></p>
+                                        <p>A Person with Significant Control (PSC) is anyone who meets one or more of the following conditions: </p>
+                                        <ul>
+                                            <li>owns more than 25% of the company’s shares.</li>
+                                            <li>holds more than 25% of the company’s voting rights.</li>
+                                            <li>holds the right to appoint or remove the majority of directors.</li>
+                                            <li>has the right to, or actually exercises significant influence or control.</li>
+                                            <li>holds the right to exercise or actually exercises significant control over a trust or company that meets one of the first 4 conditions.</li>
+                                        </ul>
+                                        <h3>Am I a PSC?</h3>
+                                        <p>If you are a shareholder with more than 25% of the company's shares - yes, you are a PSC, and you should also <b>tick the Person with Significant Control (PSC) box below</b>. </p>
+                                    </div>
+                                    <div style="display:none;" class="ef-alert-box fail" id="position-error">
+                                        <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                    </div>
+                                    <div class="ef-form-wrap">
+                                        <h2>Choose Position</h2>
+                                        <div class="hr-line-1"></div>
+                                        <p class="officer-extra-text mr-bot-30 fs-14 lh-18">Please tick all boxes that are relevant to this person. If this person is to hold more than one position, eg. Will be a director, shareholder and PSC, make all appointments now, by ticking 3 boxes.</p>
+                                        <div class="role-select-wrapper">
+                                            <div class="w-row row-role-select">
+                                                <div class="w-col">
+                                                    <div class="w-checkbox">
+                                                        <input class="w-checkbox-input" id="officer-topdog" type="checkbox" name="officer-topdog" data-name="officer-topdog">
+                                                        <label class="w-form-label" for="officer-topdog">Director</label>
+                                                        <span class="ef-modal-help-icon" data-ref="HELP|TOP_DOG_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col">
+                                                    <div class="w-checkbox">
+                                                        <input class="w-checkbox-input" id="officer-holder" type="checkbox" name="officer-holder" data-name="officer-holder">
+                                                        <label class="w-form-label" for="officer-holder">Shareholder</label>
+                                                        <span class="ef-modal-help-icon" data-ref="HELP|HOLDER_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col">
+                                                    <div class="w-checkbox">
+                                                        <input class="w-checkbox-input" id="officer-secretary" type="checkbox" name="officer-secretary" data-name="officer-secretary">
+                                                        <label class="w-form-label" for="officer-secretary">Secretary</label>
+                                                        <span class="ef-modal-help-icon" data-ref="HELP|SECRETARY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col">
+                                                    <div class="w-checkbox">
+                                                        <input class="w-checkbox-input" id="officer-PSC" type="checkbox" name="officer-PSC" data-name="officer-PSC">
+                                                        <label class="w-form-label" for="officer-PSC">Person with Significant Control (PSC)</label>
+                                                        <span class="ef-modal-help-icon" data-ref="HELP|PSC"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-col officer-constent-to-act-wrapper" style="margin-top:20px; display:none;">
+                                                    <div class="w-checkbox">
+                                                        <input type="checkbox" class="w-checkbox-input ef-consent-to-act-checkbox" name="consent-to-act" id="consent-to-act">
+                                                        <label class="field-label ef-consent-to-act-label" for="consent-to-act">The officers confirm they have consented to act as a Director or Secretary</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-row">&nbsp;</div>
+                                <div class="w-row">
+                                    <div class="w-col">
+                                        @* <button type="button" class="ef-btn ef-back-btn" onclick="FormBuilder.ShowLoader('Loading...'); FormBuilder.ReloadStep();">Cancel</button> *@
+                                        <button type="button" data-nextstep="pick-officer" id="officer-submit-position-tab" class="ef-btn ef-corporate-save">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="corporate-details" class="appointment-section" style="border-bottom: none;">
+                            <div class="w-tab-pane ef-tab-pane-details" data-tab="Tab 3" style="display: block;">
+                                <div class="head-02">
+                                    <h1> Details </h1>
+                                </div>
+                                <div class="ef-information-box">
+                                    <h2 class="ef-information-box-title">Personal Details</h2>
+                                    <p>It is recommended you enter your name as it appears on your ID, eg. passport or drivers licence.</p>
+                                </div>
+                                <div style="display:none;" class="ef-alert-box fail" id="details-error">
+                                    <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                </div>
+                                <div style="display:none;" class="ef-alert-box fail" id="no-officer-nationality">
+                                    <span style="float:right;" class="ef-modal-help-icon nationality-help" data-ref="HELP|NATIONALITY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                    <div id="" class="ef-alert-box-main-text main-error-text"></div>
+                                </div>
+                                <div id="officer-details-div">
+                                    <div class="ef-form-wrap">
+                                        <h2 id="preselected-officer">
+                                            Officer Details
+                                        </h2>
+                                        <div class="hr-line-1"></div>
+                                        <div class="w-row row-margin">
+                                            <div class="w-col w-col-7" style="">
+                                                <div id="officer-title-wrapper">
+                                                    <div id="officer-label-wrapper">
+                                                        <h3>Authoriser Details</h3>
+                                                    </div>
+                                                    <div class="ef-autocomplete-wrapper">
+                                                        <label class="field-label" for="officer-title">Title</label>
+                                                        <input id="officer-title" class="w-input" type="text" placeholder="Title" name="officer-title" value="" data-lastvalue="" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div id="officer-firstname-wrapper">
+                                                    <label class="field-label" for="officer-firstname">First name(s)</label>
+                                                    <input class="w-input" id="officer-firstname" type="text" placeholder="First name" name="officer-firstname" value="" data-lastvalue="" autocomplete="off">
+                                                </div>
+                                                <div id="officer-lastname-wrapper">
+                                                    <label class="field-label" for="officer-lastname">Last name</label>
+                                                    <input class="w-input" id="officer-lastname" type="text" placeholder="Last name" name="officer-lastname" value="" data-lastvalue="" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="w-col w-col-7">
+                                                <div id="officer-label-wrapper">
+                                                    <h3>Corporate Details</h3>
+                                                </div>
+                                                <div id="officer-corporate-name-wrapper">
+                                                    <label class="field-label" for="officer-corporate-name">Legal Name</label>
+                                                    <input class="w-input" id="officer-corporate-name" type="text" placeholder="Legal Name" name="officer-corporate-name" value="" autocomplete="off">
+                                                </div>
+                                                <div id="officer-corporate-is-uk-status-wrapper">
+                                                    <label class="field-label" for="officer-corporate-is-uk-status">
+                                                        Registered in the UK ?
+                                                    </label>
+                                                    <div class="officer-corporate-is-uk-answers">
+                                                        <span style="margin-right: 10px;">
+                                                            <input type="radio" id="officer-corporate-is-uk-status-1" class="w-radio officer-corporate-is-uk-status" name="officer-corporate-is-uk-status" value="1" style="display: inline-block">
+                                                            <label style="display: inline-block" class="field-label" for="officer-corporate-is-uk-status-1">Yes</label>
+                                                        </span>
+                                                        <span>
+                                                            <input type="radio" id="officer-corporate-is-uk-status-0" class="w-radio officer-corporate-is-uk-status" name="officer-corporate-is-uk-status" value="0" style="display: inline-block">
+                                                            <label class="field-label" style="display: inline-block" for="officer-corporate-is-uk-status-0">No</label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!-- start is uk data -->
+                                                <div id="officer-is-uk-questions-wrapper" style="">
+                                                    <div class="officer-corporate-reg-no-wrapper officer-corporate-is-uk-question">
+                                                        <label class="field-label" for="officer-corporate-reg-no">Registration Number <span class="ef-optional-span ef-js-officer-optional-span">(optional)</span> </label>
+                                                        <input type="text" class="w-input officer-corporate-reg-no ef-js-officer-optional-qs" id="officer-corporate-reg-no" placeholder="Registration Number" name="officer-corporate-reg-no" value="" autocomplete="off">
+                                                    </div>
+                                                    <div class="officer-corporate-place-reg-wrapper officer-corporate-is-uk-question">
+                                                        <label class="field-label" for="officer-corporate-place-reg">Place Registered <span class="ef-optional-span ef-js-officer-optional-span">(optional)</span> </label>
+                                                        <input type="text" class="w-input officer-corporate-place-reg ef-js-officer-optional-qs" id="officer-corporate-place-reg" name="officer-corporate-place-reg" value="" placeholder="Example: England" autocomplete="off">
+                                                    </div>
+                                                    <!-- required is a PSC -->
+                                                    <div class="officer-corporate-psc-place-reg-wrapper officer-corporate-is-uk-question">
+                                                        <label class="field-label" for="officer-corporate-psc-place-reg">Registry Held <span class="ef-optional-span ef-js-officer-optional-span">(optional)</span> </label>
+                                                        <input type="text" class="w-input officer-corporate-psc-place-reg ef-js-officer-optional-qs" id="officer-corporate-psc-place-reg" name="officer-corporate-psc-place-reg" value="" placeholder="Example: Companies House" autocomplete="off">
+                                                    </div>
+                                                    <div class="officer-corporate-law-gov-wrapper officer-corporate-is-uk-question">
+                                                        <label class="field-label" for="officer-corporate-law-gov">Law Governed</label>
+                                                        <input class="w-input" type="text" placeholder="Law Governed" id="officer-corporate-law-gov" name="officer-corporate-law-gov" value="" autocomplete="off">
+                                                    </div>
+                                                    <div class="officer-corporate-legal-form-wrapper officer-corporate-is-uk-question">
+                                                        <label class="field-label" for="officer-corporate-legal-form">Legal Form</label>
+                                                        <input class="w-input" type="text" placeholder="Legal Form" id="officer-corporate-legal-form" name="officer-corporate-legal-form" value="" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <!-- / end is uk data -->
+                                            </div>
+                                            <div class="w-row">&nbsp;</div>
+                                            <!-- start res address -->
+                                            <div class="w-col w-col-12" id="residential-address-wrapper">
+                                                <h3 for="officer-residential-address">Address</h3>
+                                                <span class="residential-address-help-text mr-bot-20 block"><strong>Please Note: Please supply the registered office address of the corporate entity. This address does not need to be in the UK.</strong></span>
+                                                <div id="ef-residential-address">
+                                                    <div class="w-row ef-panel-row">
+                                                        <div class="w-col w-col-8">
+                                                            <div class="officer-residential-address">
+                                                                <span>None Selected</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-col w-col-4 w-clearfix ef-officer-residential-btns">
+                                                            <button type="button" id="officer-residential-choose-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0, 'residential', jQuery('#residential-address-wrapper h2').text());" style="">Choose Address</button>
+                                                            <button type="button" id="officer-residential-edit-address" class="ef-btn ef-primary-btn  ef-alt-btn" onclick="FormBuilder.ChooseOfficerAddress(jQuery('input[name=officer-residential-address]').val(), 'residential', jQuery('#residential-address-wrapper h2').text());" style="display:none;">Edit</button>
+                                                            <button type="button" id="officer-residential-choose-another-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0, 'residential', jQuery('#residential-address-wrapper h2').text());" style="display:none;">Choose Another</button>
+                                                            <input type="hidden" name="officer-residential-address" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end res address -->
+                                            <div class="w-row row-margin">
+                                                <div class="w-col w-col-10" style="">
+                                                    <div class="officer-paq-wrapper" style="display:none ">
+                                                        <h3>Authentication Questions</h3>
+                                                        <div class="w-row">
+                                                            <div class="w-col w-col-3">
+                                                                <label class="field-label" id="pac-q1-label" for="pac-q1">Select First 3 letters of</label>
+                                                            </div>
+                                                            <div class="w-col w-col-5">
+                                                                <select class="w-select appointments-field" id="pac-q1" name="pac-q1">
+                                                                    <option value="MUM" selected="selected" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                    <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
+                                                                    <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
+                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
+                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-col w-col-1">
+                                                                <label class="field-label" for="pac-a1">Answer</label>
+                                                            </div>
+                                                            <div class="w-col w-col-3 w-clearfix">
+                                                                <input class="w-input ef-pac-answer" id="pac-a1" type="text" name="pac-a1" value="" maxlength="3" size="3">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-row">
+                                                            <div class="w-col w-col-3">
+                                                                <label class="field-label" id="pac-q2-label" for="pac-q2">Select First 3 letters of</label>
+                                                            </div>
+                                                            <div class="w-col w-col-5">
+                                                                <select class="w-select appointments-field" id="pac-q2" name="pac-q2">
+                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                    <option value="DAD" selected="selected" data-label="Select First 3 letters of">Father's Forename</option>
+                                                                    <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
+                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
+                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-col w-col-1">
+                                                                <label class="field-label" for="pac-a2">Answer</label>
+                                                            </div>
+                                                            <div class="w-col w-col-3 w-clearfix">
+                                                                <input class="w-input ef-pac-answer" id="pac-a2" type="text" name="pac-a2" value="" maxlength="3" size="3">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-row last-margin">
+                                                            <div class="w-col w-col-3">
+                                                                <label class="field-label" id="pac-q3-label" for="pac-q3">Select First 3 letters of</label>
+                                                            </div>
+                                                            <div class="w-col w-col-5">
+                                                                <select class="w-select appointments-field" id="pac-q3" name="pac-q3">
+                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                    <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
+                                                                    <option value="BIRTOWN" selected="selected" data-label="Select First 3 letters of">Town Of Birth</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
+                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
+                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-col w-col-1">
+                                                                <label class="field-label" for="pac-a3">Answer</label>
+                                                            </div>
+                                                            <div class="w-col w-col-3 w-clearfix">
+                                                                <input class="w-input ef-pac-answer" id="pac-a3" type="text" name="pac-a3" value="" maxlength="3" size="3">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-row">&nbsp;</div>
+                                <div class="w-row">
+                                    <div class="w-col">
+                                        <button type="button" class="ef-btn ef-back-btn ef-js-back-tab" onclick="btnBackToMainPage()">Back</button>
+                                        <button type="button" id="officer-submit-details-tab" class="ef-btn ef-submit-btn" onclick=""> Save & Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
