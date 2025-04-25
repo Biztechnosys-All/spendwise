@@ -8,7 +8,7 @@
 
 <div class="col-five ff-orderpage" id="formationPage">
     <div class="container-inner limited-liability-partnership" id="LLP-order-page">
-        <div id="efPageContent" class="ui-widget">
+        <div class="ui-widget">
             <div id="efAuthenticatedContent">
                 <form name="ef-order-form" onsubmit="return false">
                     <div id="ef-order-form">
@@ -44,15 +44,6 @@
                             <div id="FormationTabContent">
                             </div>
                         </div>
-
-                        <!-- form data -->
-                        <input type="hidden" name="token" value="cd4ed277ed4fe1563d069713a54fe7c7d23604c8ac10d0f54f46114f39c41c10">
-                        <input type="hidden" name="i" value="3015260">
-                        <input type="hidden" name="o" value="5100219">
-                        <input type="hidden" name="current_section" value="CompanyFormation">
-                        <input type="hidden" name="current_step" value="particulars">
-                        <input type="hidden" name="next_section" value="CompanyFormation">
-                        <input type="hidden" name="next_step" value="registered-address">
                         <!-- modal template -->
                         <div id="ef-modal-template" class="ef-info-modal" style="display:none;">
                             <div class="ef-info-modal-content">
@@ -96,11 +87,92 @@
                     url: "/FormationPage/AppointmentPersonTab",
                     type: "get",
                     success: function (result) {
-                        $(".tab-content-scrollable").css('display', 'none');
+                        $("#Formation").css('display', 'none');
+                        $("#appCorporateTab").css('display', 'none');
+                        $("#appOtherTab").css('display', 'none');
                         $("#appointmentTab").html(result);
                     }
                 });
             }
+            else if(type == "corporate") {
+                 $.ajax({
+                    url: "/FormationPage/AppointmentCorporateTab",
+                    type: "get",
+                    success: function (result) {
+                        $("#Formation").css('display', 'none');
+                        $("#appPersonTab").css('display', 'none');
+                        $("#appOtherTab").css('display', 'none');
+                        $("#appointmentTab").html(result);
+                    }
+                })
+            }
+            else if(type == "other-legal-entity") {
+                 $.ajax({
+                    url: "/FormationPage/AppointmentOtherTab",
+                    type: "get",
+                    success: function (result) {
+                        $("#Formation").css('display', 'none');
+                        $("#appPersonTab").css('display', 'none');
+                        $("#appCorporateTab").css('display', 'none');
+                        $("#appointmentTab").html(result);
+                    }
+                })
+            }
         }
+
+        function btnBackToMainPage() {
+             var hash = window.location.hash;
+             $.ajax({
+                url: "/FormationPage/CompanyFormationSubTab",
+                type: "get",
+                success: function (result) {
+                    $("#appointmentTab").css('display', 'none');
+                    $("#FormationTabContent").html(result);
+
+                   if (hash) {
+
+                       // Optionally log it
+                       console.log("Hash found:", hash);
+
+                       // Redirect (scroll) to the section with that ID
+                       $('html, body').animate({
+                           scrollTop: $(hash).offset().top
+                       }, 800); // Smooth scroll over 800ms
+                   }
+                }
+             });
+        }
+
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > 100) {
+                $('.ef-order-form-nav-step-wrapper').addClass('fixed-top');
+            } else {
+                $('.ef-order-form-nav-step-wrapper').removeClass('fixed-top');
+            }
+        });
+
+        $(document).ready(function () {
+            $(window).on('scroll', function () {
+                var scrollPos = $(document).scrollTop();
+
+                $('.nav-link').each(function () {
+                    var currLink = $(this);
+                    var refElement = $(currLink.attr("href"));
+
+                    if (
+                      refElement.position()?.top <= scrollPos + 10 &&
+                      refElement.position()?.top + refElement.height() > scrollPos
+                    ) {
+                      $('.nav-link').removeClass("active");
+                      currLink.addClass("active");
+
+                       const newHash = currLink.attr("href");
+                       if (history.replaceState && window.location.hash !== newHash) {
+                           history.replaceState(null, null, newHash);
+                       }
+                    }
+                });
+            });
+        });
     </script>
 }
