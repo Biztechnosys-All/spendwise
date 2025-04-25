@@ -4,6 +4,12 @@
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
 
+<style>
+    .address-scroll {
+        max-height: 300px; /* Adjust as needed */
+        overflow-y: auto;
+    }
+</style>
 <link href="~/css/register.css" rel="stylesheet" />
 <div class="col-five padding-top-bot-tw client">
     <div class="container-inner">
@@ -504,18 +510,19 @@
 
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="addressModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Select an Address</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <ul id="addressList" class="list-group"></ul>
+                <ul id="addressList" class="list-group address-scroll"></ul>
             </div>
         </div>
     </div>
 </div>
+
 
 
 
