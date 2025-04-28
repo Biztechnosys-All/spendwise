@@ -760,7 +760,7 @@ i.fa.checkbox-big:before {
     position: relative;
 }
 
-.ef-tab-link.sub-active {
+.ef-tab-link.active {
     background-color: #31a5cb !important;
     border-color: var(--color-green) !important;
     color: var(--color-white) !important;
@@ -1375,4 +1375,31 @@ ef-information-box p {
     left: 0;
     z-index: 1030;
     width: 70rem;
+}
+
+.ef-person-tab.fixed-top {
+    position: fixed;
+    top: 65px;
+    right: 0;
+    left: 116px;
+    z-index: 1030;
+    width: 470px;
+}
+
+.ef-corporate-tab.fixed-top {
+    position: fixed;
+    top: 65px;
+    right: 0;
+    left: 116px;
+    z-index: 1030;
+    width: 226px;
+}
+
+.ef-other-tab.fixed-top {
+    position: fixed;
+    top: 65px;
+    right: 0;
+    left: 116px;
+    z-index: 1030;
+    width: 361px;
 }
