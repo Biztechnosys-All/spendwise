@@ -1,22 +1,5 @@
 @charset "UTF-8";
-
-:root {
-    --font-family-body: Arial, Helvetica, sans-serif;
-    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
-    --primary: #676767;
-    --color-green: #38761d;
-    --color-green-one: #6aa84f;
-    --color-green-two: #93c47d;
-    --color-green-three: #b6d7a8;
-    --color-green-four: #d7f5cb;
-    --button-hover: #6aa84f;
-    --color-blue: #208bae;
-    --color-blue-one: #1387ad;
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-gray: #4c4e52;
-    --color-yellow: #ffe400;
-}
+@import url('common.css');
 
 body {
     color: var(--primary);
@@ -347,7 +330,7 @@ body {
 .static-pages h1,
 .static-pages h2,
 .static-pages h3 {
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--primary);
     font-weight: 400;
 }
@@ -370,7 +353,7 @@ body {
     .static-pages h3.section-title {
         font-size: 34px;
         font-size: 2.125rem;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
         font-weight: 700;
     }
 
@@ -404,7 +387,7 @@ body {
 }
 
 .static-pages h4 {
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     font-size: 21px;
     font-size: 1.3125rem;
     font-weight: 700;
@@ -1088,7 +1071,7 @@ body {
 }
 
 .site-nav__item > a {
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-white) !important;
     font-size: 16px;
     font-size: 1rem;
@@ -1248,7 +1231,7 @@ body {
     font-size: 1rem;
     line-height: 40px;
     padding: 0 30px 0 35px;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
 }
 
 @media (min-width: 48em) {
@@ -1387,7 +1370,7 @@ body {
 @media (min-width: 62em) {
     .home-hero .site-nav__menu {
         position: absolute;
-        top: 30px;
+        top: 29px;
         background-color: var(--color-green-one);
         border-top: 0px solid var(--color-white);
         z-index: 999;
@@ -1804,7 +1787,6 @@ footer {
     }
 
         .site-footer__col--nav:not(:first-child) {
-            border-left: 1px solid #c7c7c7;
             padding-left: 10px;
         }
 }
@@ -1843,13 +1825,14 @@ footer {
 .site-footer__col h4 {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     font-weight: 600;
     float: left;
     width: 100%;
     display: block;
     padding: 0 0 5px;
     font-style: normal;
+    color: var(--color-black);
     text-transform: uppercase;
 }
 
@@ -1883,12 +1866,12 @@ footer {
 }
 
 .site-footer a {
-    color: var(--primary);
+    color: var(--color-gray);
     text-decoration: none;
 }
 
     .site-footer a:hover {
-        color: #31a5cb;
+        color: var(--color-green);
     }
 
 .card-icon {
@@ -2141,7 +2124,7 @@ section {
 
 .bg--cream {
     outline: 0;
-    background: #f4f3ef;
+    background: var(--color-green-four);
 }
 
 .bg--black {
@@ -2489,7 +2472,7 @@ section {
 }
 
 .home-hero .site-header {
-    padding: 10px 0;
+    padding: 0px 0;
     background-color: var(--color-white);
 }
 
@@ -2677,7 +2660,7 @@ section {
 .site-header__open {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--primary) !important;
     letter-spacing: -0.5px;
 }
@@ -3213,7 +3196,7 @@ section {
     }
 
     .home-hero .company-name-search h2.mainheading {
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
         font-stretch: condensed;
         margin: 0;
         font-size: 32px;
@@ -3273,7 +3256,7 @@ section {
 }
 
 .home-hero .company-name-search h2.subheading span {
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
 }
 
 .home-hero .company-name-search > div {
@@ -3319,7 +3302,7 @@ section {
 .home-hero .company-name-search input {
     font-size: 20px;
     font-size: 1.25rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     float: left;
     width: 80%;
     text-align: left;
@@ -3679,7 +3662,7 @@ section {
 
 .home-hero__usps--text {
     font-size: 1.15rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-white);
 }
 
@@ -3795,7 +3778,7 @@ section {
     flex-direction: row;
     justify-content: space-between;
     font-size: 1.35rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-white);
 }
 
@@ -3901,7 +3884,7 @@ section {
 #section-one .home-packages__title p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -3944,7 +3927,7 @@ section {
     overflow: hidden;
     box-sizing: border-box;
     padding: 15px 10px;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
 }
 
     #section-one .home-packages__package-mobile span {
@@ -3998,7 +3981,7 @@ section {
     #section-one .home-packages__cta .button {
         font-size: 20px;
         font-size: 1.25rem;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
     }
 
 #section-one .home-packages__packages {
@@ -4075,8 +4058,8 @@ font-weight:bold}
 
     #section-one .home-packages__header h4 a:active,
     #section-one .home-packages__header h4 a:focus,
-    #section-one .home-packages__header h4 a:hover,
-    #section-one .home-packages__header h4 a:visited {
+    #section-one .home-packages__header h4 a:hover {    
+
         color: var(--color-black) !important;
     }
 
@@ -4111,7 +4094,7 @@ font-weight:bold}
 
 @media (min-width: 62em) {
     #section-one .home-packages__content {
-        min-height: 350px;
+        min-height: 380px;
     }
 }
 
@@ -4130,13 +4113,13 @@ font-weight:bold}
 
 #section-one .home-packages__items li {
     font-size: 17px;
-    font-size: 1.0625rem;
+    font-size: 0.9rem;
     display: flex;
     align-items: flex-start;
     margin-bottom: 0.6rem;
     line-height: 1.1;
     position: relative;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
 }
 
     #section-one .home-packages__items li i,
@@ -4246,7 +4229,7 @@ font-weight:bold}
 #section-one .home-packages__buttons a {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     width: 100%;
     text-align: center;
     box-sizing: border-box;
@@ -4282,7 +4265,7 @@ font-weight:bold}
         font-size: 15px;
         font-size: 0.9375rem;
         position: absolute;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
         display: block;
         background-color: #31a5cb;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -4407,7 +4390,7 @@ font-weight:bold}
 #section-one .home-packages__feature-title {
     font-size: 22px;
     font-size: 1.375rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     font-weight: 700;
     margin: 1.2rem 0;
 }
@@ -4433,7 +4416,7 @@ font-weight:bold}
     .banking_cards h3.section-title + p {
         font-size: 18px;
         font-size: 1.125rem;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
         color: var(--color-gray);
         line-height: 24px;
         display: block;
@@ -4627,7 +4610,7 @@ font-weight:bold}
     .home-company-formation-easy__title p {
         font-size: 18px;
         font-size: 1.125rem;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
         color: var(--color-gray);
         line-height: 24px;
         display: block;
@@ -4805,7 +4788,7 @@ font-weight:bold}
 .home-how-to-form p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -4893,7 +4876,7 @@ font-weight:bold}
 .home-cnb__subtitle {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -4910,7 +4893,7 @@ font-weight:bold}
 }
 
 .home-cnb p {
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     font-size: 18px;
     font-size: 1.125rem;
     color: #7c7c7c;
@@ -5059,7 +5042,7 @@ font-weight:bold}
     .home-reviews__title .section-subtitle {
         font-size: 18px;
         font-size: 1.125rem;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
         color: var(--color-gray);
         line-height: 24px;
         display: block;
@@ -5093,7 +5076,7 @@ font-weight:bold}
 .home-reviews__left p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: #7c7c7c;
     line-height: 1.4;
     text-align: center;
@@ -5174,7 +5157,7 @@ font-weight:bold}
 .home-reviews__quote {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: #7c7c7c;
     line-height: 1.4;
     margin-top: 0;
@@ -5244,7 +5227,7 @@ font-weight:bold}
 .home-reviews__company {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: #7c7c7c;
     line-height: 1.4;
     margin: 0;
@@ -5305,7 +5288,7 @@ font-weight:bold}
 .home-checklist__subtitle {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -5338,7 +5321,7 @@ font-weight:bold}
 }
 
     .home-checklist__item h4 {
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
         font-size: 1.3125rem;
         color: var(--color-gray) !important;
         font-weight: 400;
@@ -5350,7 +5333,7 @@ font-weight:bold}
     .home-checklist__item p {
         font-size: 18px;
         font-size: 1.125rem;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
         line-height: 1.4;
         color: #7c7c7c;
         margin-bottom: 0;
@@ -5415,7 +5398,7 @@ font-weight:bold}
 .home-latest-videos p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -5515,7 +5498,7 @@ font-weight:bold}
     .home-latest-videos__cta .button {
         font-size: 20px;
         font-size: 1.25rem;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
     }
 
 .home-google {
@@ -5539,7 +5522,7 @@ font-weight:bold}
 .home-google__subtitle {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -5557,7 +5540,7 @@ font-weight:bold}
 .home-google p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: #7c7c7c;
     line-height: 1.4;
     text-align: center;
@@ -5638,7 +5621,7 @@ font-weight:bold}
 }
 
 .home-google__stats span {
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
 }
 
 .home-google__stats--top {
@@ -5797,7 +5780,7 @@ font-weight:bold}
 .home-business-guides .section-subtitle {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -6012,7 +5995,7 @@ font-weight:bold}
 .home-partners p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -6139,7 +6122,7 @@ font-weight:bold}
 .home-ebook__subtitle {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -6159,7 +6142,7 @@ font-weight:bold}
 .home-ebook p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: #7c7c7c;
     line-height: 1.4;
     text-align: left;
@@ -6245,7 +6228,7 @@ font-weight:bold}
 .home-popular-services .section-subtitle {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -6600,7 +6583,7 @@ font-weight:bold}
 .home-banking__subtitle {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -6618,7 +6601,7 @@ font-weight:bold}
 .home-banking p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: #7c7c7c;
     line-height: 1.4;
     text-align: left;
@@ -6764,7 +6747,7 @@ font-weight:bold}
 .home-partners-directory p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -7002,7 +6985,7 @@ font-weight:bold}
 
 .case-study__link {
     display: block;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     font-size: 1rem;
     text-decoration: underline !important;
 }
@@ -7054,7 +7037,7 @@ font-weight:bold}
 .section--case-studies .home-case-studies__title p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -7150,7 +7133,7 @@ font-weight:bold}
     .section--case-studies .home-case-studies__cta .button {
         font-size: 20px;
         font-size: 1.25rem;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
     }
 
 .home-non-residents {
@@ -7174,7 +7157,7 @@ font-weight:bold}
 .home-non-residents__subtitle {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: var(--color-gray);
     line-height: 24px;
     display: block;
@@ -7217,7 +7200,7 @@ font-weight:bold}
 .home-non-residents__text p {
     font-size: 18px;
     font-size: 1.125rem;
-    font-family: "Myriad Semi Condensed", sans-serif;
+    font-family: var(--font-family-myriad);
     color: #7c7c7c;
     line-height: 1.4;
     text-align: left;
@@ -7299,7 +7282,7 @@ font-weight:bold}
     .home-non-residents__modal div h3 {
         font-size: 24px;
         font-size: 1.5rem;
-        font-family: "Myriad Semi Condensed", sans-serif;
+        font-family: var(--font-family-myriad);
         color: var(--color-gray);
         margin-bottom: 20px;
         margin-top: 0;

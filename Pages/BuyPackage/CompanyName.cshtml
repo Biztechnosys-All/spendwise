@@ -12,27 +12,7 @@
             padding-right: 15px;
         }
 
-        button.btn.btn-primary {
-            width: 100%;
-            max-width: 20%;
-            border: 0;
-            margin: 0;
-            float: left;
-            clear: none;
-            background-color: #98FF98;
-            color: #fff;
-            padding: 5px 10px;
-            font-family: arial, helvetica, sans-serif;
-            font-weight: 300;
-            font-size: 23px;
-            height: 60px;
-            z-index: 1;
-            cursor: pointer;
-            -webkit-appearance: none;
-            box-sizing: border-box;
-            border-radius: 0px;
-        }
-
+       
         #efNameCheckResult {
             width: 70%;
         }
@@ -48,6 +28,7 @@
             padding: 2px 0px;
             margin-right: 0;
         }
+        .btn-height{height:60px}
     </style>
 
     <div class="col twelve pd-left-0" id="divCopmanySearch">
@@ -55,7 +36,7 @@
         <div class="custom ncblock ncinput-wrap lbs1 seven m-twelve col pd-20 pd-left-0 m-pd-left-20">
             <form method="post" asp-page="CompanyName" data-ajax-complete="firstCompleted">
                 <input class="efInputText" id="company_name" name="name" type="text" placeholder="Enter your new company name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your company name'">
-                <button type="button" class="btn btn-primary" onclick="CheckCompanyName()">Submit</button>
+                <button type="button" class="btn btn-success btn-height" onclick="CheckCompanyName()">Submit</button>
                 <label id="errorCompanyname" style="display:none;color:red;">Please write company name</label>
             </form>
         </div>

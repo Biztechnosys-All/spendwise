@@ -25,11 +25,11 @@
 }
 
 .ef-form-wrap, .ef-order-form-nav-wrapper {
-    background-color: #FFFFFF;
+    background-color: var(--color-white);
 }
 
 .ef-order-form-nav-wrapper {
-    background-color: #fafafa;
+    background-color: var(--color-green);
 }
 
 .w-container {
@@ -39,26 +39,26 @@
 
 #ef-order-form-nav-section-content {
     padding-right: 0 !important;
-    border-bottom: 2px solid #3F4042;
+    border-bottom: 2px solid var(--color-green);
     padding-left: 0;
 }
 
-#ef-order-form-nav-section-content .ef-nav-section-link.current {
-    border-right: 5px solid #fafafa !important;
-}
+    #ef-order-form-nav-section-content .ef-nav-section-link.current {
+        border-right: 5px solid var(--color-green) !important;
+    }
 
-#ef-order-form-nav-section-content .ef-nav-section-link {
-    width: 25%;
-    border-right: 5px solid #fafafa !important;
-    margin-right: 0 !important;
-    min-height: 85px;
-}
+    #ef-order-form-nav-section-content .ef-nav-section-link {
+        width: 25%;
+        border-right: 5px solid var(--color-green) !important;
+        margin-right: 0 !important;
+        min-height: 85px;
+    }
 
 .ef-nav-section-link.current {
     border-right: none !important;
     position: relative;
-    background-color: #3F4042 !important;
-    color: #FFFFFF !important;
+    background-color: var(--color-green) !important;
+    color: var(--color-white) !important;
     line-height: 14px;
 }
 
@@ -69,11 +69,11 @@
     border-right: 1px solid #636363;
     color: #9e9e9e;
     font-size: 12px;
-    background-color: #eef1f4 !important;
+    background-color: var(--color-green-four) !important;
 }
 
 .ef-nav-section-link.current a {
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
     font-size: 16px;
 }
 
@@ -89,14 +89,14 @@ a:hover {
     display: block;
     text-align: left !important;
     font-size: 16px !important;
-    font-family: 'MyriadW08-BoldSemiConde';
+    font-family: var(--font-family-myriad);
     padding-bottom: 5px;
     font-weight: 600;
 }
 
 .ef-nav-section-description {
     margin-left: 15px;
-    font-family: 'MyriadW08-SemiCondensed';
+    font-family: var(--font-family-myriad);
 }
 
 .w-container:before {
@@ -109,7 +109,7 @@ a:hover {
 }
 
 .ef-order-form-nav-step-wrapper {
-    background-color: #3F4042 !important;
+    background-color: var(--color-green) !important;
     display: block;
     margin-right: auto;
     margin-left: auto;
@@ -132,11 +132,7 @@ a:hover {
     width: 16%;
 }
 
-a:link {
-    color: #1387ad;
-    text-decoration: none !important;
-    -webkit-tap-highlight-color: transparent;
-}
+
 
 .ef-order-form-nav-step-content a {
     line-height: 1em;
@@ -170,9 +166,9 @@ a:link {
 }
 
 .ef-order-form-nav-item-text {
-    color: #abb5ba !important;
+    color: var(--color-white) !important;
     font-size: 17px;
-    font-family: 'MyriadW08-SemiCondensed';
+    font-family: var(--font-family-myriad);
     padding-top: 8px;
 }
 
@@ -210,22 +206,22 @@ a:link {
 }
 
 #ef-panel-title {
-    background-color: #FFFFFF !important;
+    background-color: var(--color-white) !important;
     padding-left: 0px !important;
     color: #333;
 }
 
-#ef-panel-title h1 {
-    padding-left: 0px;
-    color: rgb(49, 165, 203);
-    margin: 0px 0px 15px !important;
-    padding: 14px;
-}
+    #ef-panel-title h1 {
+        padding-left: 0px;
+        color: var(--color-green);
+        margin: 0px 0px 15px !important;
+        padding: 14px;
+    }
 
 h1 {
     font-size: 28px !important;
     line-height: 28px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
 }
 
 #ef-panel-content {
@@ -297,7 +293,7 @@ label, .field-label, .field-lable {
     color: rgb(42, 49, 53);
     margin-bottom: 10px;
     font-weight: initial;
-    font-family: MyriadW08-BoldSemiConde;
+    font-family: var(--font-family-myriad);
 }
 
 .ef-modal-help-icon {
@@ -343,15 +339,15 @@ input#ef-company-name {
 }
 
 #ef-namecheck-button {
-    background-color: #ff7b00 !important;
-    border: 1px solid #ff7b00 !important;
+    background-color: var(--color-green) !important;
+    border: 1px solid var(--color-green) !important;
     padding: 18px 20px !important;
     outline: none;
     height: auto !important;
     line-height: 16px;
     width: 100% !important;
     margin-left: -1px;
-    font-family: "MyriadW08-SemiCondensed" !important;
+    font-family: var(--font-family-myriad) !important;
     font-size: 20px !important;
 }
 
@@ -491,16 +487,16 @@ i.fa.checkbox-big:before {
 .ef-btn.nextstep {
     background-color: #5ea72d !important;
     border: 1px solid #5ea72d !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
     background-image: none !important;
-    font-family: 'MyriadW08-SemiCondensed';
+    font-family: var(--font-family-myriad);
     font-size: 18px !important;
 }
 
 .ef-btn.nextstep:after {
     content: "\f061";
     font-family: fontawesome;
-    color: #FFFFFF;
+    color: var(--color-white);
     padding-left: 20px;
 }
 
@@ -510,11 +506,6 @@ i.fa.checkbox-big:before {
     text-decoration: none !important;
 }
 
-.ef-order-form-nav-item-text {
-    text-decoration: none;
-    cursor: pointer;
-    color: #abb5ba !important;
-}
 
 .ef-order-form-nav-item-text.active {
     text-decoration: none;
@@ -541,7 +532,7 @@ i.fa.checkbox-big:before {
 .ef-item-bottom-border h3 {
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
 }
 
@@ -560,7 +551,7 @@ i.fa.checkbox-big:before {
 .ef-protect h3 {
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
 }
 
@@ -580,27 +571,27 @@ i.fa.checkbox-big:before {
 .forward-address {
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
 }
 
 .ef-edit-btn {
-    background-color: #FFFFFF !important;
+    background-color: var(--color-white) !important;
     border: 1px solid #84888a !important;
     color: #6f7b82 !important;
 }
 
-.ef-edit-btn:hover {
-    background-color: #efefef !important;
-    border-color: #84888a !important;
-    color: #333 !important;
-    text-decoration: none;
-}
+    .ef-edit-btn:hover {
+        background-color: var(--color-green-one) !important;
+        border-color: var(--color-green-one) !important;
+        color: #333 !important;
+        text-decoration: none;
+    }
 
 .ef-choose-btn {
-    background-color: #a6a9ab !important;
-    border: 1px solid #a6a9ab !important;
-    color: #FFFFFF !important;
+    background-color: var(--color-green-one) !important;
+    border: var(--color-green-one) !important;
+    color: var(--color-white) !important;
 }
 
 .add-save {
@@ -613,27 +604,27 @@ i.fa.checkbox-big:before {
 .business-title {
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
 }
 
 .ef-buy-btn {
     background-color: #5ea72d !important;
     border: 1px solid #5ea72d !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
 }
 
 .ef-buy-btn:hover {
     background-color: #329118 !important;
     border-color: #329118 !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
     text-decoration: none !important;
 }
 
 /*Appoinments*/
 .ef-add-officer-wrapper {
     padding: 20px !important;
-    background-color: #EAEFF2;
+    background-color: var(--color-green-four);
     margin-bottom: 20px;
 }
 
@@ -646,7 +637,7 @@ i.fa.checkbox-big:before {
     color: #2a3135 !important;
     padding-top: 10px;
     padding-bottom: 10px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     box-shadow: none !important;
     border-bottom: none !important;
 }
@@ -671,7 +662,7 @@ i.fa.checkbox-big:before {
 .ef-add-officer.person:before {
     content: "\f234";
     font-family: fontawesome;
-    color: #FFFFFF;
+    color: var(--color-white);
     padding-right: 5px;
 }
 
@@ -686,20 +677,20 @@ i.fa.checkbox-big:before {
 .ef-add-officer.corporate:before {
     content: "\f1ad";
     font-family: fontawesome;
-    color: #FFFFFF;
+    color: var(--color-white);
     padding-right: 5px;
 }
 
 .ef-add-officer {
     background-image: none !important;
-    background-color: #ff7b00 !important;
-    border-color: #ff7b00 !important;
+    background-color: var(--color-green)!important;
+    border-color: var(--color-green)!important;
 }
 
 .ef-add-officer.nominee {
-    background-color: #FFFFFF !important;
-    border: 1px solid #FF7B00 !important;
-    color: #FF7B00 !important;
+    background-color: var(--color-white) !important;
+    border: 1px solid var(--color-green)!important;
+    color: var(--color-green)!important;
     background-position: 9px 50%;
     background-size: 28px;
     background-repeat: no-repeat;
@@ -723,7 +714,7 @@ i.fa.checkbox-big:before {
 .ef-btn.prevstep {
     background-color: #babdc0 !important;
     border: 1px solid #babdc0 !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
     background-image: none !important;
     font-family: 'MyriadW08-SemiCondensed';
     font-size: 18px !important;
@@ -746,7 +737,7 @@ i.fa.checkbox-big:before {
 .ef-btn.prevstep:before {
     content: "\f060";
     font-family: fontawesome;
-    color: #FFFFFF;
+    color: var(--color-white);
     padding-right: 20px;
 }
 
@@ -771,8 +762,8 @@ i.fa.checkbox-big:before {
 
 .ef-tab-link.sub-active {
     background-color: #31a5cb !important;
-    border-color: #31a5cb !important;
-    color: #FFFFFF !important;
+    border-color: var(--color-green) !important;
+    color: var(--color-white) !important;
     border-top-left-radius: 0;
     font-weight: 600;
 }
@@ -780,9 +771,9 @@ i.fa.checkbox-big:before {
 .ef-tab-link {
     margin-left: 0 !important;
     margin-right: 0 !important;
-    background-color: #FFFFFF !important;
-    border-color: #abb5ba !important;
-    color: #abb5ba !important;
+    background-color: var(--color-green) !important;
+    border-color: var(--color-green) !important;
+    color: var(--color-white) !important;
     font-size: 14px;
     border-style: solid solid none;
     border-width: 1px;
@@ -799,11 +790,20 @@ i.fa.checkbox-big:before {
     cursor: pointer;
     max-width: 100%;
 }
-
+    .w-tab-link a {
+        color: var(--color-white) !important;
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        text-decoration: none;
+        padding: 8px 30px;
+        cursor: pointer;
+        max-width: 100%;
+    }
 .ef-submit-btn {
     background-color: #5ea72d !important;
     border: 1px solid #5ea72d !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
     float: right;
 }
 
@@ -816,8 +816,8 @@ i.fa.checkbox-big:before {
 }
 
 .nav-link.active {
-    background-color: #007bff !important;
-    color: white !important;
+    background-color: var(--color-green-two) !important;
+    color: var(--color-green-white) !important;
 }
 
 .section {
@@ -847,7 +847,7 @@ i.fa.checkbox-big:before {
     padding: 20px;
     border: 1px solid #a5c7d9;
     border-radius: 0;
-    background-color: #d9edf7;
+    background-color: var(--color-green-four);
     background-image: url(~/images/education-icon@High.png);
     background-position: 17px 22px;
     background-size: 35px;
@@ -865,7 +865,7 @@ i.fa.checkbox-big:before {
     color: #2a3135 !important;
     padding-top: 10px;
     padding-bottom: 10px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
 }
 
 .ef-information-box-title {
@@ -879,7 +879,7 @@ i.fa.checkbox-big:before {
     color: #2a3135 !important;
     padding-top: 10px;
     padding-bottom: 10px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
 }*/
 
 ef-information-box p {
@@ -911,7 +911,7 @@ ef-information-box p {
 
 .ef-form-wrap {
     margin-top: 0 !important;
-    background-color: #FFFFFF;
+    background-color: var(--color-white);
     margin: 40px 0 !important;
     padding: 0 !important;
     border: none !important;
@@ -999,7 +999,7 @@ ef-information-box p {
 .ef-back-btn {
     background-color: #babdc0 !important;
     border: 1px solid #babdc0 !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
 }
 
 .ef-back-btn:hover {
@@ -1018,13 +1018,13 @@ ef-information-box p {
 .ef-primary-btn {
     background-color: #5ea72d !important;
     border: 1px solid #5ea72d !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
 }
 
 .ef-submit-btn:after {
     content: "\f061";
     font-family: fontawesome;
-    color: #FFFFFF;
+    color: var(--color-white);
     padding-left: 20px;
     font-weight: normal;
 }
@@ -1055,7 +1055,7 @@ ef-information-box p {
 }
 
 .ef-alt-btn {
-    background-color: #FFFFFF !important;
+    background-color: var(--color-white) !important;
     border: 1px solid #84888a !important;
     color: #6f7b82 !important;
     margin-left: 9rem;
@@ -1106,7 +1106,7 @@ ef-information-box p {
     font-size: 22px !important;
     margin-bottom: 15px;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
     border-bottom: none
 }
@@ -1114,7 +1114,7 @@ ef-information-box p {
 .ef-primary-btn:hover {
     background-color: #329118 !important;
     border-color: #329118 !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
 }
 
 .w-col-10 {
@@ -1124,7 +1124,7 @@ ef-information-box p {
 .officer-paq-wrapper h3 {
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
     margin: 10px 0 10px 0;
 }
@@ -1153,7 +1153,7 @@ ef-information-box p {
 /*Person Addressing*/
 
 #service-address-wrapper {
-    background-color: #eef1f4;
+    background-color: var(--color-green-four);
     padding: 15px 20px !important;
     margin-top: 0 !important;
 }
@@ -1167,7 +1167,7 @@ ef-information-box p {
     color: #2a3135 !important;
     padding-top: 10px;
     padding-bottom: 10px !important;
-    /*font-family: 'MyriadW08-BoldSemiConde' !important;*/
+    /*font-family: var(--font-family-myriad) !important;*/
     border-bottom: none !important;
     font-weight: 600;
 }
@@ -1192,7 +1192,7 @@ ef-information-box p {
     margin: 10px 0 10px 0;
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
     font-weight: 600;
     border-bottom: none;
@@ -1220,7 +1220,7 @@ ef-information-box p {
 .w-col-9 h3 {
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
     margin: 10px 0 10px 0;
     font-weight: 600;
@@ -1270,7 +1270,7 @@ ef-information-box p {
 .service-address h3 {
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
     margin: 10px 0 10px 0;
     font-weight: 600;
@@ -1281,7 +1281,7 @@ ef-information-box p {
 }
 
 .item-show-details {
-    background-color: #FFFFFF !important;
+    background-color: var(--color-white) !important;
     border: 1px solid #84888a !important;
     color: #6f7b82 !important;
     margin-right: 5px;
@@ -1306,7 +1306,7 @@ ef-information-box p {
 .tab-link.active {
     background-color: #31a5cb !important;
     border-color: #31a5cb !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
     border-top-left-radius: 0;
     font-weight: 600;
 }
@@ -1322,7 +1322,7 @@ ef-information-box p {
 .ef-corporate-save {
     background-color: #5ea72d !important;
     border: 1px solid #5ea72d !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
     float: right;
 }
 
@@ -1340,7 +1340,7 @@ ef-information-box p {
 .ef-other-save {
     background-color: #5ea72d !important;
     border: 1px solid #5ea72d !important;
-    color: #FFFFFF !important;
+    color: var(--color-white) !important;
     float: right;
 }
 
@@ -1353,7 +1353,7 @@ ef-information-box p {
 .other-service-address {
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
     margin: 10px 0 10px 0;
 }
@@ -1364,7 +1364,7 @@ ef-information-box p {
     border-bottom: 1px solid #ccc !important;
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-myriad) !important;
     color: #2a3135 !important;
 }
 

@@ -1,0 +1,19 @@
+@import url('//fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --font-family-body: "Roboto", sans-serif;
+    --font-family-myriad: "Roboto", sans-serif;
+    --primary: #676767;
+    --color-green: #38761d;
+    --color-green-one: #6aa84f;
+    --color-green-two: #93c47d;
+    --color-green-three: #b6d7a8;
+    --color-green-four: #d7f5cb;
+    --button-hover: #6aa84f;
+    --color-blue: #208bae;
+    --color-blue-one: #1387ad;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #4c4e52;
+    --color-yellow: #ffe400;
+}

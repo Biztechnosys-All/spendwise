@@ -1,15 +1,5 @@
-:root {
-    --font-family-body: Arial, Helvetica, sans-serif;
-    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
-    --primary: #676767;
-    --color-green: #62a43f;
-    --color-green-one: #98FF98;
-    --color-blue: #208bae;
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-gray: #4c4e52;
-    --color-yellow: #ffe400;
-}
+@import url('common.css');
+
 .col-five.client #efPageContent.ui-widget {
     width:99%;
     margin:0 auto
