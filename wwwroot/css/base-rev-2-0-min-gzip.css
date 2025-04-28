@@ -1,72 +1,6 @@
 @charset "UTF-8";
-:root {
-    --font-family-body: Arial, Helvetica, sans-serif;
-    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
-    --primary: #676767;
-    --color-green: #38761d;
-    --color-green-one: #6aa84f;
-    --color-green-two: #93c47d;
-    --color-green-three: #b6d7a8;
-    --color-green-four: #d7f5cb;
-    --button-hover: #6aa84f;
-    --color-blue: #208bae;
-    --color-blue-one: #1387ad;
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-gray: #4c4e52;
-    --color-yellow: #ffe400;
-}
+@import url('common.css');
 
-@font-face {
-    font-family: MyriadW08-LightSemiCond1166630;
-    src: url(/fonts/d75f022a-7bf9-424e-936c-365a36ee6af9.eot#iefix);
-    src: url(/fonts/d75f022a-7bf9-424e-936c-365a36ee6af9.eot#iefix) 
-    format("eot"),
-        url(/fonts/cbc06ef4-9065-4983-aec5-9b4ff91d6ffb.woff2) 
-    format("woff2"),
-        url(/fonts/4b814970-6dab-4946-95a5-b95317efe1c8.woff) format("woff"),
-        url(/fonts/0dc717dd-8211-4eb2-a43d-cdcc3c917295.ttf) format("truetype"),
-        url(/fonts/0d275036-c29d-42d9-983a-ef1eaf3703ad.svg#0d275036-c29d-42d9-983a-ef1eaf3703ad) format("svg");
-    font-weight: 300;
-    font-style: normal
-}
-
-@font-face {
-    font-family: MyriadW08-SemiCondensed;
-    src: url(fonts/2a722638-53d2-4c7d-ab42-1a1c579c8256.eot#iefix);
-    src: url(/fonts/2a722638-53d2-4c7d-ab42-1a1c579c8256.eot#iefix) format("eot"),
-        url(/fonts/e0e6006a-e073-4eb0-8494-b635498f4fce.woff2) format("woff2"),
-        url(/fonts/f74acc35-eed1-4761-9fc5-e97cca7a6be3.woff) format("woff"),
-        url(/fonts/ab3ede5e-8671-4474-9661-670335486816.ttf) format("truetype"),
-        url(/fonts/0ac7ac25-08ca-4603-9f42-cb03eb8362f5.svg#0ac7ac25-08ca-4603-9f42-cb03eb8362f5) format("svg");
-    font-weight: 400;
-    font-style: normal
-}
-
-/*Start*/
-@font-face {
-    font-family: "Myriad Pro Light Semi Condensed";
-    src: url(/fonts/d75f022a-7bf9-424e-936c-365a36ee6af9.eot?#iefix);
-    src: url(/fonts/d75f022a-7bf9-424e-936c-365a36ee6af9.eot?#iefix) format("eot"), url(/fonts/cbc06ef4-9065-4983-aec5-9b4ff91d6ffb.woff2) format("woff2"), url(/fonts/4b814970-6dab-4946-95a5-b95317efe1c8.woff) format("woff"), url(/fonts/0dc717dd-8211-4eb2-a43d-cdcc3c917295.ttf) format("truetype"), url(/fonts/0d275036-c29d-42d9-983a-ef1eaf3703ad.svg#0d275036-c29d-42d9-983a-ef1eaf3703ad) format("svg");
-    font-weight: 300;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Myriad Semi Condensed";
-    src: url(/fonts/2a722638-53d2-4c7d-ab42-1a1c579c8256.eot?#iefix);
-    src: url(/fonts/2a722638-53d2-4c7d-ab42-1a1c579c8256.eot?#iefix) format("eot"), url(/fonts/e0e6006a-e073-4eb0-8494-b635498f4fce.woff2) format("woff2"), url(/fonts/f74acc35-eed1-4761-9fc5-e97cca7a6be3.woff) format("woff"), url(/fonts/ab3ede5e-8671-4474-9661-670335486816.ttf) format("truetype"), url(/fonts/0ac7ac25-08ca-4603-9f42-cb03eb8362f5.svg#0ac7ac25-08ca-4603-9f42-cb03eb8362f5) format("svg");
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Myriad Bold Semi Condensed";
-    src: url(/fonts/ac6f9713-7381-423e-bc2f-977ad9fd67a9.eot?#iefix);
-    src: url(/fonts/ac6f9713-7381-423e-bc2f-977ad9fd67a9.eot?#iefix) format("eot"), url(/fonts/836d2999-31ef-40e8-86dc-3b88e3f60e33.woff2) format("woff2"), url(/fonts/ec88a881-dc74-44d5-b60f-80794e122fc3.woff) format("woff"), url(/fonts/5c1586dc-a89c-4e63-a6bc-42ec6fb1f41f.ttf) format("truetype"), url(/fonts/c060fe91-a420-4db4-983e-b4364b9b6434.svg#c060fe91-a420-4db4-983e-b4364b9b6434) format("svg");
-    font-weight: 700;
-    font-style: normal;
-}
 #efSection60Row, .pp_social, .visible-mobile, td.res-new-td span.res-title-td {
     display: none !important
 }
@@ -2433,7 +2367,7 @@ svg {
 p {
     margin-bottom: 15px;
     line-height: 19px;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: var(--font-family-myriad);
     font-size: 14px;
     color: #717171
 }
@@ -2451,7 +2385,7 @@ body, html {
 
 body {
     color: #717171;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: var(--font-family-myriad);
     font-size: 14px;
     line-height: 19px;
     background-color: #fff
@@ -2460,7 +2394,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -2600,7 +2534,7 @@ strong {
     margin: 0 0 30px;
     text-align: left;
     padding: 0 0 5px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -2632,7 +2566,7 @@ strong {
 }
 
 .fs-twenty-one, .fs-twenty-six {
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -2650,7 +2584,7 @@ strong {
 }
 
 .fs-thirty-one, .fs-twenty-four {
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -2666,7 +2600,7 @@ strong {
 }
 
 .fs-fourteen, .fs-sixteen {
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -2682,13 +2616,13 @@ strong {
 }
 
 .ff-myriadpro, .fs-eighteen {
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
 
 .ff-myriadbold {
-    font-family: MyriadW08-BoldSemiConde !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -3087,7 +3021,7 @@ p.fc-green.fw-600.ffsave-two {
 }
 .page-heading__price {
     font-size: 31px;
-    font-family: MyriadW08-BoldSemiConde !important;
+    font-family: var(--font-family-myriad) !important;
     color: #333;
     margin-right: 1rem;
 }
@@ -3333,7 +3267,7 @@ h1.top-img-title {
 }
 
     h1.top-img-title, h1.top-img-title span {
-        font-family: MyriadW08-SemiCondensed !important;
+        font-family: var(--font-family-myriad) !important;
         font-style: normal;
         font-weight: 400
     }
@@ -3389,7 +3323,7 @@ input.searchfront {
     height: 53px;
     font-size: 18px;
     font-size: 20px !important;
-    font-family: MyriadW08-SemiCondensed !important
+    font-family: var(--font-family-myriad) !important
 }
 
 input.searchfront, input.searchpackages {
@@ -4369,7 +4303,7 @@ DIV#tabs.ui-tabs.ui-widget.ui-widget-content.ui-corner-all {
 }
 
 .ff-myriad-pro {
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal
 }
 
@@ -5535,7 +5469,7 @@ DIV#tabs.ui-tabs.ui-widget.ui-widget-content.ui-corner-all {
 }
 
 .fc-blue {
-    color: #11abe4 !important
+    color: var(--color-green) !important
 }
 
 .fc-blue-bc {
@@ -5616,7 +5550,7 @@ DIV#tabs.ui-tabs.ui-widget.ui-widget-content.ui-corner-all {
 .bg-colour-barclays h5, .bg-colour-streamline h5 {
     text-align: left;
     font-size: 21px;
-    font-family: MyriadW08-LightSemiCond1166630 !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     line-height: 24px;
     font-weight: 300 !important
@@ -5654,7 +5588,7 @@ DIV#tabs.ui-tabs.ui-widget.ui-widget-content.ui-corner-all {
     right: 0;
     margin: 30px 0 0;
     font-size: 21px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -5753,7 +5687,7 @@ DIV#tabs.ui-tabs.ui-widget.ui-widget-content.ui-corner-all {
 
     .pack-title p {
         font-size: 26px;
-        font-family: MyriadW08-SemiCondensed !important;
+        font-family: var(--font-family-myriad) !important;
         font-style: normal;
         font-weight: 400;
         line-height: 26px;
@@ -5943,7 +5877,7 @@ h4.packhead {
 .homeblog h3 {
     font-size: 31px;
     color: #3f3f3f;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400;
     line-height: 31px;
@@ -6752,7 +6686,7 @@ ul.ldd_menu ul li i {
 }
 
 ul.ldd_menu ul li a {
-    font-family: Arial,serif;
+    font-family: var(--font-family-myriad);
     font-size: 12px;
     line-height: 18px;
     color: #383838;
@@ -7313,7 +7247,7 @@ TR#upsellable_mf_headrow_2044 {
 
 #efAddNewOfficerMainButton .ui-button-text {
     display: inherit;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: var(--font-family-myriad);
     font-size: 14px;
     line-height: 25px;
     padding: 0 10px
@@ -7523,7 +7457,7 @@ span.trust-banner-text {
     -webkit-box-sizing: border-box;
     clear: both;
     color: #fff;
-    font-family: calibri;
+    font-family: var(--font-family-myriad);
     height: 57px;
     margin: 30px 0 10px;
     padding: 6px 0 6px 80px;
@@ -8429,7 +8363,7 @@ li.ff-topmeinfol-mob {
 #review-counter #total-reviews {
     font-size: 50px;
     line-height: 50px;
-    font-family: MyriadW08-LightSemiCond1166630 !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 300;
     height: 50px;
@@ -8708,7 +8642,7 @@ ol.footnote {
 .bc-purple p, .bc-red p, .bc-yellow p {
     font-size: 15px;
     color: #fff;
-    font-family: MyriadW08-LightSemiCond1166630;
+    font-family: var(--font-family-myriad);
     font-style: normal;
     font-weight: 300
 }
@@ -8716,7 +8650,7 @@ ol.footnote {
 .worldpay-col h4 {
     line-height: 13px;
     font-size: 18px !important;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400;
     color: #292929;
@@ -10538,7 +10472,7 @@ ol.footnote {
     .packcol-two li {
         font-size: 14px;
         margin: 0 0 5px;
-        font-family: MyriadW08-SemiCondensed !important;
+        font-family: var(--font-family-myriad) !important;
         font-style: normal;
         font-weight: 400;
         text-align: center
@@ -12994,7 +12928,7 @@ ol.footnote {
         box-sizing: border-box;
         color: #fff;
         float: left;
-        font-family: MyriadW08-LightSemiCond1166630;
+        font-family: var(--font-family-myriad);
         font-size: 16px;
         font-weight: 300;
         line-height: 22px;
@@ -17792,7 +17726,7 @@ ol.footnote {
         display: inline-block;
         text-indent: 0;
         font-size: 18px;
-        font-family: Arial,Helvetica,sans-serif
+        font-family: var(--font-family-myriad)
     }
 
     #efMailForwardingForwardingAddress td.efFieldLabel:before, #efParticularsRegisteredOfficeTable td.efFieldLabel:before, #efRegofficeMailForwardingAddress td.efFieldLabel:before, #upsellable_mf_headrow_1313 td.efFieldLabel:before, #upsellable_mf_headrow_2044 td.efFieldLabel:before, #upsellable_regoffice_headrow_1239 td.efFieldLabel:before, #upsellable_regoffice_headrow_1267 td.efFieldLabel:before {
@@ -18451,7 +18385,7 @@ P.fs-twenty-four.pright-ft.f3f3.ptop-tw.margin-bot-sixty {
     color: #67696e;
     list-style-type: none;
     line-height: 15px;
-    font-family: Arial,Helvetica,sans-serif !important
+    font-family: var(--font-family-myriad) !important
 }
 
 .col-one.pack-wrap .fa-ul {
@@ -18620,7 +18554,7 @@ SELECT#package-menu {
 }
 
     .packmenu-two a {
-        font-family: MyriadW08-LightSemiCond1166630 !important;
+        font-family: var(--font-family-myriad) !important;
         font-style: normal;
         font-weight: 300;
         color: #9ee0ff
@@ -18629,7 +18563,7 @@ SELECT#package-menu {
 .packcol-two li {
     font-size: 14px;
     margin: 0 0 3px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400;
     text-align: center
@@ -18728,7 +18662,7 @@ SELECT#package-menu {
 
 .res-pack-name {
     font-size: 26px;
-    font-family: MyriadW08-SemiCondensed;
+    font-family: var(--font-family-myriad);
     font-style: normal;
     font-weight: 400;
     color: #31c4f5;
@@ -19206,7 +19140,7 @@ hr.hr-searchagain {
         background-color: var(--color-green);
         color: #fff;
         padding: 5px 10px;
-        font-family: arial,helvetica,sans-serif;
+        font-family: var(--font-family-myriad);
         font-weight: 300;
         font-size: 23px;
         height: 60px;
@@ -19595,7 +19529,7 @@ span.arrow {
 }
 
 INPUT.efButton.efRight.ui-button.ui-widget.ui-state-default.ui-corner-all {
-    font-family: Arial,Helvetica,san-serif !important
+    font-family: var(--font-family-myriad) !important
 }
 
 .efAccountMenu.ui-corner-all.ui-widget-content.ui-widget-header {
@@ -20193,7 +20127,7 @@ ul.dropdownsub.fa-ul {
     outline: 0;
     line-height: 35px;
     -webkit-tap-highlight-color: transparent;
-    font-family: MyriadW08-SemiCondensed !important
+    font-family: var(--font-family-myriad) !important
 }
 
 .menuzord-menu > li.active > a, .menuzord-menu > li:hover > a {
@@ -20727,7 +20661,7 @@ a.read-more-bank-red:hover {
     border: 1px solid #ccc;
     margin: 0;
     float: left;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: var(--font-family-myriad);
     font-size: 15px;
     height: 36px;
     line-height: 36px;
@@ -20995,7 +20929,7 @@ SPAN.menu_style_arrow.client-log a, SPAN.menu_style_arrow.client-logged a {
     background-color: var(--color-green) !important;
     border: 0;
     background-image: none !important;
-    font-family: arial,helvetica,sans-serif;
+    font-family: var(--font-family-myriad);
     font-size: 14px;
     font-weight: 700;
     border: 1px solid var(--color-green) !important
@@ -21696,7 +21630,7 @@ p.panel-claim, p.panel-description {
 
     .col-one-full.page-nsearch p {
         color: #fff;
-        font-family: MyriadW08-LightSemiCond1166630 !important;
+        font-family: var(--font-family-myriad) !important;
         font-weight: 300
     }
 
@@ -22839,7 +22773,7 @@ p.fst-ads-bankhead {
 p.fst-ads-bankhead, p.fst-ads-bankhead-co {
     font-size: 36px;
     margin: 10px 0 15px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -22855,7 +22789,7 @@ p.fst-ads-bankhead-sl {
 }
 
 p.fst-ads-bankhead-np, p.fst-ads-bankhead-sl {
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -22870,7 +22804,7 @@ p.fst-ads-banktxt {
     font-size: 18px;
     color: #fff;
     margin: 10px 0 15px;
-    font-family: MyriadW08-LightSemiCond1166630 !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 300
 }
@@ -24525,7 +24459,7 @@ a.packcom-order i {
 
 .dt-packcom .ui-widget-header {
     font-size: 18px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400;
     background-image: none !important
@@ -24675,7 +24609,7 @@ a.packcom-order i {
         color: #eaa816;
         font-size: 16px;
         text-decoration: none;
-        font-family: MyriadW08-SemiCondensed !important;
+        font-family: var(--font-family-myriad) !important;
         font-style: normal;
         font-weight: 400;
         position: absolute;
@@ -24705,13 +24639,13 @@ a.packcom-order i {
 }
 
 .font-myriad-300 {
-    font-family: MyriadW08-LightSemiCond1166630 !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 300 !important
 }
 
 .font-myriad-400 {
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -25163,7 +25097,7 @@ button.btn-readmore {
     color: #fff;
     float: right;
     font-size: 12px;
-    font-family: arial,helvetica,sans-serif
+    font-family: var(--font-family-myriad);
 }
 
     button.btn-readmore:hover {
@@ -25183,7 +25117,7 @@ p.fst-ads-bankhead-white {
     font-size: 31px;
     color: #fff;
     margin: 10px 0 15px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -25582,7 +25516,7 @@ li.ff-topmeinfol-mob, li.ff-topmeinfolred {
     color: #fff;
     float: left;
     font-size: 12px;
-    font-family: arial,helvetica,sans-serif
+    font-family: var(--font-family-myriad);
 }
 
 .cta-btn-one {
@@ -25876,7 +25810,7 @@ a.btn-fomore {
 }
 
     .tooltipster-default .tooltipster-content {
-        font-family: Arial,sans-serif;
+        font-family: var(--font-family-myriad);
         font-size: 14px;
         line-height: 16px;
         padding: 8px 10px;
@@ -26102,7 +26036,7 @@ a.btn-fomore {
     color: #3f3f3f;
     border-bottom-width: 1px;
     border-bottom-color: #e2e2e2;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400 !important;
     background-position: center 70%
@@ -26225,7 +26159,7 @@ a.btn-fomore {
     .comparepack-olist li {
         margin: 0 0 3px;
         font-size: 16px;
-        font-family: MyriadW08-SemiCondensed !important;
+        font-family: var(--font-family-myriad) !important;
         font-style: normal;
         font-weight: 400
     }
@@ -26242,7 +26176,7 @@ a.btn-fomore {
 
 .ff-bioname, .medialinks span {
     font-size: 16px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400
 }
@@ -26319,7 +26253,7 @@ a.btn-fomore {
 
 p.ff-trustpilot-bio {
     font-size: 16px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     font-style: normal;
     font-weight: 400;
     color: #717171
@@ -26577,7 +26511,7 @@ p.ff-trustpilot-bio {
 
     .compare-panel2-content h5, .compare-panel3-content h5, .compare-panel-content h5 {
         font-size: 21px;
-        font-family: MyriadW08-SemiCondensed !important;
+        font-family: var(--font-family-myriad) !important;
         font-style: normal;
         color: #545454;
         line-height: 21px;
@@ -26586,7 +26520,7 @@ p.ff-trustpilot-bio {
 
     .compare-panel2-content h6, .compare-panel3-content h6, .compare-panel-content h6 {
         font-size: 18px;
-        font-family: MyriadW08-SemiCondensed !important;
+        font-family: var(--font-family-myriad) !important;
         font-style: normal;
         color: #545454;
         line-height: 18px;
@@ -26732,7 +26666,7 @@ a.cd-btn, a.cd-btn2, a.cd-btn3 {
 
 .rTable__col--cell h4 {
     font-size: 18px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-myriad) !important;
     color: #000;
     margin: 0
 }

@@ -1,20 +1,4 @@
-:root {
-    --font-family-body: Arial, Helvetica, sans-serif;
-    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
-    --primary: #676767;
-    --color-green: #38761d;
-    --color-green-one: #6aa84f;
-    --color-green-two: #93c47d;
-    --color-green-three: #b6d7a8;
-    --color-green-four: #d7f5cb;
-    --button-hover: #6aa84f;
-    --color-blue: #208bae;
-    --color-blue-one: #1387ad;
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-gray: #4c4e52;
-    --color-yellow: #ffe400;
-}
+@import url('common.css');
 .rf-home-bc {
     background-color: #fff !important;
     border-bottom: 0 !important
@@ -92,7 +76,7 @@
 
     .slt-com-name > span, .slt-com-name p, .slt-com-name p > span {
         font-size: 21px;
-        font-family: myriad-pro-semi-condensed-n4,myriad-pro-semi-condensed,calibri,sans-serif !important
+        font-family: var(--font-family-body) !important
     }
 
         .slt-com-name > span, .slt-com-name p > span {
@@ -105,7 +89,7 @@ TABLE#efIncludedTable tr.checkout-company-name > td {
 }
 
 h3.OptionalItemsTitle {
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-body) !important;
     border-bottom: 1px solid #cdcdcd
 }
 
@@ -124,7 +108,7 @@ h3.OptionalItemsTitle {
     }
 
 h4.OCLSubTitle {
-    font-family: MyriadW08-SemiCondensed !important
+    font-family: var(--font-family-body) !important
 }
 
 #efEverythingOptionalContainer {
@@ -221,7 +205,7 @@ div#originalCart #efEverythingInTheOrderContainer {
     }
 
 #efEverythingInTheOrderContainer b, #efEverythingInTheOrderContainer strong {
-    font-family: Arial,Helvetica,sans-serif
+    font-family: var(--font-family-body);
 }
 
 .efOldPriceInPackage {
@@ -366,7 +350,7 @@ input.addQuantity {
 
 TABLE#efIncludedTable td.insertCompanyName {
     text-align: left !important;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: var(--font-family-body);
     color: #479a00;
     font-size: 16px;
     padding-top: 5px;
@@ -516,7 +500,7 @@ input#tcagree {
     }
 
 #aToolTipSlider.defaultTheme strong, .tooltipster-content strong {
-    font-family: Arial,Helvetica,sans-serif
+    font-family: var(--font-family-body);
 }
 
 .tooltipster-content strong {

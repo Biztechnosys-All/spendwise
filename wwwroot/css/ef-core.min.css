@@ -314,7 +314,7 @@
     color: #fff;
     border: 0 solid transparent;
     font-size: 11px;
-    font-family: "Lucida Grande",sans-serif;
+    font-family: var(--font-family-myriad);
     font-weight: 700;
     line-height: 16px;
     text-shadow: 0 1px #000
@@ -346,7 +346,7 @@
     background-color: #f9f9f9;
     color: #454545;
     font-weight: 400;
-    font-family: serif
+    font-family: var(--font-family-myriad);
 }
 
     .qtip-tipped .qtip-titlebar {
@@ -498,7 +498,7 @@ body {
     font-size: 12px;
     margin: 0;
     padding: 0;
-    font-family: Arial,Helvetica,sans-serif
+    font-family: var(--font-family-myriad);
 }
 
 #efPageContent {
@@ -555,7 +555,8 @@ tr .efRegBox:last-child {
 }
 
 .efTable td {
-    padding: 8px
+    padding: 8px;
+    font-weight:bold;
 }
 
 .efNewPrice, .efRegisteredOfficePrice {
@@ -1059,7 +1060,7 @@ a img {
 .efSelectInput, .efTextInput, .efTextarea {
     padding: 4px;
     font-size: 14px !important;
-    font-family: Arial,Helvetica,sans-serif !important
+    font-family: var(--font-family-myriad) !important
 }
 
 .efNameCheckPackage {

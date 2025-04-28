@@ -1,20 +1,4 @@
-:root {
-    --font-family-body: Arial, Helvetica, sans-serif;
-    --font-family-myriad: "Myriad Bold Semi Condensed", sans-serif;
-    --primary: #676767;
-    --color-green: #38761d;
-    --color-green-one: #6aa84f;
-    --color-green-two: #93c47d;
-    --color-green-three: #b6d7a8;
-    --color-green-four: #d7f5cb;
-    --button-hover: #6aa84f;
-    --color-blue: #208bae;
-    --color-blue-one: #1387ad;
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-gray: #4c4e52;
-    --color-yellow: #ffe400;
-}
+@import url('common.css');
 .st_searchbox {
     position: absolute;
     right: 10px;
@@ -439,7 +423,7 @@ body {
 
 .page-heading__price {
     font-size: 31px;
-    font-family: MyriadW08-BoldSemiConde !important;
+    font-family: var(--font-family-body) !important;
     color: #333;
     margin-right: 1rem;
 }
@@ -447,7 +431,7 @@ body {
 .page-heading__button {
     padding: 15px 30px;
     background-color: var(--color-green);
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-body);
     font-size: 1.5rem;
     color: var(--color-white) !important;
 }
@@ -539,7 +523,7 @@ body {
     margin-top: 25px;
     padding: 15px 30px;
     background-color: #5ea72d;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-body);
     font-size: 1.5rem;
     color: #fff;
     float: left;
@@ -607,7 +591,7 @@ body {
 
 .buy-service__price {
     font-size: 2rem;
-    font-family: MyriadW08-BoldSemiConde !important;
+    font-family: var(--font-family-body) !important;
     color: #fff;
     margin-right: 1rem;
 }
@@ -615,7 +599,7 @@ body {
 .buy-service__button {
     padding: 15px 30px;
     background-color: #5ea72d;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-body);
     font-size: 1.5rem;
     color: #fff !important;
 }
