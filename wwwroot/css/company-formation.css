@@ -176,13 +176,13 @@ a:hover {
     width: 22%;
 }
 
-.ef-order-form-nav-item-indicator.step-1-todo:after,
+/*.ef-order-form-nav-item-indicator.step-1-todo:after,
 .ef-order-form-nav-item-indicator.step-2-todo:after,
 .ef-order-form-nav-item-indicator.step-3-todo:after,
 .ef-order-form-nav-item-indicator.step-4-todo:after,
 .ef-order-form-nav-item-indicator.step-5-todo:after {
     color: #abb5ba !important;
-}
+}*/
 
 .ef-panel-wrapper {
     padding-bottom: 10px !important;
@@ -760,27 +760,6 @@ i.fa.checkbox-big:before {
     position: relative;
 }
 
-.ef-tab-link.active {
-    background-color: #31a5cb !important;
-    border-color: var(--color-green) !important;
-    color: var(--color-white) !important;
-    border-top-left-radius: 0;
-    font-weight: 600;
-}
-
-.ef-tab-link {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    background-color: var(--color-green) !important;
-    border-color: var(--color-green) !important;
-    color: var(--color-white) !important;
-    font-size: 14px;
-    border-style: solid solid none;
-    border-width: 1px;
-    font-weight: 400;
-    text-align: center;
-}
-
 .w-tab-link {
     position: relative;
     display: inline-block;
@@ -790,16 +769,18 @@ i.fa.checkbox-big:before {
     cursor: pointer;
     max-width: 100%;
 }
-    .w-tab-link a {
-        color: var(--color-white) !important;
-        position: relative;
-        display: inline-block;
-        vertical-align: top;
-        text-decoration: none;
-        padding: 8px 30px;
-        cursor: pointer;
-        max-width: 100%;
-    }
+
+.w-tab-link a {
+    color: var(--color-white) !important;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-decoration: none;
+    padding: 8px 30px;
+    cursor: pointer;
+    max-width: 100%;
+}
+
 .ef-submit-btn {
     background-color: #5ea72d !important;
     border: 1px solid #5ea72d !important;
@@ -820,10 +801,10 @@ i.fa.checkbox-big:before {
     color: var(--color-green-white) !important;
 }
 
-.section {
-    padding: 40px 10px;
-    border-bottom: 3px solid #ccc;
-}
+ .section {
+     padding: 40px 10px;
+     border-bottom: 3px solid #ccc;
+ }
 
 /*PersonOfficerPositionTab*/
 
@@ -1303,8 +1284,21 @@ ef-information-box p {
     display: none;
 }
 
+.tab-link {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    background-color: var(--color-green) !important;
+    border-color: var(--color-green) !important;
+    color: var(--color-white) !important;
+    font-size: 14px;
+    border-style: solid solid none;
+    border-width: 1px;
+    font-weight: 400;
+    text-align: center;
+}
+
 .tab-link.active {
-    background-color: #31a5cb !important;
+    background-color: var(--color-green-two) !important;
     border-color: #31a5cb !important;
     color: var(--color-white) !important;
     border-top-left-radius: 0;
