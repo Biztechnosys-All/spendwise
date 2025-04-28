@@ -15,17 +15,17 @@
             </div>
             <div class="w-tabs" id="ef-officer-form-wrapper">
                 <!-- start tabs -->
-                <div class="w-tab-menu ef-officer-form-tab-menu">
-                    <a class="tab-link w-tab-link w-inline-block ef-tab-link " aria-current="page" href="#position">
+                <div class="w-tab-menu ef-officer-form-tab-menu ef-person-tab">
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link " aria-current="page" data-target="#position">
                         <div>Position</div>
                     </a>
-                    <a class="tab-link w-tab-link w-inline-block ef-tab-link " href="#officer">
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link " data-target="#officer">
                         <div>Officer</div>
                     </a>
-                    <a class="tab-link w-tab-link w-inline-block ef-tab-link" href="#details">
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link" data-target="#details">
                         <div>Details</div>
                     </a>
-                    <a class="tab-link w-tab-link w-inline-block ef-tab-link" href="#addressing">
+                    <a class="tab-link w-tab-link w-inline-block ef-tab-link" data-target="#addressing" style="width: 133px;">
                         <div>Addressing</div>
                     </a>
                     @* <a class="w-tab-link w-inline-block ef-tab-link" id="tab-link-nature-of-control" data-tab-selector="nature-of-control" onclick="FormBuilder.ChangeTab('nature-of-control')" style="display:none;">
@@ -36,7 +36,7 @@
                     </a> *@
                 </div>
                 <!-- end tabs -->
-                <div class="scroll-container" id="scrollContainer">
+                <div id="scrollContainer">
                     <div class="tab-pane current" id="Formation">
                         <div id="position" class="appointment-section">
                             <div class="w-tab-content">

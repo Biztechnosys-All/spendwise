@@ -91,6 +91,7 @@
                         $("#appCorporateTab").css('display', 'none');
                         $("#appOtherTab").css('display', 'none');
                         $("#appointmentTab").html(result);
+                        $('html, body').scrollTop($('#appointmentTab').offset().top);
                     }
                 });
             }
@@ -103,6 +104,7 @@
                         $("#appPersonTab").css('display', 'none');
                         $("#appOtherTab").css('display', 'none');
                         $("#appointmentTab").html(result);
+                        $('html, body').scrollTop($('#appointmentTab').offset().top);
                     }
                 })
             }
@@ -115,6 +117,7 @@
                         $("#appPersonTab").css('display', 'none');
                         $("#appCorporateTab").css('display', 'none');
                         $("#appointmentTab").html(result);
+                        $('html, body').scrollTop($('#appointmentTab').offset().top);
                     }
                 })
             }
@@ -128,17 +131,16 @@
                 success: function (result) {
                     $("#appointmentTab").css('display', 'none');
                     $("#FormationTabContent").html(result);
+                    if (hash) {
 
-                   if (hash) {
+                        // Optionally log it
+                        console.log("Hash found:", hash);
 
-                       // Optionally log it
-                       console.log("Hash found:", hash);
-
-                       // Redirect (scroll) to the section with that ID
-                       $('html, body').animate({
-                           scrollTop: $(hash).offset().top
-                       }, 800); // Smooth scroll over 800ms
-                   }
+                        // Redirect (scroll) to the section with that ID
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top
+                        }, 800); // Smooth scroll over 800ms
+                    }
                 }
              });
         }
@@ -146,9 +148,26 @@
         $(window).on('scroll', function () {
             if ($(window).scrollTop() > 100) {
                 $('.ef-order-form-nav-step-wrapper').addClass('fixed-top');
+                $('.ef-person-tab').addClass('fixed-top');
+                $('.ef-corporate-tab').addClass('fixed-top');
+                $('.ef-other-tab').addClass('fixed-top');
             } else {
                 $('.ef-order-form-nav-step-wrapper').removeClass('fixed-top');
+                $('.ef-person-tab').removeClass('fixed-top');
+                $('.ef-corporate-tab').removeClass('fixed-top');
+                $('.ef-other-tab').removeClass('fixed-top');
             }
+
+            var scrollPos = $(document).scrollTop();
+            $('.appointment-section').each(function() {
+                var currLink = $('.tab-link[data-target="#' + $(this).attr('id') + '"]');
+                var refElement = $(this);
+
+                if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+                  $('.tab-link').removeClass('active');
+                  currLink.addClass('active');
+                }
+            });
         });
 
         $(document).ready(function () {
