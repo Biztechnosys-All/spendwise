@@ -626,9 +626,9 @@ body {
 
 .gradient--green {
     background: rgb(66,147,12);
-    background: -moz-linear-gradient(90deg, rgba(81,218,81,1) 0%, rgba(106,168,79,1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(81,218,81,1) 0%, rgba(106,168,79,1) 100%);
-    background: linear-gradient(90deg, rgba(81,218,81,1) 0%, rgba(106,168,79,1) 100%);
+    background: -moz-linear-gradient(90deg, rgba(1,4,1,1) 0%, rgba(106,168,79,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(1,4,1,1) 0%, rgba(106,168,79,1) 100%);
+    background: linear-gradient(90deg, rgba(1,4,1,1) 0%, rgba(106,168,79,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5ea72d",endColorstr="#6aa84f",GradientType=1);
 }
 

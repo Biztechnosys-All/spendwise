@@ -19159,7 +19159,7 @@ hr.hr-searchagain {
         padding-left: 10px;
         box-sizing: border-box;
         color: #b1b1b1;
-        font-size: 23px
+        font-size: 16px
     }
 
         .custom.ncinput-wrap-new-amber input#company_name.efInputText:focus, .custom.ncinput-wrap-new input#company_name.efInputText:focus, .custom.ncinput-wrap input#company_name.efInputText:focus {
@@ -26877,4 +26877,7 @@ a.btn.btn-success {
 }
 a.btn.btn-success svg{
     color: var(--color-white) !important;
+}
+.fs-24.fc-grey {
+    line-height:40px !important;
 }
