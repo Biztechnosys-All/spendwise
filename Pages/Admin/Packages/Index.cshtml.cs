@@ -22,8 +22,14 @@ namespace Spendwise_WebApp.Pages.Admin.Packages
 
         public IList<Package> Package { get; set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            var loggedIn = Request.Cookies["IsAdminLoggedIn"];
+
+            if (loggedIn != "true")
+            {
+                return RedirectToPage("/Admin/Login");
+            }
             Package = await _context.packages.ToListAsync();
             var PackageFeatureList = await _context.PackageFeatures.ToListAsync();
              
@@ -45,6 +51,7 @@ namespace Spendwise_WebApp.Pages.Admin.Packages
                 }
                 item.PackageFeatures = selectedFeatures;
             }
+            return Page();
         }
     }
 }

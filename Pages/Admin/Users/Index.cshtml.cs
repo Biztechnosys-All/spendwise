@@ -21,9 +21,16 @@ namespace Spendwise_WebApp.Pages.Admin.Users
 
         public new IList<User> User { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            var loggedIn = Request.Cookies["IsAdminLoggedIn"];
+
+            if (loggedIn != "true")
+            {
+                return RedirectToPage("/Admin/Login");
+            }
             User = await _context.Users.Where(x=>x.IsActive == true).ToListAsync();
+            return Page();
         }
     }
 }

@@ -22,9 +22,16 @@ namespace Spendwise_WebApp.Pages.Admin.AdditionalPackageItems
 
         public IList<AdditionalPackageItem> additionalPackageItem { get; set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            var loggedIn = Request.Cookies["IsAdminLoggedIn"];
+
+            if (loggedIn != "true")
+            {
+                return RedirectToPage("/Admin/Login");
+            }
             additionalPackageItem = await _context.AdditionalPackageItems.ToListAsync();
+            return Page();
         }
     }
 }
