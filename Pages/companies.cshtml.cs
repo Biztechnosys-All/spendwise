@@ -19,6 +19,12 @@ namespace Spendwise_WebApp.Pages
 
         public async Task<IActionResult> OnGet()
         {
+            var loggedIn = Request.Cookies["AuthToken"];
+
+            if (string.IsNullOrEmpty(loggedIn))
+            {
+                return RedirectToPage("/Login");
+            }
             //List<CompanyDetail> companiesData;
             var userEmail = Request.Cookies["UserEmail"];
 

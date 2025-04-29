@@ -1,0 +1,33 @@
+﻿@page
+@model Spendwise_WebApp.Pages.AccessDeniedModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Access Denied";
+}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #93c47d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .Access-container {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+</style>
+<div class="Access-container">
+    <h1>Access Denied</h1>
+    <p>You do not have permission to view this page.</p>
+</div>

@@ -7,9 +7,16 @@ namespace Spendwise_WebApp.Pages
     {
         public string LoginUserName { get; set; } = "";
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            var loggedIn = Request.Cookies["AuthToken"];
+
+            if (string.IsNullOrEmpty(loggedIn))
+            {
+                return RedirectToPage("/Login");
+            }
             LoginUserName = Request.Cookies["UserName"] ?? "";
+            return Page();  
 
         }
     }

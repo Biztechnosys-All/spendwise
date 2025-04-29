@@ -61,7 +61,7 @@ namespace Spendwise_WebApp.Pages
                 }
                 hashedPassword = sb.ToString();
             }
-            var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == User.Email);
+            var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == User.Email && x.IsActive == true && x.IsAdmin == false);
 
             if (userData == null)
             {
