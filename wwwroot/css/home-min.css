@@ -5337,6 +5337,7 @@ font-weight:bold}
         line-height: 1.4;
         color: #7c7c7c;
         margin-bottom: 0;
+
     }
 
 .home-checklist__icon {
@@ -7617,4 +7618,9 @@ body .lity.lity-inline {
 #nameCheckNotification {
     text-align: center;
     color: #fff;
+}
+@media (min-width: 768px) {
+    .home-checklist__item p {
+       min-height:160px;
+    }
 }

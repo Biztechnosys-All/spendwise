@@ -13,21 +13,21 @@
             <div id="ef-global-officer-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
                 <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
             </div>
-            <div class="w-tabs" id="ef-officer-form-wrapper">
+            <div class="w-tabs" id="ef-officer-form-wrapper">                
                 <!-- start tabs -->
-                <div class="w-tab-menu ef-officer-form-tab-menu ef-person-tab">
-                    <a class="tab-link w-tab-link w-inline-block" aria-current="page" data-target="#position">
-                        <div>Position</div>
-                    </a>
-                    <a class="tab-link w-tab-link w-inline-block" data-target="#officer">
-                        <div>Officer</div>
-                    </a>
-                    <a class="tab-link w-tab-link w-inline-block" data-target="#details">
-                        <div>Details</div>
-                    </a>
-                    <a class="tab-link w-tab-link w-inline-block" data-target="#addressing" style="width: 133px;">
-                        <div>Addressing</div>
-                    </a>
+                <div class="w-tab-menu ef-officer-form-tab-menu ef-person-tab">                   
+                        <a class="tab-link w-tab-link w-inline-block" aria-current="page" data-target="#position">
+                            <div>Position</div>
+                        </a>
+                        <a class="tab-link w-tab-link w-inline-block" data-target="#officer">
+                            <div>Officer</div>
+                        </a>
+                        <a class="tab-link w-tab-link w-inline-block" data-target="#details">
+                            <div>Details</div>
+                        </a>
+                        <a class="tab-link w-tab-link w-inline-block" data-target="#addressing" style="width: 133px;">
+                            <div>Addressing</div>
+                        </a>                      
                 </div>
                 <!-- end tabs -->
                 <div id="scrollContainer">
@@ -106,7 +106,7 @@
                                 <div class="w-row">
                                     <div class="w-col">
                                         @* <button type="button" class="ef-btn ef-back-btn" onclick="FormBuilder.ShowLoader('Loading...'); FormBuilder.ReloadStep();">Cancel</button> *@
-                                        <button type="button" data-nextstep="pick-officer" id="officer-submit-position-tab" class="ef-btn ef-submit-btn ef-officer-next-step">Save</button>
+                                        <button type="button" data-nextstep="pick-officer" id="officer-submit-position-tab" class="btn btn-success">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -688,7 +688,7 @@
                                 <div class="w-row">&nbsp;</div>
                                 <div class="w-row">
                                     <div class="w-col">
-                                        <button type="button" class="ef-btn ef-back-btn ef-js-back-tab" onclick="btnBackToMainPage()">Back</button>
+                                        <button type="button" class="btn btn-success" onclick="btnBackToMainPage()">Back</button>
                                         <button type="button" id="officer-submit-addressing-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step" onclick=""> Save & Next </button>
                                     </div>
                                 </div>

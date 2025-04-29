@@ -2804,3 +2804,6 @@ form.static-form {
             color: #fcbe18;
             opacity: .75
         }
+.site-footer__wrap .site-footer__col.site-footer__col--one p a {
+    color: var(--color-white) !important;
+}

@@ -48,8 +48,8 @@
     }
 
     #ef-order-form-nav-section-content .ef-nav-section-link {
-        width: 25%;
-        border-right: 5px solid var(--color-green) !important;
+        width: 33.33333333333333%;
+        border-right: 1px solid var(--color-green) !important;
         margin-right: 0 !important;
         min-height: 85px;
     }
@@ -169,7 +169,7 @@ a:hover {
     color: var(--color-white) !important;
     font-size: 17px;
     font-family: var(--font-family-myriad);
-    padding-top: 8px;
+    padding-top: 4px;
 }
 
 .ef-order-form-nav-step-content .ef-companyformation-steps:nth-child(2) {
@@ -802,7 +802,7 @@ i.fa.checkbox-big:before {
 }
 
  .section {
-     padding: 40px 10px;
+     padding: 40px 0px;
      border-bottom: 3px solid #ccc;
  }
 
@@ -829,7 +829,7 @@ i.fa.checkbox-big:before {
     border: 1px solid #a5c7d9;
     border-radius: 0;
     background-color: var(--color-green-four);
-    background-image: url(~/images/education-icon@High.png);
+    background-image: url(../images/education-icon@High.png);
     background-position: 17px 22px;
     background-size: 35px;
     background-repeat: no-repeat;
@@ -926,8 +926,8 @@ ef-information-box p {
 }
 
 .role-select-wrapper {
-    padding: 20px !important;
-    background-color: #EAEFF2;
+    padding: 10px !important;
+    background-color: var(--color-green-four);
     margin-bottom: 20px;
 }
 
@@ -1075,8 +1075,8 @@ ef-information-box p {
 
 #residential-address-wrapper {
     margin-bottom: 25px;
-    background-color: #eef1f4;
-    padding: 15px 20px !important;
+    background-color: var(--color-green-four);
+    padding: 10px 10px !important;
 }
 
 .w-col-12 {
@@ -1327,7 +1327,7 @@ ef-information-box p {
 }
 
 .appointment-section {
-    padding: 40px 10px;
+    padding: 40px 0px;
     border-bottom: 3px solid #ccc;
 }
 
@@ -1375,25 +1375,41 @@ ef-information-box p {
     position: fixed;
     top: 65px;
     right: 0;
-    left: 116px;
     z-index: 1030;
-    width: 470px;
+    max-width: 1120px;
+    margin:0 auto;
+    width:100%;
 }
 
 .ef-corporate-tab.fixed-top {
     position: fixed;
     top: 65px;
     right: 0;
-    left: 116px;
-    z-index: 1030;
-    width: 226px;
+    max-width: 1120px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .ef-other-tab.fixed-top {
     position: fixed;
     top: 65px;
     right: 0;
-    left: 116px;
-    z-index: 1030;
-    width: 361px;
+    max-width: 1120px;
+    margin: 0 auto;
+    width: 100%;
+}
+@media (max-width: 761px) {
+    #ef-order-form-nav-section-content .ef-nav-section-link {
+        width: 100%;
+        border-right: 1px solid var(--color-green) !important;
+        margin-right: 0 !important;
+        min-height: 85px;
+    }
+
+    .ef-order-form-nav-step-content .ef-companyformation-steps:nth-child(1), .ef-order-form-nav-step-content .ef-companyformation-steps:nth-child(2), .ef-order-form-nav-step-content .ef-companyformation-steps:nth-child(3), .ef-order-form-nav-step-content .ef-companyformation-steps:nth-child(4) {
+        width: 100%;
+    }
+    .ef-person-tab.fixed-top {
+        top:220px;
+    }
 }
