@@ -31,6 +31,8 @@
                 </ul> 
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"> <a class="nav-link" href="/index" role="button"> Home Site </a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#" onclick="doAdminLogout()" role="button"> Logout </a> </li>
+
                 </ul> 
             </div> 
         </nav> 
@@ -118,6 +120,12 @@
                 });
             }
         });
+
+        function doAdminLogout(){
+            //Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
+            window.location.href = '/Admin/Login?handler=Logout';
+        }
+
     </script>
 
 </body>
