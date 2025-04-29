@@ -1076,6 +1076,7 @@ body {
     font-size: 16px;
     font-size: 1rem;
     text-decoration: none !important;
+    font-weight:bold;
 }
 
     .site-nav__item > a > span {
@@ -1306,8 +1307,8 @@ body {
 
 @media (min-width: 62em) {
     .home-hero .site-nav__wrap {
-        padding: 10px 0 10px;
-        background: var(--color-green-one)
+        padding: 15px 0 10px;
+        background: var(--color-green)
     }
 }
 
@@ -1348,6 +1349,7 @@ body {
 @media (min-width: 62em) {
     .home-hero .site-nav__item > a {
         padding: 20px 10px;
+        font-weight:bold;
     }
 }
 
@@ -2517,7 +2519,7 @@ section {
 }
 
     .home-hero .site-header__contact > a:hover {
-        color: var(--color-blue);
+        color: var(--color-green);
     }
 
 @media (min-width: 62em) {
@@ -5937,8 +5939,8 @@ font-weight:bold}
 }
 
     .home-faqs__question h4 {
-        font-size: 1.3125rem;
-        font-weight: 400;
+        font-size: 20px;
+        font-weight: 600;
         line-height: 1.25;
         margin: 0 !important;
     }
