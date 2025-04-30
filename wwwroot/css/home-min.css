@@ -3331,7 +3331,7 @@ section {
     .home-hero .company-name-search input {
         width: 80%;
         font-size: 23px;
-        font-size: 1.4375rem;
+        font-size: 16px;
     }
 }
 
@@ -4056,6 +4056,7 @@ font-weight:bold}
 
 #section-one .home-packages__header h4 a {
     color: var(--color-black);
+    font-weight:600;
 }
 
     #section-one .home-packages__header h4 a:active,

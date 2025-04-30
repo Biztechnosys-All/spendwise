@@ -1838,14 +1838,18 @@ form.static-form {
         display: none
     }
 }
-
+.compare-packages-grid.compare-packages-grid--desktop th h3, .compare-packages-grid.compare-packages-grid--desktop td h3 {
+    font-weight: 600;
+    line-height: 30px;
+}
 .compare-packages-hero.ltd .compare-packages-hero__left p:last-of-type {
     display: none
 }
 
 @media (min-width:48em) {
     .compare-packages-hero.ltd .compare-packages-hero__left p:last-of-type {
-        display: block
+        display: block;
+        line-height: 140%;
     }
 }
 
@@ -2096,7 +2100,8 @@ form.static-form {
     display: block;
     font-family: var(--font-family-myriad);
     color: var(--color-white) !important;
-    padding: .75rem 1.25rem
+    padding: .75rem 1.25rem;
+    font-weight:600;
 }
 
 .compare-packages-tabs__tab.active {
@@ -2104,7 +2109,8 @@ form.static-form {
 }
 
     .compare-packages-tabs__tab.active a {
-        color: var(--color-white) !important
+        color: var(--color-white) !important;
+        font-weight:600;
     }
 
 @media (min-width:62em) {
