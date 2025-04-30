@@ -221,7 +221,6 @@
     window.selectedPackageItems = window.selectedPackageItems || [];
     window.selectedAdditionalPackageItems = window.selectedAdditionalPackageItems || [];
     $(document).ready(function () {
-        debugger;
         var NetAmount = parseFloat($("#spmNetAmount").text().replace('£', ''));
         let vat = NetAmount * 0.20;
         $("#spmVatAmount").text("£" + vat.toFixed(2));
@@ -289,7 +288,6 @@
     }
 
     function removePackageItem(itemId) {
-        debugger;
 
         let ItemPrice = parseFloat($(`#CheckOut_included_${itemId}_Price`).text().replace('£', ''));
         var NetAmount = parseFloat($("#spmNetAmount").text().replace('£', ''));
@@ -431,7 +429,6 @@
                 processData: false, // Important when sending no data
                 contentType: false,
                 success: function (data) {
-                    debugger;
                     if(data.success == true && data.orderId > 0){
                         $.ajax({
                             url: "/BuyPackage/CompanyDetails?id=" + data.orderId,

@@ -93,7 +93,6 @@
            
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
-            debugger;
             if (UrlPrams.length > 1 && UrlPrams[0] == "id" && UrlPrams[1].indexOf("token") !== -1) {
                 var id = searchParams.get("id");
                 var token = searchParams.get("token");
@@ -128,7 +127,6 @@
                 })
             }
             else if (UrlPrams.length > 1 && $("#hdnSelectedCompany").val() != "") {
-                //debugger;
                 console.log("hdnSelectedPackage", $("#hdnSelectedPackage").val());
                 console.log("Cookies packageName", Cookies.get("SelectedPackage"));
                 if ($("#hdnSelectedPackage").val() != Cookies.get("SelectedPackage")) {
