@@ -1,45 +1,21 @@
 ﻿@page
 @model Spendwise_WebApp.Pages.BuyPackage.CompanyNameModel
 @{
-    //Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
-    Layout = null;
+	//Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+	Layout = null;
 }
+
 <div class="col-five namecheck-holer bg-color-white">
-    <style type="text/css">
-        .namecheck-holer .col {
-            width: 100%;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-       
-        #efNameCheckResult {
-            width: 70%;
-        }
-
-        .efNameCheckResult .custom {
-            padding: 55px 0 0;
-        }
-
-        hr.hr-searchagain {
-            margin-right: 0;
-        }
-        .searchagain .searchagain-title {
-            padding: 2px 0px;
-            margin-right: 0;
-        }
-        .btn-height{height:60px;
-        font-size:20px;
-        font-weight:bold;}
-    </style>
-
     <div class="col twelve pd-left-0" id="divCopmanySearch">
-        <h2 class="fs-24 fc-grey">You have chosen the <br class="xs-visible m-visible"><span class="fc-blue" id="PackageNameSpan"></span>.<br> Now choose your company name.</h2>
+        <h2 class="fs-24 fc-grey">
+            You have chosen the <br class="xs-visible m-visible"><span class="fc-blue" id="PackageNameSpan"></span>.
+          <br/>Now choose your company name.
+        </h2>
         <div class="custom ncblock ncinput-wrap lbs1 seven m-twelve col pd-20 pd-left-0 m-pd-left-20">
             <form method="post" asp-page="CompanyName" data-ajax-complete="firstCompleted">
                 <input class="efInputText" id="company_name" name="name" type="text" placeholder="Enter your new company name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your company name'">
                 <button type="button" class="btn btn-success btn-height" onclick="CheckCompanyName()">Submit</button>
-                <label id="errorCompanyname" style="display:none;color:red;">Please write company name</label>
+                <label id="errorCompanyname" style="display:none;color:red;text-align:left">Please write company name</label>
             </form>
         </div>
     </div>
@@ -66,10 +42,13 @@
             </div>
             <p class="box4 fs-thirty-one">
                 <span class="ncgreen-title fc-red" id="spnSearchedAMBERCompanyName">FACEBOOK</span>
-                Unfortunately, this name is not available for registration. Please select another.<br>
+                Unfortunately, this name is not available for registration. Please select another.
+
             </p>
 
         </div>
     </div>
-    <div class="company-name-search__clear-button"><a href="#" onclick="onSearchAgain()">search again</a></div>
+    <div class="row">
+        <div class="col-md-12"><a href="#" onclick="onSearchAgain()" class="btn btn-success">search again</a></div>
+    </div>
 </div>

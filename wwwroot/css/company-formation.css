@@ -711,23 +711,22 @@ i.fa.checkbox-big:before {
     outline: none;
 }
 
-.ef-btn.prevstep {
-    background-color: #babdc0 !important;
-    border: 1px solid #babdc0 !important;
-    color: var(--color-white) !important;
-    background-image: none !important;
-    font-family: 'MyriadW08-SemiCondensed';
-    font-size: 18px !important;
-    display: block;
-    margin-right: 0;
-    margin-bottom: 20px;
-    float: left;
-    background-position: 3% 50%;
-    background-size: 22px;
-    background-repeat: no-repeat;
-    box-shadow: none;
-    font-weight: 400;
-}
+    .ef-btn.prevstep {
+        background-color: var(--color-green-one) !important;
+        border: 1px solid var(--color-green) !important;
+        color: var(--color-white) !important;
+        background-image: none !important;
+        font-size: 18px !important;
+        display: block;
+        margin-right: 0;
+        margin-bottom: 20px;
+        float: left;
+        background-position: 3% 50%;
+        background-size: 22px;
+        background-repeat: no-repeat;
+        box-shadow: none;
+        font-weight: 400;
+    }
 
 .ef-btn.prevstep:hover {
     background-color: #a6a9ab !important;
@@ -1429,7 +1428,7 @@ ef-information-box p {
 .summary-title {
     box-shadow: none !important;
     position: relative;
-    margin: 30px 0 10px;
+    margin: 0px 0 10px !important;
     float: left;
     font-size: 22px !important;
     font-weight: 600;
@@ -1437,7 +1436,7 @@ ef-information-box p {
     color: #2a3135 !important;
     padding-top: 10px;
     padding-bottom: 10px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-body) !important;
     border-bottom: none !important;
 }
 
@@ -1446,7 +1445,7 @@ ef-information-box p {
     border: 1px solid #5ea72d !important;
     color: #FFFFFF !important;
     line-height: 16px;
-    font-family: 'MyriadW08-BoldSemiConde';
+    font-family: var(--font-family-body);
     font-size: 18px !important;
     font-weight: 600;
     margin-left: 10px !important;
@@ -1475,7 +1474,7 @@ ef-information-box p {
     outline: none;
     line-height: 16px;
     margin-left: -1px;
-    font-family: 'MyriadW08-BoldSemiConde';
+    font-family: var(--font-family-body);
     border: 0 !important;
     background-color: transparent !important;
     font-size: 14px !important;
@@ -1490,7 +1489,7 @@ ef-information-box p {
 .ef-review-business-address-wrapper,
 .ef-review-appointments,
 .ef-review-documents {
-    background-color: #eef1f4;
+    background-color: var(--color-green-four);
     padding: 5px 15px;
     margin: 10px 0;
 }
@@ -1499,7 +1498,7 @@ ef-information-box p {
     margin: 10px 0 10px 0;
     font-size: 20px !important;
     line-height: 18px !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-body) !important;
     color: #2a3135 !important;
     font-weight: 600;
 }
@@ -1537,7 +1536,7 @@ ef-information-box p {
 
 .ef-review-title,
 .ef-officer-additional-info-col div {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .ef-applies-to-header {
@@ -1579,3 +1578,15 @@ ef-information-box p {
 .ef-order-form-nav-wrapper {
     background-color: #FFF;
 }
+@media (max-width: 761px) {
+    .w-row.ef-review-section-title .w-col.w-col-6, .w-row.ef-next-prev-btn .w-col.w-col-6 {
+        width: 100%;
+    }
+    .ef-review-particulars-wrapper .w-col.w-col-1, .ef-review-business-address-wrapper .w-col.w-col-1, .ef-review-appointments .w-col.w-col-1, .ef-review-documents .w-col.w-col-1 {
+        width: 100%;
+    }
+    .w-row.ef-next-prev-btn .summary-nextstep {
+        float:left;
+    }
+}
+   

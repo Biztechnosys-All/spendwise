@@ -19043,7 +19043,7 @@ DIV.col-five.namecheck.bg-color-nslgray {
 }
 
 .custom.ncinput-wrap.notavailable-search input#company_name.efInputText, .custom.ncinput-wrap.searchagain input#company_name.efInputText {
-    max-width: 75%
+    max-width: 85%
 }
 
 .custom.ncinput-wrap.searchagain .search-again-icon {
@@ -19170,7 +19170,8 @@ hr.hr-searchagain {
 .container-inner.ncinner.pos-relative.padding-top-bot-tw h1 {
     background-image: none !important;
     margin: 10px 0 30px;
-    line-height: 28px
+    line-height: 28px;
+    font-weight:600;
 }
 
 .ncgreen-title {
@@ -26881,3 +26882,55 @@ a.btn.btn-success svg{
 .fs-24.fc-grey {
     line-height:40px !important;
 }
+.namecheck-holer .col {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+#efNameCheckResult {
+    width: 100%;
+}
+
+.efNameCheckResult .custom {
+    padding: 0px 0 0;
+}
+
+hr.hr-searchagain {
+    margin-right: 0;
+}
+
+.searchagain .searchagain-title {
+    padding: 2px 0px;
+    margin-right: 0;
+}
+
+.btn-height {
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+}
+@media only screen and (max-width:768px) {
+    #efNameCheckResult {
+        width: 100%;
+    }
+    P.box4.fs-thirty-one, P.box5.fs-thirty-one {
+        width:80%;
+    }
+}
+.company-box-bg {
+    background: var(--color-green-four);
+        border: 1px solid var(--color-green-three);
+        padding:10px;
+        display:block;
+        width:100%;
+}
+    .company-box-bg .box-inner {
+        display: block;
+        width: 100%;
+    }
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+    border-color: #fff !important;
+    }

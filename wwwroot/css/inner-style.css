@@ -512,6 +512,7 @@ body {
 
     .page-banner .sp-heading h1 {
         margin-bottom: 10px;
+        font-weight:600;
     }
 
         .page-banner .sp-heading h1.redux {

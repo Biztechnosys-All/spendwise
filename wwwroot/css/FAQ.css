@@ -3,8 +3,7 @@
 
 .contactContainer__right h2, .contactContainer__left h2 {
     font-size: 24px;
-    font-weight: 200;
-    font-style: normal;
+    font-weight: 600;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(221, 221, 221, 1);
     margin-bottom: 30px;
@@ -76,15 +75,15 @@ h4 {
 
 .contactContainer__header span {
     font-size: 28px;
-    font-family: MyriadW08-SemiCondensed !important;
+    font-family: var(--font-family-body) !important;
     margin: .67rem 0;
     display: block;
 }
 
-.contactContainer>p {
+.contactContainer > p {
     color: rgb(113, 113, 113);
     font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-family-body);
     padding: 0 0 30px 0;
 }
 

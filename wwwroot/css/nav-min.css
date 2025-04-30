@@ -1144,7 +1144,7 @@ body {
 .site-nav__item {
     cursor: pointer;
     padding: 15px 0;
-    border-bottom: 1px solid #7c7c7c
+    border-bottom: 1px solid var(--color-white);
 }
 
     .site-nav__item a {
@@ -1169,7 +1169,7 @@ body {
 
 @media (min-width:62em) {
     .site-nav__item--login a {
-        border: 1px solid #75c14c
+        border: 0px solid #75c14c
     }
 }
 
