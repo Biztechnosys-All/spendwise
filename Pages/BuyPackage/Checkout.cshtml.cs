@@ -11,6 +11,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Web;
 using Spendwise_WebApp.DLL;
+using Microsoft.Extensions.Options;
 
 namespace Spendwise_WebApp.Pages.BuyPackage
 {
@@ -86,7 +87,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                 SelectedItemIdsCsv = string.Join(",", itemIds);
             }
 
-            var selectedPackage = _context.packages.Where(x => x.PackageName.ToLower() == (Request.Cookies["SelectedPackage"] ?? "").ToLower()).FirstOrDefault();
+            var selectedPackage = _context.packages.Where(x => x.PackageName.ToLower() == (string.IsNullOrEmpty(Request.Cookies["SelectedPackage"]) ? Request.Cookies["packageName"] : Request.Cookies["SelectedPackage"]).ToLower()).FirstOrDefault();
 
             var order = new Orders
             {
