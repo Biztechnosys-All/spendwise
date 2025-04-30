@@ -20,7 +20,7 @@
                             <div class="w-container" id="ef-order-form-nav-section-wrapper">
                                 <div class="w-row">
                                     <div class="w-col w-col-12 w-clearfix" id="ef-order-form-nav-section-content">
-                                        <div class="ef-nav-section-link current" data-toggle="tab" role="tab" aria-controls="CompanyFormation">
+                                        <div class="ef-nav-section-link current" data-tab="compnay-formation" aria-controls="CompanyFormation">
                                             <a class="ef-nav-section-title" id="spnCompanyFormation" href="#Formation">1. Company Formation</a>
                                             <div class="ef-nav-section-description">Details about your company</div>
                                         </div>
@@ -28,12 +28,12 @@
                                             <a class="ef-nav-section-title" href="#BusinessEssentials">2. Business Essentials</a>
                                             <div class="ef-nav-section-description">Products &amp; services</div>
                                         </div> *@
-                                        <div class="ef-nav-section-link " id="spnSummary" data-toggle="tab" role="tab" aria-controls="Summary">
-                                            <a class="ef-nav-section-title" href="#Summary">2. Summary</a>
+                                        <div class="ef-nav-section-link " data-tab="summary" aria-controls="Summary">
+                                            <a class="ef-nav-section-title" id="spnSummary" href="#Summary">2. Summary</a>
                                             <div class="ef-nav-section-description">Details about your order</div>
                                         </div>
-                                        <div class="ef-nav-section-link ">
-                                            <a class="ef-nav-section-title" href="#">3. Delivery &amp; Partner Services</a>
+                                        <div class="ef-nav-section-link " data-tab="partner-services">
+                                            <a class="ef-nav-section-title" id="spnPartnerDetails" href="#">3. Delivery &amp; Partner Services</a>
                                             <div class="ef-nav-section-description">Delivery &amp; partner details</div>
                                         </div>
                                     </div>
@@ -72,11 +72,15 @@
         $(function () {
             var tab = $("#spnCompanyFormation").text();
             var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+
             $.ajax({
                 url: "/FormationPage/CompanyFormationSubTab",
                 type: "get",
                 success: function (result) {
                     $("#FormationTabContent").html(result);
+
+                    const newUrl = '?section=' + tabName;
+                    window.history.pushState({ path: newUrl }, '', newUrl);
                 }
             });
         });
@@ -191,6 +195,62 @@
                        }
                     }
                 });
+            });
+        });
+
+        // For Main Tab switching
+        $(document).ready(function () {
+            $(".ef-nav-section-link").click(function () {
+                $(".ef-nav-section-link").removeClass("current");
+
+                if($(this).data("tab") == "compnay-formation"){
+                    var tab = $("#spnCompanyFormation").text();
+                    var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+                    $(this).addClass("current");
+
+                    $.ajax({
+                        url: "/FormationPage/CompanyFormationSubTab",
+                        type: "get",
+                        success: function (result) {
+                            $("#FormationTabContent").html(result);
+
+                            const newUrl = '?section=' + tabName;
+                            window.history.pushState({ path: newUrl }, '', newUrl);
+                        }
+                    });
+                }
+                else if($(this).data("tab") == "summary"){
+                    var tab = $("#spnSummary").text();
+                    var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+                    $(this).addClass("current");
+
+                    $.ajax({
+                        url: "/FormationPage/Summary",
+                        type: "get",
+                        success: function (result) {
+                            $("#FormationTabContent").html(result);
+
+                            const newUrl = '?section=' + tabName;
+                            window.history.pushState({ path: newUrl }, '', newUrl);
+                        }
+                    });
+                }
+                else if($(this).data("tab") == "partner-services"){
+                    var tab = $("#spnSummary").text();
+                    var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+                    $(this).addClass("current");
+
+                    $.ajax({
+                        url: "/FormationPage/Summary",
+                        type: "get",
+                        success: function (result) {
+                            $("#FormationTabContent").html(result);
+
+                            const newUrl = '?section=' + tabName;
+                            window.history.pushState({ path: newUrl }, '', newUrl);
+                        }
+                    });
+                }
             });
         });
     </script>
