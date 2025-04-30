@@ -43,16 +43,16 @@
     padding-left: 0;
 }
 
-    #ef-order-form-nav-section-content .ef-nav-section-link.current {
-        border-right: 5px solid var(--color-green) !important;
-    }
+#ef-order-form-nav-section-content .ef-nav-section-link.current {
+    border-right: 5px solid var(--color-green) !important;
+}
 
-    #ef-order-form-nav-section-content .ef-nav-section-link {
-        width: 33.33333333333333%;
-        border-right: 1px solid var(--color-green) !important;
-        margin-right: 0 !important;
-        min-height: 85px;
-    }
+#ef-order-form-nav-section-content .ef-nav-section-link {
+    width: 33.33333333333333%;
+    border-right: 1px solid var(--color-green) !important;
+    margin-right: 0 !important;
+    min-height: 85px;
+}
 
 .ef-nav-section-link.current {
     border-right: none !important;
@@ -1412,4 +1412,170 @@ ef-information-box p {
     .ef-person-tab.fixed-top {
         top:220px;
     }
+}
+
+/*Summary Page */
+
+#ef-panel-summary-content {
+    border-top: 1px solid #a9a9a9;
+    padding: 0 !important;
+}
+
+.ef-review-section-title {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.summary-title {
+    box-shadow: none !important;
+    position: relative;
+    margin: 30px 0 10px;
+    float: left;
+    font-size: 22px !important;
+    font-weight: 600;
+    line-height: 22px !important;
+    color: #2a3135 !important;
+    padding-top: 10px;
+    padding-bottom: 10px !important;
+    font-family: 'MyriadW08-BoldSemiConde' !important;
+    border-bottom: none !important;
+}
+
+.additional-button {
+    background-color: #5ea72d !important;
+    border: 1px solid #5ea72d !important;
+    color: #FFFFFF !important;
+    line-height: 16px;
+    font-family: 'MyriadW08-BoldSemiConde';
+    font-size: 18px !important;
+    font-weight: 600;
+    margin-left: 10px !important;
+    float: right !important;
+    margin-right: 0;
+}
+
+    .additional-button:hover {
+        background-color: #329118 !important;
+        border-color: #329118 !important;
+        color: #FFFFFF !important;
+    }
+
+.ef-review-summary-btn {
+    display: block;
+    float: right;
+    cursor: pointer;
+    text-align: center;
+    transition: all .5s ease;
+    width: auto !important;
+    padding: 10px 15px !important;
+    color: #6f7b82 !important;
+    font-weight: bold;
+    margin-right: 0;
+    margin-bottom: 0;
+    outline: none;
+    line-height: 16px;
+    margin-left: -1px;
+    font-family: 'MyriadW08-BoldSemiConde';
+    border: 0 !important;
+    background-color: transparent !important;
+    font-size: 14px !important;
+    text-decoration: underline;
+}
+
+    .ef-review-summary-btn:hover {
+        color: #0079a8 !important;
+    }
+
+.ef-review-particulars-wrapper,
+.ef-review-business-address-wrapper,
+.ef-review-appointments,
+.ef-review-documents {
+    background-color: #eef1f4;
+    padding: 5px 15px;
+    margin: 10px 0;
+}
+
+#company-formation-summary h3 {
+    margin: 10px 0 10px 0;
+    font-size: 20px !important;
+    line-height: 18px !important;
+    font-family: 'MyriadW08-BoldSemiConde' !important;
+    color: #2a3135 !important;
+    font-weight: 600;
+}
+
+.ef-review-particulars-wrapper > .w-row {
+    margin: 0 -10px;
+}
+
+.w-col-11 {
+    width: 91.66666667%;
+}
+
+.ef-review-particulars-wrapper .row-margin {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.ef-small-btn {
+    margin-left: auto;
+    margin-right: 0;
+    border-radius: 0;
+    font-weight: bold;
+    background-color: #FFFFFF !important;
+    border: 1px solid #84888a !important;
+    color: #6f7b82 !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+    .ef-small-btn:hover {
+        background-color: #efefef !important;
+        border-color: #84888a !important;
+        color: #333 !important;
+        text-decoration: none;
+    }
+
+.ef-review-title,
+.ef-officer-additional-info-col div {
+    font-weight: 500;
+}
+
+.ef-applies-to-header {
+    color: #6a6a6a;
+    font-weight: 700;
+}
+
+.summary-nextstep {
+    background-color: #5ea72d !important;
+    border: 1px solid #5ea72d !important;
+    color: #FFFFFF !important;
+    background-image: none !important;
+    font-family: 'MyriadW08-SemiCondensed';
+    font-size: 18px !important;
+    display: block;
+    margin-right: 0;
+    margin-bottom: 20px;
+    float: right;
+    background-position: 97% 50%;
+    background-size: 22px;
+    background-repeat: no-repeat;
+    box-shadow: none;
+    font-weight: 400;
+}
+
+.summary-nextstep:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    text-decoration: none !important;
+}
+
+.summary-nextstep:after {
+    content: "\f061";
+    font-family: fontawesome;
+    color: #FFFFFF;
+    padding-left: 20px;
+}
+
+.ef-order-form-nav-wrapper {
+    background-color: #FFF;
 }

@@ -70,17 +70,6 @@
             </p>
 
         </div>
-
-        <div class="custom ncinput-wrap searchagain">
-            <hr class="hr-searchagain">
-            <p class="searchagain-title"><span>Search for another name</span></p>
-            <!-- THE NAMECHECK FORM -->
-            <form method="post" asp-page="CompanyName" data-ajax-complete="firstCompleted">
-                <input class="efInputText" id="company_name" name="name" type="text" placeholder="Enter your new company name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your company name'">
-                <button type="button" class="btn btn-primary" onclick="CheckCompanyName()">Submit</button>
-                <label id="errorCompanyname" style="display:none;color:red;">Please write company name</label>
-            </form>
-            <!-- END: THE NAMECHECK FORM -->
-        </div>
     </div>
+    <div class="company-name-search__clear-button"><a href="#" onclick="onSearchAgain()">search again</a></div>
 </div>
