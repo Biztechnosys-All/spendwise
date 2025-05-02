@@ -2029,7 +2029,7 @@ form.static-form {
 .checkout-additional-items__item--icon i {
     font-size: 18px;
     font-size: 1.125rem;
-    color: #bcb4b2
+    color: var(--color-green);
 }
 
 .checkout-additional-items__item--price {

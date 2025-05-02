@@ -26934,3 +26934,9 @@ hr.hr-searchagain {
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
     border-color: #fff !important;
     }
+
+@media (max-width: 768px) {
+    .nav.nav-tabs.nav-checkout li{
+       width:100%;
+    }
+}
