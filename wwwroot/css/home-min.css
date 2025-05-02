@@ -3923,20 +3923,20 @@ section {
 #section-one .home-packages__package-mobile {
     width: 100%;
     margin: 0 0 2px;
-    background-color: #31a5cb;
+    background-color: var(--color-green);
     color: var(--color-white);
     display: block;
     overflow: hidden;
     box-sizing: border-box;
-    padding: 15px 10px;
+    padding: 10px 10px;
     font-family: var(--font-family-myriad);
 }
 
     #section-one .home-packages__package-mobile span {
-        font-size: 19px;
-        font-size: 1.1875rem;
+        font-size: 16px;
         padding: 0 0 0 10px;
         color: var(--color-white);
+        font-weight:bold;
     }
 
         #section-one .home-packages__package-mobile span:nth-child(1) {
@@ -4294,7 +4294,7 @@ font-weight:bold}
     border-radius: 4px;
     background-clip: padding-box;
     padding: 1.325rem 1.125rem;
-    background-color: var(--color-white);
+    background-color: var(--color-green-four);
     background-clip: padding-box;
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.05);
@@ -4318,9 +4318,8 @@ font-weight:bold}
         align-items: center;
         justify-content: space-between;
         font-family: var(--font-family-myriad);
-        font-weight: 400;
-        color: var(--color-yellow);
-        background-color: var(--color-white) !important;
+        font-weight: 600;
+        color: var(--color-black);
         position: relative;
         cursor: pointer;
     }
@@ -4383,11 +4382,13 @@ font-weight:bold}
 
 #section-one .home-packages__tab input:checked ~ .tab-content {
     max-height: 40em;
+    background: var(--color-white);
+    padding:10px;
 }
 
 #section-one .home-packages__right i,
 #section-one .home-packages__right svg {
-    color: #31a5cb;
+    color: var(--color-green);
 }
 
 #section-one .home-packages__feature-title {
@@ -4716,7 +4717,7 @@ font-weight:bold}
     }
 
         .home-company-formation-easy__card:nth-child(odd) {
-            margin-right: 4%;
+            margin-right: 1.5%;
         }
 }
 
@@ -7625,5 +7626,14 @@ body .lity.lity-inline {
 @media (min-width: 768px) {
     .home-checklist__item p {
        min-height:160px;
+    }
+}
+@media only screen and (max-width: 1020px) and (min-width: 768px) {
+    .home-company-formation-easy__body {
+        width:300px;
+    }
+    .home-company-formation-easy__card:not(:last-child) {
+        margin-left: 20px;
+        margin-right: 20px;
     }
 }
