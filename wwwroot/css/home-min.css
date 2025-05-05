@@ -39,7 +39,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 300;
+    font-weight: 600;
 }
 
 html {
@@ -354,7 +354,7 @@ body {
         font-size: 34px;
         font-size: 2.125rem;
         font-family: var(--font-family-myriad);
-        font-weight: 700;
+        font-weight: 600;
     }
 
 @media (min-width: 48em) {
@@ -390,7 +390,7 @@ body {
     font-family: var(--font-family-myriad);
     font-size: 21px;
     font-size: 1.3125rem;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-gray);
     margin: 20px 0 10px;
 }
@@ -3870,7 +3870,9 @@ section {
 #section-one .home-packages__title {
     text-align: center;
 }
-
+#section-one .home-packages__title p{
+    font-weight:600;
+}
     #section-one .home-packages__title h3 {
         margin-top: 0;
         margin-bottom: 20px;
@@ -4395,7 +4397,7 @@ font-weight:bold}
     font-size: 22px;
     font-size: 1.375rem;
     font-family: var(--font-family-myriad);
-    font-weight: 700;
+    font-weight: 600;
     margin: 1.2rem 0;
 }
 
@@ -4426,6 +4428,7 @@ font-weight:bold}
         display: block;
         text-align: center;
         margin: 0 15px 0;
+        font-weight:600;
     }
 
         .banking_cards h3.section-title + p br {
@@ -4620,6 +4623,7 @@ font-weight:bold}
         display: block;
         text-align: center;
         margin: 0 15px 0;
+        font-weight:600;
     }
 
         .home-company-formation-easy__title p br {
@@ -5298,6 +5302,7 @@ font-weight:bold}
     display: block;
     text-align: center;
     margin: 0 15px 16px;
+    font-weight:600;
 }
 
 @media (min-width: 48em) {
@@ -5328,7 +5333,7 @@ font-weight:bold}
         font-family: var(--font-family-myriad);
         font-size: 1.3125rem;
         color: var(--color-gray) !important;
-        font-weight: 400;
+        font-weight: 600;
         line-height: 1.25;
         margin-top: 0 !important;
         margin-bottom: 1rem;
@@ -5734,7 +5739,7 @@ font-weight:bold}
 
     .why-we-are-different__card h4 {
         font-size: 1.3125rem !important;
-        font-weight: 400 !important;
+        font-weight: 600 !important;
         color: var(--color-gray);
         line-height: 1.25;
     }
@@ -5790,6 +5795,7 @@ font-weight:bold}
     line-height: 24px;
     display: block;
     text-align: left;
+    font-weight:600;
 }
 
 @media (min-width: 48em) {
@@ -5832,7 +5838,7 @@ font-weight:bold}
 
     .home-business-guides__guide h4 {
         font-size: 1.3125rem;
-        font-weight: 400;
+        font-weight: 600;
         line-height: 1.25;
         margin-top: 0 !important;
         margin-bottom: 1.4rem;
@@ -6238,6 +6244,7 @@ font-weight:bold}
     line-height: 24px;
     display: block;
     text-align: left;
+    font-weight:600;
 }
 
 @media (min-width: 48em) {
@@ -6736,7 +6743,9 @@ font-weight:bold}
     margin: 0;
     padding: 60px 0;
 }
-
+    .home-partners-directory p. banking_cards p {
+        font-weight: 600;
+    }
 @media (min-width: 48em) {
     .home-partners-directory {
         margin: 0;
