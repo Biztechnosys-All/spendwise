@@ -1589,4 +1589,15 @@ ef-information-box p {
         float:left;
     }
 }
-   
+
+.ef-alert-box.warning .ef-alert-box-main-text {
+    color: #ea730a !important;
+    font-size: 28px !important;
+    font-family: 'MyriadW08-BoldSemiConde';
+    font-weight: 600;
+}
+
+.namecheck-error-description {
+    margin: 10px 0 0 0;
+    font-size: 15px;
+}

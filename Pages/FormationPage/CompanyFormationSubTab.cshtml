@@ -57,200 +57,138 @@
                         <div id="ef-particulars-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
                             <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
                         </div>
-                        <div>
-                            <h2 class="ef-hide">Particulars</h2>
-                            <!--  results -->
-                            <div class="ef-alert-box netural name-check-placeholder ef-js-check-name-alert" style="display: none;">
-                                <div class="ef-alert-box-main-text">
-                                    Checking availability of "<span class="ef-namecheck-choosen-name">CODEPLUS</span>"
-                                    <span class="ef-inline-loader"></span>
-                                </div>
-                            </div>
-                            <!-- GREEN -->
-                            <div class="ef-alert-box success name-check-result" style="display:none">
-                                <div class="ef-alert-box-main-text">
-                                    Congratulations,"
-                                    <span class="ef-namecheck-choosen-name">CODEPLUS</span>" is available for registration.
-                                </div>
-                            </div>
-                            <!-- RED -->
-                            <div class="ef-alert-box fail name-check-result" style="display:none">
-                                <div class="ef-alert-box-main-text">
-                                    <span class="ef-namecheck-choosen-name">CODEPLUS</span> is not available for registration.
-                                </div>
-                                <p class="ef-js-namecheck-meta-text">You will need to provide a valid Company ending: LLP, LIMITED LIABILITY PARTNERSHIP</p>
-                            </div>
-                            <!-- AMBER -->
-                            <div class="ef-alert-box warning name-check-result" style="display: none;">
-                                <div class="ef-alert-box-main-text">
-                                    <span class="ef-namecheck-choosen-name">CODEPLUS</span> is available for registration.
-                                </div>
-                                <p class="ef-js-namecheck-meta-text">You will need to provide a valid Company ending: LLP, LIMITED LIABILITY PARTNERSHIP</p>
-                                <div class="supp-same-as-req supp-sensitive-req" style="display:none">
-                                    <p class="sup-type supp-same-as-req" style="display:none">Name authorisation from <strong class="permission-from"></strong></p>
-                                    <p class="sup-type supp-sensitive-req" style="display:none">Sensitive word authorisation for <strong class="sensitive-list"></strong></p>
-                                    <p class="sup-type supp-sensitive-req" style="display: none;"> Please attach supporting documentation (either PDF, RTF, DOC or DOCX), below:</p>
-                                </div>
-                            </div>
+                        <form asp-page-handler="SaveParticular" method="post">
                             <div>
-                                <div class="ef-namecheck-wrapper w-row ef-form-wrap">
-                                    <div class="ef-namecheck-label-row w-col w-col-9"></div>
-                                    <div class="w-col w-col-5">
-                                        <label for="ef-company-name">
-                                            Company Name
-                                            <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_NAME"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
-                                        </label>
-                                        <input class="w-input ef-company-name-field" id="ef-company-name" type="text" name="company-name" value="CODEPLUS" onkeyup="progress_is_namecheck()">
-                                    </div>
-                                    <div class="w-col w-col-4" style="margin-top: 1px;">
-                                        <label for="ef-namecheck-button">&nbsp;</label>
-                                        <button type="button" id="ef-namecheck-button" class="ef-btn ef-primary-btn" name="ef-name-check-btn" onclick="FormBuilder.NameCheck(jQuery('#ef-company-name').val()); ">Check another name</button>
-                                    </div>
+                                <!-- RED -->
+                                <div class="ef-alert-box warning name-check-result show-namecheck" asp-validation-for="Particular.CompanyName">
+                                    <div class="ef-alert-box-main-text">Warning, <span class="ef-namecheck-choosen-name">CAMPAUK</span> is available for registration.</div>
+                                    <p class="ef-js-namecheck-meta-text namecheck-error-description">You will need to provide a valid Company ending: LTD, LIMITED, CYF, CYFYNGEDIG, LTD.</p>
                                 </div>
-                            </div>
-                            <input type="hidden" name="ef-same-as-doc" value="0" id="ef-same-as-doc">
-                            <input type="hidden" name="ef-sensitive-doc" value="0" id="ef-sensitive-doc">
-                            <div class="ef-form-wrap supp-doc-container" style="display:none" id="same-as-container">
-                                <div class="w-row">
-                                    <div class="w-col w-col-12">
-                                        <label>Name Authorisation</label>
-                                        <p>You need permission from <span class="permission-from"></span> to use this company name.</p>
-                                        <p>Please obtain permission and upload file here.</p>
-                                    </div>
-                                </div>
-                                <div class="w-row ef-supporting-doc-attachment-wrapper" style="clear:both">
-                                    <div class="w-col w-col-8">
-                                        <label>Supporting Document</label>
-                                        <input class="w-input file-upload" type="file" name="file-upload-same-as" id="file-upload-same-as">
-                                        <button class="ef-btn ef-primary-btn attach-button js-attach-same-as" data-doc-type="same-as">Attach</button>
-                                    </div>
-                                    <div class="w-col w-col-12 same-as-col ef-upload-result">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ef-form-wrap supp-doc-container" style="display:none" id="sensitive-container">
-                                <div class="w-row">
-                                    <div class="w-col w-col-12">
-                                        <label>Sensitive Words</label>
-                                        <div class="sensitive-guidance"></div>
-                                    </div>
-                                </div>
-                                <div class="w-row ef-supporting-doc-attachment-wrapper" style="clear:both">
-                                    <div class="w-col w-col-8">
-                                        <div>
-                                            <label>Supporting Document</label>
-                                            <input class="w-input file-upload" type="file" name="file-upload-sensitive" id="file-upload-sensitive">
-                                            <button type="button" class="ef-btn ef-primary-btn attach-button js-attach-sensitive-name" data-doc-type="sensitive">Attach</button>
-                                        </div>
-                                    </div>
-                                    <div class="w-col w-col-12 sensitive-col ef-upload-result">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ef-form-wrap last-margin">
-                                <div class="w-row">
-                                    <div class="w-col w-col-6">
-                                        <label for="company-type">
-                                            Type of Company
-                                            <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_TYPE"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
-                                        </label>
-                                        <select class="w-select" id="company-type" name="company-type" onchange="FormBuilder.ChangeCompanyType()">
-                                            <option value="4" selected="selected">
-                                                Limited Liability Partnership
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="w-col w-col-6">
-                                        <label for="company-jur">
-                                            Jurisdiction
-                                            <span class="ef-modal-help-icon" data-ref="HELP|JURISDICTION"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
-                                        </label>
-                                        <select class="w-select" id="company-jur" name="company-jur">
-                                            <option value="EW" selected="selected">
-                                                England &amp; Wales
-                                            </option>
-                                            <option value="WA">
-                                                Wales
-                                            </option>
-                                            <option value="SC">
-                                                Scotland
-                                            </option>
-                                            <option value="NI">
-                                                Northern Ireland
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <!--  there can be multiple -->
-                                <div class="w-row">
-                                    <div class="w-col w-col-6">
-                                        <!-- sic codes -->
-                                        <label>
-                                            What are your business activities
-                                            <span class="ef-modal-help-icon" data-ref="HELP|SIC_CODES"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
-                                        </label>
-                                        <div class="" id="ef-js-sic-codes">
-                                            <div class="" id="ef-js-sic-codes__categories">
-                                                <select class="w-select" name="" id="ef-js-sic-codes__categories__options">
-                                                    <option value="none-selected">Select a category:</option>
-                                                    <option value="all-categories">All</option>
-                                                    <option value="A">A: Agriculture, Forestry and Fishing</option>
-                                                    <option value="B">B: Mining and Quarrying</option>
-                                                    <option value="C">C: Manufacturing</option>
-                                                    <option value="D">D: Electricity, gas, steam and air conditioning supply</option>
-                                                    <option value="E">E: Water supply, sewerage, waste management and remediation activities</option>
-                                                    <option value="F">F: Construction</option>
-                                                    <option value="G">G: Wholesale and retail trade; repair of motor vehicles and motorcycles</option>
-                                                    <option value="H">H: Transportation and storage</option>
-                                                    <option value="I">I: Accommodation and food service activities</option>
-                                                    <option value="J">J: Information and communication</option>
-                                                    <option value="K">K: Financial and insurance activities</option>
-                                                    <option value="L">L: Real estate activities</option>
-                                                    <option value="M">M: Professional, scientific and technical activities</option>
-                                                    <option value="N">N: Administrative and support service activities</option>
-                                                    <option value="O">O: Public administration and defence; compulsory social security</option>
-                                                    <option value="P">P: Education</option>
-                                                    <option value="Q">Q: Human health and social work activities</option>
-                                                    <option value="R">R: Arts, entertainment and recreation</option>
-                                                    <option value="S">S: Other service activities</option>
-                                                    <option value="T">T: Activities of households as employers; undifferentiated goods and services producing activities of households for own use</option>
-                                                    <option value="U">U: Activities of extraterritorial organisations and bodies</option>
-                                                </select>
-                                            </div>
-                                            <div class="ef-js-sic-codes__loader ef-sic-codes__loader">
-                                                <span class="ef-sic-codes__loader__img">
-                                                    <!-- loader -->
-                                                </span>
-                                            </div>
-                                            <div class="w-input ef-sic-code-filter" id="ef-js-sic-codes__filter" style="display:none;">
-                                                <div class="ef-js-sic-codes__filter__label">
-                                                    Filter: <input type="text" name="name" value="" class="ef-js-sic-codes__filter__input" id="ef-js-sic-codes__filter__input" autocomplete="off">
-                                                </div>
-                                                <div class="" id="ef-js-sic-codes__filter__found"></div>
-                                                <div class="ef-js-sic-code-error" style=""></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="w-col w-col-6">
-                                        <div id="ef-js-sic-codes__selected" class="ef-sic-codes-selected">
-                                            <label class="ef-sic-codes-selected-label">
-                                                Selected SIC codes
-                                            </label>
-                                            <!-- <div class="ef-selected-sic-codes" id="ef-js-sic-codes__selected__picked"> -->
-                                            <ul id="ef-sic-code-list" class="ef-sic-code-list">
-                                                <li class="ef-no-sic-code">None Selected</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="particular-save">
-                            <button type="button" id="pseudo-nextstep" class="ef-btn nextstep">
-                                Save
-                            </button>
-                        </div>
+                                <div>
+                                    <div class="ef-namecheck-wrapper w-row ef-form-wrap">
+                                        <div class="ef-namecheck-label-row w-col w-col-9"></div>
+                                        <div class="w-col w-col-5">
+                                            <label for="ef-company-name">
+                                                Company Name
+                                                <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_NAME"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <input class="w-input ef-company-name-field" asp-for="Particular.CompanyName" type="text" onkeyup="progress_is_namecheck()">
+                                        </div>
+                                        <div class="w-col w-col-4" style="margin-top: 1px;">
+                                            <label for="ef-namecheck-button">&nbsp;</label>
+                                            <button type="button" id="ef-namecheck-button" class="ef-btn ef-primary-btn" name="ef-name-check-btn" onclick="">Check another name</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ef-form-wrap last-margin">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-6">
+                                            <label for="company-type">
+                                                Type of Company
+                                                <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_TYPE"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <select class="w-select" asp-for="Particular.CompanyType" onchange="FormBuilder.ChangeCompanyType()">
+                                                <option value="4" selected="selected">
+                                                    Limited Liability Partnership
+                                                </option>
+                                            </select>
+                                            <span asp-validation-for="Particular.CompanyType" class="text-danger fw-bold p-1 field-msg"></span>
+                                        </div>
+                                        <div class="w-col w-col-6">
+                                            <label for="company-jur">
+                                                Jurisdiction
+                                                <span class="ef-modal-help-icon" data-ref="HELP|JURISDICTION"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <select class="w-select" asp-for="Particular.Jurisdiction">
+                                                <option value="EW" selected="selected">
+                                                    England &amp; Wales
+                                                </option>
+                                                <option value="WA">
+                                                    Wales
+                                                </option>
+                                                <option value="SC">
+                                                    Scotland
+                                                </option>
+                                                <option value="NI">
+                                                    Northern Ireland
+                                                </option>
+                                            </select>
+                                            <span asp-validation-for="Particular.Jurisdiction" class="text-danger fw-bold p-1 field-msg"></span>
+                                        </div>
+                                    </div>
+                                    <!--  there can be multiple -->
+                                    <div class="w-row">
+                                        <div class="w-col w-col-6">
+                                            <!-- sic codes -->
+                                            <label>
+                                                What are your business activities
+                                                <span class="ef-modal-help-icon" data-ref="HELP|SIC_CODES"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <div class="" id="ef-js-sic-codes">
+                                                <div class="" id="ef-js-sic-codes__categories">
+                                                    <select class="w-select" asp-for="Particular.Activities">
+                                                        <option value="none-selected">Select a category:</option>
+                                                        <option value="all-categories">All</option>
+                                                        <option value="A">A: Agriculture, Forestry and Fishing</option>
+                                                        <option value="B">B: Mining and Quarrying</option>
+                                                        <option value="C">C: Manufacturing</option>
+                                                        <option value="D">D: Electricity, gas, steam and air conditioning supply</option>
+                                                        <option value="E">E: Water supply, sewerage, waste management and remediation activities</option>
+                                                        <option value="F">F: Construction</option>
+                                                        <option value="G">G: Wholesale and retail trade; repair of motor vehicles and motorcycles</option>
+                                                        <option value="H">H: Transportation and storage</option>
+                                                        <option value="I">I: Accommodation and food service activities</option>
+                                                        <option value="J">J: Information and communication</option>
+                                                        <option value="K">K: Financial and insurance activities</option>
+                                                        <option value="L">L: Real estate activities</option>
+                                                        <option value="M">M: Professional, scientific and technical activities</option>
+                                                        <option value="N">N: Administrative and support service activities</option>
+                                                        <option value="O">O: Public administration and defence; compulsory social security</option>
+                                                        <option value="P">P: Education</option>
+                                                        <option value="Q">Q: Human health and social work activities</option>
+                                                        <option value="R">R: Arts, entertainment and recreation</option>
+                                                        <option value="S">S: Other service activities</option>
+                                                        <option value="T">T: Activities of households as employers; undifferentiated goods and services producing activities of households for own use</option>
+                                                        <option value="U">U: Activities of extraterritorial organisations and bodies</option>
+                                                    </select>
+                                                    <span asp-validation-for="Particular.Activities" class="text-danger fw-bold p-1 field-msg"></span>
+                                                </div>
+                                                <div class="ef-js-sic-codes__loader ef-sic-codes__loader">
+                                                    <span class="ef-sic-codes__loader__img">
+                                                        <!-- loader -->
+                                                    </span>
+                                                </div>
+                                                <div class="w-input ef-sic-code-filter" id="ef-js-sic-codes__filter" style="display:none;">
+                                                    <div class="ef-js-sic-codes__filter__label">
+                                                        Filter: <input type="text" name="name" value="" class="ef-js-sic-codes__filter__input" id="ef-js-sic-codes__filter__input" autocomplete="off">
+                                                    </div>
+                                                    <div class="" id="ef-js-sic-codes__filter__found"></div>
+                                                    <div class="ef-js-sic-code-error" style=""></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-col w-col-6">
+                                            <div id="ef-js-sic-codes__selected" class="ef-sic-codes-selected">
+                                                <label class="ef-sic-codes-selected-label" asp-for="Particular.SIC_Code">
+                                                    Selected SIC codes
+                                                </label>
+                                                <!-- <div class="ef-selected-sic-codes" id="ef-js-sic-codes__selected__picked"> -->
+                                                <ul id="ef-sic-code-list" class="ef-sic-code-list">
+                                                    <li class="ef-no-sic-code">None Selected</li>
+                                                </ul>
+                                                <span asp-validation-for="Particular.SIC_Code" class="text-danger fw-bold p-1 field-msg"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="particular-save">
+                                <input type="submit" class="ef-btn btn-success" value="Save" />
+                                    
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
