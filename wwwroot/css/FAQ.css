@@ -67,6 +67,7 @@ h4 {
     display: inline-block;
     width: 100%;
     margin-bottom: 30px;
+    font-weight:600;
 }
 
 .contactContainer__header h1 {

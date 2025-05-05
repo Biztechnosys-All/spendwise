@@ -2396,7 +2396,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
     font-family: var(--font-family-myriad) !important;
     font-style: normal;
-    font-weight: 400
+    font-weight: 600
 }
 
 .dt-packcom h2 {
@@ -2568,7 +2568,7 @@ strong {
 .fs-twenty-one, .fs-twenty-six {
     font-family: var(--font-family-myriad) !important;
     font-style: normal;
-    font-weight: 400
+    font-weight: 600
 }
 
 .fs-twenty-six {
@@ -2756,7 +2756,8 @@ p.fc-green.fw-600.ffsave-two {
 .efButton.ui-button.ui-widget.ui-state-default.ui-corner-all {
     vertical-align: top;
     margin-left: 5px;
-    border: 1px solid var(--color-green)
+    border: 1px solid var(--color-green);
+    font-weight:600;
 }
 
 .ui-widget-header a:active, .ui-widget-header a:link, .ui-widget-header a:visited {
@@ -5570,7 +5571,7 @@ DIV#tabs.ui-tabs.ui-widget.ui-widget-content.ui-corner-all {
 
 .main-content h3.heading-noimage {
     background-image: none !important;
-    font-weight: 400;
+    font-weight: 600;
     margin-bottom: 15px !important;
     padding: 0;
     color: #3b3b3b
@@ -5810,7 +5811,7 @@ a.button-blue {
     font-size: 21px;
     color: #000;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 21px;
     margin: 0 0 15px;
     padding-bottom: 10px;
@@ -5827,7 +5828,7 @@ a.button-blue {
     font-size: 28px;
     color: #4e5158;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 28px;
     margin: 0 0 15px;
     padding-bottom: 10px;
@@ -12372,7 +12373,7 @@ ol.footnote {
     }
 
     .main-content h3 {
-        font-size: 23px
+        font-size: 23px;font-weight:600;
     }
 
     #packages-mobile .fa-ul li i {

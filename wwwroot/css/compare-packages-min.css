@@ -32,7 +32,7 @@ button {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 300
+    font-weight: 600
 }
 
 html {
@@ -2513,7 +2513,7 @@ form.static-form {
 
 .compare-packages-panel__body h3 {
     font-size: 1.35rem !important;
-    font-weight: 400 !important;
+    font-weight: 600 !important;
     font-family: var(--font-family-myriad);
     color: #000 !important;
     margin-top: 0 !important;

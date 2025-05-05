@@ -292,7 +292,8 @@ input.addQuantity {
     }
 
     .checkout-info > p.title {
-        line-height: 30px
+        line-height: 30px;
+        font-weight:600;
     }
 
     .checkout-info .fa-angle-right {
@@ -552,7 +553,7 @@ input#tcagree {
 }
 
 .fw-700 {
-    font-weight: 700
+    font-weight: 600
 }
 
 .pd-15 {
