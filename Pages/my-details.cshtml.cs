@@ -25,6 +25,12 @@ namespace Spendwise_WebApp.Pages
         public new User User { get; set; } = default!;
 
         [BindProperty]
+        public new AddressData Address { get; set; } = default!;
+
+        [BindProperty]
+        public new List<AddressData> AddressList { get; set; } = default!;
+
+        [BindProperty]
         public string? AddressType { get; set; }
 
         public async Task<IActionResult> OnGet()
@@ -41,10 +47,12 @@ namespace Spendwise_WebApp.Pages
             if (!string.IsNullOrEmpty(LoginEmail))
             {
                 var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == LoginEmail.ToLower());
+                var addressData = await _context.AddressData.Where(x => x.UserId == userData.UserID).ToListAsync();
 
-                if (userData != null)
+                if (userData != null && addressData != null)
                 {
                     User = userData;
+                    AddressList = addressData;
 
                 }
             }
@@ -64,13 +72,13 @@ namespace Spendwise_WebApp.Pages
                     { "User.PhoneNumber", "Phone number is required." },
                     { "User.Email", "Email is required." },
                     { "User.Password", "Password is required." },
-                    { "User.PostCode", "Postcode is required." },
-                    { "User.HouseName", "House name is required." },
-                    { "User.Street", "Street is required." },
-                    { "User.Locality", "Locality is required." },
-                    { "User.Town", "Town is required." },
-                    { "User.Country", "Country is required." },
-                    { "User.County", "County is required." },
+                    { "Address.PostCode", "Postcode is required." },
+                    { "Address.HouseName", "House name is required." },
+                    { "Address.Street", "Street is required." },
+                    { "Address.Locality", "Locality is required." },
+                    { "Address.Town", "Town is required." },
+                    { "Address.Country", "Country is required." },
+                    { "Address.County", "County is required." },
                 };
 
                 // Iterate over required fields and add model errors
@@ -86,15 +94,16 @@ namespace Spendwise_WebApp.Pages
 
             User.BillingEmail = User.BillingEmail != null ? User.BillingEmail : User.Email;
             User.BillingPhoneNumber = User.BillingPhoneNumber != null ? User.BillingPhoneNumber : User.PhoneNumber;
-            User.BillingHouseName = User.BillingHouseName != null ? User.BillingHouseName : User.HouseName;
-            User.BillingStreet = User.BillingStreet != null ? User.BillingStreet : User.Street;
-            User.BillingTown = User.BillingTown != null ? User.BillingTown : User.Town;
-            User.BillingLocality = User.BillingLocality != null ? User.BillingLocality : User.Locality;
-            User.BillingPostCode = User.BillingPostCode != null ? User.BillingPostCode : User.PostCode;
-            User.BillingCounty = User.BillingCounty != null ? User.BillingCounty : User.County;
-            User.BillingCountry = User.BillingCountry != null ? User.BillingCountry : User.Country;
+            //User.BillingHouseName = User.BillingHouseName != null ? User.BillingHouseName : User.HouseName;
+            //User.BillingStreet = User.BillingStreet != null ? User.BillingStreet : User.Street;
+            //User.BillingTown = User.BillingTown != null ? User.BillingTown : User.Town;
+            //User.BillingLocality = User.BillingLocality != null ? User.BillingLocality : User.Locality;
+            //User.BillingPostCode = User.BillingPostCode != null ? User.BillingPostCode : User.PostCode;
+            //User.BillingCounty = User.BillingCounty != null ? User.BillingCounty : User.County;
+            //User.BillingCountry = User.BillingCountry != null ? User.BillingCountry : User.Country;
 
             _context.Attach(User).State = EntityState.Modified;
+            _context.Attach(Address).State = EntityState.Modified;
 
             try
             {
@@ -144,34 +153,40 @@ namespace Spendwise_WebApp.Pages
             return _context.Users.Any(e => e.UserID == id);
         }
 
+        private bool AddressExists(int id)
+        {
+            return _context.AddressData.Any(e => e.AddressId == id);
+        }
+
         public async Task<IActionResult> OnPostUpdateAddress()
         {
             if (AddressType == "billing")
             {
-                User.BillingHouseName = User.BillingHouseName;
-                User.BillingStreet = User.BillingStreet;
-                User.BillingTown = User.BillingTown;
-                User.BillingLocality = User.BillingLocality;
-                User.BillingPostCode = User.BillingPostCode;
-                User.BillingCounty = User.BillingCounty;
-                User.BillingCountry = User.BillingCountry;
-                
+                Address.HouseName = Address.HouseName;
+                Address.Street = Address.Street;
+                Address.Town = Address.Town;
+                Address.Locality = Address.Locality;
+                Address.PostCode = Address.PostCode;
+                Address.County = Address.County;
+                Address.Country = Address.Country;
+
                 string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
 
                 using (var conn = new SqlConnection(connectionString))
                 {
                     await conn.OpenAsync();
-                    string query = "UPDATE Users SET BillingHouseName = @BillingHouseName,BillingStreet = @BillingStreet, BillingTown = @BillingTown, BillingLocality = @BillingLocality, BillingPostCode = @BillingPostCode, BillingCounty = @BillingCounty, BillingCountry = @BillingCountry WHERE UserID = @UserID";
+                    string query = "UPDATE AddressData SET HouseName = @HouseName, Street = @Street, Town = @Town, Locality = @Locality, PostCode = @PostCode, County = @County, Country = @Country, IsBilling = @IsBilling WHERE AddressId = @AddressId";
                     using (var cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@BillingHouseName", User.BillingHouseName);
-                        cmd.Parameters.AddWithValue("@BillingStreet", User.BillingStreet);
-                        cmd.Parameters.AddWithValue("@BillingTown", User.BillingTown);
-                        cmd.Parameters.AddWithValue("@BillingLocality", User.BillingLocality);
-                        cmd.Parameters.AddWithValue("@BillingPostCode", User.BillingPostCode);
-                        cmd.Parameters.AddWithValue("@BillingCounty", User.BillingCounty);
-                        cmd.Parameters.AddWithValue("@BillingCountry", User.BillingCountry);
-                        cmd.Parameters.AddWithValue("@UserID", User.UserID);
+                        cmd.Parameters.AddWithValue("@HouseName", Address.HouseName);
+                        cmd.Parameters.AddWithValue("@Street", Address.Street);
+                        cmd.Parameters.AddWithValue("@Town", Address.Town);
+                        cmd.Parameters.AddWithValue("@Locality", Address.Locality);
+                        cmd.Parameters.AddWithValue("@PostCode", Address.PostCode);
+                        cmd.Parameters.AddWithValue("@County", Address.County);
+                        cmd.Parameters.AddWithValue("@Country", Address.Country);
+                        cmd.Parameters.AddWithValue("@IsBilling", true);
+                        cmd.Parameters.AddWithValue("@AddressId", Address.AddressId);
                         int rowsAffected = await cmd.ExecuteNonQueryAsync();
 
                         if (rowsAffected == 0)
@@ -185,30 +200,31 @@ namespace Spendwise_WebApp.Pages
             }
             else
             {
-                User.HouseName = User.HouseName;
-                User.Street = User.Street;
-                User.Town = User.Town;
-                User.Locality = User.Locality;
-                User.PostCode = User.PostCode;
-                User.County = User.County;
-                User.Country = User.Country;
+                Address.HouseName = Address.HouseName;
+                Address.Street = Address.Street;
+                Address.Town = Address.Town;
+                Address.Locality = Address.Locality;
+                Address.PostCode = Address.PostCode;
+                Address.County = Address.County;
+                Address.Country = Address.Country;
 
                 string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
 
                 using (var conn = new SqlConnection(connectionString))
                 {
                     await conn.OpenAsync();
-                    string query = "UPDATE Users SET HouseName = @HouseName, Street = @Street, Town = @Town, Locality = @Locality, PostCode = @PostCode, County = @County, Country = @Country WHERE UserID = @UserID";
+                    string query = "UPDATE AddressData SET HouseName = @HouseName, Street = @Street, Town = @Town, Locality = @Locality, PostCode = @PostCode, County = @County, Country = @Country, IsPrimary = @IsPrimary WHERE AddressId = @AddressId";
                     using (var cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@HouseName", User.HouseName);
-                        cmd.Parameters.AddWithValue("@Street", User.Street);
-                        cmd.Parameters.AddWithValue("@Town", User.Town);
-                        cmd.Parameters.AddWithValue("@Locality", User.Locality);
-                        cmd.Parameters.AddWithValue("@PostCode", User.PostCode);
-                        cmd.Parameters.AddWithValue("@County", User.County);
-                        cmd.Parameters.AddWithValue("@Country", User.Country);
-                        cmd.Parameters.AddWithValue("@UserID", User.UserID);
+                        cmd.Parameters.AddWithValue("@HouseName", Address.HouseName);
+                        cmd.Parameters.AddWithValue("@Street", Address.Street);
+                        cmd.Parameters.AddWithValue("@Town", Address.Town);
+                        cmd.Parameters.AddWithValue("@Locality", Address.Locality);
+                        cmd.Parameters.AddWithValue("@PostCode", Address.PostCode);
+                        cmd.Parameters.AddWithValue("@County", Address.County);
+                        cmd.Parameters.AddWithValue("@Country", Address.Country);
+                        cmd.Parameters.AddWithValue("@IsPrimary", true);
+                        cmd.Parameters.AddWithValue("@AddressId", Address.AddressId);
                         int rowsAffected = await cmd.ExecuteNonQueryAsync();
 
                         if (rowsAffected == 0)

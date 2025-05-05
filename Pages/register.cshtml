@@ -161,48 +161,48 @@
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">House Name / Number: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.HouseName" class="form-control" type="text" value="">
-                                            <span asp-validation-for="User.HouseName" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <input asp-for="Address.HouseName" class="form-control" type="text" value="">
+                                            <span asp-validation-for="Address.HouseName" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Street: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Street" class="form-control" type="text" value="">
-                                            <span asp-validation-for="User.Street" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <input asp-for="Address.Street" class="form-control" type="text" value="">
+                                            <span asp-validation-for="Address.Street" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Locality:</label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Locality" class="form-control" type="text" value="">
-                                            <span asp-validation-for="User.Locality" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <input asp-for="Address.Locality" class="form-control" type="text" value="">
+                                            <span asp-validation-for="Address.Locality" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Town: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Town" class="form-control" type="text" value="">
-                                            <span asp-validation-for="User.Town" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <input asp-for="Address.Town" class="form-control" type="text" value="">
+                                            <span asp-validation-for="Address.Town" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">County:</label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.County" class="form-control" type="text" value="">
+                                            <input asp-for="Address.County" class="form-control" type="text" value="">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Post Code: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7" style="padding:10px 10px 0px 10px">
-                                            <input asp-for="User.PostCode" class="form-control" type="text">
-                                            <span asp-validation-for="User.PostCode" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <input asp-for="Address.PostCode" class="form-control" type="text">
+                                            <span asp-validation-for="Address.PostCode" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Country: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7" style="padding:0px 10px 0px 10px">
-                                            <select style="" asp-for="User.Country" class="ui-widget-select form-select">
+                                            <select style="" asp-for="Address.Country" class="ui-widget-select form-select">
                                                 <option value="Afghanistan">Afghanistan</option>
                                                 <option value="Åland Islands">Åland Islands</option>
                                                 <option value="Albania">Albania</option>
@@ -472,10 +472,6 @@
                     <div id="efRegisterSubmitButton">
                         @*  <input type="hidden" name="g-recaptcha-response" placeholder="" value="03AFcWeA7WBBbZswKLdoOIwf2fC3rEBnd3RN3FeSTxzmem0mWgsf6FLjeVpWlmZFQu855IFEOGbEY71yZ0pX8gtvvjOB6G5x8dVkvueHApMSJiGrh8cyUibaZONyKukKZxZjVli1if961d_m4GIhGrNgr1CgYscGgUL2RCZgUNsvQXYg4sZdVTIKDAkgFQcnZXMtKZ4lOJD00GfGyRXsZTdoBHqcnX340JAw1wgJn8Po3sBA3GPbK9K3cAmG3b4SSswWcwXv8AtDEelt1N5-0gHiRCWoVIqqtL4D_lHmYJSAdtFZqlJHeW2dmOsw_OcOBUE_0QKTpO2SwQJtsw0kCSFmsWpNeYdbtiQvyPgJNaxvl4-MBbepye5eGvmW7YAhJZzJz5R9kixGTu3IINviq0Mcaj7oharbxOBdHMHkAlMLcck_nPSl4eTXajyyzkA-q8EpgyAM0fGOc57se0LommmtVeEQ-2YoIGCahm1fL2E-D-3pIZ_fqivEgjyc9HYQdMjUgO-dWPheBz7oVnyu9OZINUwmd4IhrVJ9REKgx4m72qeSkfadndo3t5fFU_MadR_unzmFjdrws3x0mstQowGLuzpscFB2SVVE1Up5AEOKPxbMElePiZez2YCte8dVTh3IoUYKPdWf7hQymja4N_V5V8XM5Yi-EOcD7qaVghWf1EoZDpxKP8rsQ82NFfbZvScK6G8wfKTLPU37etDBpZvJbJ1bgVGKvLBXzQSQTD24AgHFpvpzDRrPwzAbccNHL8BvngcYvLmf_aRNqcUMYgUoFFsZ6aNSWrxR8UhDXSgprG5ZPjVq_mHDudzfughV5TbqNDHxbm-7ESilXuIhhc0CvAWuutbA3UsnxDbUaQgRyumROz3YfoftvnK8BKB07SdCMqE472YASV" id="g-recaptcha-response">        <br> *@
                         <button class="btn btn-success" onclick="jQuery('#register').submit();" role="button" aria-disabled="false">Submit Registration</button>
-                        &nbsp;&nbsp;
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addressModal" style="margin-left:10px">
-                            Show Addresses
-                        </button>
                     </div>
 
                     @* <input type="hidden" value="66c00db1c845014efb4a6b03f41a8fa2ea22d614f38559ddcbc194fc85b9cf7e" name="token"> *@
@@ -508,8 +504,6 @@
     </div>
 </div>
 
-
-
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="addressModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -524,9 +518,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 @section scripts
 {

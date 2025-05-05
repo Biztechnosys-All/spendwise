@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using Spendwise_WebApp.DLL;
 using Spendwise_WebApp.Models;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -30,6 +31,8 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         public Package? SelectedPackage { get; set; }
         [BindProperty]
         public Orders? Order { get; set; }
+        [BindProperty]
+        public AddressData Address { get; set; }
         public List<AdditionalPackageItem>? additionalPackageItems { get; set; }
         public string ErrorMessage { get; set; } = string.Empty;
         [BindProperty]
@@ -65,6 +68,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             {
                 User = await _context.Users.Where(x => x.Email == Request.Cookies["UserEmail"]).FirstOrDefaultAsync();
                 IsUserLoggedIn = true;
+                Address = await _context.AddressData.Where(x => x.IsBilling == true && x.UserId == User.UserID).FirstOrDefaultAsync();
             }
             if (AddPackageItemIds == null || AddPackageItemIds.Count() == 0)
             {
@@ -73,7 +77,6 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             }
 
             additionalPackageItems = await _context.AdditionalPackageItems.Where(x => AddPackageItemIds.Contains(x.AdditionalPackageItemId)).ToListAsync();
-            
             //}
             return Page();
         }
@@ -134,8 +137,8 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                 string authToken = AuthToken;
 
 
-               var OrderData = await _context.Orders.Where(x => x.OrderId == savedOrderId).FirstOrDefaultAsync();
-                if(OrderData != null)
+                var OrderData = await _context.Orders.Where(x => x.OrderId == savedOrderId).FirstOrDefaultAsync();
+                if (OrderData != null)
                 {
                     OrderData.OrderBy = userData.UserID;
                     _context.Attach(OrderData).State = EntityState.Modified;
@@ -227,13 +230,6 @@ namespace Spendwise_WebApp.Pages.BuyPackage
 
             UserData.BillingEmail = UserData.Email;
             UserData.BillingPhoneNumber = UserData.PhoneNumber;
-            UserData.BillingHouseName = UserData.HouseName;
-            UserData.BillingStreet = UserData.Street;
-            UserData.BillingTown = UserData.Town;
-            UserData.BillingLocality = UserData.Locality;
-            UserData.BillingPostCode = UserData.PostCode;
-            UserData.BillingCounty = UserData.County;
-            UserData.BillingCountry = UserData.Country;
 
             string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             //UserData.EmailVerificationToken = token;
@@ -241,6 +237,11 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             UserData.IsActive = true;
             UserData.created_on = DateTime.Now;
             _context.Users.Add(UserData);
+            await _context.SaveChangesAsync();
+
+            Address.UserId = UserData.UserID;
+            Address.IsBilling = true;
+            _context.AddressData.Add(Address);
             await _context.SaveChangesAsync();
 
             //var confirmationLink = Url.Page("/ConfirmEmail",
@@ -276,5 +277,24 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             }
         }
 
+        public async Task<JsonResult> OnPostUpdateUserBillingAddress([FromBody] AddressData addressData)
+        {
+            var userEmail = Request.Cookies["UserEmail"] ?? "";
+            var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == userEmail);
+            var billingAddData = await _context.AddressData.FirstOrDefaultAsync(x => x.UserId == userData.UserID && x.IsBilling == true);
+
+            if(billingAddData != null)
+            {
+                _context.AddressData.Remove(billingAddData);
+                await _context.SaveChangesAsync();
+            }
+
+            addressData.UserId = userData.UserID;
+            addressData.IsBilling = true;
+            _context.AddressData.Add(addressData);
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { success = true, message = "Billing Address is Saved." });
+        }        
     }
 }

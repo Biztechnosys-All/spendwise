@@ -25,6 +25,9 @@ namespace Spendwise_WebApp.Pages
 
         [BindProperty]
         public new User User { get; set; } = default!;
+
+        [BindProperty]
+        public new AddressData Address { get; set; } = default!;
         public bool userExist { get; set; } = false!;
         [BindProperty]
         public required bool isAgreeTerms { get; set; }
@@ -48,11 +51,16 @@ namespace Spendwise_WebApp.Pages
                     { "User.PhoneNumber", "Phone number is required." },
                     { "User.Email", "Email is required." },
                     { "User.Password", "Password is required." },
-                    { "User.PostCode", "Postcode is required." },
-                    { "User.HouseName", "House name is required." },
-                    { "User.Street", "Street is required." },
-                    { "User.Town", "Town is required." },
-                    { "User.Country", "Country is required." },
+                    //{ "User.PostCode", "Postcode is required." },
+                    //{ "User.HouseName", "House name is required." },
+                    //{ "User.Street", "Street is required." },
+                    //{ "User.Town", "Town is required." },
+                    //{ "User.Country", "Country is required." },
+                    { "Address.HouseName", "House name is required." },
+                    { "Address.Street", "Street is required." },
+                    { "Address.Town", "Town is required." },
+                    { "Address.Country", "Country is required." },
+                    { "Address.PostCode", "Country is required." },
                     { "isAgreeTerms", "Please agree to the Terms and Conditions & Privacy Policy to complete the registration process!" }
                 };
 
@@ -101,13 +109,6 @@ namespace Spendwise_WebApp.Pages
 
             User.BillingEmail = User.Email;
             User.BillingPhoneNumber = User.PhoneNumber;
-            User.BillingHouseName = User.HouseName;
-            User.BillingStreet = User.Street;
-            User.BillingTown = User.Town;
-            User.BillingLocality = User.Locality;
-            User.BillingPostCode = User.PostCode;
-            User.BillingCounty = User.County;
-            User.BillingCountry = User.Country;
 
             string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             User.EmailVerificationToken = token;
@@ -116,6 +117,28 @@ namespace Spendwise_WebApp.Pages
             User.created_on = DateTime.Now;
             _context.Users.Add(User);
             await _context.SaveChangesAsync();
+
+            Address.UserId = User.UserID;
+            Address.IsPrimary = true;
+            _context.AddressData.Add(Address);
+            await _context.SaveChangesAsync();
+
+            AddressData billingAddress = new()
+            {
+                HouseName = Address.HouseName,
+                Street = Address.Street,
+                Locality = Address.Locality,
+                Town = Address.Town,
+                Country = Address.Country,
+                County = Address.County,
+                PostCode = Address.PostCode,
+
+            };
+            billingAddress.UserId = User.UserID;
+            billingAddress.IsBilling = true;
+            _context.AddressData.Add(billingAddress);
+            await _context.SaveChangesAsync();
+
 
             var confirmationLink = Url.Page("/ConfirmEmail",
                 pageHandler: null,

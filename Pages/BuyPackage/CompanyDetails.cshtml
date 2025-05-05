@@ -7,6 +7,7 @@
 <link href="~/css/company-details.css" rel="stylesheet" />
 <div id="payment-gateway">
     <input type="hidden" id="hdnIsUserLoggedIn" value="@Model.IsUserLoggedIn" />
+    <input type="hidden" id="hdnUserId" value="@Model?.User?.UserID" />
     <div>
         <div class="row">
             <div id="efPageContent" class="ui-widget">
@@ -211,11 +212,11 @@
                                         <div class="efPaymentGatewayAddress">
                                             <label class="efPaymentGatewayLabel">Billing Address (where card is registered)</label>
                                             <span class="efPaymentGatewayAddressText ef-js-selected-address-text">
-                                                @if (Model.User != null)
+                                                @if (Model.Address != null)
                                                 {
                                                     <text>
-                                                        @Model.User.HouseName, @Model.User.Street, @Model.User.Locality,
-                                                        @Model.User.Town, @Model.User.County, @Model.User.PostCode, @Model.User.Country
+                                                        @Model.Address.HouseName, @Model.Address.Street, @Model.Address.Locality,
+                                                        @Model.Address.Town, @Model.Address.County, @Model.Address.PostCode, @Model.Address.Country
                                                     </text>
                                                 }
                                             </span>
@@ -261,48 +262,48 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">House Name / Number: <span class="text-danger">*</span></label>
                                             <div class="col-sm-8">
-                                                <input asp-for="User.HouseName" class="form-control" type="text" value="">
-                                                <span asp-validation-for="User.HouseName" class="text-danger fw-bold p-1 field-msg"></span>
+                                                <input asp-for="Address.HouseName" class="form-control" type="text" value="">
+                                                <span asp-validation-for="Address.HouseName" class="text-danger fw-bold p-1 field-msg"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Street: <span class="text-danger">*</span></label>
                                             <div class="col-sm-8">
-                                                <input asp-for="User.Street" class="form-control" type="text" value="">
-                                                <span asp-validation-for="User.Street" class="text-danger fw-bold p-1 field-msg"></span>
+                                                <input asp-for="Address.Street" class="form-control" type="text" value="">
+                                                <span asp-validation-for="Address.Street" class="text-danger fw-bold p-1 field-msg"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Locality:</label>
                                             <div class="col-sm-8">
-                                                <input asp-for="User.Locality" class="form-control" type="text" value="">
-                                                <span asp-validation-for="User.Locality" class="text-danger fw-bold p-1 field-msg"></span>
+                                                <input asp-for="Address.Locality" class="form-control" type="text" value="">
+                                                <span asp-validation-for="Address.Locality" class="text-danger fw-bold p-1 field-msg"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Town: <span class="text-danger">*</span></label>
                                             <div class="col-sm-8">
-                                                <input asp-for="User.Town" class="form-control" type="text" value="">
-                                                <span asp-validation-for="User.Town" class="text-danger fw-bold p-1 field-msg"></span>
+                                                <input asp-for="Address.Town" class="form-control" type="text" value="">
+                                                <span asp-validation-for="Address.Town" class="text-danger fw-bold p-1 field-msg"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">County:</label>
                                             <div class="col-sm-8" style="margin-bottom:5px">
-                                                <input asp-for="User.County" class="form-control" type="text" value="">
+                                                <input asp-for="Address.County" class="form-control" type="text" value="">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Post Code: <span class="text-danger">*</span></label>
                                             <div class="col-sm-8">
-                                                <input asp-for="User.PostCode" class="form-control" type="text">
-                                                <span asp-validation-for="User.PostCode" class="text-danger fw-bold p-1 field-msg"></span>
+                                                <input asp-for="Address.PostCode" class="form-control" type="text">
+                                                <span asp-validation-for="Address.PostCode" class="text-danger fw-bold p-1 field-msg"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Country: <span class="text-danger">*</span></label>
                                             <div class="col-sm-8">
-                                                <select style="" asp-for="User.Country" class="ui-widget-select form-select">
+                                                <select style="" asp-for="Address.Country" class="ui-widget-select form-select">
                                                     <option value="Afghanistan">Afghanistan</option>
                                                     <option value="Åland Islands">Åland Islands</option>
                                                     <option value="Albania">Albania</option>
@@ -1020,15 +1021,18 @@
                 Title: $("#User_Title").val(),
                 Forename: $("#User_Forename").val(),
                 Surname: $("#User_Surname").val(),
-                PhoneNumber: $("#User_PhoneNumber").val(),
-                HouseName: $("#User_HouseName").val(),
-                Street: $("#User_Street").val(),
-                Locality: $("#User_Locality").val(),
-                Town: $("#User_Town").val(),
-                County: $("#User_County").val(),
-                PostCode: $("#User_PostCode").val(),
-                Country: $("#User_Country").val()
+                PhoneNumber: $("#User_PhoneNumber").val()
             };
+
+            var addressData = {
+                HouseName: $("#Address_HouseName").val(),
+                Street: $("#Address_Street").val(),
+                Locality: $("#Address_Locality").val(),
+                Town: $("#Address_Town").val(),
+                County: $("#Address_County").val(),
+                PostCode: $("#Address_PostCode").val(),
+                Country: $("#Address_Country").val()
+            }
 
             console.log("UserData =", UserData);
             if (!userEmail) {
@@ -1059,8 +1063,32 @@
             }
             else
             {
-                const redirectUrl = `/FormationPage/Company-Formation`;
-                window.location.href = redirectUrl;
+                $.ajax({
+                    url: "/BuyPackage/CompanyDetails?handler=UpdateUserBillingAddress",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(addressData),
+                    success: function (response) {
+                        console.log("Success:", response);
+                        if (response.success === false) {
+                            showToast(response.message, 'danger');
+                        } else {
+                            // Continue with your success logic
+                            console.log("User created:", response);
+                            const orderId = response.orderId;
+                            const token = response.token;
+
+                            // Build the redirect URL
+                            const redirectUrl = `/FormationPage/Company-Formation`;
+                            window.location.href = redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error:", xhr.statusText, xhr.responseText);
+                    }
+                });
+                @* const redirectUrl = `/FormationPage/Company-Formation`;
+                window.location.href = redirectUrl; *@
             }
 
         }
@@ -1074,7 +1102,7 @@
 
         // Field validation helper
         function validateField(id, fieldName) {
-            var value = $(id).val().trim();
+            var value = $(id).val()?.trim();
             if (value === "") {
                 isValid = false;
                 $(id).after('<small class="text-danger">' + fieldName + ' is required.</small>');
@@ -1082,21 +1110,21 @@
         }
 
         // Validate each required field
-        validateField("#User_HouseName", "House Name");
-        validateField("#User_Street", "Street");
-        validateField("#User_Town", "Town");
-        validateField("#User_PostCode", "Post Code");
-        validateField("#User_Country", "Country");
+        validateField("#Address_HouseName", "House Name");
+        validateField("#Address_Street", "Street");
+        validateField("#Address_Town", "Town");
+        validateField("#Address_PostCode", "Post Code");
+        validateField("#Address_Country", "Country");
 
         if (isValid) {
             var AddressData = {
-                HouseName: $("#User_HouseName").val(),
-                Street: $("#User_Street").val(),
-                Locality: $("#User_Locality").val(),
-                Town: $("#User_Town").val(),
-                County: $("#User_County").val(),
-                PostCode: $("#User_PostCode").val(),
-                Country: $("#User_Country").val()
+                HouseName: $("#Address_HouseName").val(),
+                Street: $("#Address_Street").val(),
+                Locality: $("#Address_Locality").val(),
+                Town: $("#Address_Town").val(),
+                County: $("#Address_County").val(),
+                PostCode: $("#Address_PostCode").val(),
+                Country: $("#Address_Country").val()
             };
 
             console.log("AddressData =", AddressData);
