@@ -20,25 +20,6 @@ namespace Spendwise_WebApp.Models
         public string? BillingEmail { get; set; }
         [Required]
         public required string Password { get; set; }
-        [Required]
-        public required string PostCode { get; set; }
-        [Required]
-        public required string HouseName { get; set; }
-        [Required]
-        public required string Street { get; set; }
-        public required string Locality { get; set; }
-        [Required]
-        public required string Town { get; set; }
-        public required string County { get; set; }
-        [Required]
-        public required string Country { get; set; }
-        public string? BillingHouseName { get; set; }
-        public string? BillingStreet { get; set; }
-        public string? BillingLocality { get; set; }
-        public string? BillingTown { get; set; }
-        public string? BillingCounty { get; set; }
-        public string? BillingPostCode { get; set; }
-        public string? BillingCountry { get; set; }
         public string? EmailVerificationToken { get; set; }
         public bool IsEmailVerified { get; set; }
         public string? ResetToken { get; set; }

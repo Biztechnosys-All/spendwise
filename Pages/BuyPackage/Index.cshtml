@@ -90,7 +90,7 @@
     <script>
         $(function () {
             $("#hdnSelectedCompany").val(Cookies.get("companyName"));
-           
+
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
             if (UrlPrams.length > 1 && UrlPrams[0] == "id" && UrlPrams[1].indexOf("token") !== -1) {
@@ -298,6 +298,7 @@
                             $("#errorCompanyname").css("display", "none");
                             $("#divCopmanySearch").css("display", "none");
                             $("#efNameCheckResult_GREEN").show();
+                            $("#btnCompanySearch").css("display", "block");
                             $("#spnSearchedCompanyName").html(searchedCompanyName);
 
                         } else {
@@ -305,6 +306,7 @@
                             $("#divCopmanySearch").css("display", "none");
                             $("#spnSearchedAMBERCompanyName").html(searchedCompanyName);
                             $("#efNameCheckResult_AMBER").show();
+                            $("#btnCompanySearch").css("display", "block");
                         }
                     },
                     error: function () {
@@ -436,6 +438,7 @@
         function onSearchAgain() {
             $("#efNameCheckResult_GREEN").hide();
             $("#efNameCheckResult_AMBER").hide();
+            $("#btnCompanySearch").css("display", "none");
             $("#divCopmanySearch").show();
             Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
         }

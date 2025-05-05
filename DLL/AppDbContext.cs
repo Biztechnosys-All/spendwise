@@ -16,5 +16,6 @@ namespace Spendwise_WebApp.DLL
         public virtual DbSet<CompanyDetail> CompanyDetails { get; set; }
         public virtual DbSet<CompanyOffice> CompanyOffices { get; set; }
         public virtual DbSet<CompanyOfficer> CompanyOfficers { get; set; }
+        public virtual DbSet<AddressData> AddressData { get; set; }
     }
 }
