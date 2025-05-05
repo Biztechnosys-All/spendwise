@@ -600,16 +600,16 @@
             console.log("data", data);
             const lines = data.line_1.split(' ');
 
-            document.getElementById('User_HouseName').value = data.building_number || '';
-            document.getElementById('User_Street').value = lines[1] + ' ' + lines[2]?.trim() || '';
-            document.getElementById('User_Town').value = data.town_or_city || '';
-            document.getElementById('User_County').value = data.county || '';
-            document.getElementById('User_PostCode').value = data.postcode || '';
+            document.getElementById('Address_HouseName').value = data.building_number || '';
+            document.getElementById('Address_Street').value = lines[1] + ' ' + lines[2]?.trim() || '';
+            document.getElementById('Address_Town').value = data.town_or_city || '';
+            document.getElementById('Address_County').value = data.county || '';
+            document.getElementById('Address_PostCode').value = data.postcode || '';
             if (data.country == "England") {
-                document.getElementById('User_Country').value = "United Kingdom";
+                document.getElementById('Address_Country').value = "United Kingdom";
             }
             else {
-                document.getElementById('User_Country').value = data.country || '';
+                document.getElementById('Address_Country').value = data.country || '';
             }
         }
 
