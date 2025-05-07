@@ -29,10 +29,7 @@
             <p class="box4 fs-thirty-one">
                 <span class="ncgreen-title fc-green" id="spnSearchedCompanyName"></span>
                 Congratulations! This company name is available.
-            </p>
-            <div class="btn-savencon">
-                <a href="#" onclick="MoveToNextPackageStep()">Continue</a>
-            </div>
+            </p>           
         </div>
     </div>
     <div id="efNameCheckResult_AMBER" class="efNameCheckResult" style="display:none;">
@@ -47,7 +44,13 @@
 
         </div>
     </div>
-    <div class="row" id="btnCompanySearch" style="display: none;">
-        <div class="col-md-12"><a href="#" onclick="onSearchAgain()" class="btn btn-success">search again</a></div>
+    <div class="row">
+        <div class="col-2">
+            <span id="btnCompanySearch" style="display: none;"> <a href="#" onclick="onSearchAgain()" class="btn btn-success">search again</a></span>
+        </div>
+        <div class="col-10">
+            <a href="#" class="btn btn-success float-right" onclick="MoveToNextPackageStep()">Continue</a>
+        </div>
     </div>
-</div>
+ </div>
+
