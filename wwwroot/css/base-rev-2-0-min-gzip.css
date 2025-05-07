@@ -26817,11 +26817,13 @@ font-weight:bold;
 .nav.nav-tabs.justify-content-center .nav-item { text-align:center}
     .nav.nav-tabs.justify-content-center .nav-item .nav-link {
         color:var(--color-gray);
+        font-weight:600;
     }
 
-    .nav.nav-tabs.justify-content-center .nav-item span.active.nav-link.packageTab, .nav.nav-tabs.justify-content-center .nav-item .nav-link.packageTab.PackTabProcessed {
-        color: var(--color-green);
-    }
+        .nav.nav-tabs.justify-content-center .nav-item span.active.nav-link.packageTab, .nav.nav-tabs.justify-content-center .nav-item .nav-link.packageTab.PackTabProcessed {
+            color: var(--color-green);
+            font-weight: 600;
+        }
 
 input.efButton:hover, .button--register.button-five:hover {
     background: var(--color-green-two) !important;
