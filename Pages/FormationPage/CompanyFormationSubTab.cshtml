@@ -64,16 +64,18 @@
                             <div>
                                 <div class="ef-namecheck-wrapper w-row ef-form-wrap">
                                     <div class="ef-namecheck-label-row w-col w-col-9"></div>
-                                    <div class="w-col w-col-5">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-6">
                                         <label for="ef-company-name">
                                             Company Name
                                             <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_NAME"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                         </label>
                                         <input type="text" class="w-input ef-company-name-field" asp-for="Particular.CompanyName" />
                                     </div>
-                                    <div class="w-col w-col-4" style="margin-top: 1px;">
+                                        <div class="w-col w-col-6" style="margin-top: 1px;">
                                         <label for="ef-namecheck-button">&nbsp;</label>
                                         <button type="button" id="ef-namecheck-button" class="ef-btn ef-primary-btn" name="ef-name-check-btn" onclick="CheckCompanyName()">Check another name</button>
+                                    </div>
                                     </div>
                                 </div>
                                 <div class="ef-form-wrap last-margin">
