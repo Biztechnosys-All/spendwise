@@ -18,5 +18,8 @@ namespace Spendwise_WebApp.DLL
         public virtual DbSet<CompanyOfficer> CompanyOfficers { get; set; }
         public virtual DbSet<AddressData> AddressData { get; set; }
         public virtual DbSet<Particular> Particular { get; set; }
+        public virtual DbSet<SicCodeCategory> SicCodeCategory { get; set; }
+        public virtual DbSet<SicCodes> SicCodes { get; set; }
+
     }
 }
