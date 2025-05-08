@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Spendwise_WebApp.Models;
 
@@ -17,10 +18,16 @@ namespace Spendwise_WebApp.Pages.FormationPage
         [BindProperty]
         public Particular Particular { get; set; } = default!;
         public User User { get; set; } = default!;
-        public void OnGet()
+        public List<SelectListItem> SicCodeCategoryList { get; set; } = default!;
+        public IActionResult OnGet()
         {
+            SicCodeCategoryList = _context.SicCodeCategory.Select(p => new SelectListItem
+            {
+                Text = p.Category,
+                Value = p.Section.ToString()
+            }).ToList();
+            return Page();
         }
-
         public async Task<JsonResult> OnPostSaveParticularData([FromBody] Particular particularData)
         {
             if (!ModelState.IsValid)
@@ -50,6 +57,30 @@ namespace Spendwise_WebApp.Pages.FormationPage
             await _context.SaveChangesAsync();
 
             return new JsonResult(new { success = true });
+        }
+
+        public JsonResult OnGetGetSicCodeByCategory(string section)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(section))
+                {
+                    var sicCodeList = _context.SicCodes
+                        .Where(x => x.Section.ToLower() == section.ToLower())
+                        .ToList();
+
+                    return new JsonResult(new { success = true, data = sicCodeList });
+                }
+                else
+                {
+                    return new JsonResult(new { success = false, message = "Section is required." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { success = false, message = "An error occurred.", error = ex.Message });
+            }
+
         }
     }
 }

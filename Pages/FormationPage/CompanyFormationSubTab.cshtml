@@ -3,6 +3,21 @@
 @{
     Layout = null;
 }
+<style>
+    .w-input, .w-select {
+        border: 1px solid #84888a !important;
+        font-size: 14px !important;
+    }
+
+    .ef-sic-code-filter {
+        display: none;
+        min-height: 300px;
+        height: 340px;
+        max-height: 400px;
+        overflow-x: scroll;
+        overflow-x: hidden;
+    }
+</style>
 
 <div id="parentTabs">
     <div class="ef-order-form-nav-step-wrapper">
@@ -123,10 +138,10 @@
                                             </label>
                                             <div class="" id="ef-js-sic-codes">
                                                 <div class="" id="ef-js-sic-codes__categories">
-                                                    <select class="w-select" asp-for="Particular.Activities">
+                                                    <select class="w-select" asp-for="Particular.Activities" asp-items="Model.SicCodeCategoryList">
                                                         <option>Select a category:</option>
                                                         <option value="all-categories">All</option>
-                                                        <option value="A">A: Agriculture, Forestry and Fishing</option>
+                                                        @* <option value="A">A: Agriculture, Forestry and Fishing</option>
                                                         <option value="B">B: Mining and Quarrying</option>
                                                         <option value="C">C: Manufacturing</option>
                                                         <option value="D">D: Electricity, gas, steam and air conditioning supply</option>
@@ -146,7 +161,7 @@
                                                         <option value="R">R: Arts, entertainment and recreation</option>
                                                         <option value="S">S: Other service activities</option>
                                                         <option value="T">T: Activities of households as employers; undifferentiated goods and services producing activities of households for own use</option>
-                                                        <option value="U">U: Activities of extraterritorial organisations and bodies</option>
+                                                        <option value="U">U: Activities of extraterritorial organisations and bodies</option> *@
                                                     </select>
                                                 </div>
                                                 <div class="ef-js-sic-codes__loader ef-sic-codes__loader">
@@ -488,7 +503,7 @@
 
 <script>
     function saveFormationData(type) {
-        if(type == "particular"){
+        if (type == "particular") {
             debugger;
             var isValid = true;
             const particularData = {
@@ -509,23 +524,23 @@
                     $(id).after('<small class="text-danger">' + fieldName + ' is required.</small>');
                 }
                 else {
-                    if(id == "#Particular_CompanyName"){
-                        if(Cookies.get("packageName") == "LLP"){
+                    if (id == "#Particular_CompanyName") {
+                        if (Cookies.get("packageName") == "LLP") {
 
-                        var str1 = $("#Particular_CompanyName").val();
-                        var str2 = "LLP, LIMITED LIABILITY PARTNERSHIP";
+                            var str1 = $("#Particular_CompanyName").val();
+                            var str2 = "LLP, LIMITED LIABILITY PARTNERSHIP";
 
-                        var found = false;
+                            var found = false;
 
-                        // Split str2 into parts using comma and space as delimiters
-                        var parts = str2.split(/[\s,]+/); // splits on space and comma
-                        alert(parts);
-                        $.each(parts, function(index, part) {
-                            if (str1.toUpperCase().includes(part.toUpperCase())) {
-                                found = true;
-                                return false; // break out of loop
-                            }
-                        });
+                            // Split str2 into parts using comma and space as delimiters
+                            var parts = str2.split(/[\s,]+/); // splits on space and comma
+                            alert(parts);
+                            $.each(parts, function (index, part) {
+                                if (str1.toUpperCase().includes(part.toUpperCase())) {
+                                    found = true;
+                                    return false; // break out of loop
+                                }
+                            });
                             if (found) {
                                 $(".ef-alert-box").hide();
                             } else {
@@ -539,9 +554,9 @@
                 }
 
             }
-            validateField("#Particular_CompanyName",  Cookies.get("companyName"));
+            validateField("#Particular_CompanyName", Cookies.get("companyName"));
 
-            if(isValid) {
+            if (isValid) {
                 $.ajax({
                     url: "/FormationPage/CompanyFormationSubTab?handler=SaveParticularData",
                     method: "POST",
@@ -549,7 +564,7 @@
                     data: JSON.stringify(particularData),
                     success: function (response) {
                         $("#errorCompanyNameMsg").css("display", "none");
-                         document.querySelectorAll('.field-msg').forEach(span => span.textContent = '');
+                        document.querySelectorAll('.field-msg').forEach(span => span.textContent = '');
 
                         if (!response.success) {
                             // Loop through returned errors and set messages
@@ -560,8 +575,8 @@
                                 }
                             }
                         }
-                        else{
-                        console.log("Success:", response);
+                        else {
+                            console.log("Success:", response);
                         }
                     },
                     error: function (xhr) {
@@ -617,5 +632,38 @@
                 }
             });
         }
-        }
+    }
+
+    $('#Particular_Activities').on('change', function () {
+        var selectedValue = $(this).val();
+        console.log("Selected Value:", selectedValue);
+        $.ajax({
+            type: "GET",
+            url: "/FormationPage/CompanyFormationSubTab?handler=GetSicCodeByCategory&section=" + encodeURIComponent(selectedValue),
+            success: function (response) {
+                if (response.success && response.data) {
+                    console.log(response.data);
+                    $("#ef-js-sic-codes__filter").css("display", "block");
+                    const container = $('#ef-js-sic-codes__filter__found');
+                    container.empty();
+
+                    response.data.forEach((item, index) => {
+                        const html = `
+                                    <a href="#" class="ef-js-sic-code-row" order-id="${index + 1}" data-attr-sic-id="${item.sicCode}" style="display: block;">
+                                            <div class="ef-js-sic-code-row-text">${item.sicCode} - ${item.description}</div>
+                                    <div class="ef-js-plus-button-container">
+                                            <img class="ef-js-plus-button" src="/images/add.png">
+                                    </div>
+                                </a>`;
+                        container.append(html);
+                    });
+                } else {
+                    console.warn('No SIC codes found or invalid response.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error loading SIC codes:", error);
+            }
+        });
+    });
 </script>
