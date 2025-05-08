@@ -299,11 +299,13 @@
                             $("#divCopmanySearch").css("display", "none");
                             $("#efNameCheckResult_GREEN").show();
                             $("#btnCompanySearch").css("display", "block");
+                            $("#btnContinue").css("display", "block");
                             $("#spnSearchedCompanyName").html(searchedCompanyName);
 
                         } else {
                             $("#errorCompanyname").css("display", "none");
                             $("#divCopmanySearch").css("display", "none");
+                            $("#btnContinue").css("display", "none");
                             $("#spnSearchedAMBERCompanyName").html(searchedCompanyName);
                             $("#efNameCheckResult_AMBER").show();
                             $("#btnCompanySearch").css("display", "block");
@@ -438,6 +440,7 @@
         function onSearchAgain() {
             $("#efNameCheckResult_GREEN").hide();
             $("#efNameCheckResult_AMBER").hide();
+            $("#btnContinue").css("display", "none");
             $("#btnCompanySearch").css("display", "none");
             $("#divCopmanySearch").show();
             Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));

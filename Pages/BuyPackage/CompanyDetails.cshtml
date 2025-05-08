@@ -78,7 +78,7 @@
                                     </div>
                                     <div class="efPaymentGatewayField fileld-position">
                                         <label class="efPaymentGatewayLabel">Password:</label>
-                                        <input asp-for="Password" type="password" id="passwordField" class="form-control" autocomplete="off">
+                                        <input asp-for="Password" type="password" id="password" class="form-control" autocomplete="off">
                                         <span class="efPasswordEyeOpenIcon ef-js-text-mask" id="showPassword" onclick="togglePassword()" style="cursor: pointer;" data-owner="efExistingPasswordInput">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
                                                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
@@ -159,7 +159,7 @@
                                         </div>
                                         <div class="efPaymentGatewayField fileld-position">
                                             <label class="efPaymentGatewayLabel">Create Password</label>
-                                            <input type="password" id="newPasswordField" class="form-control" asp-for="User.Password" autocomplete="off">
+                                            <input type="password" class="form-control" asp-for="User.Password" autocomplete="off">
                                             <span class="efPasswordEyeOpenIcon ef-js-text-mask" id="showNewPassword" onclick="toggleNewPassword()" style="cursor: pointer;" data-owner="efUserPasswordInput">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
                                                     <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
@@ -940,7 +940,7 @@
 
         // Field validation helper
         function validateField(id, fieldName) {
-            var value = $(id).val().trim();
+            var value = $(id).val()?.trim();
             if (value === "") {
                 isValid = false;
                 $(id).after('<small class="text-danger">' + fieldName + ' is required.</small>');
@@ -949,7 +949,7 @@
         }
         // Validate each required field
         validateField("#Email", "Email");
-        validateField("#Password", "Password");
+        validateField("#password", "Password");
 
 
         if (isValid) {
@@ -958,7 +958,7 @@
                 method: "POST",
                 data: {
                     Email: $("#Email").val(),
-                    Password: $("#Password").val()
+                    Password: $("#password").val()
                 },
                 success: function (response) {
                     if (response.success === false) {
@@ -1136,7 +1136,7 @@
     }
 
     function togglePassword() {
-        var passwordField = document.getElementById("passwordField");
+        var passwordField = document.getElementById("password");
         var showPasswordIcon = document.getElementById("showPassword");
         var hidePasswordIcon = document.getElementById("hidePassword");
 
@@ -1152,7 +1152,7 @@
     }
 
     function toggleNewPassword() {
-        var passwordField = document.getElementById("newPasswordField");
+        var passwordField = document.getElementById("User_Password");
         var showPasswordIcon = document.getElementById("showNewPassword");
         var hidePasswordIcon = document.getElementById("hideNewPassword");
 
