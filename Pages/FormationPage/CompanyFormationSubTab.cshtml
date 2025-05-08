@@ -40,9 +40,8 @@
         </div>
     </div>
 
-    @* <div data-bs-spy="scroll" data-bs-target="#nefrozon-nav" data-bs-smooth-scroll="true" class="tab-content-scrollable" tabindex="0"> *@
     <div class="tab-pane current" id="Formation">
-        <div class="w-container ef-content-wrapper ef-particulars-step" id="ef-content-wrapper">
+        <div class="w-container ef-content-wrapper ef-particulars-step">
             <div id="particular" class="section">
                 <div class="ef-panel-wrapper">
                     <div class="head-01">
@@ -53,32 +52,28 @@
                         <p>This is the name that will appear on your certificate of incorporation and will also appear on the public record at Companies House.</p>
                         <p>Remember to add <strong id="LLP-extention">LLP</strong> to the end of your company name<span id="limited-liability-partnership-ex-text"></span>. </p>
                     </div>
-                    <div id="ef-panel-inner-content">
-                        <div id="ef-particulars-error" class="ef-primary-error-msg ef-alert-box fail" style="display:none;">
-                            <div class="ef-alert-box-main-text main-error-text" id="">Sorry, there was an error on this page.</div>
+                    <div id="ef-panel-inner-content-particular">
+                        <div class="success name-check-result show-namecheck particular-company" id="companyAvailable" style="display:none">
+                            <div class="ef-alert-box-main-text"><span class="ef-namecheck-choosen-name" id="availableCompanyName"> </span> Congratulations! This company name is available.</div>
                         </div>
-                        <form asp-page-handler="SaveParticular" method="post">
-                            <div>
-                                <!-- RED -->
-                                <div class="ef-alert-box warning name-check-result show-namecheck" asp-validation-for="Particular.CompanyName">
-                                    <div class="ef-alert-box-main-text">Warning, <span class="ef-namecheck-choosen-name">CAMPAUK</span> is available for registration.</div>
-                                    <p class="ef-js-namecheck-meta-text namecheck-error-description">You will need to provide a valid Company ending: LTD, LIMITED, CYF, CYFYNGEDIG, LTD.</p>
-                                </div>
 
-                                <div>
-                                    <div class="ef-namecheck-wrapper w-row ef-form-wrap">
-                                        <div class="ef-namecheck-label-row w-col w-col-9"></div>
-                                        <div class="w-col w-col-5">
-                                            <label for="ef-company-name">
-                                                Company Name
-                                                <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_NAME"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
-                                            </label>
-                                            <input class="w-input ef-company-name-field" asp-for="Particular.CompanyName" type="text" onkeyup="progress_is_namecheck()">
-                                        </div>
-                                        <div class="w-col w-col-4" style="margin-top: 1px;">
-                                            <label for="ef-namecheck-button">&nbsp;</label>
-                                            <button type="button" id="ef-namecheck-button" class="ef-btn ef-primary-btn" name="ef-name-check-btn" onclick="">Check another name</button>
-                                        </div>
+                        <div class="success name-check-result show-namecheck particular-company" id="companyNotAvailable" style="display:none">
+                            <div class="ef-alert-box-main-text"><span class="ef-namecheck-choosen-name" id="notAvailablecompanyName"> </span> Sorry, this company name is unavailable.</div>
+                        </div>
+                        <form>
+                            <div>
+                                <div class="ef-namecheck-wrapper w-row ef-form-wrap">
+                                    <div class="ef-namecheck-label-row w-col w-col-9"></div>
+                                    <div class="w-col w-col-5">
+                                        <label for="ef-company-name">
+                                            Company Name
+                                            <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_NAME"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                        </label>
+                                        <input type="text" class="w-input ef-company-name-field" asp-for="Particular.CompanyName" />
+                                    </div>
+                                    <div class="w-col w-col-4" style="margin-top: 1px;">
+                                        <label for="ef-namecheck-button">&nbsp;</label>
+                                        <button type="button" id="ef-namecheck-button" class="ef-btn ef-primary-btn" name="ef-name-check-btn" onclick="CheckCompanyName()">Check another name</button>
                                     </div>
                                 </div>
                                 <div class="ef-form-wrap last-margin">
@@ -88,12 +83,11 @@
                                                 Type of Company
                                                 <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_TYPE"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                             </label>
-                                            <select class="w-select" asp-for="Particular.CompanyType" onchange="FormBuilder.ChangeCompanyType()">
+                                            <select class="w-select" asp-for="Particular.CompanyType">
                                                 <option value="4" selected="selected">
                                                     Limited Liability Partnership
                                                 </option>
                                             </select>
-                                            <span asp-validation-for="Particular.CompanyType" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                         <div class="w-col w-col-6">
                                             <label for="company-jur">
@@ -101,7 +95,8 @@
                                                 <span class="ef-modal-help-icon" data-ref="HELP|JURISDICTION"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                             </label>
                                             <select class="w-select" asp-for="Particular.Jurisdiction">
-                                                <option value="EW" selected="selected">
+                                                <option> --Select Jurisdiction-- </option>
+                                                <option value="EWs">
                                                     England &amp; Wales
                                                 </option>
                                                 <option value="WA">
@@ -114,7 +109,6 @@
                                                     Northern Ireland
                                                 </option>
                                             </select>
-                                            <span asp-validation-for="Particular.Jurisdiction" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
                                     <!--  there can be multiple -->
@@ -128,7 +122,7 @@
                                             <div class="" id="ef-js-sic-codes">
                                                 <div class="" id="ef-js-sic-codes__categories">
                                                     <select class="w-select" asp-for="Particular.Activities">
-                                                        <option value="none-selected">Select a category:</option>
+                                                        <option>Select a category:</option>
                                                         <option value="all-categories">All</option>
                                                         <option value="A">A: Agriculture, Forestry and Fishing</option>
                                                         <option value="B">B: Mining and Quarrying</option>
@@ -152,7 +146,6 @@
                                                         <option value="T">T: Activities of households as employers; undifferentiated goods and services producing activities of households for own use</option>
                                                         <option value="U">U: Activities of extraterritorial organisations and bodies</option>
                                                     </select>
-                                                    <span asp-validation-for="Particular.Activities" class="text-danger fw-bold p-1 field-msg"></span>
                                                 </div>
                                                 <div class="ef-js-sic-codes__loader ef-sic-codes__loader">
                                                     <span class="ef-sic-codes__loader__img">
@@ -161,7 +154,7 @@
                                                 </div>
                                                 <div class="w-input ef-sic-code-filter" id="ef-js-sic-codes__filter" style="display:none;">
                                                     <div class="ef-js-sic-codes__filter__label">
-                                                        Filter: <input type="text" name="name" value="" class="ef-js-sic-codes__filter__input" id="ef-js-sic-codes__filter__input" autocomplete="off">
+                                                        Filter: <input type="text" class="ef-js-sic-codes__filter__input" asp-for="Particular.SIC_Code" autocomplete="off">
                                                     </div>
                                                     <div class="" id="ef-js-sic-codes__filter__found"></div>
                                                     <div class="ef-js-sic-code-error" style=""></div>
@@ -170,14 +163,13 @@
                                         </div>
                                         <div class="w-col w-col-6">
                                             <div id="ef-js-sic-codes__selected" class="ef-sic-codes-selected">
-                                                <label class="ef-sic-codes-selected-label" asp-for="Particular.SIC_Code">
+                                                <label class="ef-sic-codes-selected-label">
                                                     Selected SIC codes
                                                 </label>
                                                 <!-- <div class="ef-selected-sic-codes" id="ef-js-sic-codes__selected__picked"> -->
                                                 <ul id="ef-sic-code-list" class="ef-sic-code-list">
                                                     <li class="ef-no-sic-code">None Selected</li>
                                                 </ul>
-                                                <span asp-validation-for="Particular.SIC_Code" class="text-danger fw-bold p-1 field-msg"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -185,8 +177,9 @@
                             </div>
 
                             <div class="particular-save">
-                                <input type="submit" class="ef-btn btn-success" value="Save" />
-                                    
+                                <button type="button" onclick="saveFormationData('particular')" class="ef-btn nextstep">
+                                    Save
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -237,22 +230,6 @@
                                     </div>
                                     <div class="ef-registered-office-section">
                                         <h2>Registered Office</h2>
-                                        <!--  start choose your own -->
-                                        <!-- <div class="hr-line-1"></div> -->
-                                        <div id="ef-use-own-reg-office" class="ef-item-box" style="display:none">
-                                            <div class="ef-item-content">
-                                                <div class="w-row ef-panel-row">
-                                                    <div class="w-col w-col-8">
-                                                        <h3>Choose to use your own address</h3>
-                                                    </div>
-                                                    <div class="w-col w-col-4 w-clearfix add-col">
-                                                        <button type="button" class="ef-btn ef-primary-btn ef-submit-btn ef-use-own-address-btn" onclick="FormBuilder.ChooseOwnBusinessAddress();">Choose Address</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--  <div class="hr-line-1"></div> -->
-                                        <!-- included address -->
                                         <!--  Forwarding address -->
                                         <div class="ef-item-box ef-selected">
                                             <div class="ef-item-content">
@@ -269,7 +246,7 @@
                                                     </div>
                                                     <div class="w-col w-col-4 w-clearfix add-col">
                                                         <button id="efForwardingAddressEditButton" type="button" class="ef-btn ef-alt-btn ef-edit-btn">Edit</button>
-                                                        <button type="button" class="ef-btn ef-choose-btn ef-completed-btn">Choose Another</button>
+                                                        <button type="button" class="ef-btn ef-choose-btn ef-completed-btn" data-bs-toggle="modal" data-bs-target="#addressModal">Choose Address</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -400,7 +377,243 @@
             </div>
         </div>
     </div>
-    @* </div> *@
 </div>
 
+@* Choose Address Modal *@
+<div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
+                <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div id="an-address" class="ef-address-form" style="">
+                    <div>
+                        <div id="use-previous-address-or-search" class="address-form-div" style="display:block">
+                            <h4>Recently used addresses</h4>
+
+                            <div class="w-clearfix simple-row-elem">
+                                <div class="w-row ef-panel-row">
+                                    <div class="w-col w-col-8">
+                                        <p>15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM</p>
+                                    </div>
+                                    <div class="w-col w-col-4 w-clearfix add-col">
+                                        <button type="button" class="ef-btn ef-alt-address-btn" id="openSecondModal">Edit</button>
+                                        <button type="button" class="ef-btn ef-select-btn">Select</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-clearfix simple-row-elem">
+                                <div class="w-row ef-panel-row">
+                                    <div class="w-col w-col-8">
+                                        <p>22, First Avenue, WEMBLEY, Middlesex, HA9 8QG, UNITED KINGDOM</p>
+                                    </div>
+                                    <div class="w-col w-col-4 w-clearfix add-col">
+                                        <button type="button" class="ef-btn ef-alt-address-btn">Edit</button>
+                                        <button type="button" class="ef-btn ef-select-btn">Select</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-clearfix simple-row-elem">
+                                <div class="w-row ef-panel-row">
+                                    <div class="w-col w-col-8">
+                                        <p>2 Westglade Court, Woodgrange Close, Harrow, Middlesex, HA3 0XQ,...</p>
+                                    </div>
+                                    <div class="w-col w-col-4 w-clearfix add-col">
+                                        <button type="button" class="ef-btn ef-alt-address-btn">Edit</button>
+                                        <button type="button" class="ef-btn ef-select-btn">Select</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4>Or enter a new Address</h4>
+
+                            <div class="w-clearfix simple-row-elem">
+                                <div class="w-row ef-panel-row">
+                                    <div class="w-col w-col-8">
+                                        <p>Enter new Address</p>
+                                    </div>
+                                    <div class="w-col w-col-4 w-clearfix add-col">
+
+                                        <!-- <span class="ef-btn ef-primary-btn ef-alt-btn ef-cancel-address" onclick="javascript:void(0)" >Cancel</span>-->
+                                        <button type="button" class="ef-btn ef-select-btn" onclick="">Select</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div lass="ef-cancel-btn-wrapper">
+                                <div class="w-clearfix">
+                                    <button type="button" class="ef-btn ef-cancel-address" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="secondAddressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
+                <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+            </div>
+        </div>
+
+    </div>
+</div>
 <div id="appointmentTab"></div>
+
+<script>
+    function saveFormationData(type) {
+        if(type == "particular"){
+            debugger;
+            var isValid = true;
+            const particularData = {
+                CompanyName: $("#Particular_CompanyName").val(),
+                CompanyType: $("select[name='Particular.CompanyType']").val(),
+                Jurisdiction: $("select[name='Particular.Jurisdiction']").val(),
+                Activities: $("select[name='Particular.Activities']").val(),
+                SIC_Code: $("input[name='Particular.SIC_Code']").val()
+            };
+
+            $("#companyNotAvailable").hide();
+            $("#companyAvailable").hide();
+
+            // Field validation helper
+            function validateField(id, fieldName) {
+                var value = $(id).val().trim();
+                if (value === "") {
+                    $(id).after('<small class="text-danger">' + fieldName + ' is required.</small>');
+                }
+                else {
+                    if(id == "#Particular_CompanyName"){
+                        if(Cookies.get("packageName") == "LLP"){
+
+                        var str1 = $("#Particular_CompanyName").val();
+                        var str2 = "LLP, LIMITED LIABILITY PARTNERSHIP";
+
+                        var found = false;
+
+                        // Split str2 into parts using comma and space as delimiters
+                        var parts = str2.split(/[\s,]+/); // splits on space and comma
+                        alert(parts);
+                        $.each(parts, function(index, part) {
+                            if (str1.toUpperCase().includes(part.toUpperCase())) {
+                                found = true;
+                                return false; // break out of loop
+                            }
+                        });
+                            if (found) {
+                                $(".ef-alert-box").hide();
+                            } else {
+                                $(id).after('<div class="ef-alert-box warning name-check-result show-namecheck" style="margin-top: -105px; width: 70rem;"> <div class="ef-alert-box-main-text">Warning, <span class="ef-namecheck-choosen-name"> ' + fieldName + '</span> is available for registration.</div> <p class="ef-js-namecheck-meta-text namecheck-error-description">You will need to provide a valid Company ending: LLP, LIMITED LIABILITY PARTNERSHIP.</p> </div>');
+                            }
+                        }
+                        else {
+                            $(id).after('<div class="ef-alert-box warning name-check-result show-namecheck" style="margin-top: -105px; width: 70rem;"> <div class="ef-alert-box-main-text">Warning, <span class="ef-namecheck-choosen-name"> ' + fieldName + '</span> is available for registration.</div> <p class="ef-js-namecheck-meta-text namecheck-error-description">You will need to provide a valid Company ending: LLP.</p> </div>');
+                        }
+                    }
+                }
+
+            }
+            validateField("#Particular_CompanyName",  Cookies.get("companyName"));
+
+            if(isValid) {
+                $.ajax({
+                    url: "/FormationPage/CompanyFormationSubTab?handler=SaveParticularData",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(particularData),
+                    success: function (response) {
+                        $("#errorCompanyNameMsg").css("display", "none");
+                         document.querySelectorAll('.field-msg').forEach(span => span.textContent = '');
+
+                        if (!response.success) {
+                            // Loop through returned errors and set messages
+                            for (const [field, message] of Object.entries(response.errors)) {
+                                const errorSpan = document.getElementById(`${field}-error`);
+                                if (errorSpan) {
+                                    errorSpan.textContent = message;
+                                }
+                            }
+                        }
+                        else{
+                        console.log("Success:", response);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error:", xhr.statusText, xhr.responseText);
+                    }
+                });
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        $('#openSecondModal').on('click', function () {
+            $('#addressModal').modal('hide');
+
+            $('#addressModal').on('hidden.bs.modal', function () {
+                $('#secondAddressModal').modal('show');
+            });
+        });
+    });
+
+    function CheckCompanyName() {
+        if ($("#Particular_CompanyName").val() == "") {
+            $("#errorCompanyname").css("display", "block");
+        }
+        else {
+            var searchedCompanyName = $("#Particular_CompanyName").val();
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            $.ajax({
+                type: "GET",
+                url: "/Index?handler=CheckCompanyAvailability&companyName=" + encodeURIComponent($("#Particular_CompanyName").val()),
+                success: function (isAvailable) {
+                    // Check if the response is a string and convert it to a boolean if necessary
+                    if (typeof isAvailable === 'string') {
+                        isAvailable = (isAvailable.toLowerCase() === 'true');
+                    }
+
+                    if (isAvailable === true) {
+                        Cookies.set("companyName", searchedCompanyName, expires);
+                        $("#companyAvailable").show();
+                        $("#companyNotAvailable").hide();
+                        $(".ef-alert-box").hide();
+                        $("#availableCompanyName").html(searchedCompanyName);
+                    } else {
+                        alert("not");
+                        $("#companyNotAvailable").show();
+                        $("#companyAvailable").hide();
+                        $(".ef-alert-box").hide();
+                        $("#notAvailablecompanyName").html(searchedCompanyName);
+                    }
+                },
+                error: function () {
+                    console.log("Error checking company name.");
+                }
+            });
+        }
+        }
+</script>

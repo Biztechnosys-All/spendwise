@@ -6,8 +6,8 @@ namespace Spendwise_WebApp.Models
     {
         [Key]
         public int ParticularId { get; set; }
-        public int UserId {  get; set; }
-        public int CompanyId { get; set; }
+        public int? UserId {  get; set; }
+        public int? CompanyId { get; set; }
         public required string CompanyName { get; set; }
         public required string CompanyType { get; set; }
         public required string Jurisdiction { get; set; }

@@ -243,8 +243,19 @@ h1 {
     padding-top: 20px;
 }
 
+#ef-panel-inner-content-particular {
+    padding-top: 20px;
+}
+
 .ef-primary-error-msg .ef-alert-box-main-text, #addressing-error .ef-alert-box-main-text {
     font-size: 18px !important;
+}
+
+#ef-panel-inner-content-particular h2 {
+    /* padding-bottom: 20px !important; */
+    box-shadow: none !important;
+    position: relative;
+    margin: 30px 0 10px;
 }
 
 #ef-panel-inner-content h2 {
@@ -592,6 +603,12 @@ i.fa.checkbox-big:before {
     background-color: var(--color-green-one) !important;
     border: var(--color-green-one) !important;
     color: var(--color-white) !important;
+}
+
+.ef-choose-btn:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    text-decoration: none !important;
 }
 
 .add-save {
@@ -1600,4 +1617,79 @@ ef-information-box p {
 .namecheck-error-description {
     margin: 10px 0 0 0;
     font-size: 15px;
+}
+
+/*Address Modal*/
+.modal-header p {
+    margin-bottom: -32px;
+    margin-left: -217px;
+    font-size: 12px;
+    color: whitesmoke;
+}
+
+.ef-alt-address-btn {
+    background-color: var(--color-white) !important;
+    border: 1px solid #84888a !important;
+    color: #6f7b82 !important;
+}
+
+#an-address h4 {
+    font-size: 17px !important;
+    line-height: 16px !important;
+    margin: 10px 0 !important;
+    font-family: 'MyriadW08-BoldSemiConde' !important;
+    color: #2a3135 !important;
+    font-weight: 600;
+}
+
+.ef-select-btn {
+    background-color: var(--color-green-one) !important;
+    border: var(--color-green-one) !important;
+    color: var(--color-white) !important;
+}
+
+.ef-select-btn:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    text-decoration: none !important;
+}
+
+.ef-cancel-address {
+    float: right;
+    background-color: #c6c6c6;
+    color: var(--color-white) !important;
+}
+
+.ef-cancel-address:hover {
+    float: right;
+    background-color: #969696;
+}
+
+.ef-alert-box.success .ef-alert-box-main-text {
+    color: #3B9D22 !important;
+    font-size: 28px !important;
+    font-family: 'MyriadW08-BoldSemiConde';
+}
+
+.show-namecheck {
+    padding: 20px;
+}
+
+.particular-company {
+    background-color: #EAEFF2 !important;
+    border-color: #EAEFF2 !important;
+}
+
+.particular-company.success .ef-alert-box-main-text {
+    color: #3B9D22 !important;
+    font-size: 28px !important;
+    font-family: 'MyriadW08-BoldSemiConde';
+    font-weight: 600;
+}
+
+.particular-company .ef-namecheck-choosen-name {
+    color: #3C434B !important;
+    /* padding-top: 5px; */
+    /* display: block; */
+    /* font-size: 18px !important; */
 }
