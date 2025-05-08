@@ -1,4 +1,4 @@
-﻿
+﻿@import url('common.css');
 /*Company Details*/
 .ff-orderpage {
     padding: 30px 0 90px;
@@ -352,14 +352,17 @@ input#ef-company-name {
 #ef-namecheck-button {
     background-color: var(--color-green) !important;
     border: 1px solid var(--color-green) !important;
-    padding: 18px 20px !important;
+    padding: 11px 20px !important;
     outline: none;
     height: auto !important;
-    line-height: 16px;
+    line-height: 15px;
     width: 100% !important;
     margin-left: -1px;
     font-family: var(--font-family-myriad) !important;
     font-size: 20px !important;
+    margin-top: -2px;
+    font-weight:600;
+
 }
 
 label[for="company-type"] .ef-modal-help-icon {
@@ -1610,7 +1613,7 @@ ef-information-box p {
 .ef-alert-box.warning .ef-alert-box-main-text {
     color: #ea730a !important;
     font-size: 28px !important;
-    font-family: 'MyriadW08-BoldSemiConde';
+    font-family: var(--font-family-body);
     font-weight: 600;
 }
 
@@ -1637,7 +1640,7 @@ ef-information-box p {
     font-size: 17px !important;
     line-height: 16px !important;
     margin: 10px 0 !important;
-    font-family: 'MyriadW08-BoldSemiConde' !important;
+    font-family: var(--font-family-body) !important;
     color: #2a3135 !important;
     font-weight: 600;
 }
@@ -1668,7 +1671,7 @@ ef-information-box p {
 .ef-alert-box.success .ef-alert-box-main-text {
     color: #3B9D22 !important;
     font-size: 28px !important;
-    font-family: 'MyriadW08-BoldSemiConde';
+    font-family: var--font-family-body;
 }
 
 .show-namecheck {
@@ -1676,20 +1679,23 @@ ef-information-box p {
 }
 
 .particular-company {
-    background-color: #EAEFF2 !important;
-    border-color: #EAEFF2 !important;
+    background-color: var(--color-green-three) !important;
+    border-color: var(--color-green-two) !important;
 }
 
 .particular-company.success .ef-alert-box-main-text {
-    color: #3B9D22 !important;
+    color: var(--color-green) !important;
     font-size: 28px !important;
-    font-family: 'MyriadW08-BoldSemiConde';
+    font-family: var(--font-family-body);
     font-weight: 600;
 }
 
 .particular-company .ef-namecheck-choosen-name {
-    color: #3C434B !important;
-    /* padding-top: 5px; */
-    /* display: block; */
-    /* font-size: 18px !important; */
+    color: var(--color-white) !important;
+}
+@media (max-width: 700px) {
+    #ef-namecheck-button {
+        padding: 11px 3px !important;
+        font-size: 12px !important;
+    }
 }
