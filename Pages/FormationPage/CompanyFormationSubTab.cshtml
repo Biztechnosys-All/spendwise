@@ -81,16 +81,16 @@
                                     <div class="ef-namecheck-label-row w-col w-col-9"></div>
                                     <div class="w-row">
                                         <div class="w-col w-col-6">
-                                        <label for="ef-company-name">
-                                            Company Name
-                                            <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_NAME"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
-                                        </label>
-                                        <input type="text" class="w-input ef-company-name-field" asp-for="Particular.CompanyName" />
-                                    </div>
+                                            <label for="ef-company-name">
+                                                Company Name
+                                                <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_NAME"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
+                                            </label>
+                                            <input type="text" class="w-input ef-company-name-field" asp-for="Particular.CompanyName" />
+                                        </div>
                                         <div class="w-col w-col-6" style="margin-top: 1px;">
-                                        <label for="ef-namecheck-button">&nbsp;</label>
-                                        <button type="button" id="ef-namecheck-button" class="ef-btn ef-primary-btn" name="ef-name-check-btn" onclick="CheckCompanyName()">Check another name</button>
-                                    </div>
+                                            <label for="ef-namecheck-button">&nbsp;</label>
+                                            <button type="button" id="ef-namecheck-button" class="ef-btn ef-primary-btn" name="ef-name-check-btn" onclick="CheckCompanyName()">Check another name</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="ef-form-wrap last-margin">
@@ -649,12 +649,12 @@
 
                     response.data.forEach((item, index) => {
                         const html = `
-                                    <a href="#" class="ef-js-sic-code-row" order-id="${index + 1}" data-attr-sic-id="${item.sicCode}" style="display: block;">
-                                            <div class="ef-js-sic-code-row-text">${item.sicCode} - ${item.description}</div>
-                                    <div class="ef-js-plus-button-container">
-                                            <img class="ef-js-plus-button" src="/images/add.png">
-                                    </div>
-                                </a>`;
+                                        <a href="#" class="ef-js-sic-code-row sic-code-row" order-id="${index + 1}" data-attr-sic-id="${item.sicCode}" style="display: block;">
+                                                <div class="ef-js-sic-code-row-text">${item.sicCode} - ${item.description}</div>
+                                        <div class="ef-js-plus-button-container">
+                                                <img class="ef-js-plus-button" src="/images/add.png">
+                                        </div>
+                                    </a>`;
                         container.append(html);
                     });
                 } else {
@@ -666,4 +666,71 @@
             }
         });
     });
+
+
+    $('#Particular_SIC_Code').on('keyup', function () {
+        const query = $(this).val().toLowerCase().trim();
+
+        $('#ef-js-sic-codes__filter__found .sic-code-row').each(function () {
+            const $row = $(this);
+            const sicCode = $row.data('attr-sic-id').toString();
+            const text = $row.find('.ef-js-sic-code-row-text').text().toLowerCase();
+
+            // Match against SIC code or description text
+            if (sicCode.includes(query) || text.includes(query)) {
+                $row.show();
+            } else {
+                $row.hide();
+            }
+        });
+    });
+
+    $(document).on('click', '.sic-code-row', function (e) {
+        e.preventDefault(); // Prevent default anchor behavior
+
+        const $row = $(this);
+        const sicCode = $row.data('attr-sic-id');
+        const description = $row.find('.ef-js-sic-code-row-text').text().trim();
+
+        const $list = $("#ef-sic-code-list");
+
+        // Check existing items
+        $list.find(".ef-no-sic-code").remove();
+
+        // Check current count
+        if ($list.find("li.ef-sic-code").length >= 4) {
+            showToast('You can only select upto 4 SIC codes.', 'danger');
+            return;
+        }
+
+        const SicStr = `
+            <li class="ef-sic-code" data-sic-code="${sicCode}">
+                <div class="sic-text">${description}</div>
+                <div class="ef-remove-sic-code-img-container">
+                    <div class="ef-remove-sic-code" onclick="FormBuilder.RemoveSicCode(this);">
+                            <img class="ef-remove-sic-code-img" src="/images/cross.png" alt="X">
+                        <input type="hidden" value="${sicCode}" name="siccodes[]">
+                    </div>
+                </div>
+            </li>`;
+
+        //$("#ef-sic-code-list").append(SicStr);
+
+        $list.append(SicStr);
+        $row.hide();
+    });
+    const FormBuilder = {
+        RemoveSicCode: function (el) {
+            const $removeBtn = $(el);
+            const $li = $removeBtn.closest('li.ef-sic-code');
+            const sicCode = $li.data('sic-code');
+
+            // Remove the list item
+            $li.remove();
+
+            // Show back the corresponding .sic-code-row
+            $(`.sic-code-row[data-attr-sic-id="${sicCode}"]`).show();
+        }
+    };
+
 </script>
