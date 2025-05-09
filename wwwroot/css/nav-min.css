@@ -1125,7 +1125,8 @@ body {
 
 @media (min-width:62em) {
     .site-nav__body--subnav .site-nav__menu {
-        right: 0
+        right: 0;
+        min-width:270px;
     }
 }
 
