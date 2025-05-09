@@ -18,14 +18,34 @@ namespace Spendwise_WebApp.Pages
 
         [BindProperty]
         public Package Package { get; set; } = default!;
-        public async Task OnGet(string packageName)
+        public async Task<IActionResult> OnGet(string packageName)
         {
+            var PackageFeatureList = await _context.PackageFeatures.ToListAsync();
             var package = await _context.packages.FirstOrDefaultAsync(m => m.PackageName.ToLower() == packageName.ToLower());
             if (package == null)
             {
-                return;
+                return RedirectToPage("/Error");
             }
+
+            var selectedFeatures = string.Empty;
+            var featureIds = package.PackageFeatures.Split(',');
+            var last = featureIds.Last();
+
+            foreach (var featureId in featureIds)
+            {
+                var featureName = PackageFeatureList
+                    .Where(x => x.FeatureId.ToString() == featureId)
+                    .Select(y => y.Feature)
+                    .FirstOrDefault();
+
+                if (featureId.Equals(last))
+                    selectedFeatures += featureName;
+                else
+                    selectedFeatures += featureName + ", ";
+            }
+            package.PackageFeatures = selectedFeatures;
             Package = package;
+            return Page();
         }
     }
 }

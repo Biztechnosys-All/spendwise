@@ -1,16 +1,16 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 <style>
     @@media (min-width: 62em) {
-    #section-one .home-packages__packages {
-        display: grid;
-        grid-gap: 15px;
-        margin-top: 0;
+        #section-one .home-packages__packages {
+            display: grid;
+            grid-gap: 15px;
+            margin-top: 0;
+        }
     }
-}
 </style>
 
 <section class="home-hero">
@@ -66,16 +66,16 @@
                                                         </a>
                                                     </li>
                                                     @* <li class="site-nav__menu-sub-item">
-                                                        <a href="/package/professional/">
-                                                            <i class="fa-solid fa-angle-right"></i>
-                                                            Professional Package
-                                                        </a>
+                                                    <a href="/package/professional/">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    Professional Package
+                                                    </a>
                                                     </li>
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a href="/package/prestige/">
-                                                            <i class="fa-solid fa-angle-right"></i>
-                                                            Prestige Package
-                                                        </a>
+                                                    <a href="/package/prestige/">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    Prestige Package
+                                                    </a>
                                                     </li> *@
                                                     <li class="site-nav__menu-sub-item">
                                                         <a href="/package/all inclusive/">
@@ -84,16 +84,16 @@
                                                         </a>
                                                     </li>
                                                     @* <li class="site-nav__menu-sub-item">
-                                                        <a href="#">
-                                                            <i class="fa-solid fa-angle-right"></i>
-                                                            eSeller Package
-                                                        </a>
+                                                    <a href="#">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    eSeller Package
+                                                    </a>
                                                     </li>
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a class="hash-link" href="#">
-                                                            <i class="fa-solid fa-angle-right"></i>
-                                                            Reserve a Company Name
-                                                        </a>
+                                                    <a class="hash-link" href="#">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    Reserve a Company Name
+                                                    </a>
                                                     </li> *@
                                                 </ul>
                                             </div>
@@ -379,50 +379,50 @@
                         </ul>
                     </div>
                     <div>
-                        @* <h3 class="site-nav__menu-heading">Useful</h3>
+                                                @* <h3 class="site-nav__menu-heading">Useful</h3>
                         <ul class="site-nav__menu-links">
-                            <li class="site-nav__menu-sub-item">
-                                <a href="#">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Videos
-                                </a>
-                            </li>
-                            <li class="site-nav__menu-sub-item">
-                                <a href="#">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    In The Press
-                                </a>
-                            </li>
-                            <li class="site-nav__menu-sub-item">
-                                <a href="#">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Partner Offers
-                                </a>
-                            </li>
-                            <li class="site-nav__menu-sub-item">
-                                <a href="#">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Scholarship
-                                </a>
-                            </li>
-                            <li class="site-nav__menu-sub-item">
-                                <a href="#">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Sustainability
-                                </a>
-                            </li>
-                            <li class="site-nav__menu-sub-item">
-                                <a href="#">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Wonder Foundation
-                                </a>
-                            </li>
-                            <li class="site-nav__menu-sub-item">
-                                <a href="#">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Pricing
-                                </a>
-                            </li>
+                        <li class="site-nav__menu-sub-item">
+                        <a href="#">
+                        <i class="fa-solid fa-angle-right"></i>
+                        Videos
+                        </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                        <a href="#">
+                        <i class="fa-solid fa-angle-right"></i>
+                        In The Press
+                        </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                        <a href="#">
+                        <i class="fa-solid fa-angle-right"></i>
+                        Partner Offers
+                        </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                        <a href="#">
+                        <i class="fa-solid fa-angle-right"></i>
+                        Scholarship
+                        </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                        <a href="#">
+                        <i class="fa-solid fa-angle-right"></i>
+                        Sustainability
+                        </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                        <a href="#">
+                        <i class="fa-solid fa-angle-right"></i>
+                        Wonder Foundation
+                        </a>
+                        </li>
+                        <li class="site-nav__menu-sub-item">
+                        <a href="#">
+                        <i class="fa-solid fa-angle-right"></i>
+                        Pricing
+                        </a>
+                        </li>
                         </ul> *@
                     </div>
                 </div>
@@ -627,13 +627,14 @@
                     <div class="col hidden-md">
                         <div class="home-packages__title">
                             <h3 class="section-title">Limited company formation packages</h3>
-                            <p>Explore our full range of <a href="/compare-packages/">packages</a>.</p>
+                            <p>Explore our full range of <a href="/BuyPackage">packages</a>.</p>
                         </div>
                     </div>
+                    @{
+                        int PackageCount = Model.Package.Count();
+                    }
                     <div class="home-packages__wrap hidden-md">
-                        @{
-                            int PackageCount = Model.Package.Count();
-                        }
+
                         <div class="home-packages__packages" style="grid-template-columns: repeat(@PackageCount, 1fr);">
                             @if (Model.Package != null && Model.Package.Any())
                             {
@@ -683,952 +684,42 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12">
-                        <div class="home-packages__tab">
-                            <input id="tab-one" type="checkbox" name="tabs">
-                            <label for="tab-one" class="digital">
-                                Digital
-                                <div class="home-packages__right">
-                                    <span>£52.99</span>
-                                    <i class="fa fa-plus"></i>
-                                    <i class="fa fa-minus" style="display: none;"></i>
-                                </div>
-                            </label>
-                            <div class="tab-content digital-package">
-                                <div class="inner-div">
-                                    <p class="home-packages__feature-title">Top Features</p>
-                                    <ul class="home-packages__items">
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>LTD Company</h3>
-                                                            <p>Your new limited company registered at Companies House within 24 hours.</p>
-                                                            <p>As soon as your new company has been approved by Companies House, you can start trading immediately.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                        @if (Model.Package != null && Model.Package.Any())
+                        {
+                            @foreach (var item in Model.Package)
+                            {
+                                <div class="home-packages__tab">
+                                    <input id="tab-one" type="checkbox" name="tabs">
+                                    <label for="tab-one" class="digital">
+                                        @item.PackageName
+                                        <div class="home-packages__right">
+                                            <span>£@item.Price</span>
+                                            <i class="fa fa-plus"></i>
+                                            <i class="fa fa-minus" style="display: none;"></i>
+                                        </div>
+                                    </label>
+                                    <div class="tab-content digital-package">
+                                        <div class="inner-div">
+                                            <p class="home-packages__feature-title">Top Features</p>
+                                            @{
+                                                List<string> Features = item.PackageFeatures.Split(',').ToList();
+                                            }
+                                            <ul class="home-packages__items">
+                                                @foreach (var Feature in Features)
+                                                {
+                                                    <li>@Feature</li>
+                                                }
+                                            </ul>
+                                            <div class="home-packages__buttons">
+                                                <a class="button button--secondary" href="/BuyPackage?packageName=@item.PackageName">Buy Now</a>
+                                                <a class="button button--alt" asp-page="/Package" asp-route-packageName="@item.PackageName">Read More</a>
                                             </div>
-                                            LTD Company
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>£50 Companies House Fee Included</h3>
-                                                            <p>The Companies House filing fee of £50 for company incorporation is included in the package price. Registering your new company with Spendwise incurs no additional costs.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            £50 Companies <br class="visible-desktop visible-tablet" />House Fee Included
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Free Business Bank Account</h3>
-                                                            <p><strong>UK Customers</strong></p>
-                                                            <p>We have partnered with 7 leading UK banks to offer our customers the perfect business banking solution. When you place your new company order, simply choose your preferred bank, and they will contact you after your company has been formed.</p>
-                                                            <p><strong>Non-Resident Customers</strong></p>
-                                                            <p>We have partnered with WorldFirst to offer our international customers a business banking solution. We have included a WorldFirst business account referral in our Non-Residents and eSeller Packages.</p>
-                                                            <p><strong>Please note:</strong> Account openings for all banking referral partners are subject to approval.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Free Business <br class="visible-desktop visible-tablet" />Bank Account
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Digital Company Documents</h3>
-                                                            <p>Your company documents delivered to you by email as soon as your new company is registered, including:</p>
-                                                            <ul class="fa-ul">
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Certificate of Incorporation
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Memorandum and Articles
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Share Certificates
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    WebFiling Authentication Code
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Digital Company Documents
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Confirmation Statement Service</h3>
-                                                            <p>A company expert will prepare and submit your annual confirmation statement to Companies House, ensuring it is filed on time and accurately.</p>
-                                                            <p><strong>Please note:</strong> This service does not include the £34.00 Companies House filing fee. When filing your first confirmation statement, we will take payment of £34.00 using your payment card details securely stored in your account.</p>
-                                                            <p>Our Confirmation Statement Service is renewable annually at the cost of £59.99 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Confirmation <br class="visible-desktop visible-tablet" />Statement Service
-                                        </li>
-                                    </ul>
-                                    <div class="home-packages__buttons">
-                                        <a class="button button--secondary button1 js-routing" href="#">Buy Now</a>
-                                        <a class="button button--alt" href="#">Read More</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="home-packages__tab">
-                            <input id="tab-two" type="checkbox" name="tabs">
-                            <label for="tab-two" class="privacy">
-                                Privacy
-                                <div class="home-packages__right">
-                                    <span>£67.99</span>
-                                    <i class="fa fa-plus"></i>
-                                    <i class="fa fa-minus" style="display: none;"></i>
-                                </div>
-                            </label>
-                            <div class="tab-content privacy">
-                                <div class="inner-div">
-                                    <p class="home-packages__feature-title">Top Features</p>
-                                    <ul class="home-packages__items">
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>LTD Company</h3>
-                                                            <p>Your new limited company registered at Companies House within 24 hours.</p>
-                                                            <p>As soon as your new company has been approved by Companies House, you can start trading immediately.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            LTD Company
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>£50 Companies House Fee Included</h3>
-                                                            <p>The Companies House filing fee of £50 for company incorporation is included in the package price. Registering your new company with Spendwise incurs no additional costs.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            £50 Companies <br class="visible-desktop visible-tablet" />House Fee Included
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Free Business Bank Account</h3>
-                                                            <p><strong>UK Customers</strong></p>
-                                                            <p>We have partnered with 7 leading UK banks to offer our customers the perfect business banking solution. When you place your new company order, simply choose your preferred bank, and they will contact you after your company has been formed.</p>
-                                                            <p><strong>Non-Resident Customers</strong></p>
-                                                            <p>We have partnered with WorldFirst to offer our international customers a business banking solution. We have included a WorldFirst business account referral in our Non-Residents and eSeller Packages.</p>
-                                                            <p><strong>Please note:</strong> Account openings for all banking referral partners are subject to approval.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Free Business <br class="visible-desktop visible-tablet" />Bank Account
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Digital Company Documents</h3>
-                                                            <p>Your company documents delivered to you by email as soon as your new company is registered, including:</p>
-                                                            <ul class="fa-ul">
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Certificate of Incorporation
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Memorandum and Articles
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Share Certificates
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    WebFiling Authentication Code
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Digital Company Documents
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Registered Office</h3>
-                                                            <p>Use our prestigious Covent Garden address as your company’s registered office address and protect the privacy of your home.</p>
-                                                            <p>All UK government mail and court documents will be scanned and emailed to you daily, free of charge.</p>
-                                                            <p>This service is renewable on a 12-month basis at the cost of £39.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Registered Office
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Service Address</h3>
-                                                            <p>Our Service Address Service provides an official address for a company director, shareholder, or PSC to appear on the public record.</p>
-                                                            <p>All UK government mail and Court documents addressed to the company officer will be scanned and emailed free of charge daily.</p>
-                                                            <p>This service is renewable on a 12-month basis at the cost of £26.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Service Address
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Confirmation Statement Service</h3>
-                                                            <p>A company expert will prepare and submit your annual confirmation statement to Companies House, ensuring it is filed on time and accurately.</p>
-                                                            <p><strong>Please note:</strong> This service does not include the £34.00 Companies House filing fee. When filing your first confirmation statement, we will take payment of £34.00 using your payment card details securely stored in your account.</p>
-                                                            <p>Our Confirmation Statement Service is renewable annually at the cost of £59.99 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Confirmation <br class="visible-desktop visible-tablet" />Statement Service
-                                        </li>
-                                    </ul>
-                                    <div class="home-packages__buttons">
-                                        <a class="button button--secondary button2 js-routing" href="#">Buy Now</a>
-                                        <a class="button button--alt" href="#">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="home-packages__tab">
-                            <input id="tab-tree" type="checkbox" name="tabs">
-                            <label for="tab-tree" class="professional">
-                                Professional
-                                <div class="home-packages__right">
-                                    <span>£79.99</span>
-                                    <i class="fa fa-plus"></i>
-                                    <i class="fa fa-minus" style="display: none;"></i>
-                                </div>
-                            </label>
-                            <div class="tab-content professional">
-                                <div class="inner-div">
-                                    <p class="home-packages__feature-title">Top Features</p>
-                                    <ul class="home-packages__items">
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>LTD Company</h3>
-                                                            <p>Your new limited company registered at Companies House within 24 hours.</p>
-                                                            <p>As soon as your new company has been approved by Companies House, you can start trading immediately.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            LTD Company
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>£50 Companies House Fee Included</h3>
-                                                            <p>The Companies House filing fee of £50 for company incorporation is included in the package price. Registering your new company with Spendwise incurs no additional costs.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            £50 Companies <br class="visible-desktop visible-tablet" />House Fee Included
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Free Business Bank Account</h3>
-                                                            <p><strong>UK Customers</strong></p>
-                                                            <p>We have partnered with 7 leading UK banks to offer our customers the perfect business banking solution. When you place your new company order, simply choose your preferred bank, and they will contact you after your company has been formed.</p>
-                                                            <p><strong>Non-Resident Customers</strong></p>
-                                                            <p>We have partnered with WorldFirst to offer our international customers a business banking solution. We have included a WorldFirst business account referral in our Non-Residents and eSeller Packages.</p>
-                                                            <p><strong>Please note:</strong> Account openings for all banking referral partners are subject to approval.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Free Business <br class="visible-desktop visible-tablet" />Bank Account
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Digital & Printed Company Documents</h3>
-                                                            <p>Your company documents will be delivered to you by email and a hardcopy by post as soon as your new company is registered, including:</p>
-                                                            <ul class="fa-ul">
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Certificate of Incorporation
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Memorandum and Articles
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Share Certificates
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    WebFiling Authentication Code
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Digital & Printed <br class="visible-desktop visible-tablet" />Company Documents
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Registered Office</h3>
-                                                            <p>Use our prestigious Covent Garden address as your company’s registered office address and protect the privacy of your home.</p>
-                                                            <p>All UK government mail and court documents will be scanned and emailed to you daily, free of charge.</p>
-                                                            <p>This service is renewable on a 12-month basis at the cost of £39.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Registered Office
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Service Address</h3>
-                                                            <p>Our Service Address Service provides an official address for a company director, shareholder, or PSC to appear on the public record.</p>
-                                                            <p>All UK government mail and Court documents addressed to the company officer will be scanned and emailed free of charge daily.</p>
-                                                            <p>This service is renewable on a 12-month basis at the cost of £26.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Service Address
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Confirmation Statement Service</h3>
-                                                            <p>A company expert will prepare and submit your annual confirmation statement to Companies House, ensuring it is filed on time and accurately.</p>
-                                                            <p><strong>Please note:</strong> This service does not include the £34.00 Companies House filing fee. When filing your first confirmation statement, we will take payment of £34.00 using your payment card details securely stored in your account.</p>
-                                                            <p>Our Confirmation Statement Service is renewable annually at the cost of £59.99 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Confirmation <br class="visible-desktop visible-tablet" />Statement Service
-                                        </li>
-                                    </ul>
-                                    <div class="home-packages__buttons">
-                                        <a class="button button--secondary button3 js-routing" href="#">Buy Now</a>
-                                        <a class="button button--alt" href="#">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="home-packages__tab">
-                            <input id="tab-four" type="checkbox" name="tabs">
-                            <label for="tab-four" class="prestige">
-                                Prestige
-                                <div class="home-packages__right">
-                                    <span><span class="scored">£149.99</span>£99.99</span>
-                                    <i class="fa fa-plus"></i>
-                                    <i class="fa fa-minus" style="display: none;"></i>
-                                </div>
-                            </label>
-                            <div class="tab-content prestige">
-                                <div class="inner-div">
-                                    <p class="home-packages__feature-title">Top Features</p>
-                                    <ul class="home-packages__items">
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>LTD Company</h3>
-                                                            <p>Your new limited company registered at Companies House within 24 hours.</p>
-                                                            <p>As soon as your new company has been approved by Companies House, you can start trading immediately.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            LTD Company
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>£50 Companies House Fee Included</h3>
-                                                            <p>The Companies House filing fee of £50 for company incorporation is included in the package price. Registering your new company with Spendwise incurs no additional costs.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            £50 Companies <br class="visible-desktop visible-tablet" />House Fee Included
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Free Business Bank Account</h3>
-                                                            <p><strong>UK Customers</strong></p>
-                                                            <p>We have partnered with 7 leading UK banks to offer our customers the perfect business banking solution. When you place your new company order, simply choose your preferred bank, and they will contact you after your company has been formed.</p>
-                                                            <p><strong>Non-Resident Customers</strong></p>
-                                                            <p>We have partnered with WorldFirst to offer our international customers a business banking solution. We have included a WorldFirst business account referral in our Non-Residents and eSeller Packages.</p>
-                                                            <p><strong>Please note:</strong> Account openings for all banking referral partners are subject to approval.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Free Business <br class="visible-desktop visible-tablet" />Bank Account
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Digital & Printed Company Documents</h3>
-                                                            <p>Your company documents will be delivered to you by email and a hardcopy by post as soon as your new company is registered, including:</p>
-                                                            <ul class="fa-ul">
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Certificate of Incorporation
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Memorandum and Articles
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Share Certificates
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    WebFiling Authentication Code
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Digital & Printed <br class="visible-desktop visible-tablet" />Company Documents
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Registered Office</h3>
-                                                            <p>Use our prestigious Covent Garden address as your company’s registered office address and protect the privacy of your home.</p>
-                                                            <p>All UK government mail and court documents will be scanned and emailed to you daily, free of charge.</p>
-                                                            <p>This service is renewable on a 12-month basis at the cost of £39.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Registered Office
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Service Address</h3>
-                                                            <p>Our Service Address Service provides an official address for a company director, shareholder, or PSC to appear on the public record.</p>
-                                                            <p>All UK government mail and Court documents addressed to the company officer will be scanned and emailed free of charge daily.</p>
-                                                            <p>This service is renewable on a 12-month basis at the cost of £26.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Service Address
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Business Address</h3>
-                                                            <p>Our London Business Address Service allows you to use our Covent Garden address for your day-to-day business correspondence, establishing a business presence in Central London.</p>
-                                                            <p>All mail addressed to your company will be forwarded to you by scan and email on the same day we receive it for £0.50 per item.</p>
-                                                            <p>This service is renewable annually at the cost of £96.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Business Address
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Confirmation Statement Service</h3>
-                                                            <p>A company expert will prepare and submit your annual confirmation statement to Companies House, ensuring it is filed on time and accurately.</p>
-                                                            <p><strong>Please note:</strong> This service does not include the £34.00 Companies House filing fee. When filing your first confirmation statement, we will take payment of £34.00 using your payment card details securely stored in your account.</p>
-                                                            <p>Our Confirmation Statement Service is renewable annually at the cost of £59.99 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Confirmation <br class="visible-desktop visible-tablet" />Statement Service
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>VAT Registration</h3>
-                                                            <p>Allow our highly trained staff to handle the formalities of your VAT registration.</p>
-                                                            <p>We will apply for your VAT registration online.</p>
-                                                            <p>Once your VAT registration has been approved, HMRC will send your VAT Registration Number by post to the business address provided on the application. You will then be able to access your VAT Registration Certificate online on the Government Gateway.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            VAT Registration
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>PAYE Registration</h3>
-                                                            <p>If you would like to pay yourself as a company director or have employees or other directors who will be taking a salary from your company, you must register for PAYE with HMRC.</p>
-                                                            <p>Our highly trained staff will take care of the registration on your behalf.</p>
-                                                            <p>The PAYE registration process usually takes around 3 weeks, and your PAYE information will be sent to you by post directly from HMRC.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            PAYE Registration
-                                        </li>
-                                    </ul>
-                                    <div class="home-packages__buttons">
-                                        <a class="button button--secondary button4 js-routing" href="#">Buy Now</a>
-                                        <a class="button button--alt" href="#">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="home-packages__tab">
-                            <input id="tab-five" type="checkbox" name="tabs">
-                            <label for="tab-five" class="all-inclusive">
-                                All Inclusive
-                                <div class="home-packages__right">
-                                    <span><span class="scored">£219.99</span>£149.99</span>
-                                    <i class="fa fa-plus"></i>
-                                    <i class="fa fa-minus" style="display: none;"></i>
-                                </div>
-                            </label>
-                            <div class="tab-content all-inclusive">
-                                <div class="inner-div">
-                                    <p class="home-packages__feature-title">Top Features</p>
-                                    <ul class="home-packages__items">
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>LTD Company</h3>
-                                                            <p>Your new limited company registered at Companies House within 24 hours.</p>
-                                                            <p>As soon as your new company has been approved by Companies House, you can start trading immediately.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            LTD Company
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>£50 Companies House Fee Included</h3>
-                                                            <p>The Companies House filing fee of £50 for company incorporation is included in the package price. Registering your new company with Spendwise incurs no additional costs.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            £50 Companies <br class="visible-desktop visible-tablet" />House Fee Included
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Free Business Bank Account</h3>
-                                                            <p><strong>UK Customers</strong></p>
-                                                            <p>We have partnered with 7 leading UK banks to offer our customers the perfect business banking solution. When you place your new company order, simply choose your preferred bank, and they will contact you after your company has been formed.</p>
-                                                            <p><strong>Non-Resident Customers</strong></p>
-                                                            <p>We have partnered with WorldFirst to offer our international customers a business banking solution. We have included a WorldFirst business account referral in our Non-Residents and eSeller Packages.</p>
-                                                            <p><strong>Please note:</strong> Account openings for all banking referral partners are subject to approval.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Free Business <br class="visible-desktop visible-tablet" />Bank Account
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Digital & Printed Company Documents</h3>
-                                                            <p>Your company documents will be delivered to you by email and a hardcopy by post as soon as your new company is registered, including:</p>
-                                                            <ul class="fa-ul">
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Certificate of Incorporation
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Memorandum and Articles
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Share Certificates
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    WebFiling Authentication Code
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Digital & Printed <br class="visible-desktop visible-tablet" />Company Documents
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Registered Office</h3>
-                                                            <p>Use our prestigious Covent Garden address as your company’s registered office address and protect the privacy of your home.</p>
-                                                            <p>All UK government mail and court documents will be scanned and emailed to you daily, free of charge.</p>
-                                                            <p>This service is renewable on a 12-month basis at the cost of £39.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Registered Office
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Service Address</h3>
-                                                            <p>Our Service Address Service provides an official address for a company director, shareholder, or PSC to appear on the public record.</p>
-                                                            <p>All UK government mail and Court documents addressed to the company officer will be scanned and emailed free of charge daily.</p>
-                                                            <p>This service is renewable on a 12-month basis at the cost of £26.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Service Address
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>London Business Address</h3>
-                                                            <p>Our London Business Address Service allows you to use our Covent Garden address for your day-to-day business correspondence, establishing a business presence in Central London.</p>
-                                                            <p>All mail addressed to your company will be forwarded to you by scan and email on the same day we receive it for £0.50 per item.</p>
-                                                            <p>This service is renewable annually at the cost of £96.00 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            London <br class="visible-desktop visible-tablet" />Business Address
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Confirmation Statement Service</h3>
-                                                            <p>A company expert will prepare and submit your annual confirmation statement to Companies House, ensuring it is filed on time and accurately.</p>
-                                                            <p><strong>Please note:</strong> This service does not include the £34.00 Companies House filing fee. When filing your first confirmation statement, we will take payment of £34.00 using your payment card details securely stored in your account.</p>
-                                                            <p>Our Confirmation Statement Service is renewable annually at the cost of £59.99 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Confirmation <br class="visible-desktop visible-tablet" />Statement Service
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>VAT Registration</h3>
-                                                            <p>Allow our highly trained staff to handle the formalities of your VAT registration.</p>
-                                                            <p>We will apply for your VAT registration online.</p>
-                                                            <p>Once your VAT registration has been approved, HMRC will send your VAT Registration Number by post to the business address provided on the application. You will then be able to access your VAT Registration Certificate online on the Government Gateway.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            VAT Registration
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>PAYE Registration</h3>
-                                                            <p>If you would like to pay yourself as a company director or have employees or other directors who will be taking a salary from your company, you must register for PAYE with HMRC.</p>
-                                                            <p>Our highly trained staff will take care of the registration on your behalf.</p>
-                                                            <p>The PAYE registration process usually takes around 3 weeks, and your PAYE information will be sent to you by post directly from HMRC.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            PAYE Registration
-                                        </li>
-                                        <li>
-                                            <div class="home-packages__tooltip">
-                                                <span class="infobox-btn"><i class="fa-solid fa-info-circle"></i></span>
-                                                <div class="infobox infobox--right">
-                                                    <div class="infobox__wrapper">
-                                                        <a class="infobox__close">×</a>
-                                                        <div class="infobox__content">
-                                                            <h3>Full Company Secretary Service</h3>
-                                                            <p>Our Full Company Secretary Service is our premium service. It provides up to 15 changes to your company per year to ensure your company stays compliant and offers many other benefits.</p>
-                                                            <p><strong>What's included?</strong></p>
-                                                            <ul class="fa-ul">
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Up to 15 changes to your company per year
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Preparation and filing of your annual Confirmation Statement, including the Companies House filing fee of £34.00
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Preparation, maintenance and storage of your five company registers
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    Exclusive solicitor-written guidance notes covering key topics and processes you need to be aware of when running a company
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    If your company is dormant, we will prepare and file your dormant company accounts
-                                                                </li>
-                                                                <li>
-                                                                    <span class="fa-li">
-                                                                        <i class="fa-solid fa-angle-right"></i>
-                                                                    </span>
-                                                                    A dedicated account manager on hand to answer your questions and process your instructions.
-                                                                </li>
-                                                            </ul>
-                                                            <p><strong>Renewal Cost</strong></p>
-                                                            <p>Our Full Company Secretary Service is renewable annually for £149.99 +VAT.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            Full Company <br class="visible-desktop visible-tablet" />Secretary Service
-                                        </li>
-                                    </ul>
-                                    <div class="home-packages__buttons">
-                                        <a class="button button--secondary button5 js-routing" href="#">Buy Now</a>
-                                        <a class="button button--alt" href="#">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a class="home-packages__package-mobile home-packages__package-mobile--compare" href="/compare-packages/">
+                            }
+                        }
+                        <a class="home-packages__package-mobile home-packages__package-mobile--compare" href="/BuyPackage">
                             <span>Compare all Packages</span>
                         </a>
                     </div>
@@ -1731,8 +822,148 @@
                             </div>
                         </div>
                         <div class="home-company-formation-easy__cta">
-                            <a class="button button--secondary" href="#">Register Now</a>
+                            <a class="button button--secondary" href="/register/">Register Now</a>
                         </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="home-company-formation-easy__wrap">
+                        <div class="home-company-formation-easy__title">
+                            <h3 class="section-title">What you need to know</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 home-faqs__column">
+                    <div class="home-faqs__faq">
+                        <div class="home-faqs__question">
+                            <h4>What is a limited company?</h4>
+                            <span class="home-faqs__icon">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down" style="display: none;" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="home-faqs__answer">
+                            <p>A limited company is a business structure that separates the owner(s) from the business. This separation protects the owner's personal assets from the business’s debts and financial obligations.</p>
+                            <p>This is the most popular business structure in the UK, and it provides additional benefits such as tax efficiency and enhanced credibility.</p>
+                        </div>
+                    </div>
+                    <div class="home-faqs__faq">
+                        <div class="home-faqs__question">
+                            <h4>How long does it take to register a new company?</h4>
+                            <span class="home-faqs__icon">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down" style="display: none;" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="home-faqs__answer">
+                            <p>Our simple online application form takes no more than 20 minutes to complete.</p>
+                            <p>Once the application has been submitted to Companies House, it will usually be processed in one working day.</p>
+                        </div>
+                    </div>
+                    <div class="home-faqs__faq">
+                        <div class="home-faqs__question">
+                            <h4>Can I register a company on my own?</h4>
+                            <span class="home-faqs__icon">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down" style="display: none;" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="home-faqs__answer">
+                            <p>Yes. One person can form a limited company in the UK. You will need a director and a shareholder, and one individual can hold both positions.</p>
+                        </div>
+                    </div>
+                    <div class="home-faqs__faq">
+                        <div class="home-faqs__question">
+                            <h4>What information do I need to provide?</h4>
+                            <span class="home-faqs__icon">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down" style="display: none;" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="home-faqs__answer">
+                            <p>Information about your company, including the company name, its business activities, and the address to be used as the company’s registered office address.</p>
+                            <p>Some details on the people involved in the company, such as the directors and shareholders, including name, address, and date of birth.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 home-faqs__column">
+                    <div class="home-faqs__faq">
+                        <div class="home-faqs__question">
+                            <h4>How do I get a business bank account?</h4>
+                            <span class="home-faqs__icon">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down" style="display: none;" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="home-faqs__answer">
+                            <p>During the application process, we will provide a list of banks we can refer you to. Once your company is formed, we will share your details with the chosen bank who will contact you directly.</p>
+                        </div>
+                    </div>
+                    <div class="home-faqs__faq">
+                        <div class="home-faqs__question">
+                            <h4>What documents will I get after forming my company?</h4>
+                            <span class="home-faqs__icon">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down" style="display: none;" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="home-faqs__answer">
+                            <p>Once your company has been incorporated, you will receive digital copies of the following documents:</p>
+                            <ul class="fa-ul">
+                                <li><i class="fa-solid fa-angle-right" aria-hidden="true"></i> Certificate of Incorporation</li>
+                                <li><i class="fa-solid fa-angle-right" aria-hidden="true"></i> Memorandum and Articles of Association</li>
+                                <li><i class="fa-solid fa-angle-right" aria-hidden="true"></i> Share Certificates</li>
+                                <li><i class="fa-solid fa-angle-right" aria-hidden="true"></i> Minutes of the First Board Meeting</li>
+                                <li><i class="fa-solid fa-angle-right" aria-hidden="true"></i> WebFiling Authentication Code</li>
+                            </ul>
+                            <p>If your package includes hard-copy company documents, these will be dispatched to you within one working day.</p>
+                        </div>
+                    </div>
+                    <div class="home-faqs__faq">
+                        <div class="home-faqs__question">
+                            <h4>When can I start trading?</h4>
+                            <span class="home-faqs__icon">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down" style="display: none;" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="home-faqs__answer">
+                            <p>You can begin trading as soon as your company is registered by Companies House. Usually within one working day.</p>
+                        </div>
+                    </div>
+                    <div class="home-faqs__faq">
+                        <div class="home-faqs__question">
+                            <h4>Will my residential address be publicly available?</h4>
+                            <span class="home-faqs__icon">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down" style="display: none;" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="home-faqs__answer">
+                            <p>Although you must report your residential address to Companies House, you can keep it private and off the public record by using our registered office and service address services.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-non-residents bg--cream">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3 class="section-title">Non-Residents Package</h3>
+                    <p class="section-subtitle">Start and grow your UK business from anywhere in the world</p>
+                </div>
+                <div class="col">
+                    <div class="home-non-residents__text">
+                        <p>This package includes limited company registration, UK business banking, London address services with international mail forwarding, and more. <a href="#non-res--eligible-countries" data-lity="">A full list of eligible countries can be found here</a>.</p>
+                        <div class="home-non-residents__cta">
+                            <a class="button button--secondary" href="/package/non-residents/">Non-Residents Package</a>
+                        </div>
+                    </div>
+                    <div class="home-non-residents__image">
+                        <img src="https://1stformations.s3.eu-west-1.amazonaws.com/assets/live/images/2024/non-res--global-image.png" alt="Form a limited company with our Non-Residents Package" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -2373,7 +1604,7 @@
                 </div>
 
                 <div class="col home-checklist__footer">
-                    <a class="button button--secondary home-checklist__footer--button" href="#">Register Now</a>
+                    <a class="button button--secondary home-checklist__footer--button" href="/register/">Register Now</a>
                 </div>
 
             </div>
@@ -3032,7 +2263,7 @@
                 <div class="col">
                     <div class="site-last-cta__wrap">
                         <h3 class="section-title section-title--large">Are you ready to <br class="visible-desktop">set up your company?</h3>
-                        <a class="button button--secondary" href="#">Register Now</a>
+                        <a class="button button--secondary" href="/register/">Register Now</a>
                     </div>
                 </div>
             </div>
@@ -3082,7 +2313,7 @@
 
             $("#CompanynamecheckBtn").click(function () {
                 $("#CompanyName").addClass("spinner-ring");
-                var companyName = $("#CompanyName").val().trim();
+                var companyName = $("#CompanyName").val().trim().toUpperCase();
 
                 if (companyName === "") {
                     //alert("Please enter a company name.");
