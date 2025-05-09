@@ -1,6 +1,7 @@
 ﻿@page "{packageName}"
 @model Spendwise_WebApp.Pages.PackageModel
 @{
+    ViewData["Title"] = ""+@Model.Package.PackageName+" Company Formation Package";
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
 <link href="~/css/package.css" rel="stylesheet" />
@@ -33,38 +34,16 @@
                 </div>
             </div>
             @Html.Raw(Model.Package.Description)
-            @* <div class="col-one-wide fp-left-col">
-            <h3>Digital Package</h3>
-            <p class="mr-bot-20">At a cost of &pound;52.99 plus VAT, our Digital company formation package provides a set of
-            company documents by email (PDF) and the filing of the first confirmation statement.</p>
-            <h3>Consider this if&hellip;</h3>
-            <p class="mr-bot-20">You have a tight budget and you just need a basic limited company to get your business up
-            and running.</p>
-            <h3>Savings when you choose this package</h3>
-            <p class="mr-bot-20">The total value of our Digital company formation package is &pound;101.99, but it is
-            available to purchase for just &pound;52.99 + VAT. That's a saving of &pound;49.00.</p>
-            <div class="clearfix"></div>
-            </div> *@
+            @{
+                List<string> Features = Model.Package.PackageFeatures.Split(',').ToList();
+            }
             <div class="col-one-wide fp-right-col">
                 <h3 class="heading-noimage">Features:</h3>
                 <ul class="fa-ul mr-top-20-imp">
-                    <li><i class="fa-li fa fa-check fs-green"></i> Ready to Trade Limited Company</li>
-                    <li>
-                        <i class="fa-li fa fa-check fs-green"></i> Online Formation within 24 Hours - Subject to Companies House
-                        workload
-                    </li>
-                    <li><i class="fa-li fa fa-check fs-green"></i> Companies House &pound;50.00 Filing Fee Included</li>
-                    <li><i class="fa-li fa fa-check fs-green"></i> Email Copy of Certificate of Incorporation</li>
-                    <li><i class="fa-li fa fa-check fs-green"></i> Email Copy of Memorandum &amp; Articles of Association</li>
-                    <li><i class="fa-li fa fa-check fs-green"></i> Email Copy of Share Certificate(s)</li>
-                    <li><i class="fa-li fa fa-check fs-green"></i> Filing of the First Confirmation Statement*</li>
-                    <li><i class="fa-li fa fa-check fs-green"></i> Free Business Bank Account (optional)</li>
-                    <li><i class="fa-li fa fa-check fs-green"></i> Free Online Company Manager to Maintain your Companies</li>
-                    <li>
-                        <i class="fa-li fa fa-check fs-green"></i> Free Online &amp; Telephone Support for the Life of your
-                        Company
-                    </li>
-                    <li><i class="fa-li fa fa-check fs-green"></i> Free .com or .co.uk Domain Name</li>
+                    @foreach (var Feature in Features)
+                    {
+                        <li><i class="fa-li fa fa-check fs-green"></i> @Feature</li>
+                    }
                 </ul>
             </div>
             <div class="clearfix"></div>

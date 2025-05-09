@@ -67,7 +67,7 @@
     </ul>
 </div>
 <div class="tab-content" id="myTabContent">
-    <div class="rf-home-bc pd-top-20 pd-bot-20  xs-hide">
+    <div class="rf-home-bc pd-top-20 pd-bot-20">
         <div class="clearfix"></div>
         <div class="container-inner ncinner pos-relative padding-top-bot-tw pad-left-none pad-right-none" id="PackageTabContent">
         </div>
@@ -90,7 +90,7 @@
     <script>
         $(function () {
             $("#hdnSelectedCompany").val(Cookies.get("companyName"));
-
+            debugger;
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
             if (UrlPrams.length > 1 && UrlPrams[0] == "id" && UrlPrams[1].indexOf("token") !== -1) {

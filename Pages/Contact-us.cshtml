@@ -1,9 +1,85 @@
 ﻿@page
 @model Spendwise_WebApp.Pages.ContactUsModel
 @{
+    ViewData["Title"] = "Contact Us";
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
 <link href="~/css/faq.css" rel="stylesheet" />
+<style>
+    .container {
+        display: flex;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    .address-list {
+        width: 35%;
+    }
+
+    .address-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px;
+        margin: 5px 0;
+        background-color: var(--color-green-one);
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 17px;
+        line-height: 1.2;
+        width: 100%;
+        height: 100px;
+    }
+
+        .address-item:hover {
+            background-color: #93c47d;
+        }
+
+    .address-icon {
+        font-size: 20px;
+        color: #333;
+        margin-top: 2px;
+    }
+
+    #map {
+        height: 500px;
+        width: 70%;
+    }
+
+    @@media screen and (max-width: 768px) {
+        .container {
+            flex-direction: column; /* stack items vertically */
+            gap: 10px;
+        }
+
+        .address-list {
+            width: 100%;
+            height: auto;
+        }
+
+        #map {
+            width: 100%;
+            height: 300px; /* adjust height for smaller screens */
+        }
+
+        .address-item {
+            font-size: 14px; /* make text smaller */
+            height: auto; /* auto height for smaller screens */
+        }
+    }
+
+    /* Larger tablets and small desktop screens */
+    @@media screen and (max-width: 1024px) {
+        .address-list {
+            width: 45%; /* slightly reduce width */
+        }
+
+        #map {
+            width: 55%; /* adjust map width accordingly */
+        }
+    }
+</style>
 <div class="contactContainer">
     <div class="contactContainer__header">
         <h1>Contact Us</h1>
@@ -136,12 +212,12 @@
 
 
                     @* <script>
-                        grecaptcha.ready(function () {
-                            grecaptcha.execute('6LctSPcUAAAAAGqGPCeWQHpISurU2OwIHk8P5BFB', { action: 'contactus' })
-                                .then(function (token) {
-                                    document.getElementById('g-recaptcha-response').value = token;
-                                });
-                        });
+                    grecaptcha.ready(function () {
+                    grecaptcha.execute('6LctSPcUAAAAAGqGPCeWQHpISurU2OwIHk8P5BFB', { action: 'contactus' })
+                    .then(function (token) {
+                    document.getElementById('g-recaptcha-response').value = token;
+                    });
+                    });
 
                     </script> *@
 
@@ -150,14 +226,105 @@
             </div>
         </div>
     </div>
-    <div class="contactContainer__header"><span>Our London Office</span></div>
+    <div class="contactContainer__header"><span>Our Office</span></div>
     <div class="col-five bg-color-nsgray au-infowrap float-left">
-        <div class="au-image">
-            <img alt="Exterior view of our office in Covent Garden, London" src="https://cdn-brand.s3.eu-west-1.amazonaws.com/assets/images/71-75SheltonStreetXL.jpg" width="500">
+        @*  <div class="au-image">
+        <img alt="Exterior view of our office in Covent Garden, London" src="https://cdn-brand.s3.eu-west-1.amazonaws.com/assets/images/71-75SheltonStreetXL.jpg" width="500">
         </div>
         <div class="au-gmap">
-            <iframe frameborder="0" height="375" src="https://maps.google.com/maps?q=1st%20Formationsᅷ-75%20Shelton%20Street&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=&amp;output=embed" style="border:0" width="492"></iframe>
+        <iframe frameborder="0" height="375" src="https://maps.google.com/maps?q=1st%20Formationsᅷ-75%20Shelton%20Street&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=&amp;output=embed" style="border:0" width="492"></iframe>
+        </div>
+        <div id="map" style="height: 500px; width: 100%;"></div> *@
+        <div class="container">
+            <div class="address-list">
+                <div class="address-item" data-index="0">
+                    <i class="fas fa-building address-icon"></i>
+                    <span class="address-text">The Basement, <br>Crownage Court, Green Lane Sunbury on Thames,<br>TW16 7FL</span>
+                </div>
+                <div class="address-item" data-index="1">
+                    <i class="fas fa-building address-icon"></i>
+                    <span class="address-text"> 1st Floor 17 Albemarle Street,<br>London,England,<br>W1S 4HP</span>
+                </div>
+                <div class="address-item" data-index="2">
+                    <i class="fas fa-building address-icon"></i>
+                    <span class="address-text">193 Summer Lane,<br>London,<br>N12 0LA</span>
+                </div>
+            </div>
+            <div id="map"></div>
         </div>
     </div>
+
     <div class="clearfix"></div>
 </div>
+
+@section Scripts {
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv_rKGDaF-RaK95_813LS6faJohf4xQc4"></script>
+    <script>
+
+        const addresses = [
+            "The Basement,Crownage Court,Green Lane Sunbury on Thames,TW16 7FL",
+            "1st Floor 17 Albemarle Street,London,England,W1S 4HP",
+            "193 Summer Lane,London,N12 0LA"
+        ];
+
+        let map;
+        let bounds;
+        const markers = [];
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 37.7749, lng: -122.4194 },
+                zoom: 10
+            });
+
+            bounds = new google.maps.LatLngBounds();
+            const geocoder = new google.maps.Geocoder();
+
+            addresses.forEach((address, index) => {
+                geocoder.geocode({ address: address }, function (results, status) {
+                    if (status === 'OK') {
+                        const location = results[0].geometry.location;
+                        const marker = new google.maps.Marker({
+                            map: map,
+                            position: location,
+                            title: address,
+                            animation: google.maps.Animation.DROP
+                        });
+
+                        markers[index] = marker;
+                        bounds.extend(location);
+                        map.fitBounds(bounds);
+                    } else {
+                        console.error("Geocode failed for: " + address);
+                    }
+                });
+            });
+
+            setupHoverEvents();
+        }
+
+        function setupHoverEvents() {
+            document.querySelectorAll('.address-item').forEach(item => {
+                item.addEventListener('mouseenter', function () {
+                    const index = parseInt(this.dataset.index);
+                    const marker = markers[index];
+                    if (marker) {
+                        map.setZoom(14);
+                        map.setCenter(marker.getPosition());
+                        marker.setAnimation(google.maps.Animation.BOUNCE);
+                    }
+                });
+                item.addEventListener('mouseleave', function () {
+                    const index = parseInt(this.dataset.index);
+                    const marker = markers[index];
+                    if (marker) {
+                        marker.setAnimation(null);
+                        map.fitBounds(bounds);
+                    }
+                });
+            });
+        }
+
+        window.onload = initMap;
+    </script>
+}
