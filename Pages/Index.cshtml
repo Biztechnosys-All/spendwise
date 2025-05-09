@@ -686,11 +686,12 @@
                     <div class="col-xs-12 col-sm-12">
                         @if (Model.Package != null && Model.Package.Any())
                         {
+                            int i = 1;
                             @foreach (var item in Model.Package)
                             {
                                 <div class="home-packages__tab">
-                                    <input id="tab-one" type="checkbox" name="tabs">
-                                    <label for="tab-one" class="digital">
+                                    <input id="@i" type="checkbox" name="tabs">
+                                    <label for="@i" class="@item.PackageName">
                                         @item.PackageName
                                         <div class="home-packages__right">
                                             <span>£@item.Price</span>
@@ -717,6 +718,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                i++;
                             }
                         }
                         <a class="home-packages__package-mobile home-packages__package-mobile--compare" href="/BuyPackage">
