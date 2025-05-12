@@ -42,6 +42,7 @@
                                     <td> @item.OrderDate </td>
                                     <td> @item.PackageName </td>
                                     <td> @item.CompanyName </td>
+                                    <td id="companyId" style="display: none;"> @item.CompanyId </td>
                                     @if (item.IsOrderComplete == false)
                                     {
                                         <td> Incomplete </td>
@@ -117,6 +118,13 @@
 
         function btnContinueClick(id) {
             window.location.href = '/BuyPackage?id=' + id;
-        };
+            Cookies.remove("BillingAddress");
+
+            var company = $("#companyId").text();
+            var companyIds = company.replace(/[\s\d.]+/g, '');
+
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            Cookies.set("SelectCompanyId", company?.trim(), expires);
+        }
     </script>
 }

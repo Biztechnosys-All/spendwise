@@ -13,8 +13,8 @@ namespace Spendwise_WebApp.Models
         public string? County { get; set; }
         public required string Country { get; set; }
         public required string PostCode { get; set; }
-        public string? CompanyId { get; set; }
-        public string? OfficerId { get; set; }
+        public int CompanyId { get; set; }
+        public int OfficerId { get; set; }
         public int? UserId { get; set; }
         public bool IsPrimary { get; set; } = false;
         public bool IsBilling { get; set; } = false;

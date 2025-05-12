@@ -28,7 +28,7 @@
                                             <a class="ef-nav-section-title" href="#BusinessEssentials">2. Business Essentials</a>
                                             <div class="ef-nav-section-description">Products &amp; services</div>
                                         </div> *@
-                                        <div class="ef-nav-section-link " data-tab="summary" aria-controls="Summary">
+                                        <div class="ef-nav-section-link summary-tab" data-tab="summary" aria-controls="Summary">
                                             <a class="ef-nav-section-title" id="spnSummary" href="#Summary">2. Summary</a>
                                             <div class="ef-nav-section-description">Details about your order</div>
                                         </div>
@@ -149,6 +149,27 @@
              });
         }
 
+        // function nextPageTab() {
+        //     var tab = $("#spnSummary").text();
+        //     var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+        //     var hash = window.location.hash;
+        //     $.ajax({
+        //         url: "/FormationPage/Summary",
+        //         type: "get",
+        //         success: function (result) {
+        //             $("#FormationTabContent").html(result);
+
+        //             const newUrl = '?section=' + tabName;
+        //             window.history.pushState({ path: newUrl }, '', newUrl);
+
+        //                 // Redirect (scroll) to the section with that ID
+        //                 $('html, body').animate({
+        //                     scrollTop: $(tabName).offset()?.top
+        //                 }, 800); // Smooth scroll over 800ms
+        //         }
+        //     });
+        // }
+
         $(window).on('scroll', function () {
             if ($(window).scrollTop() > 100) {
                 $('.ef-order-form-nav-step-wrapper').addClass('fixed-top');
@@ -253,5 +274,27 @@
                 }
             });
         });
+
+        function nextPageTab() {
+                $(".ef-nav-section-link").removeClass("current");
+
+                var tab = $("#spnSummary").text();
+                var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+
+                $.ajax({
+                    url: "/FormationPage/Summary",
+                    type: "get",
+                    success: function (result) {
+                        $("#FormationTabContent").html(result);
+                        $(".summary-tab").addClass("current");
+
+                        const newUrl = '?section=' + tabName;
+                        window.history.pushState({ path: newUrl }, '', newUrl);
+                        $('html, body').animate({
+                            scrollTop: $(tabName).offset()?.top
+                        }, 800); // Smooth scroll over 800ms
+                    }
+                });
+        };
     </script>
 }

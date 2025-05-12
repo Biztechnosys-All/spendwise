@@ -12,6 +12,6 @@ namespace Spendwise_WebApp.Models
         public required string CompanyType { get; set; }
         public required string Jurisdiction { get; set; }
         public required string Activities { get; set; }
-        public required string SIC_Code { get; set; }
+        public string? SIC_Code { get; set; }
     }
 }

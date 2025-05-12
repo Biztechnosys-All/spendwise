@@ -15,6 +15,6 @@ namespace Spendwise_WebApp.Models
         public DateTime? Createdon { get; set; }
         public required int Createdby { get; set; }
         public DateTime? ApprovedDate { get; set; }
-
+        public string? RegisteredEmail { get; set; }
     }
 }
