@@ -75,6 +75,17 @@
                         <div class="success name-check-result show-namecheck particular-company" id="companyNotAvailable" style="display:none">
                             <div class="ef-alert-box-main-text"><span class="ef-namecheck-choosen-name" id="notAvailablecompanyName"> </span> Sorry, this company name is unavailable.</div>
                         </div>
+                        <div class="ef-alert-box warning name-check-result show-namecheck" id="warnigMessage" style="margin-top: -35px; width: 70rem; display: none;">
+                            <div class="ef-alert-box-main-text">
+                                Warning, <span class="ef-namecheck-choosen-name" id="alertCompanyName"> </span> is available for registration.
+                            </div>
+                            <p class="ef-js-namecheck-meta-text namecheck-error-description" id="llpSubCompanyName">
+                                You will need to provide a valid Company ending: LLP, LIMITED LIABILITY PARTNERSHIP.
+                            </p>
+                            <p class="ef-js-namecheck-meta-text namecheck-error-description" id="otherSubCompanyName">
+                                You will need to provide a valid Company ending: LLP, Other Company.
+                            </p>
+                        </div>
                         <form>
                             <div>
                                 <div class="ef-namecheck-wrapper w-row ef-form-wrap">
@@ -85,7 +96,10 @@
                                                 Company Name
                                                 <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_NAME"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                             </label>
-                                            <input type="text" class="w-input ef-company-name-field" asp-for="Particular.CompanyName" />
+                                            <input type="text" class="w-input ef-company-name-field" asp-for="Particular.CompanyName" style="margin-bottom: 0px;" />
+                                            <span class="text-error-message" id="errorMsg" style="display: none;">
+                                                <label id="errorFieldName"> </label>
+                                            </span>
                                         </div>
                                         <div class="w-col w-col-6" style="margin-top: 1px;">
                                             <label for="ef-namecheck-button">&nbsp;</label>
@@ -101,7 +115,7 @@
                                                 <span class="ef-modal-help-icon" data-ref="HELP|COMPANY_TYPE"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                             </label>
                                             <select class="w-select" asp-for="Particular.CompanyType">
-                                                <option value="4" selected="selected">
+                                                <option value="Limited Liability Partnership" selected="selected">
                                                     Limited Liability Partnership
                                                 </option>
                                             </select>
@@ -141,27 +155,6 @@
                                                     <select class="w-select" asp-for="Particular.Activities" asp-items="Model.SicCodeCategoryList">
                                                         <option>Select a category:</option>
                                                         <option value="all-categories">All</option>
-                                                        @* <option value="A">A: Agriculture, Forestry and Fishing</option>
-                                                        <option value="B">B: Mining and Quarrying</option>
-                                                        <option value="C">C: Manufacturing</option>
-                                                        <option value="D">D: Electricity, gas, steam and air conditioning supply</option>
-                                                        <option value="E">E: Water supply, sewerage, waste management and remediation activities</option>
-                                                        <option value="F">F: Construction</option>
-                                                        <option value="G">G: Wholesale and retail trade; repair of motor vehicles and motorcycles</option>
-                                                        <option value="H">H: Transportation and storage</option>
-                                                        <option value="I">I: Accommodation and food service activities</option>
-                                                        <option value="J">J: Information and communication</option>
-                                                        <option value="K">K: Financial and insurance activities</option>
-                                                        <option value="L">L: Real estate activities</option>
-                                                        <option value="M">M: Professional, scientific and technical activities</option>
-                                                        <option value="N">N: Administrative and support service activities</option>
-                                                        <option value="O">O: Public administration and defence; compulsory social security</option>
-                                                        <option value="P">P: Education</option>
-                                                        <option value="Q">Q: Human health and social work activities</option>
-                                                        <option value="R">R: Arts, entertainment and recreation</option>
-                                                        <option value="S">S: Other service activities</option>
-                                                        <option value="T">T: Activities of households as employers; undifferentiated goods and services producing activities of households for own use</option>
-                                                        <option value="U">U: Activities of extraterritorial organisations and bodies</option> *@
                                                     </select>
                                                 </div>
                                                 <div class="ef-js-sic-codes__loader ef-sic-codes__loader">
@@ -171,7 +164,7 @@
                                                 </div>
                                                 <div class="w-input ef-sic-code-filter" id="ef-js-sic-codes__filter" style="display:none;">
                                                     <div class="ef-js-sic-codes__filter__label">
-                                                        Filter: <input type="text" class="ef-js-sic-codes__filter__input" asp-for="Particular.SIC_Code" autocomplete="off">
+                                                        Filter: 
                                                     </div>
                                                     <div class="" id="ef-js-sic-codes__filter__found"></div>
                                                     <div class="ef-js-sic-code-error" style=""></div>
@@ -237,7 +230,9 @@
                                                             <img class="ef-help-icon-img" src="/assets/icons/help.png">
                                                         </span>
                                                     </label>
-                                                    <input class="w-input ef-company-email-field" id="ef-company-email" type="text" name="company-email" value="it@spendwiseacc.com" onkeyup="FormBuilder.setCompanyRegisteredEmail(this.value)">
+                                                    <input class="w-input ef-company-email-field" asp-for="Company.RegisteredEmail" type="text">
+                                                    <span class="text-address-error-message" id="Address_RegisteredEmail_error" style="display: none;"></span>
+
                                                     <span class="ef-company-email-supplement-text ef-input-supplement-text">
                                                         The official email address of the company - this can be changed at any time.
                                                     </span>
@@ -256,13 +251,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="w-row ef-panel-row">
-                                                    <div class="w-col w-col-8">
+                                                    <div class="w-col w-col-8" style="margin-top: 10px;">
                                                         <div class="">
-                                                            <span class="ef-js-forwarding-address">15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM</span>
+                                                            <span class="ef-js-forwarding-address"></span>
                                                         </div>
                                                     </div>
                                                     <div class="w-col w-col-4 w-clearfix add-col">
-                                                        <button id="efForwardingAddressEditButton" type="button" class="ef-btn ef-alt-btn ef-edit-btn">Edit</button>
                                                         <button type="button" class="ef-btn ef-choose-btn ef-completed-btn" data-bs-toggle="modal" data-bs-target="#addressModal">Choose Address</button>
                                                     </div>
                                                 </div>
@@ -276,7 +270,7 @@
                     </div>
 
                     <div class="add-save">
-                        <button type="button" id="pseudo-nextstep" class="ef-btn nextstep">
+                        <button type="button" onclick="saveAddressData()" class="ef-btn nextstep">
                             Save
                         </button>
                     </div>
@@ -389,7 +383,7 @@
                 </div>
 
                 <div class="add-save">
-                    <button type="button" id="pseudo-nextstep" class="ef-btn nextstep ef-save-next-btn"> Save & Next</button>
+                    <button type="button" id="pseudo-nextstep" class="ef-btn nextstep ef-save-next-btn" onclick="nextPageTab()"> Save & Next</button>
                 </div>
             </div>
         </div>
@@ -415,41 +409,20 @@
                         <div id="use-previous-address-or-search" class="address-form-div" style="display:block">
                             <h4>Recently used addresses</h4>
 
-                            <div class="w-clearfix simple-row-elem">
-                                <div class="w-row ef-panel-row">
-                                    <div class="w-col w-col-8">
-                                        <p>15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM</p>
-                                    </div>
-                                    <div class="w-col w-col-4 w-clearfix add-col">
-                                        <button type="button" class="ef-btn ef-alt-address-btn" id="openSecondModal">Edit</button>
-                                        <button type="button" class="ef-btn ef-select-btn">Select</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="w-clearfix simple-row-elem">
-                                <div class="w-row ef-panel-row">
-                                    <div class="w-col w-col-8">
-                                        <p>22, First Avenue, WEMBLEY, Middlesex, HA9 8QG, UNITED KINGDOM</p>
-                                    </div>
-                                    <div class="w-col w-col-4 w-clearfix add-col">
-                                        <button type="button" class="ef-btn ef-alt-address-btn">Edit</button>
-                                        <button type="button" class="ef-btn ef-select-btn">Select</button>
+                            @foreach (var item in Model.AddressList)
+                            {
+                                <div class="w-clearfix simple-row-elem">
+                                    <div class="w-row ef-panel-row">
+                                        <div class="w-col w-col-8">
+                                            <p>@item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country</p>
+                                        </div>
+                                        <div class="w-col w-col-4 w-clearfix add-col">
+                                            <button type="button" class="ef-btn ef-alt-address-btn" onclick='editAddress(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                            <button type="button" class="ef-btn ef-select-btn" onclick='selectAddress(@Html.Raw(Json.Serialize(item)))'>Select</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="w-clearfix simple-row-elem">
-                                <div class="w-row ef-panel-row">
-                                    <div class="w-col w-col-8">
-                                        <p>2 Westglade Court, Woodgrange Close, Harrow, Middlesex, HA3 0XQ,...</p>
-                                    </div>
-                                    <div class="w-col w-col-4 w-clearfix add-col">
-                                        <button type="button" class="ef-btn ef-alt-address-btn">Edit</button>
-                                        <button type="button" class="ef-btn ef-select-btn">Select</button>
-                                    </div>
-                                </div>
-                            </div>
+                            }
 
                             <h4>Or enter a new Address</h4>
 
@@ -461,7 +434,7 @@
                                     <div class="w-col w-col-4 w-clearfix add-col">
 
                                         <!-- <span class="ef-btn ef-primary-btn ef-alt-btn ef-cancel-address" onclick="javascript:void(0)" >Cancel</span>-->
-                                        <button type="button" class="ef-btn ef-select-btn" onclick="">Select</button>
+                                        <button type="button" class="ef-btn ef-select-btn" id="openSecondModal">Select</button>
 
                                     </div>
                                 </div>
@@ -494,25 +467,187 @@
 
             <!-- Modal Body -->
             <div class="modal-body">
+                <div style="" class="address-form-div w-clearfix" id="an-address-form" name="an-address-form">
+                    <div class="w-row row-margin ef-postcode-lookup-wrapper">
+                        <div class="w-col w-col-6">
+                            <label for="postcode-lookup">Post Code</label>
+                            <input class="w-input postal-lookup postcode" id="postcode-lookup" type="text" placeholder="Enter your postal code" name="postcode-lookup">
+                        </div>
+                        <div class="w-col w-col-3">
+                            <label for="postcode-lookup">&nbsp;</label>
+                            <button type="button" class="ef-add-btn ef-postcode-lookup-btn" onclick="FormBuilder.PostCodeLookup(jQuery('#postcode-lookup').val())">Find Address</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" asp-for="Address.AddressId" />
+
+                    <label for="address-line-1">Name/Number <span>*</span></label>
+                    <input class="w-input" asp-for="Address.HouseName" type="text" placeholder="Enter House Name/Number" />
+                    <span class="text-address-error-message" id="Address_HouseName_error" style="display: none;"></span>
+
+                    <label for="address-line-2">Street <span>*</span></label>
+                    <input class="w-input" asp-for="Address.Street" type="text" placeholder="Enter Street" />
+                    <span class="text-address-error-message" id="Address_Street_error" style="display: none;"></span>
+
+                    <label for="address-line-3">Locality</label>
+                    <input class="w-input" asp-for="Address.Locality" type="text" placeholder="Enter Locality" />
+
+                    <label for="address-line-4">Town <span>*</span></label>
+                    <input class="w-input" asp-for="Address.Town" type="text" placeholder="Enter Town" />
+                    <span class="text-address-error-message" id="Address_Town_error" style="display: none;"></span>
+
+                    <label for="address-line-5" class="address-line-5">County</label>
+                    <input class="w-input address-line-5" asp-for="Address.County" type="text" placeholder="Enter County" />
+
+                    <div class="w-row last-margin">
+                        <div class="w-col w-col-6 ef-country-col">
+                            <label for="address-country">Country <span>*</span></label>
+                            <select class="w-select" asp-for="Address.Country">
+                                <option value="AFGHANISTAN">Afghanistan</option>
+                                <option value="ALBANIA">Albania</option>
+                                <option value="ALGERIA">Algeria</option>
+                                <option value="ANDORRA">Andorra</option>
+                                <option value="ANGOLA">Angola</option>
+                                <option value="ARGENTINA">Argentina</option>
+                                <option value="ARMENIA">Armenia</option>
+                                <option value="AUSTRALIA">Australia</option>
+                                <option value="AUSTRIA">Austria</option>
+                                <option value="AZERBAIJAN">Azerbaijan</option>
+                                <option value="BAHAMAS">Bahamas</option>
+                                <option value="BAHRAIN">Bahrain</option>
+                                <option value="BANGLADESH">Bangladesh</option>
+                                <option value="BELARUS">Belarus</option>
+                                <option value="BELGIUM">Belgium</option>
+                                <option value="BELIZE">Belize</option>
+                                <option value="BENIN">Benin</option>
+                                <option value="BHUTAN">Bhutan</option>
+                                <option value="BOLIVIA">Bolivia</option>
+                                <option value="BOSNIA AND HERZEGOVINA">Bosnia and Herzegovina</option>
+                                <option value="BOTSWANA">Botswana</option>
+                                <option value="BRAZIL">Brazil</option>
+                                <option value="BRUNEI">Brunei</option>
+                                <option value="BULGARIA">Bulgaria</option>
+                                <option value="BURKINA FASO">Burkina Faso</option>
+                                <option value="BURUNDI">Burundi</option>
+                                <option value="CAMBODIA">Cambodia</option>
+                                <option value="CAMEROON">Cameroon</option>
+                                <option value="CANADA">Canada</option>
+                                <option value="CHILE">Chile</option>
+                                <option value="CHINA">China</option>
+                                <option value="COLOMBIA">Colombia</option>
+                                <option value="COSTA RICA">Costa Rica</option>
+                                <option value="CROATIA">Croatia</option>
+                                <option value="CYPRUS">Cyprus</option>
+                                <option value="CZECH REPUBLIC">Czech Republic</option>
+                                <option value="DENMARK">Denmark</option>
+                                <option value="EGYPT">Egypt</option>
+                                <option value="ESTONIA">Estonia</option>
+                                <option value="FINLAND">Finland</option>
+                                <option value="FRANCE">France</option>
+                                <option value="GEORGIA">Georgia</option>
+                                <option value="GERMANY">Germany</option>
+                                <option value="GHANA">Ghana</option>
+                                <option value="GREECE">Greece</option>
+                                <option value="HONG KONG">Hong Kong</option>
+                                <option value="HUNGARY">Hungary</option>
+                                <option value="ICELAND">Iceland</option>
+                                <option value="INDIA">India</option>
+                                <option value="INDONESIA">Indonesia</option>
+                                <option value="IRAN">Iran</option>
+                                <option value="IRAQ">Iraq</option>
+                                <option value="IRELAND">Ireland</option>
+                                <option value="ISRAEL">Israel</option>
+                                <option value="ITALY">Italy</option>
+                                <option value="JAPAN">Japan</option>
+                                <option value="JORDAN">Jordan</option>
+                                <option value="KENYA">Kenya</option>
+                                <option value="KUWAIT">Kuwait</option>
+                                <option value="LATVIA">Latvia</option>
+                                <option value="LEBANON">Lebanon</option>
+                                <option value="LITHUANIA">Lithuania</option>
+                                <option value="LUXEMBOURG">Luxembourg</option>
+                                <option value="MALAYSIA">Malaysia</option>
+                                <option value="MALTA">Malta</option>
+                                <option value="MEXICO">Mexico</option>
+                                <option value="MOROCCO">Morocco</option>
+                                <option value="NEPAL">Nepal</option>
+                                <option value="NETHERLANDS">Netherlands</option>
+                                <option value="NEW ZEALAND">New Zealand</option>
+                                <option value="NIGERIA">Nigeria</option>
+                                <option value="NORWAY">Norway</option>
+                                <option value="PAKISTAN">Pakistan</option>
+                                <option value="PHILIPPINES">Philippines</option>
+                                <option value="POLAND">Poland</option>
+                                <option value="PORTUGAL">Portugal</option>
+                                <option value="QATAR">Qatar</option>
+                                <option value="ROMANIA">Romania</option>
+                                <option value="RUSSIA">Russia</option>
+                                <option value="SAUDI ARABIA">Saudi Arabia</option>
+                                <option value="SINGAPORE">Singapore</option>
+                                <option value="SLOVAKIA">Slovakia</option>
+                                <option value="SLOVENIA">Slovenia</option>
+                                <option value="SOUTH AFRICA">South Africa</option>
+                                <option value="SOUTH KOREA">South Korea</option>
+                                <option value="SPAIN">Spain</option>
+                                <option value="SRI LANKA">Sri Lanka</option>
+                                <option value="SWEDEN">Sweden</option>
+                                <option value="SWITZERLAND">Switzerland</option>
+                                <option value="SYRIA">Syria</option>
+                                <option value="TAIWAN">Taiwan</option>
+                                <option value="THAILAND">Thailand</option>
+                                <option value="TUNISIA">Tunisia</option>
+                                <option value="TURKEY">Turkey</option>
+                                <option value="UGANDA">Uganda</option>
+                                <option value="UKRAINE">Ukraine</option>
+                                <option value="UNITED ARAB EMIRATES">United Arab Emirates</option>
+                                <option value="UNITED KINGDOM">United Kingdom</option>
+                                <option value="UNITED STATES">United States</option>
+                                <option value="URUGUAY">Uruguay</option>
+                                <option value="VIETNAM">Vietnam</option>
+                                <option value="YEMEN">Yemen</option>
+                                <option value="ZAMBIA">Zambia</option>
+                                <option value="ZIMBABWE">Zimbabwe</option>
+                            </select>
+                        </div>
+
+                        <div class="w-col w-col-6 postcode-col">
+                            <label for="address-postcode" id="address-postcode-label">
+                                Postal Code
+                                <span>
+                                    *
+                                </span>
+                            </label>
+                            <input class="w-input postcode" asp-for="Address.PostCode" type="text" placeholder="Enter Postcode" />
+                            <span class="text-address-error-message" id="Address_PostCode_error" style="display: none;"></span>
+                        </div>
+                    </div>
+                    <button type="button" class="ef-add-btn ef-cancel-forward-address" onclick="javascript:void(0)">Cancel</button>
+                    <button type="submit" class="ef-add-btn ef-save-address-btn" onclick="saveChooseAddressData()">Save &amp; Continue</button>
+                </div>
             </div>
         </div>
 
     </div>
 </div>
+
 <div id="appointmentTab"></div>
 
 <script>
     function saveFormationData(type) {
-        if (type == "particular") {
-            debugger;
+        if(type == "particular"){
             var isValid = true;
             const particularData = {
                 CompanyName: $("#Particular_CompanyName").val(),
-                CompanyType: $("select[name='Particular.CompanyType']").val(),
-                Jurisdiction: $("select[name='Particular.Jurisdiction']").val(),
-                Activities: $("select[name='Particular.Activities']").val(),
-                SIC_Code: $("input[name='Particular.SIC_Code']").val()
+                CompanyType: $("#Particular_CompanyType").val(),
+                Jurisdiction: $("#Particular_Jurisdiction").val(),
+                Activities: $("#Particular_Activities").val(),
             };
+
+            debugger;
+            var SIC_Code = $("#ef-sic-code-list").text();
+            var SIC_Code_List = SIC_Code.match(/\d+/g);
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            Cookies.set("SIC_Code", SIC_Code_List?.join(','), expires);
 
             $("#companyNotAvailable").hide();
             $("#companyAvailable").hide();
@@ -521,40 +656,53 @@
             function validateField(id, fieldName) {
                 var value = $(id).val().trim();
                 if (value === "") {
-                    $(id).after('<small class="text-danger">' + fieldName + ' is required.</small>');
+                    isValid = false;
+                    // $(id).after('<small class="text-danger"> ' + fieldName + ' is required.</small>');
+                    $("#errorMsg").show();
+                    $("#errorFieldName").html(fieldName + " " + "is required.");
+                    $("#warnigMessage").hide();
                 }
                 else {
+                    $("#errorMsg").hide();
                     if (id == "#Particular_CompanyName") {
+                        var str1 = $("#Particular_CompanyName").val();
                         if (Cookies.get("packageName") == "LLP") {
 
-                            var str1 = $("#Particular_CompanyName").val();
                             var str2 = "LLP, LIMITED LIABILITY PARTNERSHIP";
 
                             var found = false;
 
                             // Split str2 into parts using comma and space as delimiters
                             var parts = str2.split(/[\s,]+/); // splits on space and comma
-                            alert(parts);
-                            $.each(parts, function (index, part) {
+                            $.each(parts, function(index, part) {
                                 if (str1.toUpperCase().includes(part.toUpperCase())) {
                                     found = true;
                                     return false; // break out of loop
                                 }
                             });
+
                             if (found) {
-                                $(".ef-alert-box").hide();
+                                $("#warnigMessage").hide();
+                                $("#llpSubCompanyName").hide();
+                                $("#otherSubCompanyName").hide();
                             } else {
-                                $(id).after('<div class="ef-alert-box warning name-check-result show-namecheck" style="margin-top: -105px; width: 70rem;"> <div class="ef-alert-box-main-text">Warning, <span class="ef-namecheck-choosen-name"> ' + fieldName + '</span> is available for registration.</div> <p class="ef-js-namecheck-meta-text namecheck-error-description">You will need to provide a valid Company ending: LLP, LIMITED LIABILITY PARTNERSHIP.</p> </div>');
+                                $("#warnigMessage").show();
+                                $("#alertCompanyName").html(str1);
+                                $("#llpSubCompanyName").show();
+                                $("#otherSubCompanyName").hide();
                             }
                         }
                         else {
-                            $(id).after('<div class="ef-alert-box warning name-check-result show-namecheck" style="margin-top: -105px; width: 70rem;"> <div class="ef-alert-box-main-text">Warning, <span class="ef-namecheck-choosen-name"> ' + fieldName + '</span> is available for registration.</div> <p class="ef-js-namecheck-meta-text namecheck-error-description">You will need to provide a valid Company ending: LLP.</p> </div>');
+                            $("#warnigMessage").show();
+                            $("#alertCompanyName").html(str1);
+                            $("#otherSubCompanyName").show();
+                            $("#llpSubCompanyName").hide();
                         }
                     }
                 }
 
             }
-            validateField("#Particular_CompanyName", Cookies.get("companyName"));
+            validateField("#Particular_CompanyName", "CompanyName");
 
             if (isValid) {
                 $.ajax({
@@ -588,6 +736,7 @@
     }
 
     $(document).ready(function () {
+        $("#Particular_CompanyName").val(Cookies.get("companyName"));
         $('#openSecondModal').on('click', function () {
             $('#addressModal').modal('hide');
 
@@ -595,6 +744,13 @@
                 $('#secondAddressModal').modal('show');
             });
         });
+    });
+
+    $('#Particular_CompanyName').keypress(function (e) {
+        if (e.which === 13) {
+            e.preventDefault(); // Prevent form submission
+            CheckCompanyName(); // Simulate button click
+        }
     });
 
     function CheckCompanyName() {
@@ -613,17 +769,17 @@
                         isAvailable = (isAvailable.toLowerCase() === 'true');
                     }
 
-                    if (isAvailable === true) {
-                        Cookies.set("companyName", searchedCompanyName, expires);
-                        $("#companyAvailable").show();
+                    if (isAvailable === true) {;
+                        $("#companyAvailable").css("display", "block");
                         $("#companyNotAvailable").hide();
-                        $(".ef-alert-box").hide();
+                        $("#warnigMessage").hide();
+                        $("#errorMsg").hide();
                         $("#availableCompanyName").html(searchedCompanyName);
                     } else {
-                        alert("not");
                         $("#companyNotAvailable").show();
                         $("#companyAvailable").hide();
-                        $(".ef-alert-box").hide();
+                        $("#warnigMessage").hide();
+                        $("#errorMsg").hide();
                         $("#notAvailablecompanyName").html(searchedCompanyName);
                     }
                 },
@@ -666,6 +822,121 @@
             }
         });
     });
+
+    function saveChooseAddressData() {
+        var isValid = true;
+
+        // Field validation helper
+        function validateField(id, errorId, fieldName) {
+            const value = $(id).val().trim();
+            if (value === "") {
+                isValid = false;
+                $(errorId).text(`${fieldName} is required.`).show();
+            } else {
+                $(errorId).text("").hide();
+            }
+        }
+
+        validateField("#Address_HouseName", "#Address_HouseName_error", "House Name");
+        validateField("#Address_Street", "#Address_Street_error", "Street");
+        validateField("#Address_Town", "#Address_Town_error", "Town");
+        validateField("#Address_PostCode", "#Address_PostCode_error", "Postcode");
+
+        if (isValid) {
+            $("#secondAddressModal").modal("hide");
+        }
+    }
+
+    function saveAddressData() {
+        var isValid = true;
+
+        // Field validation helper
+        function validateField(id, errorId, fieldName) {
+            const value = $(id).val().trim();
+            if (value === "") {
+                isValid = false;
+                $(errorId).text(`${fieldName} is required.`).show();
+            } else {
+                $(errorId).text("").hide();
+            }
+        }
+
+        validateField("#Company_RegisteredEmail", "#Address_RegisteredEmail_error", "Registered Email");
+        debugger;
+        const registeredEmail = $("#Company_RegisteredEmail").val().trim();
+        const addressData = {
+            addressId: parseInt($("#Address_AddressId").val()) || 0,
+            houseName: $("#Address_HouseName").val(),
+            street: $("#Address_Street").val(),
+            postCode: $("#Address_PostCode").val(),
+            town: $("#Address_Town").val(),
+            country: $("#Address_Country").val(),
+            county: $("#Address_County").val(),
+            locality: $("#Address_Locality").val()
+        };
+        const payload = {
+             registeredEmail: registeredEmail,
+             address: addressData
+         };
+
+        if(isValid){
+            $.ajax({
+                url: "/FormationPage/CompanyFormationSubTab?handler=SaveResidentialAddress",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (response) {
+                    $("#errorCompanyNameMsg").css("display", "none");
+                    document.querySelectorAll('.field-msg').forEach(span => span.textContent = '');
+
+                    if (!response.success) {
+                        // Loop through returned errors and set messages
+                        for (const [field, message] of Object.entries(response.errors)) {
+                            const errorSpan = document.getElementById(`${field}-error`);
+                            if (errorSpan) {
+                                errorSpan.textContent = message;
+                            }
+                        }
+                    }
+                    else {
+                        console.log("Success:", response);
+                        $("#secondAddressModal").modal('hide');
+                        $("#addressModal").modal('hide');
+                        window.location.reload();
+                        const redirectUrl = `/FormationPage/Company-Formation?section=CompanyFormation#address`;
+                        window.location.href = redirectUrl;
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error:", xhr.statusText, xhr.responseText);
+                }
+            });
+        }
+    }
+
+    function editAddress(data) {
+        $("#Address_AddressId").val(data.addressId); // Ensure your model has Id
+
+        $("#Address_HouseName").val(data.houseName);
+        $("#Address_Street").val(data.street);
+        $("#Address_Locality").val(data.locality);
+        $("#Address_Town").val(data.town);
+        $("#Address_County").val(data.county);
+        $("#Address_Country").val(data.country);
+        $("#Address_PostCode").val(data.postCode);
+
+        // Clear error messages
+        $(".text-address-error-message").hide().text("");
+
+        $("#secondAddressModal").modal("show");
+    }
+
+    function selectAddress(data) {
+        const addressHtml = `${data.houseName}, ${data.street}, ${data.town}, ${data.county}, ${data.postCode}, ${data.country}`;
+
+        $(".ef-js-forwarding-address").html(addressHtml);
+        $("#addressModal").modal("hide");
+    }
 
 
     // $('#Particular_SIC_Code').on('keyup', function () {
@@ -730,8 +1001,6 @@
                     </div>
                 </div>
             </li>`;
-
-        //$("#ef-sic-code-list").append(SicStr);
 
         $list.append(SicStr);
         $row.hide();

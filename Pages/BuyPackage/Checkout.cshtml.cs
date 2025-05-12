@@ -87,23 +87,9 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                 SelectedItemIdsCsv = string.Join(",", itemIds);
             }
 
+            var companyName = Request.Cookies["companyName"];
             var selectedPackage = _context.packages.Where(x => x.PackageName.ToLower() == (string.IsNullOrEmpty(Request.Cookies["SelectedPackage"]) ? Request.Cookies["packageName"] : Request.Cookies["SelectedPackage"]).ToLower()).FirstOrDefault();
 
-            var order = new Orders
-            {
-                OrderBy = User != null ? User.UserID : 0,
-                OrderByIP = userIp,
-                OrderDate = DateTime.Now,
-                PackageID = selectedPackage.PackageId,
-                PackageName = selectedPackage.PackageName,
-                CompanyName = Request.Cookies["companyName"],
-                NetAmount = Convert.ToDouble(Request.Cookies["NetAmount"].Replace("£", "")),
-                VatAmount = Convert.ToDouble(Request.Cookies["VatAmount"].Replace("£", "")),
-                TotalAmount = Convert.ToDouble(Request.Cookies["TotalAmount"].Replace("£", "")),
-                AmountDue = Convert.ToDouble(Request.Cookies["TotalAmount"].Replace("£", "")),
-                AdditionalPackageItemIds = SelectedItemIdsCsv,
-                IsOrderComplete = false,
-            };
 
             var companyDetails = new CompanyDetail
             {
@@ -114,8 +100,30 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                 Createdon = DateTime.Now,
             };
 
-            _context.Orders.Add(order);
             _context.CompanyDetails.Add(companyDetails);
+            _context.SaveChanges();
+
+            var companyId = _context.CompanyDetails.Where(x => x.Createdby == User.UserID).OrderByDescending(x => x.Createdon).FirstOrDefault().CompanyId;
+            Response.Cookies.Append("ComanyId", companyId.ToString());
+
+            var order = new Orders
+            {
+                OrderBy = User != null ? User.UserID : 0,
+                OrderByIP = userIp,
+                OrderDate = DateTime.Now,
+                PackageID = selectedPackage.PackageId,
+                PackageName = selectedPackage.PackageName,
+                CompanyName = Request.Cookies["companyName"],
+                CompanyId = companyId,
+                NetAmount = Convert.ToDouble(Request.Cookies["NetAmount"].Replace("£", "")),
+                VatAmount = Convert.ToDouble(Request.Cookies["VatAmount"].Replace("£", "")),
+                TotalAmount = Convert.ToDouble(Request.Cookies["TotalAmount"].Replace("£", "")),
+                AmountDue = Convert.ToDouble(Request.Cookies["TotalAmount"].Replace("£", "")),
+                AdditionalPackageItemIds = SelectedItemIdsCsv,
+                IsOrderComplete = false,
+            };
+
+            _context.Orders.Add(order);
             _context.SaveChanges();
 
             int orderId = order.OrderId;

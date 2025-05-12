@@ -1,8 +1,12 @@
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Spendwise_WebApp.Models;
+using System.ComponentModel.Design;
 
 namespace Spendwise_WebApp.Pages.FormationPage
 {
@@ -10,50 +14,68 @@ namespace Spendwise_WebApp.Pages.FormationPage
     public class CompanyFormationSubTabModel : PageModel
     {
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
-        public CompanyFormationSubTabModel(Spendwise_WebApp.DLL.AppDbContext context)
+        private readonly IConfiguration _config;
+        public CompanyFormationSubTabModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         [BindProperty]
         public Particular Particular { get; set; } = default!;
+
+        [BindProperty]
+        public List<AddressData> AddressList { get; set; } = default!;
+
         public User User { get; set; } = default!;
+
+        [BindProperty]
+        public AddressData Address { get; set; } = default!;
+
+        [BindProperty]
+        public CompanyDetail Company { get; set; } = default!;
+
         public List<SelectListItem> SicCodeCategoryList { get; set; } = default!;
-        public IActionResult OnGet()
+
+        public async Task<IActionResult> OnGet()
         {
-            SicCodeCategoryList = _context.SicCodeCategory.Select(p => new SelectListItem
+            List<AddressData> addressData;
+            var userEmail = Request.Cookies["UserEmail"];
+            var selectCompanyId = (!string.IsNullOrEmpty(Request.Cookies["ComanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+
+            var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
+            addressData = await _context.AddressData.Where(m => m.UserId == userId && m.IsRegisteredOffice == true).ToListAsync();
+            Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId.ToString() == selectCompanyId.ToString());
+            Particular = await _context.Particulars.FirstOrDefaultAsync(m => m.UserId == userId && m.CompanyId.ToString() == selectCompanyId.ToString());
+            
+            if (addressData == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                AddressList = addressData;
+            }
+            SicCodeCategoryList = await _context.SicCodeCategory.Select(p => new SelectListItem
             {
                 Text = p.Category,
                 Value = p.Section.ToString()
-            }).ToList();
+            }).ToListAsync();
             return Page();
         }
-        public async Task<JsonResult> OnPostSaveParticularData([FromBody] Particular particularData)
+
+        public async Task<JsonResult> OnPostSaveParticularData([FromBody] Particular particular)
         {
-            if (!ModelState.IsValid)
-            {
-                // List of required fields with custom error messages
-                var requiredFields = new Dictionary<string, string>
-                {
-                    { "Particular.CompanyName", "CompanyName is required." },
-                    { "Particular.CompanyType", "CompanyType is required." },
-                    { "Particular.Jurisdiction", "Jurisdiction is required." },
-                    { "Particular.Activities", "Activities is required." },
-                    { "Particular.SIC_Code", "SIC_Code is required." }
-                };
+            var userEmail = Request.Cookies["UserEmail"];
+            var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
+            var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+            var sic_code = Request.Cookies["SIC_Code"];
 
-                // Iterate over required fields and add model errors
-                foreach (var field in requiredFields)
-                {
-                    if (ModelState.ContainsKey(field.Key) && ModelState[field.Key]?.Errors.Count > 0)
-                    {
-                        ModelState.AddModelError(field.Key, field.Value);
-                    }
-                }
-                return new JsonResult(new { success = false });
-            }
-
-            _context.Particular.Add(particularData);
+            particular.SIC_Code = sic_code;
+            particular.UserId = userId;
+            particular.CompanyId = companyId;
+            _context.Particulars.Add(particular);
             await _context.SaveChangesAsync();
 
             return new JsonResult(new { success = true });
@@ -81,6 +103,81 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 return new JsonResult(new { success = false, message = "An error occurred.", error = ex.Message });
             }
 
+        }
+
+        public class SaveAddressWithEmailRequest
+        {
+            public string RegisteredEmail { get; set; }
+            public AddressData Address { get; set; }
+        }
+        public async Task<JsonResult> OnPostSaveResidentialAddress([FromBody] SaveAddressWithEmailRequest request)
+        {
+            var userEmail = Request.Cookies["UserEmail"];
+            var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
+            var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+            var addressData = request.Address;
+            string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
+
+            if (addressData.AddressId > 0)
+            {
+
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+                    string query = "UPDATE AddressData SET HouseName = @HouseName, Street = @Street, Town = @Town, Locality = @Locality, PostCode = @PostCode, County = @County, Country = @Country, IsRegisteredOffice = @IsRegisteredOffice, CompanyId = @CompanyId WHERE AddressId = @AddressId";
+                    using (var cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@HouseName", addressData.HouseName);
+                        cmd.Parameters.AddWithValue("@Street", addressData.Street);
+                        cmd.Parameters.AddWithValue("@Town", addressData.Town);
+                        cmd.Parameters.AddWithValue("@Locality", addressData.Locality);
+                        cmd.Parameters.AddWithValue("@PostCode", addressData.PostCode);
+                        cmd.Parameters.AddWithValue("@County", addressData.County);
+                        cmd.Parameters.AddWithValue("@Country", addressData.Country);
+                        cmd.Parameters.AddWithValue("@IsRegisteredOffice", true);
+                        cmd.Parameters.AddWithValue("@CompanyId", companyId);
+                        cmd.Parameters.AddWithValue("@AddressId", addressData.AddressId);
+                        int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                        if (rowsAffected == 0)
+                        {
+                            ModelState.AddModelError("", "Data not found.");
+                            return new JsonResult(new { success = false });
+                        }
+                    }
+                }
+            }
+            else
+            {
+                addressData.IsRegisteredOffice = true;
+                addressData.CompanyId = companyId;
+                addressData.UserId = userId;
+                _context.AddressData.Add(addressData);
+            }
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                await conn.OpenAsync();
+                string query = "UPDATE CompanyDetails SET RegisteredEmail = @RegisteredEmail WHERE CompanyId = @CompanyId and Createdby = @Createdby";
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@RegisteredEmail", request.RegisteredEmail);
+                    cmd.Parameters.AddWithValue("@CompanyId", companyId);
+                    cmd.Parameters.AddWithValue("@Createdby", userId);
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                    if (rowsAffected == 0)
+                    {
+                        ModelState.AddModelError("", "Data not found.");
+                        return new JsonResult(new { success = false });
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { success = true });
         }
     }
 }

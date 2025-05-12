@@ -54,3 +54,12 @@
     </div>
  </div>
 
+ <script>
+    $('#company_name').keypress(function (e) {
+        if (e.which === 13) {
+            e.preventDefault(); // Prevent form submission
+            CheckCompanyName(); // Simulate button click
+        }
+    });
+ </script>
+

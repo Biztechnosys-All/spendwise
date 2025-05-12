@@ -1691,11 +1691,114 @@ ef-information-box p {
 }
 
 .particular-company .ef-namecheck-choosen-name {
-    color: var(--color-white) !important;
+    color: #3C434B !important;
+    /* padding-top: 5px; */
+    /* display: block; */
+    /* font-size: 18px !important; */
 }
-@media (max-width: 700px) {
-    #ef-namecheck-button {
-        padding: 11px 3px !important;
-        font-size: 12px !important;
-    }
+
+.ef-postcode-lookup-wrapper > div.w-col {
+    margin-left: -10px;
+}
+
+.ef-postcode-lookup-btn {
+    background-color: #5ea72d !important;
+    border: 1px solid #5ea72d !important;
+    color: #FFFFFF !important;
+    margin-right: 0;
+    border-radius: 0;
+    transition-delay: initial;
+    font-weight: 500;
+    margin-top: 27px;
+}
+
+.ef-postcode-lookup-btn:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    color: #FFFFFF !important;
+}
+
+.ef-add-btn {
+    padding: 10px 15px !important;
+    font-size: 18px !important;
+    width: auto !important;
+    font-size: 14px !important;
+    outline: none;
+    display: inline-block;
+    transition: all .5s ease;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    color: #FFF;
+}
+
+.ef-country-col {
+    margin-left: 0px !important;
+    padding-right: 0;
+    padding-left: 0 !important;
+}
+
+.postcode-col {
+    padding-left: 10px !important;
+    padding-right: 0;
+    margin-left: 0 !important;
+}
+
+.ef-cancel-forward-address {
+    background-color: #c6c6c6;
+}
+
+ .ef-cancel-forward-address:hover {
+     background-color: #969696;
+ }
+
+.ef-save-address-btn {
+    margin-right: 0;
+    float: right;
+    font-weight: 500;
+    background-color: #5ea72d !important;
+    border: 1px solid #5ea72d !important;
+    color: #FFFFFF !important;
+}
+
+.ef-save-address-btn:after {
+    content: "\f061";
+    font-family: fontawesome;
+    color: #FFFFFF;
+    padding-left: 20px;
+    font-weight: normal;
+}
+
+.ef-save-address-btn:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    text-decoration: none !important;
+}
+
+.text-error-message label {
+    width: 100%;
+    clear: both;
+    display: block;
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
+    font-weight: 700 !important;
+    padding: .25rem !important;
+    font-size: 12px;
+}
+
+.text-address-error-message {
+    width: 100%;
+    clear: both;
+    display: block;
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
+    font-weight: 700 !important;
+    padding: .25rem !important;
+    font-size: 12px;
+    margin-top: -22px;
+    margin-bottom: 5px
+}
+
+.ef-js-forwarding-address {
+    font-size: 15px;
 }

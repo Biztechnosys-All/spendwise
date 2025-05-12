@@ -1013,7 +1013,7 @@
             isValid = false;
             $(".efPaymentGatewayAddressText").after('<small class="text-danger">Address is required.</small>');
         }
-
+        debugger;
         if (isValid) {
             var UserData = {
                 Email: $("#User_Email").val(),
@@ -1061,7 +1061,7 @@
                     }
                 });
             }
-            else
+            else if(Cookies.get("BillingAddress"))
             {
                 $.ajax({
                     url: "/BuyPackage/CompanyDetails?handler=UpdateUserBillingAddress",
@@ -1087,10 +1087,11 @@
                         console.error("Error:", xhr.statusText, xhr.responseText);
                     }
                 });
-                @* const redirectUrl = `/FormationPage/Company-Formation`;
-                window.location.href = redirectUrl; *@
             }
-
+            else {
+                const redirectUrl = `/FormationPage/Company-Formation`;
+                window.location.href = redirectUrl;
+            }
         }
     }
 
@@ -1126,8 +1127,8 @@
                 PostCode: $("#Address_PostCode").val(),
                 Country: $("#Address_Country").val()
             };
-
-            console.log("AddressData =", AddressData);
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            Cookies.set("BillingAddress", true, expires);
             $("#chooseAddressModal").modal('hide');
             var SelectedAddress = AddressData.HouseName + "," + AddressData.Street + "," + AddressData.Locality + "," + AddressData.Town
                 + "," + AddressData.County + "," + AddressData.PostCode + "," + AddressData.Country;
