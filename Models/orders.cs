@@ -12,7 +12,7 @@ namespace Spendwise_WebApp.Models
         public required int PackageID { get; set; }
         public required string PackageName { get; set; }
         public required string CompanyName { get; set; }
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         public string AdditionalPackageItemIds { get; set; } 
         public required double NetAmount { get; set; }
         public required double VatAmount { get; set; }
