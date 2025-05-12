@@ -435,3 +435,27 @@
 .stats__star--yell-empty {
     fill: none;
 }
+@media (max-width: 749px) {
+    .tel-banner--package .tel-banner--package__content {
+        padding-left: 0rem;
+    }
+    .tel-banner--package h3 {
+        font-size: 20px !important;
+    }
+    .tel-banner--package p {
+        font-size: 14px !important;
+    }
+    .tel-banner--package {
+        height:160px;
+    }
+    .tel-banner--package .tel-banner--package__content {
+        display:block;
+    }
+    .tel-banner--package .tel-banner--package__cta {
+        text-align:center;
+        margin-top:10px;
+    }
+    .ff-link-four a, .ff-link-five a {
+        padding: 2px 30px;
+    }
+}
