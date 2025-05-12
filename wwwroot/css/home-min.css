@@ -7650,3 +7650,11 @@ body .lity.lity-inline {
         margin-right: 20px;
     }
 }
+@media (max-width: 768px) {
+    #section-one .home-packages__buttons {
+        padding:0px;
+    }
+    #section-one .home-packages__buttons a.button--alt {
+        margin: 0px 0 0 5px;
+    }
+}

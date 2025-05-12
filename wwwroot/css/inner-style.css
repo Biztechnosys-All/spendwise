@@ -668,12 +668,16 @@ body {
         width: 50%;
     }
     .page-heading__price {
-    padding-top:10px
+    padding-top:10px;
+    padding-bottom:10px;
 
     }
     .page-heading__right a {
         margin:5px 0;
         font-size:16px;
         font-weight:600;
+    }
+    .page-heading__button {
+        padding:15px;
     }
 }

@@ -3820,13 +3820,16 @@ form.static-form {
 }
 
 .slick-loading .slick-list {
-    background: #fff url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/images/ajax-loader.gif) center center no-repeat
+    background: #fff url(../assets/live/images/ajax-loader.gif) center center no-repeat
 }
 
 @font-face {
     font-family: slick;
-    src: url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.eot);
-    src: url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.eot?#iefix) format("embedded-opentype"),url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.woff) format("woff"),url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.ttf) format("truetype"),url(https://s3-eu-west-1.amazonaws.com/1stformations/assets/live/fonts/slick/slick.svg#slick) format("svg");
+    src: url(../assets/live/fonts/slick/slick.eot);
+    src: url(../assets/live/fonts/slick/slick.eot?#iefix) format("embedded-opentype"),
+        url(../assets/live/fonts/slick/slick.woff) format("woff"),
+        url(../assets/live/fonts/slick/slick.ttf) format("truetype"),
+        url(../assets/live/fonts/slick/slick.svg#slick) format("svg");
     font-weight: 400;
     font-style: normal;
     font-display: swap
@@ -3988,4 +3991,37 @@ form.static-form {
 .compare-packages-grid__price {
 display:inline-block;
 padding:15px 0;
+}
+@media (max-width:650px) {
+    .compare-packages-grid .table th h3{
+        font-size:12px;
+    }
+    .compare-packages-grid .table th .compare-packages-grid__price {
+        font-size:16px;
+    }
+    .compare-packages-grid__buttons a {
+        font-size: 14px;
+
+    }
+    .compare-packages-grid__buttons .button--secondary {
+        font-size: 14px;
+        padding: 5px 5px;
+    }
+    .compare-packages-grid__buttons a {
+        font-size: 12px;
+    }
+    .compare-packages-grid__buttons a:last-child {
+        padding: 5px 5px;
+    }
+    .table.table-bordered.table-responsive td {
+        font-size:12px;
+    }
+    .compare-packages-grid__price {
+        font-size:14px;
+    }
+    .row {
+        --bs-gutter-x: 0rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
 }
