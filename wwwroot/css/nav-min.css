@@ -2815,3 +2815,20 @@ form.static-form {
         padding: 14px 3px;
     }
 }
+@media (max-width: 768px) {
+    .accordion-faqs h3 {
+    margin-top:50px;
+    margin-bottom:50px;
+    }
+    .site-nav__menu-sub-item {
+        font-size: 14px;
+        padding: 0 30px 0 20px;
+    }
+    .site-nav__menu-heading {      
+        padding-left: 10px;
+    }
+    .site-header .site-nav__wrap .site-nav__body--subnav .site-nav__item--dropdown .site-nav__item--caret {
+        display: none
+    }
+}
+   

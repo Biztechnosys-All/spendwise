@@ -3305,14 +3305,15 @@ section {
 }
 
 .home-hero .company-name-search input {
-    font-size: 20px;
-    font-size: 1.25rem;
+    font-size: 16px;
     font-family: var(--font-family-myriad);
     float: left;
     width: 80%;
     text-align: left;
     height: 60px;
     box-sizing: border-box;
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
 }
 
     .home-hero .company-name-search input::placeholder {
@@ -7656,5 +7657,16 @@ body .lity.lity-inline {
     }
     #section-one .home-packages__buttons a.button--alt {
         margin: 0px 0 0 5px;
+    }
+    .site-header .site-nav__wrap .site-nav__body--subnav .site-nav__item--dropdown .site-nav__item--caret {display:none
+    }
+    .site-nav__menu-sub-item {
+        font-size:14px;
+    }
+    .site-nav__menu-sub-item {
+        padding: 0 30px 0 25px;
+    }
+    .site-nav__menu-heading {
+        padding-left: 10px;
     }
 }
