@@ -2815,3 +2815,10 @@ form.static-form {
         padding: 14px 3px;
     }
 }
+@media (max-width: 768px) {
+    .accordion-faqs h3 {
+    margin-top:50px;
+    margin-bottom:50px;
+    }
+}
+   
