@@ -19,7 +19,7 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
     - name: Clear NuGet cache
-      run: dotnet nuget locals all--clear
+      run: dotnet nuget locals all --clear
     - name: Restore dependencies
       run: dotnet restore
     - name: Restore
