@@ -164,7 +164,7 @@
                                                 </div>
                                                 <div class="w-input ef-sic-code-filter" id="ef-js-sic-codes__filter" style="display:none;">
                                                     <div class="ef-js-sic-codes__filter__label">
-                                                        Filter: 
+                                                        Filter:
                                                     </div>
                                                     <div class="" id="ef-js-sic-codes__filter__found"></div>
                                                     <div class="ef-js-sic-code-error" style=""></div>
@@ -178,7 +178,19 @@
                                                 </label>
                                                 <!-- <div class="ef-selected-sic-codes" id="ef-js-sic-codes__selected__picked"> -->
                                                 <ul id="ef-sic-code-list" class="ef-sic-code-list">
-                                                    <li class="ef-no-sic-code">None Selected</li>
+                                                    @* <li class="ef-no-sic-code">None Selected</li> *@
+                                                    @foreach (var item in Model.SIC_CodeList)
+                                                    {
+                                                        <li class="ef-sic-code" data-sic-code="@item.SicCode">
+                                                            <div class="sic-text">@item.SicCode - @item.Description</div>
+                                                            <div class="ef-remove-sic-code-img-container">
+                                                                <div class="ef-remove-sic-code" onclick="FormBuilder.RemoveSicCode(this);">
+                                                                    <img class="ef-remove-sic-code-img" src="/images/cross.png" alt="X">
+                                                                    <input type="hidden" value="@item.SicCode" name="siccodes[]">
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
                                                 </ul>
                                             </div>
                                         </div>
@@ -257,7 +269,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="w-col w-col-4 w-clearfix add-col">
-                                                        <button type="button" class="ef-btn ef-choose-btn ef-completed-btn" data-bs-toggle="modal" data-bs-target="#addressModal">Choose Address</button>
+                                                        <button type="button" class="ef-btn ef-choose-btn ef-completed-btn" data-bs-toggle="modal" data-address-type="registered" data-bs-target="#addressModal">Choose Address</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -270,7 +282,7 @@
                     </div>
 
                     <div class="add-save">
-                        <button type="button" onclick="saveAddressData()" class="ef-btn nextstep">
+                        <button type="button" onclick="saveAddressData('registered')" class="ef-btn nextstep">
                             Save
                         </button>
                     </div>
@@ -301,11 +313,35 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            <div class="ef-registered-office-section">
+                                <!--  Forwarding address -->
+                                <div class="ef-item-box ef-selected">
+                                    <div class="ef-item-content">
+                                        <div class="w-row ef-panel-row">
+                                            <div class="w-col">
+                                                <h3 class="forward-address">Forwarding Address:</h3>
+                                            </div>
+                                        </div>
+                                        <div class="w-row ef-panel-row">
+                                            <div class="w-col w-col-8" style="margin-top: 10px;">
+                                                <div class="">
+                                                    <span class="ef-js-forwarding-business-address"></span>
+                                                </div>
+                                            </div>
+                                            <div class="w-col w-col-4 w-clearfix add-col">
+                                                <button type="button" class="ef-btn ef-choose-btn ef-completed-btn" data-bs-toggle="modal" data-address-type="business" data-bs-target="#addressModal">Choose Address</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end forwarding address -->
+                            </div>
                         </div>
                     </div>
 
                     <div class="add-save">
-                        <button type="button" id="pseudo-nextstep" class="ef-btn nextstep">Save</button>
+                        <button type="button" onclick="saveAddressData('business')" class="ef-btn nextstep">Save</button>
                     </div>
                 </div>
             </div>
@@ -380,10 +416,54 @@
                     <div class="head-01">
                         <h1> Documents </h1>
                     </div>
-                </div>
 
-                <div class="add-save">
-                    <button type="button" id="pseudo-nextstep" class="ef-btn nextstep ef-save-next-btn" onclick="nextPageTab()"> Save & Next</button>
+                    <div class="ef-registered-office-step" id="ef-panel-content">
+                        <div id="ef-panel-inner-content">
+                            <div class="w-row">
+                                <div class="w-col w-col-4">
+                                    <label for="selectType">Choose a Proof of Identity:</label>
+                                    <div class="document-dropdown">
+                                        <select class="form-select" id="identityType">
+                                            <option value="">-- Select --</option>
+                                            <option value="Passport"> Passport </option>
+                                            <option value="ResidencePermit"> Residence permit </option>
+                                            <option value="DrivingLicence"> Driving Licence </option>
+                                            <option value="BirthCertificate"> Birth Certificate </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="w-col w-col-8">
+                                    <div id="fileInputWrapper" style="display:none;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-row" style="margin-top: 20px;">
+                                <div class="w-col w-col-4">
+                                    <label for="selectType">Choose a Proof of Address:</label>
+                                    <div class="document-dropdown">
+                                        <select class="form-select" id="addressType">
+                                            <option value="">-- Select --</option>
+                                            <option value="OutsideDrivingLicence"> Driving Licence For Outside  </option>
+                                            <option value="MarriageCertificate"> Marriage Certificate </option>
+                                            <option value="DrivingLicence"> Driving Licence </option>
+                                            <option value="BirthCertificate"> Birth Certificate </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="w-col w-col-8">
+                                    <div id="fileInputForAddress" style="display:none;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="add-save">
+                        <button type="button" id="pseudo-nextstep" class="ef-btn nextstep ef-save-next-btn" onclick="nextPageTab()"> Save & Next</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -409,20 +489,39 @@
                         <div id="use-previous-address-or-search" class="address-form-div" style="display:block">
                             <h4>Recently used addresses</h4>
 
-                            @foreach (var item in Model.AddressList)
-                            {
-                                <div class="w-clearfix simple-row-elem">
-                                    <div class="w-row ef-panel-row">
-                                        <div class="w-col w-col-8">
-                                            <p>@item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country</p>
-                                        </div>
-                                        <div class="w-col w-col-4 w-clearfix add-col">
-                                            <button type="button" class="ef-btn ef-alt-address-btn" onclick='editAddress(@Html.Raw(Json.Serialize(item)))'>Edit</button>
-                                            <button type="button" class="ef-btn ef-select-btn" onclick='selectAddress(@Html.Raw(Json.Serialize(item)))'>Select</button>
+                            <div id="registeredAddressSection" class="address-section">
+                                @foreach (var item in Model.AddressList.Where(x => x.IsRegisteredOffice))
+                                {
+                                    <div class="w-clearfix simple-row-elem">
+                                        <div class="w-row ef-panel-row">
+                                            <div class="w-col w-col-8">
+                                                <p>@item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country</p>
+                                            </div>
+                                            <div class="w-col w-col-4 w-clearfix add-col">
+                                                <button type="button" class="ef-btn ef-alt-address-btn" onclick='editAddress(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                                <button type="button" class="ef-btn ef-select-btn" onclick='selectAddress(@Html.Raw(Json.Serialize(item)))'>Select</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            }
+                                }
+                            </div>
+
+                            <div id="businessAddressSection" class="address-section">
+                                @foreach (var item in Model.AddressList.Where(x => x.IsBusiness))
+                                {
+                                    <div class="w-clearfix simple-row-elem">
+                                        <div class="w-row ef-panel-row">
+                                            <div class="w-col w-col-8">
+                                                <p>@item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country</p>
+                                            </div>
+                                            <div class="w-col w-col-4 w-clearfix add-col">
+                                                <button type="button" class="ef-btn ef-alt-address-btn" onclick='editAddress(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                                <button type="button" class="ef-btn ef-select-btn" onclick='selectAddress(@Html.Raw(Json.Serialize(item)))'>Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
 
                             <h4>Or enter a new Address</h4>
 
@@ -643,7 +742,6 @@
                 Activities: $("#Particular_Activities").val(),
             };
 
-            debugger;
             var SIC_Code = $("#ef-sic-code-list").text();
             var SIC_Code_List = SIC_Code.match(/\d+/g);
             const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
@@ -700,7 +798,6 @@
                         }
                     }
                 }
-
             }
             validateField("#Particular_CompanyName", "CompanyName");
 
@@ -736,7 +833,22 @@
     }
 
     $(document).ready(function () {
+        $('[data-bs-toggle="modal"]').on('click', function () {
+            var addressType = $(this).data('address-type');
+
+            if (addressType === 'registered') {
+                $('#registeredAddressSection').show();
+                $('#businessAddressSection').hide();
+            } else if (addressType === 'business') {
+                $('#registeredAddressSection').hide();
+                $('#businessAddressSection').show();
+            }
+        });
+    });
+
+    $(document).ready(function () {
         $("#Particular_CompanyName").val(Cookies.get("companyName"));
+        $("#Company_RegisteredEmail").val(Cookies.get("UserEmail"));
         $('#openSecondModal').on('click', function () {
             $('#addressModal').modal('hide');
 
@@ -847,48 +959,91 @@
         }
     }
 
-    function saveAddressData() {
+    function saveAddressData(type) {
         var isValid = true;
 
-        // Field validation helper
-        function validateField(id, errorId, fieldName) {
-            const value = $(id).val().trim();
-            if (value === "") {
-                isValid = false;
-                $(errorId).text(`${fieldName} is required.`).show();
-            } else {
-                $(errorId).text("").hide();
+        if(type == "registered") {
+            // Field validation helper
+            function validateField(id, errorId, fieldName) {
+                const value = $(id).val().trim();
+                if (value === "") {
+                    isValid = false;
+                    $(errorId).text(`${fieldName} is required.`).show();
+                } else {
+                    $(errorId).text("").hide();
+                }
+            }
+
+            validateField("#Company_RegisteredEmail", "#Address_RegisteredEmail_error", "Registered Email");
+            debugger;
+            const registeredEmail = $("#Company_RegisteredEmail").val().trim();
+            const addressData = {
+                addressId: parseInt($("#Address_AddressId").val()) || 0,
+                houseName: $("#Address_HouseName").val(),
+                street: $("#Address_Street").val(),
+                postCode: $("#Address_PostCode").val(),
+                town: $("#Address_Town").val(),
+                country: $("#Address_Country").val(),
+                county: $("#Address_County").val(),
+                locality: $("#Address_Locality").val()
+            };
+            const payload = {
+                 registeredEmail: registeredEmail,
+                 address: addressData
+             };
+
+            if(isValid){
+                $.ajax({
+                    url: "/FormationPage/CompanyFormationSubTab?handler=SaveResidentialAddress",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (response) {
+                        $("#errorCompanyNameMsg").css("display", "none");
+                        document.querySelectorAll('.field-msg').forEach(span => span.textContent = '');
+
+                        if (!response.success) {
+                            // Loop through returned errors and set messages
+                            for (const [field, message] of Object.entries(response.errors)) {
+                                const errorSpan = document.getElementById(`${field}-error`);
+                                if (errorSpan) {
+                                    errorSpan.textContent = message;
+                                }
+                            }
+                        }
+                        else {
+                            console.log("Success:", response);
+                            $("#secondAddressModal").modal('hide');
+                            $("#addressModal").modal('hide');
+                            window.location.reload();
+                            const redirectUrl = `/FormationPage/Company-Formation?section=CompanyFormation#address`;
+                            window.location.href = redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error:", xhr.statusText, xhr.responseText);
+                    }
+                });
             }
         }
-
-        validateField("#Company_RegisteredEmail", "#Address_RegisteredEmail_error", "Registered Email");
-        debugger;
-        const registeredEmail = $("#Company_RegisteredEmail").val().trim();
-        const addressData = {
-            addressId: parseInt($("#Address_AddressId").val()) || 0,
-            houseName: $("#Address_HouseName").val(),
-            street: $("#Address_Street").val(),
-            postCode: $("#Address_PostCode").val(),
-            town: $("#Address_Town").val(),
-            country: $("#Address_Country").val(),
-            county: $("#Address_County").val(),
-            locality: $("#Address_Locality").val()
-        };
-        const payload = {
-             registeredEmail: registeredEmail,
-             address: addressData
-         };
-
-        if(isValid){
+        else if (type == "business"){
+            debugger;
+            const addressData = {
+                addressId: parseInt($("#Address_AddressId").val()) || 0,
+                houseName: $("#Address_HouseName").val(),
+                street: $("#Address_Street").val(),
+                postCode: $("#Address_PostCode").val(),
+                town: $("#Address_Town").val(),
+                country: $("#Address_Country").val(),
+                county: $("#Address_County").val(),
+                locality: $("#Address_Locality").val()
+            };
             $.ajax({
-                url: "/FormationPage/CompanyFormationSubTab?handler=SaveResidentialAddress",
+                url: "/FormationPage/CompanyFormationSubTab?handler=SaveBusinessAddress",
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify(payload),
+                data: JSON.stringify(addressData),
                 success: function (response) {
-                    $("#errorCompanyNameMsg").css("display", "none");
-                    document.querySelectorAll('.field-msg').forEach(span => span.textContent = '');
-
                     if (!response.success) {
                         // Loop through returned errors and set messages
                         for (const [field, message] of Object.entries(response.errors)) {
@@ -903,7 +1058,7 @@
                         $("#secondAddressModal").modal('hide');
                         $("#addressModal").modal('hide');
                         window.location.reload();
-                        const redirectUrl = `/FormationPage/Company-Formation?section=CompanyFormation#address`;
+                        const redirectUrl = `/FormationPage/Company-Formation?section=CompanyFormation#business-address`;
                         window.location.href = redirectUrl;
                     }
                 },
@@ -932,9 +1087,14 @@
     }
 
     function selectAddress(data) {
-        const addressHtml = `${data.houseName}, ${data.street}, ${data.town}, ${data.county}, ${data.postCode}, ${data.country}`;
-
-        $(".ef-js-forwarding-address").html(addressHtml);
+        if (data.isRegisteredOffice == true) {
+            const addressHtml = `${data.houseName}, ${data.street}, ${data.town}, ${data.county}, ${data.postCode}, ${data.country}`;
+            $(".ef-js-forwarding-address").html(addressHtml);
+        }
+        else if (data.isBusiness == true) {
+            const addressHtml = `${data.houseName}, ${data.street}, ${data.town}, ${data.county}, ${data.postCode}, ${data.country}`;
+            $(".ef-js-forwarding-business-address").html(addressHtml);
+        }
         $("#addressModal").modal("hide");
     }
 
@@ -1019,4 +1179,45 @@
         }
     };
 
+    $(document).ready(function () {
+        $("#identityType").change(function () {
+            const selectedValue = $(this).val();
+            const fileInputWrapper = $('#fileInputWrapper');
+
+            const showFileInputFor = ['Passport', 'ResidencePermit', 'DrivingLicence', 'BirthCertificate'];
+
+            if (showFileInputFor.includes(selectedValue)) {
+              // Create dynamic file input with new ID
+              const newId = `fileInput_${selectedValue}`;
+              const fileInputHtml = `
+              <label> ${selectedValue} : </label>
+              <input class="form-control" type="file" id="${newId}" />`;
+
+              // Show wrapper and set new input
+              fileInputWrapper.html(fileInputHtml).show();
+            } else {
+              fileInputWrapper.hide().empty();
+            }
+        });
+
+        $("#addressType").change(function () {
+            const selectedValue = $(this).val();
+            const fileInputWrapper = $('#fileInputForAddress');
+
+            const showFileInputFor = ['OutsideDrivingLicence', 'MarriageCertificate', 'DrivingLicence', 'BirthCertificate'];
+
+            if (showFileInputFor.includes(selectedValue)) {
+              // Create dynamic file input with new ID
+              const newId = `fileInput_${selectedValue}`;
+              const fileInputHtml = `
+              <label> ${selectedValue} : </label>
+              <input class="form-control" type="file" id="${newId}" />`;
+
+              // Show wrapper and set new input
+              fileInputWrapper.html(fileInputHtml).show();
+            } else {
+              fileInputWrapper.hide().empty();
+            }
+        });
+    });
 </script>

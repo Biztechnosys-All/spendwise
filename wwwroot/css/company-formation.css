@@ -413,6 +413,13 @@ label[for="company-type"] .ef-modal-help-icon {
     cursor: pointer;
 }
 
+.ef-no-sic-code {
+    padding: 10px;
+    background-color: #dff0d8;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
 .sic-text {
     cursor: pointer;
     width: 90%;
@@ -1801,4 +1808,12 @@ ef-information-box p {
 
 .ef-js-forwarding-address {
     font-size: 15px;
+}
+
+#fileInputWrapper {
+    width: 50%;
+}
+
+#fileInputForAddress {
+    width: 50%;
 }
