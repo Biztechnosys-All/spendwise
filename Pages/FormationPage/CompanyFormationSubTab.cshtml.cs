@@ -35,6 +35,9 @@ namespace Spendwise_WebApp.Pages.FormationPage
         [BindProperty]
         public CompanyDetail Company { get; set; } = default!;
 
+        [BindProperty]
+        public List<SicCodes> SIC_CodeList { get; set; } = default!;
+
         public List<SelectListItem> SicCodeCategoryList { get; set; } = default!;
 
         public async Task<IActionResult> OnGet()
@@ -44,10 +47,17 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var selectCompanyId = (!string.IsNullOrEmpty(Request.Cookies["ComanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
-            addressData = await _context.AddressData.Where(m => m.UserId == userId && m.IsRegisteredOffice == true).ToListAsync();
+            addressData = await _context.AddressData.Where(m => m.UserId == userId).ToListAsync();
             Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId.ToString() == selectCompanyId.ToString());
-            Particular = await _context.Particulars.FirstOrDefaultAsync(m => m.UserId == userId && m.CompanyId.ToString() == selectCompanyId.ToString());
-            
+            Particular = await _context.Particulars.FirstOrDefaultAsync(m => m.UserId == userId);
+
+            var SelectedSIC_Codes = Particular != null ? Particular.SIC_Code : string.Empty;
+            var AddSIC_CodesItemIds = SelectedSIC_Codes.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                   .Select(int.Parse)
+                   .ToList();
+
+            SIC_CodeList = await _context.SicCodes.Where(x => AddSIC_CodesItemIds.Contains(x.SicCode)).ToListAsync();
+
             if (addressData == null)
             {
                 return NotFound();
@@ -175,6 +185,55 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 }
             }
 
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { success = true });
+        }
+
+        public async Task<JsonResult> OnPostSaveBusinessAddress([FromBody] AddressData request)
+        {
+            var userEmail = Request.Cookies["UserEmail"];
+            var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
+            var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+            string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
+
+            if (request.AddressId > 0)
+            {
+
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+                    string query = "UPDATE AddressData SET HouseName = @HouseName, Street = @Street, Town = @Town, Locality = @Locality, PostCode = @PostCode, County = @County, Country = @Country, IsBusiness = @IsBusiness, CompanyId = @CompanyId WHERE AddressId = @AddressId";
+                    using (var cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@HouseName", request.HouseName);
+                        cmd.Parameters.AddWithValue("@Street", request.Street);
+                        cmd.Parameters.AddWithValue("@Town", request.Town);
+                        cmd.Parameters.AddWithValue("@Locality", request.Locality);
+                        cmd.Parameters.AddWithValue("@PostCode", request.PostCode);
+                        cmd.Parameters.AddWithValue("@County", request.County);
+                        cmd.Parameters.AddWithValue("@Country", request.Country);
+                        cmd.Parameters.AddWithValue("@IsBusiness", true);
+                        cmd.Parameters.AddWithValue("@CompanyId", companyId);
+                        cmd.Parameters.AddWithValue("@AddressId", request.AddressId);
+                        int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                        if (rowsAffected == 0)
+                        {
+                            ModelState.AddModelError("", "Data not found.");
+                            return new JsonResult(new { success = false });
+                        }
+                    }
+                }
+            }
+            else
+            {
+                request.IsBusiness = true;
+                request.CompanyId = companyId;
+                request.UserId = userId;
+                _context.AddressData.Add(request);
+            }
             await _context.SaveChangesAsync();
 
             return new JsonResult(new { success = true });

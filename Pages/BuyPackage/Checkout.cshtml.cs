@@ -103,7 +103,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             _context.CompanyDetails.Add(companyDetails);
             _context.SaveChanges();
 
-            var companyId = _context.CompanyDetails.Where(x => x.Createdby == User.UserID).OrderByDescending(x => x.Createdon).FirstOrDefault().CompanyId;
+            var companyId = companyDetails.CompanyId;
             Response.Cookies.Append("ComanyId", companyId.ToString());
 
             var order = new Orders
