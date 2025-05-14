@@ -1033,6 +1033,10 @@
                 PostCode: $("#Address_PostCode").val(),
                 Country: $("#Address_Country").val()
             }
+            const UserPayloadData = {
+                UserData: UserData,
+                address: addressData
+            };
 
             console.log("UserData =", UserData);
             if (!userEmail) {
@@ -1040,7 +1044,7 @@
                     url: "/BuyPackage/CompanyDetails?handler=CreateNewUser",
                     method: "POST",
                     contentType: "application/json",
-                    data: JSON.stringify(UserData),
+                    data: JSON.stringify(UserPayloadData),
                     success: function (response) {
                         console.log("Success:", response);
                         if (response.success === false) {

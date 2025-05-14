@@ -200,22 +200,22 @@ namespace Spendwise_WebApp.Pages.BuyPackage
 
         }
 
-        public async Task<JsonResult> OnPostCreateNewUser([FromBody] User UserData)
+        public async Task<JsonResult> OnPostCreateNewUser([FromBody] UserPayloadData userPayloadData)
         {
             string tempPassword = string.Empty;
-            var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == UserData.Email);
+            var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == userPayloadData.UserData.Email);
             if (userData != null)
             {
                 userExist = true;
                 return new JsonResult(new { success = false, message = "User Exists!" });
             }
             // Hash the password using MD5
-            if (!string.IsNullOrEmpty(UserData.Password))
+            if (!string.IsNullOrEmpty(userPayloadData.UserData.Password))
             {
-                tempPassword = UserData.Password;
+                tempPassword = userPayloadData.UserData.Password;
                 using (MD5 md5 = MD5.Create())
                 {
-                    byte[] inputBytes = Encoding.UTF8.GetBytes(UserData.Password);
+                    byte[] inputBytes = Encoding.UTF8.GetBytes(userPayloadData.UserData.Password);
                     byte[] hashBytes = md5.ComputeHash(inputBytes);
 
                     // Convert the byte array to a hexadecimal string
@@ -224,22 +224,23 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                     {
                         sb.Append(hashBytes[i].ToString("x2"));
                     }
-                    UserData.Password = sb.ToString();
+                    userPayloadData.UserData.Password = sb.ToString();
                 }
             }
 
-            UserData.BillingEmail = UserData.Email;
-            UserData.BillingPhoneNumber = UserData.PhoneNumber;
+            userPayloadData.UserData.BillingEmail = userPayloadData.UserData.Email;
+            userPayloadData.UserData.BillingPhoneNumber = userPayloadData.UserData.PhoneNumber;
 
             string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             //UserData.EmailVerificationToken = token;
-            UserData.IsEmailVerified = true;
-            UserData.IsActive = true;
-            UserData.created_on = DateTime.Now;
-            _context.Users.Add(UserData);
+            userPayloadData.UserData.IsEmailVerified = true;
+            userPayloadData.UserData.IsActive = true;
+            userPayloadData.UserData.created_on = DateTime.Now;
+            _context.Users.Add(userPayloadData.UserData);
             await _context.SaveChangesAsync();
 
-            Address.UserId = UserData.UserID;
+            Address = userPayloadData.address;
+            Address.UserId = userPayloadData.UserData.UserID;
             Address.IsBilling = true;
             _context.AddressData.Add(Address);
             await _context.SaveChangesAsync();
@@ -252,7 +253,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             //await _emailSender.SendEmailAsync(UserData.Email, "Verify Your Email",
             //    $"Click <a href='{confirmationLink}'>here</a> to verify your email.");
 
-            Email = UserData.Email;
+            Email = userPayloadData.UserData.Email;
             Password = tempPassword;
 
             var result = await OnPostLogin() as JsonResult;
@@ -296,5 +297,11 @@ namespace Spendwise_WebApp.Pages.BuyPackage
 
             return new JsonResult(new { success = true, message = "Billing Address is Saved." });
         }        
+    }
+
+    public class UserPayloadData
+    {
+        public User UserData { get; set; }
+        public AddressData address { get; set; }
     }
 }
