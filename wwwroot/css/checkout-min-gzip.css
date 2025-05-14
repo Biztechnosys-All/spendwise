@@ -698,7 +698,7 @@ span.fa-stack.fs-31.fc-yellow {
 
 @media handheld,screen and (max-width:480px) {
     #originalCart div#efPackagePurchaseOptionsContainer {
-        padding: 10px 10px 80px !important;
+        padding: 10px 10px 0px !important;
         background-size: contain
     }
 
