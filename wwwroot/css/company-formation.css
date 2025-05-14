@@ -624,7 +624,6 @@ i.fa.checkbox-big:before {
 .add-save {
     padding-right: 0px;
     background-color: #FFF;
-    margin-top: -12px;
     float: right;
 }
 
@@ -1816,4 +1815,30 @@ ef-information-box p {
 
 #fileInputForAddress {
     width: 50%;
+}
+.top-space-div {
+    margin-top:30px !important;
+}
+@media (max-width: 768px) {
+    .ef-order-form-nav-step-content {
+        padding-left: 0px;
+    }
+    .ef-order-form-nav-step-content a {
+        width:100%;
+    }
+    #fileInputWrapper, #fileInputForAddress {
+        width: 100%;
+    }
+    .ef-btn.nextstep {
+        margin-top:30px;
+    }
+    .ef-btn.ef-add-officer.corporate.nominee {
+        margin-top:10px;
+    }
+    #ef-namecheck-button {
+        font-size:14px !important;
+    }
+    .ef-choose-btn {
+        min-width:200px;
+    }
 }

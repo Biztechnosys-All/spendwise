@@ -26942,4 +26942,7 @@ hr.hr-searchagain {
     .nav.nav-tabs.nav-checkout li{
        width:100%;
     }
+    #efEverythingInTheOrderContainer { 
+        margin: 0px !important
+    }
 }

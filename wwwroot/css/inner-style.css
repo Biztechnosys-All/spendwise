@@ -661,6 +661,7 @@ body {
         display: flex;
         flex-direction: column;
         width: 50%;
+        text-align:center;
     }
     page-heading__left {
         display: flex;
@@ -674,10 +675,10 @@ body {
     }
     .page-heading__right a {
         margin:5px 0;
-        font-size:16px;
+        font-size:15px;
         font-weight:600;
     }
     .page-heading__button {
-        padding:15px;
+        padding:15px 13px;
     }
 }
