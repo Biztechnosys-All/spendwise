@@ -15,10 +15,12 @@ namespace Spendwise_WebApp.Pages.FormationPage
     {
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
         private readonly IConfiguration _config;
-        public CompanyFormationSubTabModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration config)
+        private readonly IWebHostEnvironment _environment;
+        public CompanyFormationSubTabModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration config, IWebHostEnvironment environment)
         {
             _context = context;
             _config = config;
+            _environment = environment;
         }
 
         [BindProperty]
@@ -39,6 +41,13 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public List<SicCodes> SIC_CodeList { get; set; } = default!;
 
         public List<SelectListItem> SicCodeCategoryList { get; set; } = default!;
+
+        //Document Tab
+        [BindProperty]
+        public List<DocumentUploadModel> IdentityFiles { get; set; }
+
+        [BindProperty]
+        public List<DocumentUploadModel> AddressFiles { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
@@ -237,6 +246,65 @@ namespace Spendwise_WebApp.Pages.FormationPage
             await _context.SaveChangesAsync();
 
             return new JsonResult(new { success = true });
+        }
+
+        public class DocumentUploadModel
+        {
+            public string DocumentType { get; set; }
+            public IFormFile File { get; set; }
+        }
+
+        public async Task<IActionResult> OnPostSaveDocumentTabData()
+        {
+            var rootPath = Path.Combine(_environment.WebRootPath, "Documents");
+            Directory.CreateDirectory(rootPath);
+
+            await SaveFiles(IdentityFiles, "identity", rootPath);
+            await SaveFiles(AddressFiles, "address", rootPath);
+
+            return new JsonResult(new { success = true });
+        }
+
+        public async Task SaveFiles(List<DocumentUploadModel> files, string category, string rootPath)
+        {
+            var userEmail = Request.Cookies["UserEmail"];
+            var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
+            var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+
+            if (files == null) return;
+
+            foreach (var item in files)
+            {
+                if (item.File != null && item.File.Length > 0)
+                {
+                    var fileName = $"{userId}_{companyId}_{Path.GetFileName(item.File.FileName)}";
+                    var folderPath = Path.Combine(rootPath, category);
+                    Directory.CreateDirectory(folderPath);
+
+                    var filePath = Path.Combine(folderPath, fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await item.File.CopyToAsync(stream);
+                    }
+
+                    // Save to database
+                    _context.Documents.Add(new Document
+                    {
+                        DocumentType = category,
+                        DocumentName = item.DocumentType,
+                        FileName = $"{userId}_{companyId}_{item.File.FileName}",
+                        FilePath = $"/uploads/{category}/{fileName}",
+                        UploadedOn = DateTime.Now,
+                        UserId = userId,
+                        CompanyId = companyId
+                    });
+                }
+            }
+
+
+
+            await _context.SaveChangesAsync();
         }
     }
 }

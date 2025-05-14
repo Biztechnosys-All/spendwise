@@ -274,27 +274,5 @@
                 }
             });
         });
-
-        function nextPageTab() {
-                $(".ef-nav-section-link").removeClass("current");
-
-                var tab = $("#spnSummary").text();
-                var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
-
-                $.ajax({
-                    url: "/FormationPage/Summary",
-                    type: "get",
-                    success: function (result) {
-                        $("#FormationTabContent").html(result);
-                        $(".summary-tab").addClass("current");
-
-                        const newUrl = '?section=' + tabName;
-                        window.history.pushState({ path: newUrl }, '', newUrl);
-                        $('html, body').animate({
-                            scrollTop: $(tabName).offset()?.top
-                        }, 800); // Smooth scroll over 800ms
-                    }
-                });
-        };
     </script>
 }
