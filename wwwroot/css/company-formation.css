@@ -1810,11 +1810,11 @@ ef-information-box p {
 }
 
 #fileInputWrapper {
-    width: 50%;
+    width: 90%;
 }
 
 #fileInputForAddress {
-    width: 50%;
+    width: 90%;
 }
 .top-space-div {
     margin-top:30px !important;

@@ -462,7 +462,7 @@
                     </div>
 
                     <div class="add-save">
-                        <button type="button" id="pseudo-nextstep" class="ef-btn nextstep ef-save-next-btn" onclick="nextPageTab()"> Save & Next</button>
+                        <button type="button" id="saveDocument" class="ef-btn nextstep ef-save-next-btn"> Save & Next</button>
                     </div>
                 </div>
             </div>
@@ -762,6 +762,7 @@
                 }
                 else {
                     $("#errorMsg").hide();
+                    isValid = false;
                     if (id == "#Particular_CompanyName") {
                         var str1 = $("#Particular_CompanyName").val();
                         if (Cookies.get("packageName") == "LLP") {
@@ -1179,24 +1180,45 @@
         }
     };
 
+    function handleFiles(type, inputId, dataArray) {
+        const docType = $(`#${type}Type`).val();
+        const files = $(`#${inputId}`)[0]?.files;
+
+        if (!docType || files?.length === 0) {
+            alert("Select a document type and upload at least one PDF.");
+            return;
+        }
+
+        for (let i = 0; i < files?.length; i++) {
+            dataArray.push({ docType: docType, file: files[i] });
+        }
+        
+        $(`#${inputId}`).val(""); // Clear input
+    }
+
+
+    let identityFilesData = [];
+    let addressFilesData = [];
+
     $(document).ready(function () {
         $("#identityType").change(function () {
             const selectedValue = $(this).val();
             const fileInputWrapper = $('#fileInputWrapper');
 
-            const showFileInputFor = ['Passport', 'ResidencePermit', 'DrivingLicence', 'BirthCertificate'];
+            // const showFileInputFor = ['Passport', 'ResidencePermit', 'DrivingLicence', 'BirthCertificate'];
 
-            if (showFileInputFor.includes(selectedValue)) {
+            if (selectedValue) {
               // Create dynamic file input with new ID
               const newId = `fileInput_${selectedValue}`;
               const fileInputHtml = `
               <label> ${selectedValue} : </label>
-              <input class="form-control" type="file" id="${newId}" />`;
+              <input class="form-control" type="file" style="width: 40%;" id="identityFile" multiple accept="application/pdf" />
+              <button type="button" class="btn btn-primary" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('identity', 'identityFile', identityFilesData)">Add Identity File</button>`;
 
               // Show wrapper and set new input
               fileInputWrapper.html(fileInputHtml).show();
             } else {
-              fileInputWrapper.hide().empty();
+              fileInputWrapper.hide().html('');
             }
         });
 
@@ -1204,20 +1226,69 @@
             const selectedValue = $(this).val();
             const fileInputWrapper = $('#fileInputForAddress');
 
-            const showFileInputFor = ['OutsideDrivingLicence', 'MarriageCertificate', 'DrivingLicence', 'BirthCertificate'];
+            // const showFileInputFor = ['OutsideDrivingLicence', 'MarriageCertificate', 'DrivingLicence', 'BirthCertificate'];
 
-            if (showFileInputFor.includes(selectedValue)) {
+            if (selectedValue) {
               // Create dynamic file input with new ID
               const newId = `fileInput_${selectedValue}`;
               const fileInputHtml = `
               <label> ${selectedValue} : </label>
-              <input class="form-control" type="file" id="${newId}" />`;
+              <input class="form-control" type="file" style="width: 40%;" id="addressFile" multiple accept="application/pdf" />
+              <button type="button" class="btn btn-primary" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('address', 'addressFile', addressFilesData)">Add Address File</button>`;
 
               // Show wrapper and set new input
               fileInputWrapper.html(fileInputHtml).show();
             } else {
-              fileInputWrapper.hide().empty();
+              fileInputWrapper.hide().html('');
             }
         });
-    });
+   
+
+        $('#saveDocument').click(function () {
+            $(".ef-nav-section-link").removeClass("current");
+
+            var tab = $("#spnSummary").text();
+            var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+            let formData = new FormData();
+            identityFilesData.forEach((item, index) => {
+                formData.append(`IdentityFiles[${index}].DocumentType`, item.docType);
+                formData.append(`IdentityFiles[${index}].File`, item.file);
+            });
+
+            addressFilesData.forEach((item, index) => {
+                formData.append(`AddressFiles[${index}].DocumentType`, item.docType);
+                formData.append(`AddressFiles[${index}].File`, item.file);
+            });
+
+            $.ajax({
+                url: "/FormationPage/CompanyFormationSubTab?handler=SaveDocumentTabData",
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if(response.success) {
+                        $.ajax({
+                            url: "/FormationPage/Summary",
+                            type: "get",
+                            success: function (result) {
+                                $("#FormationTabContent").html(result);
+                                $(".summary-tab").addClass("current");
+
+                                const newUrl = '?section=' + tabName;
+                                window.history.pushState({ path: newUrl }, '', newUrl);
+
+                                $('html, body').animate({
+                                    scrollTop: $('#' + tabName).offset()?.top
+                                }, 800); // Smooth scroll over 800ms
+                            }
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error:", xhr.statusText, xhr.responseText);
+                }
+            });
+        });
+     });
 </script>
