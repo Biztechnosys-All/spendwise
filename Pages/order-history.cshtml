@@ -42,7 +42,7 @@
                                     <td> @item.OrderDate </td>
                                     <td> @item.PackageName </td>
                                     <td id="companyName"> @item.CompanyName </td>
-                                    <td id="companyId" style="display: none;"> @item.CompanyId </td>
+                                    <td id="selectCompanyId" style="display: none;"> @item.CompanyId </td>
                                     @if (item.IsOrderComplete == false)
                                     {
                                         <td> Incomplete </td>
@@ -57,7 +57,7 @@
                                             </button>
                                         </td>
                                         <td>
-                                            <button type="submit" onclick="btnContinueClick(@item.OrderId)" class="btn btn-success" role="button" aria-disabled="false">
+                                            <button type="submit" onclick="btnContinueClick('@item.OrderId', '@item.CompanyId', '@item.CompanyName')" class="btn btn-success" role="button" aria-disabled="false">
                                                 <span class="ui-button-text">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                                                         <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
@@ -116,16 +116,27 @@
             }
         };
 
-        function btnContinueClick(id) {
+        let selectedOrder = {
+            orderId: null,
+            companyId: null,
+            companyName: null
+        };
+
+        function selectOrder(orderId, companyId, companyName) {
+            selectedOrder.orderId = orderId;
+            selectedOrder.companyId = companyId;
+            selectedOrder.companyName = companyName;
+
+            alert("Selected Order ID: " + orderId); // optional for debugging
+        }
+
+        function btnContinueClick(id, companyId, companyName) {
             window.location.href = '/BuyPackage?id=' + id;
             Cookies.remove("BillingAddress");
 
-            var company = $("#companyId").text();
-            var companyName = $("#companyName").text();
-
             const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
-            Cookies.set("SelectCompanyId", company?.trim(), expires);
-            Cookies.set("companyName", companyName?.trim(), expires);
+            Cookies.set("SelectCompanyId", companyId, expires);
+            Cookies.set("companyName", companyName, expires);
         }
     </script>
 }
