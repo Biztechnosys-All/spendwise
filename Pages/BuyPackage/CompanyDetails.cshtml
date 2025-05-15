@@ -3,6 +3,20 @@
 @{
     Layout = null;
 }
+<style>
+    .address-panel {
+        position: fixed;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30%;
+        background: #fff;
+        border-radius: 10px;
+        z-index: 2000;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+</style>
 <link href="/css/ef-core.min.css" rel="stylesheet" />
 <link href="~/css/company-details.css" rel="stylesheet" />
 <div id="payment-gateway">
@@ -255,7 +269,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">UK Postcode Lookup:</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="text" value="">
+                                                <input class="form-control txtPostCodeInput" type="text" value="">
                                                 <button type="button" style="margin:5px 0" class="btn btn-success" onclick="postcodeLookup()" role="button" aria-disabled="false">Find Address</button>
                                             </div>
                                         </div>
@@ -890,6 +904,26 @@
         </div>
     </div>
 </div>
+
+@* <div class="modal fade" id="addressModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select an Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <ul id="addressList" class="list-group address-scroll"></ul>
+            </div>
+        </div>
+    </div>
+</div> *@
+<div id="addressPanel" class="address-panel shadow p-3" style="display:none;">
+    <h5>Select an Address</h5>
+    <ul id="PostCodeAddressList" class="list-group address-scroll mt-3"></ul>
+    <button class="btn btn-secondary mt-2" onclick="closeAddressPanel()">Close</button>
+</div>
+
 <script>
     $(function () {
         function toggleCustomerPaymentView(isNewCustomer) {
@@ -1169,6 +1203,106 @@
             passwordField.type = "password";
             showPasswordIcon.style.display = "inline";
             hidePasswordIcon.style.display = "none";
+        }
+    }
+
+    function postcodeLookup() {
+        const postCode = $(".txtPostCodeInput").val();
+
+        if (!postCode) {
+            alert("Please enter a postcode.");
+            return;
+        }
+
+        $.ajax({
+            type: "GET",
+            url: `/register?handler=CheckPostCode&postCode=${encodeURIComponent(postCode)}`,
+            dataType: "json",
+            success: function (response) {
+                if (!response.success || !Array.isArray(response.suggestions)) {
+                    alert("No suggestions found.");
+                    return;
+                }
+                console.log("response", response);
+                console.log("response.suggestions", response.suggestions);
+
+                populateAddressList(response.suggestions);
+            },
+            error: function (xhr) {
+                console.error("AJAX error:", xhr);
+                alert("Error fetching postcode suggestions.");
+            }
+        });
+    }
+
+    function populateAddressList(suggestions) {
+        const list = document.getElementById("PostCodeAddressList");
+        list.innerHTML = ''; // Clear previous items
+
+        suggestions.forEach(item => {
+            const li = document.createElement("li");
+            li.className = "list-group-item d-flex justify-content-between align-items-center";
+
+            const addressText = document.createElement("span");
+            addressText.textContent = item.address;
+
+            const selectBtn = document.createElement("button");
+            selectBtn.className = "btn btn-success btn-sm";
+            selectBtn.textContent = "Select";
+            selectBtn.dataset.addressId = item.id;
+
+            // 👇 API call on select
+            selectBtn.onclick = function () {
+                const id = this.dataset.addressId;
+                const apiKey = 'k2fpqS_lSUeh0z2ISb57ng45543'; // Replace with actual or server-stored key
+                const url = `https://api.getaddress.io/get/${id}?api-key=${apiKey}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Full address data:", data);
+                        bindAddressToForm(data);
+                        //bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
+                        closeAddressPanel();
+                    })
+                    .catch(err => {
+                        console.error("Error fetching full address:", err);
+                        alert("Unable to fetch full address details.");
+                    });
+            };
+
+            li.appendChild(addressText);
+            li.appendChild(selectBtn);
+            list.appendChild(li);
+        });
+
+        //new bootstrap.Modal(document.getElementById('addressModal')).show();
+        showAddressPanel();
+    }
+
+    function showAddressPanel() {
+        document.getElementById('addressPanel').style.display = 'block';
+    }
+
+    function closeAddressPanel() {
+        document.getElementById('addressPanel').style.display = 'none';
+    }
+
+    function bindAddressToForm(data) {
+        if (!data) return;
+        console.log("data", data);
+        const lines = data.line_1.split(' ');
+
+        document.getElementById('Address_HouseName').value = data.building_number || '';
+        document.getElementById('Address_Street').value = lines[1] + ' ' + lines[2]?.trim() || '';
+        document.getElementById('Address_Town').value = data.town_or_city || '';
+        document.getElementById('Address_County').value = data.county || '';
+        document.getElementById('Address_PostCode').value = data.postcode || '';
+        if (data.country == "England") {
+            document.getElementById('Address_Country').value = "United Kingdom";
+        }
+        else {
+            document.getElementById('Address_Country').value = data.country || '';
         }
     }
 </script>
