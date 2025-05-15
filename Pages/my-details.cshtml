@@ -23,31 +23,31 @@
 
                 <script>
                     jQuery(document).ready(function () {
-                    jQuery(".efWebStateCompanySearch input").autocomplete({
-                    source: "/ejax-company-search/",
-                    position: { my: "right top", at: "right bottom" },
-                    select: function (event, ui) {
-                    event.preventDefault();
-                    jQuery(".efWebStateCompanySearch input").val(ui.item.label);
-                    document.location.href = "/account/company/?i=" + ui.item.value;
-                    }
-                    });
-                    var m = jQuery(".efAccountMenuTabs");
-                    m.find(".efAccountMainMenuItem").on('mouseover', function () {
-                    jQuery(this).addClass("ui-state-active");
-                    }).on('mouseleave', function () {
-                    jQuery(this).removeClass("ui-state-active");
-                    });
-                    m.find(".efAccountMainMenuLi").on('mouseover', function () {
-                    jQuery(this).find("ul").show();
-                    }).on('mouseleave', function () {
-                    jQuery(this).find("ul").hide();
-                    });
-                    m.find(".efAccountSubMenuItem").on('mouseover', function () {
-                    jQuery(this).addClass("ui-state-active");
-                    }).on('mouseleave', function () {
-                    jQuery(this).removeClass("ui-state-active");
-                    });
+                        jQuery(".efWebStateCompanySearch input").autocomplete({
+                            source: "/ejax-company-search/",
+                            position: { my: "right top", at: "right bottom" },
+                            select: function (event, ui) {
+                                event.preventDefault();
+                                jQuery(".efWebStateCompanySearch input").val(ui.item.label);
+                                document.location.href = "/account/company/?i=" + ui.item.value;
+                            }
+                        });
+                        var m = jQuery(".efAccountMenuTabs");
+                        m.find(".efAccountMainMenuItem").on('mouseover', function () {
+                            jQuery(this).addClass("ui-state-active");
+                        }).on('mouseleave', function () {
+                            jQuery(this).removeClass("ui-state-active");
+                        });
+                        m.find(".efAccountMainMenuLi").on('mouseover', function () {
+                            jQuery(this).find("ul").show();
+                        }).on('mouseleave', function () {
+                            jQuery(this).find("ul").hide();
+                        });
+                        m.find(".efAccountSubMenuItem").on('mouseover', function () {
+                            jQuery(this).addClass("ui-state-active");
+                        }).on('mouseleave', function () {
+                            jQuery(this).removeClass("ui-state-active");
+                        });
                     });
                 </script>
 
@@ -58,11 +58,13 @@
                     <div class="ui-state-error ui-corner-all efAlert" id="error-message" style="display:none">
                         <span id="error-text"></span>
                     </div>
-
-                    <div class="ui-state-highlight ui-corner-all efAlert" id="success-message" style="display:none">
-                        <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-                        <span id="success-text">Details updated</span>
-                    </div>
+                    @if (!string.IsNullOrEmpty(Model.Message))
+                    {
+                        <div class="ui-state-highlight ui-corner-all efAlert" id="success-message">
+                            <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                            <span id="success-text">Details updated</span>
+                        </div>
+                    }
 
                     <!-- Main Form Content -->
 
@@ -160,7 +162,7 @@
                                             <td>
                                                 <input asp-for="@primaryAdd.HouseName" type="hidden" class="form-control" />
                                                 <span class="form-control address" id="billingPostalAddress" name="billingPostalAddress" data-email-address="BILLING">
-                                                    @primaryAdd.HouseName, @primaryAdd.Locality,@primaryAdd.Locality, @primaryAdd.Town, @primaryAdd.County, @primaryAdd.PostCode, @primaryAdd.Country
+                                                    @primaryAdd.HouseName, @primaryAdd.Street,@primaryAdd.Locality, @primaryAdd.Town, @primaryAdd.County, @primaryAdd.PostCode, @primaryAdd.Country
                                                 </span>
                                                 <span asp-validation-for="@primaryAdd.HouseName" class="text-danger fw-bold p-1"></span>
                                                 <div>
@@ -189,7 +191,7 @@
                                             </td>
                                             <td>
                                                 <span class="form-control address" id="billingPostalAddress" name="billingPostalAddress" data-email-address="BILLING">
-                                                    @billingAdd.HouseName, @billingAdd.Locality, @billingAdd.Locality, @billingAdd.Town, @billingAdd.County, @billingAdd.PostCode, @billingAdd.Country
+                                                    @billingAdd.HouseName, @billingAdd.Street, @billingAdd.Locality, @billingAdd.Town, @billingAdd.County, @billingAdd.PostCode, @billingAdd.Country
                                                 </span>
                                                 <div>
                                                     <button type="button" class="btn btn-success" id="ef-js-new-primary" role="button" aria-disabled="false">
@@ -515,19 +517,19 @@
         const secondaryModal = new bootstrap.Modal(document.getElementById('updateAddressModal'));
 
         function hidePrimaryModal() {
-          primaryModal.hide();
+            primaryModal.hide();
         }
 
         function openSecondaryFromPrimary() {
             primaryModal.hide(); // Hide primary first
             setTimeout(() => {
-                if( $('#AddressType').val() == "billing"){
+                if ($('#AddressType').val() == "billing") {
                     $('#primaryAddress').hide();
                     $('#billingAddress').show();
                     $("#primaryAddress").find("input").prop("disabled", true);
                     $("#billingAddress").find("input").prop("disabled", false);
                 }
-                else{
+                else {
                     $('#billingAddress').hide();
                     $('#primaryAddress').show();
                     $("#billingAddress").find("input").prop("disabled", true);
@@ -538,7 +540,7 @@
         }
 
         function hideSecondaryModal() {
-          secondaryModal.hide();
+            secondaryModal.hide();
         }
 
         function showPrimaryModal(type) {

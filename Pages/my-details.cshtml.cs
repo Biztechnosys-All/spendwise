@@ -33,6 +33,8 @@ namespace Spendwise_WebApp.Pages
         [BindProperty]
         public string? AddressType { get; set; }
 
+        public string Message { get; set; }
+
         public async Task<IActionResult> OnGet()
         {
             var loggedIn = Request.Cookies["AuthToken"];
@@ -61,6 +63,26 @@ namespace Spendwise_WebApp.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+
+            var LoginEmail = Request.Cookies["UserEmail"] ?? "";
+            var LogUserData = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == LoginEmail.ToLower());
+            var addressData = await _context.AddressData.Where(x => x.UserId == LogUserData.UserID).ToListAsync();
+
+            if (LogUserData != null && addressData != null)
+            {
+                User = LogUserData;
+                AddressList = addressData;
+
+            }
+
+            ModelState.Remove("Address.AddressId");
+            ModelState.Remove("Address.PostCode");
+            ModelState.Remove("Address.HouseName");
+            ModelState.Remove("Address.Street");
+            ModelState.Remove("Address.Locality");
+            ModelState.Remove("Address.Town");
+            ModelState.Remove("Address.Country"); 
+            ModelState.Remove("Address.County");
             if (!ModelState.IsValid)
             {
                 // List of required fields with custom error messages
@@ -71,14 +93,7 @@ namespace Spendwise_WebApp.Pages
                     { "User.Surname", "Surname is required." },
                     { "User.PhoneNumber", "Phone number is required." },
                     { "User.Email", "Email is required." },
-                    { "User.Password", "Password is required." },
-                    { "Address.PostCode", "Postcode is required." },
-                    { "Address.HouseName", "House name is required." },
-                    { "Address.Street", "Street is required." },
-                    { "Address.Locality", "Locality is required." },
-                    { "Address.Town", "Town is required." },
-                    { "Address.Country", "Country is required." },
-                    { "Address.County", "County is required." },
+                    { "User.Password", "Password is required." }
                 };
 
                 // Iterate over required fields and add model errors
@@ -94,16 +109,8 @@ namespace Spendwise_WebApp.Pages
 
             User.BillingEmail = User.BillingEmail != null ? User.BillingEmail : User.Email;
             User.BillingPhoneNumber = User.BillingPhoneNumber != null ? User.BillingPhoneNumber : User.PhoneNumber;
-            //User.BillingHouseName = User.BillingHouseName != null ? User.BillingHouseName : User.HouseName;
-            //User.BillingStreet = User.BillingStreet != null ? User.BillingStreet : User.Street;
-            //User.BillingTown = User.BillingTown != null ? User.BillingTown : User.Town;
-            //User.BillingLocality = User.BillingLocality != null ? User.BillingLocality : User.Locality;
-            //User.BillingPostCode = User.BillingPostCode != null ? User.BillingPostCode : User.PostCode;
-            //User.BillingCounty = User.BillingCounty != null ? User.BillingCounty : User.County;
-            //User.BillingCountry = User.BillingCountry != null ? User.BillingCountry : User.Country;
 
             _context.Attach(User).State = EntityState.Modified;
-            _context.Attach(Address).State = EntityState.Modified;
 
             try
             {
@@ -145,6 +152,7 @@ namespace Spendwise_WebApp.Pages
                 }
             }
 
+            Message = "Details updated";
             return Page();
         }
 
@@ -238,7 +246,7 @@ namespace Spendwise_WebApp.Pages
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./my-details");
+            return Page();
         }
     }
 }

@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="w-container ef-content-wrapper" id="ef-content-wrapper">
+    <div class="w-container ef-content-wrapper SummaryContainer" id="ef-content-wrapper">
         <div class="ef-panel-wrapper">
 
             <div class="head-01" id="ef-panel-title">
@@ -446,3 +446,8 @@
 
     </div>
 </div>
+<script>
+    $('html, body').animate({
+        scrollTop: $('.SummaryContainer').offset()?.top
+    }, 400); // Smooth scroll over 800ms
+</script>

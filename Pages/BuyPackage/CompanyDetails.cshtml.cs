@@ -241,8 +241,24 @@ namespace Spendwise_WebApp.Pages.BuyPackage
 
             Address = userPayloadData.address;
             Address.UserId = userPayloadData.UserData.UserID;
-            Address.IsBilling = true;
+            Address.IsPrimary = true;
             _context.AddressData.Add(Address);
+            await _context.SaveChangesAsync();
+
+            AddressData billingAddress = new()
+            {
+                HouseName = userPayloadData.address.HouseName,
+                Street = userPayloadData.address.Street,
+                Locality = userPayloadData.address.Locality,
+                Town = userPayloadData.address.Town,
+                Country = userPayloadData.address.Country,
+                County = userPayloadData.address.County,
+                PostCode = userPayloadData.address.PostCode,
+
+            };
+            billingAddress.UserId = userPayloadData.UserData.UserID;
+            billingAddress.IsBilling = true;
+            _context.AddressData.Add(billingAddress);
             await _context.SaveChangesAsync();
 
             //var confirmationLink = Url.Page("/ConfirmEmail",
