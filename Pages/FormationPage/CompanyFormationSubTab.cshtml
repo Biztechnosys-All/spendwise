@@ -1277,10 +1277,6 @@
 
                                 const newUrl = '?section=' + tabName;
                                 window.history.pushState({ path: newUrl }, '', newUrl);
-
-                                $('html, body').animate({
-                                    scrollTop: $('#' + tabName).offset()?.top
-                                }, 800); // Smooth scroll over 800ms
                             }
                         });
                     }
