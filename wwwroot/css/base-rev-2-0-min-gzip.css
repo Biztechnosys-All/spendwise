@@ -1,6 +1,9 @@
 @charset "UTF-8";
 @import url('common.css');
-
+body.modal-open {
+    height: 100vh;
+    overflow-y: hidden;
+}
 #efSection60Row, .pp_social, .visible-mobile, td.res-new-td span.res-title-td {
     display: none !important
 }

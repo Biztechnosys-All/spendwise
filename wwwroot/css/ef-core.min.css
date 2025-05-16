@@ -2956,11 +2956,17 @@ ul.efOrderContentsList {
             }
 
 .efPaymentPageCVV {
-    margin-left: 20px;
+    margin-top: 20px !important;
     max-height: 70px;
-    vertical-align: top
+    vertical-align: top;
+    padding-left:0px !important;
 }
-
+.efPaymentCVV {
+    margin-top: 20px !important;
+    max-height: 70px;
+    vertical-align: top;
+    padding-left: 0px !important;
+}
 .ef-payment-success .ef-payment-success-title {
     margin-bottom: 10px;
     padding-right: 40px
