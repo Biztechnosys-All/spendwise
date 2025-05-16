@@ -17,6 +17,20 @@
         overflow-x: scroll;
         overflow-x: hidden;
     }
+
+    .address-panel {
+        position: fixed;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30%;
+        background: #fff;
+        border-radius: 10px;
+        z-index: 2000;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
 </style>
 
 <div id="parentTabs">
@@ -86,6 +100,7 @@
                                 You will need to provide a valid Company ending: LLP, Other Company.
                             </p>
                         </div>
+                        <div id="errorDiv" class="alert-danger p-2" style="display:none;"></div>
                         <form>
                             <div>
                                 <div class="ef-namecheck-wrapper w-row ef-form-wrap">
@@ -126,7 +141,7 @@
                                                 <span class="ef-modal-help-icon" data-ref="HELP|JURISDICTION"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                             </label>
                                             <select class="w-select" asp-for="Particular.Jurisdiction">
-                                                <option> --Select Jurisdiction-- </option>
+                                                <option value=""> --Select Jurisdiction-- </option>
                                                 <option value="EWs">
                                                     England &amp; Wales
                                                 </option>
@@ -153,7 +168,7 @@
                                             <div class="" id="ef-js-sic-codes">
                                                 <div class="" id="ef-js-sic-codes__categories">
                                                     <select class="w-select" asp-for="Particular.Activities" asp-items="Model.SicCodeCategoryList">
-                                                        <option>Select a category:</option>
+                                                        <option value="">Select a category:</option>
                                                         <option value="all-categories">All</option>
                                                     </select>
                                                 </div>
@@ -574,7 +589,7 @@
                         </div>
                         <div class="w-col w-col-3">
                             <label for="postcode-lookup">&nbsp;</label>
-                            <button type="button" class="ef-add-btn ef-postcode-lookup-btn" onclick="FormBuilder.PostCodeLookup(jQuery('#postcode-lookup').val())">Find Address</button>
+                            <button type="button" class="ef-add-btn ef-postcode-lookup-btn" onclick="postcodeLookup()">Find Address</button>
                         </div>
                     </div>
 
@@ -731,9 +746,31 @@
 
 <div id="appointmentTab"></div>
 
+
+@* <div class="modal fade" id="addressModal" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select an Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <ul id="PostCodeAddressList" class="list-group address-scroll"></ul>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+<div id="addressPanel" class="address-panel shadow p-3" style="display:none;">
+    <h5>Select an Address</h5>
+    <ul id="PostCodeAddressList" class="list-group address-scroll mt-3"></ul>
+    <button class="btn btn-secondary mt-2" onclick="closeAddressPanel()">Close</button>
+</div>
+
 <script>
     function saveFormationData(type) {
         if(type == "particular"){
+            var errorMessages = [];
             var isValid = true;
             const particularData = {
                 CompanyName: $("#Particular_CompanyName").val(),
@@ -754,11 +791,14 @@
             function validateField(id, fieldName) {
                 var value = $(id).val().trim();
                 if (value === "") {
-                    isValid = false;
+                    //isValid = false;
                     // $(id).after('<small class="text-danger"> ' + fieldName + ' is required.</small>');
-                    $("#errorMsg").show();
-                    $("#errorFieldName").html(fieldName + " " + "is required.");
-                    $("#warnigMessage").hide();
+                    // $("#errorMsg").show();
+                    // $("#errorFieldName").html(fieldName + " " + "is required.");
+                    // $("#warnigMessage").hide();
+                    // $(id).after('<span class="text-error-message">' + fieldName + ' is required.</span>');
+                    isValid = false;
+                    errorMessages.push("<p><b>" + fieldName + " is required.</b></p>");
                 }
                 else {
                     $("#errorMsg").hide();
@@ -801,8 +841,11 @@
                 }
             }
             validateField("#Particular_CompanyName", "CompanyName");
+            validateField("#Particular_Jurisdiction", "Jurisdiction");
+            validateField("#Particular_Activities", "Businsess Activities");
 
             if (isValid) {
+                $('#errorDiv').hide();
                 $.ajax({
                     url: "/FormationPage/CompanyFormationSubTab?handler=SaveParticularData",
                     method: "POST",
@@ -829,6 +872,15 @@
                         console.error("Error:", xhr.statusText, xhr.responseText);
                     }
                 });
+            }
+            else{
+                $('#errorDiv').html(errorMessages.join("")).show();
+
+                $('html, body').animate({
+                    scrollTop: $('#errorDiv').offset().top - 20
+                }, 200);
+
+                $('#errorDiv').attr('tabindex', '-1').focus();
             }
         }
     }
@@ -1287,4 +1339,104 @@
             });
         });
      });
+
+    function postcodeLookup() {
+        const postCode = $("#postcode-lookup").val();
+
+        if (!postCode) {
+            alert("Please enter a postcode.");
+            return;
+        }
+
+        $.ajax({
+            type: "GET",
+            url: `/register?handler=CheckPostCode&postCode=${encodeURIComponent(postCode)}`,
+            dataType: "json",
+            success: function (response) {
+                if (!response.success || !Array.isArray(response.suggestions)) {
+                    alert("No suggestions found.");
+                    return;
+                }
+                console.log("response", response);
+                console.log("response.suggestions", response.suggestions);
+
+                populateAddressList(response.suggestions);
+            },
+            error: function (xhr) {
+                console.error("AJAX error:", xhr);
+                alert("Error fetching postcode suggestions.");
+            }
+        });
+    }
+
+    function populateAddressList(suggestions) {
+        const list = document.getElementById("PostCodeAddressList");
+        list.innerHTML = ''; // Clear previous items
+
+        suggestions.forEach(item => {
+            const li = document.createElement("li");
+            li.className = "list-group-item d-flex justify-content-between align-items-center";
+
+            const addressText = document.createElement("span");
+            addressText.textContent = item.address;
+
+            const selectBtn = document.createElement("button");
+            selectBtn.className = "btn btn-success btn-sm";
+            selectBtn.textContent = "Select";
+            selectBtn.dataset.addressId = item.id;
+
+            // 👇 API call on select
+            selectBtn.onclick = function () {
+                const id = this.dataset.addressId;
+                const apiKey = 'k2fpqS_lSUeh0z2ISb57ng45543'; // Replace with actual or server-stored key
+                const url = `https://api.getaddress.io/get/${id}?api-key=${apiKey}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Full address data:", data);
+                        bindAddressToForm(data);
+                        //bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
+                        closeAddressPanel();
+                    })
+                    .catch(err => {
+                        console.error("Error fetching full address:", err);
+                        alert("Unable to fetch full address details.");
+                    });
+            };
+
+            li.appendChild(addressText);
+            li.appendChild(selectBtn);
+            list.appendChild(li);
+        });
+
+        // new bootstrap.Modal(document.getElementById('addressModal')).show();
+        showAddressPanel();
+    }
+
+    function showAddressPanel() {
+        document.getElementById('addressPanel').style.display = 'block';
+    }
+
+    function closeAddressPanel() {
+        document.getElementById('addressPanel').style.display = 'none';
+    }
+
+    function bindAddressToForm(data) {
+        if (!data) return;
+        console.log("data", data);
+        const lines = data.line_1.split(' ');
+
+        document.getElementById('Address_HouseName').value = data.building_number || '';
+        document.getElementById('Address_Street').value = lines[1] + ' ' + lines[2]?.trim() || '';
+        document.getElementById('Address_Town').value = data.town_or_city || '';
+        document.getElementById('Address_County').value = data.county || '';
+        document.getElementById('Address_PostCode').value = data.postcode || '';
+        if (data.country == "England") {
+            document.getElementById('Address_Country').value = "UNITED KINGDOM";
+        }
+        else {
+            document.getElementById('Address_Country').value = data.country || '';
+        }
+    }
 </script>
