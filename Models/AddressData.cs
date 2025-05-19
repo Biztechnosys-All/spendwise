@@ -22,5 +22,6 @@ namespace Spendwise_WebApp.Models
         public bool IsBusiness { get; set; } = false;
         public bool IsResidetialAddress { get; set; } = false;
         public bool IsServiceAddress { get; set; } = false;
+        public bool IsCurrent { get; set; } = false;
     }
 }
