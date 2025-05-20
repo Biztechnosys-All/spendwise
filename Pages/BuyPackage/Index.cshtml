@@ -90,7 +90,6 @@
     <script>
         $(function () {
             $("#hdnSelectedCompany").val(Cookies.get("companyName"));
-            debugger;
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
             if (UrlPrams.length > 1 && UrlPrams[0] == "id" && UrlPrams[1].indexOf("token") !== -1) {

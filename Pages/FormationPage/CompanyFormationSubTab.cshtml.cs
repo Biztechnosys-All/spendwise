@@ -49,6 +49,10 @@ namespace Spendwise_WebApp.Pages.FormationPage
         [BindProperty]
         public List<DocumentUploadModel> AddressFiles { get; set; }
 
+
+        [BindProperty]
+        public List<Document> UploadedDocuments { get; set; }
+
         public async Task<IActionResult> OnGet()
         {
             List<AddressData> addressData;
@@ -57,6 +61,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             addressData = await _context.AddressData.Where(m => m.UserId == userId).ToListAsync();
+            var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
             Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId.ToString() == selectCompanyId);
             Particular = await _context.Particulars.FirstOrDefaultAsync(m => m.UserId == userId && m.CompanyId.ToString() == selectCompanyId);
 
@@ -66,6 +71,8 @@ namespace Spendwise_WebApp.Pages.FormationPage
                    .ToList();
 
             SIC_CodeList = await _context.SicCodes.Where(x => AddSIC_CodesItemIds.Contains(x.SicCode)).ToListAsync();
+
+            UploadedDocuments = await _context.Documents.Where(x => x.UserId == userId && x.CompanyId == companyId).ToListAsync();
 
             if (addressData == null)
             {
