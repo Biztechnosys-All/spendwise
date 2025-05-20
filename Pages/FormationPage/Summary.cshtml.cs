@@ -27,7 +27,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public async Task<IActionResult> OnGet()
         {
             var userEmail = Request.Cookies["UserEmail"];
-            var selectCompanyId = (!string.IsNullOrEmpty(Request.Cookies["ComanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var selectCompanyId = Request.Cookies["ComanyId"];
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             Particular = await _context.Particulars.FirstOrDefaultAsync(m => m.UserId == userId && m.CompanyId.ToString() == selectCompanyId);
