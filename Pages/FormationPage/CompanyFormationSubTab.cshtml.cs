@@ -53,7 +53,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         {
             List<AddressData> addressData;
             var userEmail = Request.Cookies["UserEmail"];
-            var selectCompanyId = (!string.IsNullOrEmpty(Request.Cookies["ComanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var selectCompanyId = Request.Cookies["ComanyId"];
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             addressData = await _context.AddressData.Where(m => m.UserId == userId).ToListAsync();
@@ -86,7 +86,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public async Task<JsonResult> OnPostSaveParticularData([FromBody] Particular particular)
         {
             var userEmail = Request.Cookies["UserEmail"];
-            var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var selectCompanyId = Request.Cookies["ComanyId"];
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
@@ -141,7 +141,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public async Task<JsonResult> OnPostSaveResidentialAddress([FromBody] SaveAddressWithEmailRequest request)
         {
             var userEmail = Request.Cookies["UserEmail"];
-            var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var selectCompanyId = Request.Cookies["ComanyId"];
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
             var addressData = request.Address;
@@ -250,7 +250,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public async Task<JsonResult> OnPostSaveBusinessAddress([FromBody] AddressData request)
         {
             var userEmail = Request.Cookies["UserEmail"];
-            var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var selectCompanyId = Request.Cookies["ComanyId"];
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
             string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
@@ -354,7 +354,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public async Task SaveFiles(List<DocumentUploadModel> files, string category, string rootPath)
         {
             var userEmail = Request.Cookies["UserEmail"];
-            var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var selectCompanyId = Request.Cookies["ComanyId"];
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
