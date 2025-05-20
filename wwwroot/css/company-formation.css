@@ -1809,6 +1809,10 @@ ef-information-box p {
     font-size: 15px;
 }
 
+.ef-js-forwarding-business-address {
+    font-size: 15px;
+}
+
 #fileInputWrapper {
     width: 90%;
 }

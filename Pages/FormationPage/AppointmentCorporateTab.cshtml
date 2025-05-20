@@ -2,6 +2,10 @@
 @model Spendwise_WebApp.Pages.FormationPage.AppointmentCorporateTabModel
 @{
     Layout = null;
+    var selected = Model.CorporateSelectedPosition;
+}
+@{
+    var RegisteredOfficeAddress = Model.CorporateAddressList.Where(x => x.IsRegisteredOffice == true && x.CompanyId == Model.Company.CompanyId && x.IsCurrent == true).FirstOrDefault();
 }
 
 <div class="ef-panel-wrapper" id="appCorporateTab">
@@ -49,8 +53,7 @@
                                         <h3>Am I a PSC?</h3>
                                         <p>If you are a shareholder with more than 25% of the company's shares - yes, you are a PSC, and you should also <b>tick the Person with Significant Control (PSC) box below</b>. </p>
                                     </div>
-                                    <div style="display:none;" class="ef-alert-box fail" id="position-error">
-                                        <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
+                                    <div style="display:none; font-size: 20px;" class="ef-alert-box fail" id="position-error">
                                     </div>
                                     <div class="ef-form-wrap">
                                         <h2>Choose Position</h2>
@@ -60,36 +63,30 @@
                                             <div class="w-row row-role-select">
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" id="officer-topdog" type="checkbox" name="officer-topdog" data-name="officer-topdog">
+                                                        <input class="w-checkbox-input" type="checkbox" value="Director" @(selected.Contains("Director") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-topdog">Director</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|TOP_DOG_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" id="officer-holder" type="checkbox" name="officer-holder" data-name="officer-holder">
+                                                        <input class="w-checkbox-input" type="checkbox" value="Shareholder" @(selected.Contains("Shareholder") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-holder">Shareholder</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|HOLDER_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" id="officer-secretary" type="checkbox" name="officer-secretary" data-name="officer-secretary">
+                                                        <input class="w-checkbox-input" type="checkbox" value="Secretary" @(selected.Contains("Secretary") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-secretary">Secretary</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|SECRETARY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" id="officer-PSC" type="checkbox" name="officer-PSC" data-name="officer-PSC">
+                                                        <input class="w-checkbox-input" type="checkbox" value="PSC" @(selected.Contains("PSC") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-PSC">Person with Significant Control (PSC)</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|PSC"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="w-col officer-constent-to-act-wrapper" style="margin-top:20px; display:none;">
-                                                    <div class="w-checkbox">
-                                                        <input type="checkbox" class="w-checkbox-input ef-consent-to-act-checkbox" name="consent-to-act" id="consent-to-act">
-                                                        <label class="field-label ef-consent-to-act-label" for="consent-to-act">The officers confirm they have consented to act as a Director or Secretary</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,8 +96,7 @@
                                 <div class="w-row">&nbsp;</div>
                                 <div class="w-row">
                                     <div class="w-col">
-                                        @* <button type="button" class="ef-btn ef-back-btn" onclick="FormBuilder.ShowLoader('Loading...'); FormBuilder.ReloadStep();">Cancel</button> *@
-                                        <button type="button" data-nextstep="pick-officer" id="officer-submit-position-tab" class="ef-btn ef-corporate-save">Save</button>
+                                        <button type="button" id="corporate-position-tab" class="ef-btn ef-corporate-save">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -118,10 +114,7 @@
                                 <div style="display:none;" class="ef-alert-box fail" id="details-error">
                                     <div id="" class="ef-alert-box-main-text main-error-text">Please complete all required details.</div>
                                 </div>
-                                <div style="display:none;" class="ef-alert-box fail" id="no-officer-nationality">
-                                    <span style="float:right;" class="ef-modal-help-icon nationality-help" data-ref="HELP|NATIONALITY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
-                                    <div id="" class="ef-alert-box-main-text main-error-text"></div>
-                                </div>
+                                <div style="display:none; font-size: 20px;" class="ef-alert-box fail" id="address-error"> </div>
                                 <div id="officer-details-div">
                                     <div class="ef-form-wrap">
                                         <h2 id="preselected-officer">
@@ -136,16 +129,19 @@
                                                     </div>
                                                     <div class="ef-autocomplete-wrapper">
                                                         <label class="field-label" for="officer-title">Title</label>
-                                                        <input id="officer-title" class="w-input" type="text" placeholder="Title" name="officer-title" value="" data-lastvalue="" autocomplete="off">
+                                                        <input class="w-input" type="text" placeholder="Title" asp-for="CorporateOfficers.Title" />
+                                                        <span class="text-address-error-message" id="CorporateOfficers_Title_error" style="display: none;"></span>
                                                     </div>
                                                 </div>
                                                 <div id="officer-firstname-wrapper">
                                                     <label class="field-label" for="officer-firstname">First name(s)</label>
-                                                    <input class="w-input" id="officer-firstname" type="text" placeholder="First name" name="officer-firstname" value="" data-lastvalue="" autocomplete="off">
+                                                    <input class="w-input" type="text" placeholder="First name" asp-for="CorporateOfficers.FirstName" />
+                                                    <span class="text-address-error-message" id="CorporateOfficers_FirstName_error" style="display: none;"></span>
                                                 </div>
                                                 <div id="officer-lastname-wrapper">
                                                     <label class="field-label" for="officer-lastname">Last name</label>
-                                                    <input class="w-input" id="officer-lastname" type="text" placeholder="Last name" name="officer-lastname" value="" data-lastvalue="" autocomplete="off">
+                                                    <input class="w-input" type="text" placeholder="Last name" asp-for="CorporateOfficers.LastName" />
+                                                    <span class="text-address-error-message" id="CorporateOfficers_LastName_error" style="display: none;"></span>
                                                 </div>
                                             </div>
                                             <div class="w-col w-col-7">
@@ -154,7 +150,8 @@
                                                 </div>
                                                 <div id="officer-corporate-name-wrapper">
                                                     <label class="field-label" for="officer-corporate-name">Legal Name</label>
-                                                    <input class="w-input" id="officer-corporate-name" type="text" placeholder="Legal Name" name="officer-corporate-name" value="" autocomplete="off">
+                                                    <input class="w-input" type="text" placeholder="Legal Name" asp-for="CorporateOfficers.LegalName" />
+                                                    <span class="text-address-error-message" id="CorporateOfficers_LegalName_error" style="display: none;"></span>
                                                 </div>
                                                 <div id="officer-corporate-is-uk-status-wrapper">
                                                     <label class="field-label" for="officer-corporate-is-uk-status">
@@ -162,11 +159,11 @@
                                                     </label>
                                                     <div class="officer-corporate-is-uk-answers">
                                                         <span style="margin-right: 10px;">
-                                                            <input type="radio" id="officer-corporate-is-uk-status-1" class="w-radio officer-corporate-is-uk-status" name="officer-corporate-is-uk-status" value="1" style="display: inline-block">
+                                                            <input type="radio" id="officer-corporate-is-uk-status" @(Model.CorporateRegisteredInUk == "1" ? "checked" : "") class="w-radio officer-corporate-is-uk-status" value="1" style="display: inline-block">
                                                             <label style="display: inline-block" class="field-label" for="officer-corporate-is-uk-status-1">Yes</label>
                                                         </span>
                                                         <span>
-                                                            <input type="radio" id="officer-corporate-is-uk-status-0" class="w-radio officer-corporate-is-uk-status" name="officer-corporate-is-uk-status" value="0" style="display: inline-block">
+                                                            <input type="radio" id="officer-corporate-is-uk-status" @(Model.CorporateRegisteredInUk == "0" ? "checked" : "") class="w-radio officer-corporate-is-uk-status" value="0" style="display: inline-block">
                                                             <label class="field-label" style="display: inline-block" for="officer-corporate-is-uk-status-0">No</label>
                                                         </span>
                                                     </div>
@@ -174,25 +171,30 @@
                                                 <!-- start is uk data -->
                                                 <div id="officer-is-uk-questions-wrapper" style="">
                                                     <div class="officer-corporate-reg-no-wrapper officer-corporate-is-uk-question">
-                                                        <label class="field-label" for="officer-corporate-reg-no">Registration Number <span class="ef-optional-span ef-js-officer-optional-span">(optional)</span> </label>
-                                                        <input type="text" class="w-input officer-corporate-reg-no ef-js-officer-optional-qs" id="officer-corporate-reg-no" placeholder="Registration Number" name="officer-corporate-reg-no" value="" autocomplete="off">
+                                                        <label class="field-label" for="officer-corporate-reg-no">Registration Number  </label>
+                                                        <input type="text" class="w-input officer-corporate-reg-no ef-js-officer-optional-qs" placeholder="Registration Number" asp-for="CorporateOfficers.RegistrationNumber" />
+                                                        <span class="text-address-error-message" id="CorporateOfficers_RegistrationNumber_error" style="display: none;"></span>
                                                     </div>
                                                     <div class="officer-corporate-place-reg-wrapper officer-corporate-is-uk-question">
-                                                        <label class="field-label" for="officer-corporate-place-reg">Place Registered <span class="ef-optional-span ef-js-officer-optional-span">(optional)</span> </label>
-                                                        <input type="text" class="w-input officer-corporate-place-reg ef-js-officer-optional-qs" id="officer-corporate-place-reg" name="officer-corporate-place-reg" value="" placeholder="Example: England" autocomplete="off">
+                                                        <label class="field-label" for="officer-corporate-place-reg">Place Registered </label>
+                                                        <input type="text" class="w-input officer-corporate-place-reg ef-js-officer-optional-qs" asp-for="CorporateOfficers.PlaceRegistered" placeholder="Example: England" />
+                                                        <span class="text-address-error-message" id="CorporateOfficers_PlaceRegistered_error" style="display: none;"></span>
                                                     </div>
                                                     <!-- required is a PSC -->
                                                     <div class="officer-corporate-psc-place-reg-wrapper officer-corporate-is-uk-question">
-                                                        <label class="field-label" for="officer-corporate-psc-place-reg">Registry Held <span class="ef-optional-span ef-js-officer-optional-span">(optional)</span> </label>
-                                                        <input type="text" class="w-input officer-corporate-psc-place-reg ef-js-officer-optional-qs" id="officer-corporate-psc-place-reg" name="officer-corporate-psc-place-reg" value="" placeholder="Example: Companies House" autocomplete="off">
+                                                        <label class="field-label" for="officer-corporate-psc-place-reg">Registry Held </label>
+                                                        <input type="text" class="w-input officer-corporate-psc-place-reg ef-js-officer-optional-qs" asp-for="CorporateOfficers.RegistryHeld" placeholder="Example: Companies House" />
+                                                        <span class="text-address-error-message" id="CorporateOfficers_RegistryHeld_error" style="display: none;"></span>
                                                     </div>
                                                     <div class="officer-corporate-law-gov-wrapper officer-corporate-is-uk-question">
                                                         <label class="field-label" for="officer-corporate-law-gov">Law Governed</label>
-                                                        <input class="w-input" type="text" placeholder="Law Governed" id="officer-corporate-law-gov" name="officer-corporate-law-gov" value="" autocomplete="off">
+                                                        <input class="w-input" type="text" placeholder="Law Governed" asp-for="CorporateOfficers.LawGoverned" />
+                                                        <span class="text-address-error-message" id="CorporateOfficers_LawGoverned_error" style="display: none;"></span>
                                                     </div>
                                                     <div class="officer-corporate-legal-form-wrapper officer-corporate-is-uk-question">
                                                         <label class="field-label" for="officer-corporate-legal-form">Legal Form</label>
-                                                        <input class="w-input" type="text" placeholder="Legal Form" id="officer-corporate-legal-form" name="officer-corporate-legal-form" value="" autocomplete="off">
+                                                        <input class="w-input" type="text" placeholder="Legal Form" asp-for="CorporateOfficers.LegalForm" />
+                                                        <span class="text-address-error-message" id="CorporateOfficers_LegalForm_error" style="display: none;"></span>
                                                     </div>
                                                 </div>
                                                 <!-- / end is uk data -->
@@ -202,88 +204,24 @@
                                             <div class="w-col w-col-12" id="residential-address-wrapper">
                                                 <h3 for="officer-residential-address">Address</h3>
                                                 <span class="residential-address-help-text mr-bot-20 block"><strong>Please Note: Please supply the registered office address of the corporate entity. This address does not need to be in the UK.</strong></span>
-                                                <div id="ef-residential-address">
-                                                    <div class="w-row ef-panel-row">
-                                                        <div class="w-col w-col-8">
-                                                            <div class="officer-residential-address">
-                                                                <span>None Selected</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="w-col w-col-4 w-clearfix ef-officer-residential-btns">
-                                                            <button type="button" id="officer-residential-choose-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0, 'residential', jQuery('#residential-address-wrapper h2').text());" style="">Choose Address</button>
-                                                            <button type="button" id="officer-residential-edit-address" class="ef-btn ef-primary-btn  ef-alt-btn" onclick="FormBuilder.ChooseOfficerAddress(jQuery('input[name=officer-residential-address]').val(), 'residential', jQuery('#residential-address-wrapper h2').text());" style="display:none;">Edit</button>
-                                                            <button type="button" id="officer-residential-choose-another-address" class="ef-btn ef-primary-btn" onclick="FormBuilder.ChooseOfficerAddress(0, 'residential', jQuery('#residential-address-wrapper h2').text());" style="display:none;">Choose Another</button>
-                                                            <input type="hidden" name="officer-residential-address" value="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end res address -->
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-10" style="">
-                                                    <div class="officer-paq-wrapper" style="display:none ">
-                                                        <h3>Authentication Questions</h3>
-                                                        <div class="w-row">
-                                                            <div class="w-col w-col-3">
-                                                                <label class="field-label" id="pac-q1-label" for="pac-q1">Select First 3 letters of</label>
-                                                            </div>
-                                                            <div class="w-col w-col-5">
-                                                                <select class="w-select appointments-field" id="pac-q1" name="pac-q1">
-                                                                    <option value="MUM" selected="selected" data-label="Select First 3 letters of">Mother's Maiden Name</option>
-                                                                    <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
-                                                                    <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
-                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
-                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
-                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="w-col w-col-1">
-                                                                <label class="field-label" for="pac-a1">Answer</label>
-                                                            </div>
-                                                            <div class="w-col w-col-3 w-clearfix">
-                                                                <input class="w-input ef-pac-answer" id="pac-a1" type="text" name="pac-a1" value="" maxlength="3" size="3">
-                                                            </div>
-                                                        </div>
-                                                        <div class="w-row">
-                                                            <div class="w-col w-col-3">
-                                                                <label class="field-label" id="pac-q2-label" for="pac-q2">Select First 3 letters of</label>
-                                                            </div>
-                                                            <div class="w-col w-col-5">
-                                                                <select class="w-select appointments-field" id="pac-q2" name="pac-q2">
-                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
-                                                                    <option value="DAD" selected="selected" data-label="Select First 3 letters of">Father's Forename</option>
-                                                                    <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
-                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
-                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
-                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="w-col w-col-1">
-                                                                <label class="field-label" for="pac-a2">Answer</label>
-                                                            </div>
-                                                            <div class="w-col w-col-3 w-clearfix">
-                                                                <input class="w-input ef-pac-answer" id="pac-a2" type="text" name="pac-a2" value="" maxlength="3" size="3">
-                                                            </div>
-                                                        </div>
-                                                        <div class="w-row last-margin">
-                                                            <div class="w-col w-col-3">
-                                                                <label class="field-label" id="pac-q3-label" for="pac-q3">Select First 3 letters of</label>
-                                                            </div>
-                                                            <div class="w-col w-col-5">
-                                                                <select class="w-select appointments-field" id="pac-q3" name="pac-q3">
-                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
-                                                                    <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
-                                                                    <option value="BIRTOWN" selected="selected" data-label="Select First 3 letters of">Town Of Birth</option>
-                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
-                                                                    <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
-                                                                    <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="w-col w-col-1">
-                                                                <label class="field-label" for="pac-a3">Answer</label>
-                                                            </div>
-                                                            <div class="w-col w-col-3 w-clearfix">
-                                                                <input class="w-input ef-pac-answer" id="pac-a3" type="text" name="pac-a3" value="" maxlength="3" size="3">
+                                                <div class="ef-item-box ef-selected">
+                                                    <div class="ef-item-content">
+                                                        <div class="w-row ef-panel-row">
+                                                            <button type="button" class="ef-btn ef-select-btn" id="ExsistingAddress" onclick="showUserAddressPanel()">
+                                                                Recently used addresses
+                                                            </button>
+                                                            <button type="button" class="ef-btn ef-select-btn" id="openPersonSecondModal" onclick="openAddressModal()">
+                                                                New Address
+                                                            </button>
+                                                            <div class="w-col w-col-8" style="margin-top: 10px;">
+                                                                <div class="">
+                                                                    <span class="registered-forwarding-address">
+                                                                        @if (RegisteredOfficeAddress != null)
+                                                                        {
+                                                                            @($"{RegisteredOfficeAddress.HouseName}, {RegisteredOfficeAddress.Street}, {RegisteredOfficeAddress.Town}, {RegisteredOfficeAddress.County}, {RegisteredOfficeAddress.PostCode}, {RegisteredOfficeAddress.Country}")
+                                                                        }
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -296,7 +234,7 @@
                                 <div class="w-row">
                                     <div class="w-col">
                                         <button type="button" class="btn btn-success" onclick="btnBackToMainPage()">Back</button>
-                                        <button type="button" id="officer-submit-details-tab" class="ef-btn ef-submit-btn" onclick=""> Save & Next</button>
+                                        <button type="button" id="corporate-submit-details-tab" class="ef-btn ef-submit-btn"> Save & Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -307,3 +245,619 @@
         </div>
     </div>
 </div>
+
+@* Choose Address Modal *@
+@* <div class="modal fade" id="corporateAddressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
+                <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div id="an-address" class="ef-address-form" style="">
+                    <div>
+                        <div id="use-previous-address-or-search" class="address-form-div" style="display:block">
+                            <h4>Recently used addresses</h4>
+
+                            <div id="serviceAddressSection" class="address-section">
+                                @foreach (var item in Model.CorporateAddressList)
+                                {
+                                    <div class="w-clearfix simple-row-elem">
+                                        <div class="w-row ef-panel-row">
+                                            <div class="w-col w-col-8">
+                                                <p>@item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country</p>
+                                            </div>
+                                            <div class="w-col w-col-4 w-clearfix add-col">
+                                                <button type="button" class="ef-btn ef-alt-address-btn" onclick='editCorporateAddress(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                                <button type="button" class="ef-btn ef-select-btn" onclick='selectCorporateAddress(@Html.Raw(Json.Serialize(item)))'>Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <h4>Or enter a new Address</h4>
+
+                            <div class="w-clearfix simple-row-elem">
+                                <div class="w-row ef-panel-row">
+                                    <div class="w-col w-col-8">
+                                        <p>Enter new Address</p>
+                                    </div>
+                                    <div class="w-col w-col-4 w-clearfix add-col">
+
+                                        <!-- <span class="ef-btn ef-primary-btn ef-alt-btn ef-cancel-address" onclick="javascript:void(0)" >Cancel</span>-->
+                                        <button type="button" class="ef-btn ef-select-btn" id="openCoporateSecondModal">Select</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div lass="ef-cancel-btn-wrapper">
+                                <div class="w-clearfix">
+                                    <button type="button" class="ef-btn ef-cancel-address" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+<div class="modal fade" id="inCorporateSecondAddressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <input type="hidden" id="hndAddressType" name="hndAddressType" value="" />
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
+                <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div style="" class="address-form-div w-clearfix" id="an-address-form" name="an-address-form">
+                    <div class="w-row row-margin ef-postcode-lookup-wrapper">
+                        <div class="w-col w-col-6">
+                            <label for="postcode-lookup">Post Code</label>
+                            <input class="w-input postal-lookup postcode" id="corporate-postcode-lookup" type="text" placeholder="Enter your postal code" name="postcode-lookup">
+                        </div>
+                        <div class="w-col w-col-3">
+                            <label for="postcode-lookup">&nbsp;</label>
+                            <button type="button" class="ef-add-btn ef-postcode-lookup-btn" onclick="appointmentPostCodeLookup()">Find Address</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" asp-for="CorporateAddress.AddressId" />
+
+                    <label for="address-line-1">Name/Number <span>*</span></label>
+                    <input class="w-input" asp-for="CorporateAddress.HouseName" type="text" placeholder="Enter House Name/Number" />
+                    <span class="text-address-error-message" id="CorporateAddress_HouseName_error" style="display: none;"></span>
+
+                    <label for="address-line-2">Street <span>*</span></label>
+                    <input class="w-input" asp-for="CorporateAddress.Street" type="text" placeholder="Enter Street" />
+                    <span class="text-address-error-message" id="CorporateAddress_Street_error" style="display: none;"></span>
+
+                    <label for="address-line-3">Locality</label>
+                    <input class="w-input" asp-for="CorporateAddress.Locality" type="text" placeholder="Enter Locality" />
+
+                    <label for="address-line-4">Town <span>*</span></label>
+                    <input class="w-input" asp-for="CorporateAddress.Town" type="text" placeholder="Enter Town" />
+                    <span class="text-address-error-message" id="CorporateAddress_Town_error" style="display: none;"></span>
+
+                    <label for="address-line-5" class="address-line-5">County</label>
+                    <input class="w-input address-line-5" asp-for="CorporateAddress.County" type="text" placeholder="Enter County" />
+
+                    <div class="w-row last-margin">
+                        <div class="w-col w-col-6 ef-country-col">
+                            <label for="address-country">Country <span>*</span></label>
+                            <select class="w-select" asp-for="CorporateAddress.Country">
+                                <option value="AFGHANISTAN">Afghanistan</option>
+                                <option value="ALBANIA">Albania</option>
+                                <option value="ALGERIA">Algeria</option>
+                                <option value="ANDORRA">Andorra</option>
+                                <option value="ANGOLA">Angola</option>
+                                <option value="ARGENTINA">Argentina</option>
+                                <option value="ARMENIA">Armenia</option>
+                                <option value="AUSTRALIA">Australia</option>
+                                <option value="AUSTRIA">Austria</option>
+                                <option value="AZERBAIJAN">Azerbaijan</option>
+                                <option value="BAHAMAS">Bahamas</option>
+                                <option value="BAHRAIN">Bahrain</option>
+                                <option value="BANGLADESH">Bangladesh</option>
+                                <option value="BELARUS">Belarus</option>
+                                <option value="BELGIUM">Belgium</option>
+                                <option value="BELIZE">Belize</option>
+                                <option value="BENIN">Benin</option>
+                                <option value="BHUTAN">Bhutan</option>
+                                <option value="BOLIVIA">Bolivia</option>
+                                <option value="BOSNIA AND HERZEGOVINA">Bosnia and Herzegovina</option>
+                                <option value="BOTSWANA">Botswana</option>
+                                <option value="BRAZIL">Brazil</option>
+                                <option value="BRUNEI">Brunei</option>
+                                <option value="BULGARIA">Bulgaria</option>
+                                <option value="BURKINA FASO">Burkina Faso</option>
+                                <option value="BURUNDI">Burundi</option>
+                                <option value="CAMBODIA">Cambodia</option>
+                                <option value="CAMEROON">Cameroon</option>
+                                <option value="CANADA">Canada</option>
+                                <option value="CHILE">Chile</option>
+                                <option value="CHINA">China</option>
+                                <option value="COLOMBIA">Colombia</option>
+                                <option value="COSTA RICA">Costa Rica</option>
+                                <option value="CROATIA">Croatia</option>
+                                <option value="CYPRUS">Cyprus</option>
+                                <option value="CZECH REPUBLIC">Czech Republic</option>
+                                <option value="DENMARK">Denmark</option>
+                                <option value="EGYPT">Egypt</option>
+                                <option value="ESTONIA">Estonia</option>
+                                <option value="FINLAND">Finland</option>
+                                <option value="FRANCE">France</option>
+                                <option value="GEORGIA">Georgia</option>
+                                <option value="GERMANY">Germany</option>
+                                <option value="GHANA">Ghana</option>
+                                <option value="GREECE">Greece</option>
+                                <option value="HONG KONG">Hong Kong</option>
+                                <option value="HUNGARY">Hungary</option>
+                                <option value="ICELAND">Iceland</option>
+                                <option value="INDIA">India</option>
+                                <option value="INDONESIA">Indonesia</option>
+                                <option value="IRAN">Iran</option>
+                                <option value="IRAQ">Iraq</option>
+                                <option value="IRELAND">Ireland</option>
+                                <option value="ISRAEL">Israel</option>
+                                <option value="ITALY">Italy</option>
+                                <option value="JAPAN">Japan</option>
+                                <option value="JORDAN">Jordan</option>
+                                <option value="KENYA">Kenya</option>
+                                <option value="KUWAIT">Kuwait</option>
+                                <option value="LATVIA">Latvia</option>
+                                <option value="LEBANON">Lebanon</option>
+                                <option value="LITHUANIA">Lithuania</option>
+                                <option value="LUXEMBOURG">Luxembourg</option>
+                                <option value="MALAYSIA">Malaysia</option>
+                                <option value="MALTA">Malta</option>
+                                <option value="MEXICO">Mexico</option>
+                                <option value="MOROCCO">Morocco</option>
+                                <option value="NEPAL">Nepal</option>
+                                <option value="NETHERLANDS">Netherlands</option>
+                                <option value="NEW ZEALAND">New Zealand</option>
+                                <option value="NIGERIA">Nigeria</option>
+                                <option value="NORWAY">Norway</option>
+                                <option value="PAKISTAN">Pakistan</option>
+                                <option value="PHILIPPINES">Philippines</option>
+                                <option value="POLAND">Poland</option>
+                                <option value="PORTUGAL">Portugal</option>
+                                <option value="QATAR">Qatar</option>
+                                <option value="ROMANIA">Romania</option>
+                                <option value="RUSSIA">Russia</option>
+                                <option value="SAUDI ARABIA">Saudi Arabia</option>
+                                <option value="SINGAPORE">Singapore</option>
+                                <option value="SLOVAKIA">Slovakia</option>
+                                <option value="SLOVENIA">Slovenia</option>
+                                <option value="SOUTH AFRICA">South Africa</option>
+                                <option value="SOUTH KOREA">South Korea</option>
+                                <option value="SPAIN">Spain</option>
+                                <option value="SRI LANKA">Sri Lanka</option>
+                                <option value="SWEDEN">Sweden</option>
+                                <option value="SWITZERLAND">Switzerland</option>
+                                <option value="SYRIA">Syria</option>
+                                <option value="TAIWAN">Taiwan</option>
+                                <option value="THAILAND">Thailand</option>
+                                <option value="TUNISIA">Tunisia</option>
+                                <option value="TURKEY">Turkey</option>
+                                <option value="UGANDA">Uganda</option>
+                                <option value="UKRAINE">Ukraine</option>
+                                <option value="UNITED ARAB EMIRATES">United Arab Emirates</option>
+                                <option value="UNITED KINGDOM">United Kingdom</option>
+                                <option value="UNITED STATES">United States</option>
+                                <option value="URUGUAY">Uruguay</option>
+                                <option value="VIETNAM">Vietnam</option>
+                                <option value="YEMEN">Yemen</option>
+                                <option value="ZAMBIA">Zambia</option>
+                                <option value="ZIMBABWE">Zimbabwe</option>
+                            </select>
+                        </div>
+
+                        <div class="w-col w-col-6 postcode-col">
+                            <label for="address-postcode" id="address-postcode-label">
+                                Postal Code
+                                <span>
+                                    *
+                                </span>
+                            </label>
+                            <input class="w-input postcode" asp-for="CorporateAddress.PostCode" type="text" placeholder="Enter Postcode" />
+                            <span class="text-address-error-message" id="CorporateAddress_PostCode_error" style="display: none;"></span>
+                        </div>
+                    </div>
+                    <button type="button" class="ef-add-btn ef-cancel-forward-address" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="ef-add-btn ef-save-address-btn" onclick="saveChooseAddressData()">Save &amp; Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addressPanel" class="address-panel shadow p-3" style="display:none;">
+    <h5>Select an Address</h5>
+    <ul id="PostCodeAddressList" class="list-group address-scroll mt-3"></ul>
+    <button class="btn btn-secondary mt-2" onclick="closeAddressPanel()">Close</button>
+</div>
+
+<div id="corporateAddressPanel" class="address-panel shadow p-3" style="display:none;">
+    <h5>Select an Address</h5>
+    <button class="btn btn-secondary mt-2" onclick="CloseCorporateAddressPanel()">Close</button>
+    <ul id="ulRegisteredAdd" style="display:none;">
+        @foreach (var item in Model.CorporateAddressList.Where(x => x.IsRegisteredOffice))
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                    @item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
+                </span>
+                <button type="button"
+                        class="btn btn-success btn-sm"
+                        onclick='selectAddress(@Html.Raw(Json.Serialize(item)))'>
+                    Select
+                </button>
+            </li>
+        }
+    </ul>
+</div>
+
+<script>
+    $("#corporate-position-tab").click(function () {
+        var selectedData = [];
+        $(".w-checkbox-input:checked").each(function () {
+            selectedData.push($(this).val());
+        });
+
+        if (selectedData?.length === 0) {
+            $("#position-error").html("Please select the Position.").show();
+        }
+        else{
+            $("#position-error").html("Please select the Position.").hide();
+        }
+
+        const selectedPosition = selectedData.join(",");
+
+        $.ajax({
+            url: "/FormationPage/AppointmentCorporateTab?handler=SaveCorporatePositionData",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ position: selectedPosition }),
+            success: function (response) {
+                if (response.success) {
+                    showToast('Position Data Saved.', 'success');
+                    console.log(response.success);
+                }
+            },
+            error: function (xhr) {
+                console.error("Error:", xhr.statusText, xhr.responseText);
+            }
+        });
+    });
+
+    $("#corporate-submit-details-tab").click(function () {
+        var isValid = true;
+        var selectedData = [];
+        $(".w-checkbox-input:checked").each(function () {
+            selectedData.push($(this).val());
+        });
+
+        // var registeredlAdd = $(".officer-registered-address").text().replace(/[\s\d.]+/g, '');
+        // if(registeredlAdd == "NoneSelected"){
+        //     isValid = false;
+        //     showToast('Please filled required details.', 'warning');
+        //     $("#address-error").html("Please select the Registered Address.").show();
+        // }
+        // else {
+        //     isValid = true;
+        //     $("#address-error").html("Please select the Registered Address.").hide();
+        // }
+
+        if (selectedData?.length === 0) {
+            isValid = false;
+            $("#position-error").html("Please select the Position.").show();
+            showToast('Please filled required details.', 'warning');
+        }
+        else{
+            isValid = true;
+            $("#position-error").html("Please select the Position.").hide();
+        }
+
+        // Field validation helper
+        function validateField(id, errorId, fieldName) {
+            const value = $(id).val().trim();
+            if (value === "") {
+                isValid = false;
+                $(errorId).text(`${fieldName} is required.`).show();
+                showToast('Please filled required details.', 'warning');
+            } else {
+                $(errorId).text("").hide();
+            }
+        }
+
+        validateField("#CorporateOfficers_Title", "#CorporateOfficers_Title_error", "Title");
+        validateField("#CorporateOfficers_FirstName", "#CorporateOfficers_FirstName_error", "FirstName");
+        validateField("#CorporateOfficers_LastName", "#CorporateOfficers_LastName_error", "LastName");
+        validateField("#CorporateOfficers_LegalName", "#CorporateOfficers_LegalName_error", "LegalName");
+        validateField("#CorporateOfficers_RegistrationNumber", "#CorporateOfficers_RegistrationNumber_error", "RegistrationNumber");
+        validateField("#CorporateOfficers_PlaceRegistered", "#CorporateOfficers_PlaceRegistered_error", "PlaceRegistered");
+        validateField("#CorporateOfficers_RegistryHeld", "#CorporateOfficers_RegistryHeld_error", "RegistryHeld");
+        validateField("#CorporateOfficers_LawGoverned", "#CorporateOfficers_LawGoverned_error", "LawGoverned");
+        validateField("#CorporateOfficers_LegalForm", "#CorporateOfficers_LegalForm_error", "LegalForm");
+
+        if(isValid) {
+            saveCorporateChooseAddressData();
+            var formData = {
+                Title: $('#CorporateOfficers_Title').val(),
+                FirstName: $('#CorporateOfficers_FirstName').val(),
+                LastName: $('#CorporateOfficers_LastName').val(),
+                LegalName: $('#CorporateOfficers_LegalName').val(),
+                RegisteredInUK: $('#officer-corporate-is-uk-status:checked').val(),
+                RegistrationNumber: $('#CorporateOfficers_RegistrationNumber').val(),
+                PlaceRegistered: $('#CorporateOfficers_PlaceRegistered').val(),
+                RegistryHeld: $('#CorporateOfficers_RegistryHeld').val(),
+                LawGoverned: $('#CorporateOfficers_LawGoverned').val(),
+                LegalForm: $('#CorporateOfficers_LegalForm').val(),
+            }
+
+            $.ajax({
+                url: "/FormationPage/AppointmentCorporateTab?handler=SaveCorporateDetails",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    if (response.success) {
+                        showToast('All Data Saved.', 'success');
+                        window.location.reload();
+                        $('html, body').scrollTop($('#appointment').offset().top);
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error:", xhr.statusText, xhr.responseText);
+                }
+            });
+        }
+    });
+
+    function openAddressModal(type, addressData = null) {
+        // Set the type: "Registered" or "Business"
+        $('#hndAddressType').val(type);
+        $('#inCorporateSecondAddressModal').modal('show');
+    }
+
+    // Open Second Modal
+    $('#openCoporateSecondModal').on('click', function () {
+        $('#addressModal').modal('hide');
+
+        $('#addressModal').on('hidden.bs.modal', function () {
+            $('#inCorporateSecondAddressModal').modal('show');
+        });
+    });
+
+    function saveChooseAddressData() {
+        var isValid = true;
+
+        // Field validation helper
+        function validateFields(id, errorId, fieldName) {
+            const value = $(id).val().trim();
+            if (value === "") {
+                isValid = false;
+                $(errorId).text(`${fieldName} is required.`).show();
+            } else {
+                $(errorId).text("").hide();
+            }
+        }
+
+        validateFields("#CorporateAddress_HouseName", "#CorporateAddress_HouseName_error", "House Name");
+        validateFields("#CorporateAddress_Street", "#CorporateAddress_Street_error", "Street");
+        validateFields("#CorporateAddress_Town", "#CorporateAddress_Town_error", "Town");
+        validateFields("#CorporateAddress_PostCode", "#CorporateAddress_PostCode_error", "Postcode");
+
+        if (isValid) {
+            $(".registered-forwarding-address").html("");
+            const addressHtml = [
+                $("#CorporateAddress_HouseName").val(),
+                $("#CorporateAddress_Street").val(),
+                $("#CorporateAddress_Town").val(),
+                $("#CorporateAddress_County").val(),
+                $("#CorporateAddress_PostCode").val(),
+                $("#CorporateAddress_Country").val()
+            ].filter(Boolean).join(', ');
+            $(".registered-forwarding-address").html(addressHtml);
+
+            $("#inCorporateSecondAddressModal").modal("hide");
+        }
+    }
+
+    function saveCorporateChooseAddressData() {
+        const addressData = {
+            addressId: parseInt($("#CorporateAddress_AddressId").val()) || 0,
+            houseName: $("#CorporateAddress_HouseName").val(),
+            street: $("#CorporateAddress_Street").val(),
+            postCode: $("#CorporateAddress_PostCode").val(),
+            town: $("#CorporateAddress_Town").val(),
+            country: $("#CorporateAddress_Country").val(),
+            county: $("#CorporateAddress_County").val(),
+            locality: $("#CorporateAddress_Locality").val()
+        };
+
+        $.ajax({
+            url: "/FormationPage/AppointmentCorporateTab?handler=SaveCorporateAddress",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(addressData),
+            success: function (response) {
+                if (!response.success) {
+                    // Loop through returned errors and set messages
+                    for (const [field, message] of Object.entries(response.errors)) {
+                        const errorSpan = document.getElementById(`${field}-error`);
+                        if (errorSpan) {
+                            errorSpan.textContent = message;
+                        }
+                    }
+                }
+                else {
+                    console.log("Success:", response);
+                    $("#inCorporateSecondAddressModal").modal('hide');
+                    $("#addressModal").modal('hide');
+                    showToast('Data Saved.', 'success');
+                }
+            },
+            error: function (xhr) {
+                console.error("Error:", xhr.statusText, xhr.responseText);
+            }
+        });
+    }
+
+    function editCorporateAddress(data) {
+        $("#CorporateAddress_AddressId").val(data.addressId); // Ensure your model has Id
+
+        $("#CorporateAddress_HouseName").val(data.houseName);
+        $("#CorporateAddress_Street").val(data.street);
+        $("#CorporateAddress_Locality").val(data.locality);
+        $("#CorporateAddress_Town").val(data.town);
+        $("#CorporateAddress_County").val(data.county);
+        $("#CorporateAddress_Country").val(data.country);
+        $("#CorporateAddress_PostCode").val(data.postCode);
+
+        // Clear error messages
+        $(".text-address-error-message").hide().text("");
+
+        $("#inCorporateSecondAddressModal").modal("show");
+    }
+
+    function selectCorporateAddress(data) {
+        const addressHtml = `${data.houseName}, ${data.street}, ${data.town}, ${data.county}, ${data.postCode}, ${data.country}`;
+        $(".registered-forwarding-address").html(addressHtml);
+
+        $("#CorporateAddress_HouseName").val(data.houseName);
+        $("#CorporateAddress_Street").val(data.street);
+        $("#CorporateAddress_Locality").val(data.locality);
+        $("#CorporateAddress_Town").val(data.town);
+        $("#CorporateAddress_County").val(data.county);
+        $("#CorporateAddress_Country").val(data.country);
+        $("#CorporateAddress_PostCode").val(data.postCode);
+        ClosePersonAddressPanel();
+    }
+
+    function appointmentPostCodeLookup() {
+        const postCode = $("#corporate-postcode-lookup").val();
+
+        if (!postCode) {
+            alert("Please enter a postcode.");
+            return;
+        }
+
+        $.ajax({
+            type: "GET",
+            url: `/register?handler=CheckPostCode&postCode=${encodeURIComponent(postCode)}`,
+            dataType: "json",
+            success: function (response) {
+                if (!response.success || !Array.isArray(response.suggestions)) {
+                    alert("No suggestions found.");
+                    return;
+                }
+                console.log("response", response);
+                console.log("response.suggestions", response.suggestions);
+
+                populateAddressList(response.suggestions);
+            },
+            error: function (xhr) {
+                console.error("AJAX error:", xhr);
+                alert("Error fetching postcode suggestions.");
+            }
+        });
+    }
+
+    function populateAddressList(suggestions) {
+        const list = document.getElementById("PostCodeAddressList");
+        list.innerHTML = ''; // Clear previous items
+
+        suggestions.forEach(item => {
+            const li = document.createElement("li");
+            li.className = "list-group-item d-flex justify-content-between align-items-center";
+
+            const addressText = document.createElement("span");
+            addressText.textContent = item.address;
+
+            const selectBtn = document.createElement("button");
+            selectBtn.className = "btn btn-success btn-sm";
+            selectBtn.textContent = "Select";
+            selectBtn.dataset.addressId = item.id;
+
+            // 👇 API call on select
+            selectBtn.onclick = function () {
+                const id = this.dataset.addressId;
+                const apiKey = 'k2fpqS_lSUeh0z2ISb57ng45543'; // Replace with actual or server-stored key
+                const url = `https://api.getaddress.io/get/${id}?api-key=${apiKey}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Full address data:", data);
+                        bindAddressToForm(data);
+                        //bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
+                        closeAddressPanel();
+                    })
+                    .catch(err => {
+                        console.error("Error fetching full address:", err);
+                        alert("Unable to fetch full address details.");
+                    });
+            };
+
+            li.appendChild(addressText);
+            li.appendChild(selectBtn);
+            list.appendChild(li);
+        });
+
+        // new bootstrap.Modal(document.getElementById('addressModal')).show();
+        showAddressPanel();
+    }
+
+    function showAddressPanel() {
+        document.getElementById('addressPanel').style.display = 'block';
+    }
+
+    function closeAddressPanel() {
+        document.getElementById('addressPanel').style.display = 'none';
+    }
+
+    function showUserAddressPanel() {
+        document.getElementById('corporateAddressPanel').style.display = 'block';
+        document.getElementById('ulRegisteredAdd').style.display = 'block';
+    }
+
+    function CloseCorporateAddressPanel() {
+        document.getElementById('corporateAddressPanel').style.display = 'none';
+    }
+
+    function bindAddressToForm(data) {
+        if (!data) return;
+        console.log("data", data);
+        const lines = data.line_1.split(' ');
+
+        document.getElementById('CorporateAddress_HouseName').value = data.building_number || '';
+        document.getElementById('CorporateAddress_Street').value = lines[1] + ' ' + lines[2]?.trim() || '';
+        document.getElementById('CorporateAddress_Town').value = data.town_or_city || '';
+        document.getElementById('CorporateAddress_County').value = data.county || '';
+        document.getElementById('CorporateAddress_PostCode').value = data.postcode || '';
+        if (data.country == "England") {
+            document.getElementById('CorporateAddress_Country').value = "UNITED KINGDOM";
+        }
+        else {
+            document.getElementById('CorporateAddress_Country').value = data.country || '';
+        }
+    }
+</script>

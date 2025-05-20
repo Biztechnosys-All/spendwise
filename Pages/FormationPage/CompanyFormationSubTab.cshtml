@@ -5,17 +5,17 @@
 }
 <style>
     .w-input, .w-select {
-        border: 1px solid #84888a !important;
-        font-size: 14px !important;
+    border: 1px solid #84888a !important;
+    font-size: 14px !important;
     }
 
     .ef-sic-code-filter {
-        display: none;
-        min-height: 300px;
-        height: 340px;
-        max-height: 400px;
-        overflow-x: scroll;
-        overflow-x: hidden;
+    display: none;
+    min-height: 300px;
+    height: 340px;
+    max-height: 400px;
+    overflow-x: scroll;
+    overflow-x: hidden;
     }
 
     .address-panel {
@@ -449,6 +449,50 @@
                 <div class="ef-panel-wrapper">
                     <div class="head-01">
                         <h1> Documents </h1>
+                    </div>
+
+                    <div>
+                        @if (Model.UploadedDocuments != null && Model.UploadedDocuments.Count > 0)
+                        {
+                            <label for="selectType">Choose a Proof of Identity:</label>
+                            <table class="table table-bordered" style="border: 1px solid;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"> DocumentName</th>
+                                        <th scope="col"> FileName</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "identity"))
+                                    {
+                                        <tr>
+                                            <td> @item.DocumentName</td>
+                                            <td> @item.FileName</td>
+                                        </tr>
+                                    }                                    
+                                </tbody>
+                            </table>
+
+                            <label for="selectType">Choose a Proof of Address:</label>
+                            <table class="table table-bordered" style="border: 1px solid;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"> DocumentName</th>
+                                        <th scope="col"> FileName</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "address"))
+                                    {
+                                        <tr>
+                                            <td> @item.DocumentName</td>
+                                            <td> @item.FileName</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        
                     </div>
 
                     <div class="ef-registered-office-step" id="ef-panel-content">
@@ -1151,7 +1195,7 @@
             }
 
             validateField("#Company_RegisteredEmail", "#Address_RegisteredEmail_error", "Registered Email");
-            debugger;
+
             const registeredEmail = $("#Company_RegisteredEmail").val().trim();
             const addressData = {
                 addressId: parseInt($("#Address_AddressId").val()) || 0,
@@ -1203,8 +1247,7 @@
                 });
             }
         }
-        else if (type == "business") {
-            debugger;
+        else if (type == "business"){
             const addressData = {
                 addressId: parseInt($("#Address_AddressId").val()) || 0,
                 houseName: $("#Address_HouseName").val(),
@@ -1454,6 +1497,7 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
+                        showToast('Data Saved.', 'success');
                         $.ajax({
                             url: "/FormationPage/Summary",
                             type: "get",
@@ -1461,8 +1505,8 @@
                                 $("#FormationTabContent").html(result);
                                 $(".summary-tab").addClass("current");
 
-                                const newUrl = '?section=' + tabName;
-                                window.history.pushState({ path: newUrl }, '', newUrl);
+                                // const newUrl = '?section=' + tabName;
+                                // window.history.pushState({ path: newUrl }, '', newUrl);
                             }
                         });
                     }
