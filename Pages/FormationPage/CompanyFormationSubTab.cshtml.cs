@@ -1,4 +1,4 @@
-using Azure.Core;
+﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -57,8 +57,8 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             addressData = await _context.AddressData.Where(m => m.UserId == userId).ToListAsync();
-            Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId.ToString() == selectCompanyId.ToString());
-            Particular = await _context.Particulars.FirstOrDefaultAsync(m => m.UserId == userId);
+            Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId.ToString() == selectCompanyId);
+            Particular = await _context.Particulars.FirstOrDefaultAsync(m => m.UserId == userId && m.CompanyId.ToString() == selectCompanyId);
 
             var SelectedSIC_Codes = Particular != null ? Particular.SIC_Code : string.Empty;
             var AddSIC_CodesItemIds = SelectedSIC_Codes.Split(',', StringSplitOptions.RemoveEmptyEntries)
@@ -89,13 +89,22 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
-            var sic_code = Request.Cookies["SIC_Code"];
 
-            particular.SIC_Code = sic_code;
-            particular.UserId = userId;
-            particular.CompanyId = companyId;
-            _context.Particulars.Add(particular);
-            await _context.SaveChangesAsync();
+            var UserParticularsData = await _context.Particulars.FirstOrDefaultAsync(x => x.UserId == userId && x.CompanyId == companyId);
+            if (UserParticularsData != null)
+            {
+                particular.UserId = userId;
+                particular.CompanyId = companyId;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                particular.UserId = userId;
+                particular.CompanyId = companyId;
+                _context.Particulars.Add(particular);
+                await _context.SaveChangesAsync();
+            }
+
 
             return new JsonResult(new { success = true });
         }
@@ -172,7 +181,46 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 addressData.IsRegisteredOffice = true;
                 addressData.CompanyId = companyId;
                 addressData.UserId = userId;
-                _context.AddressData.Add(addressData);
+
+                // STEP 1: Reset IsCurrent = false for any current address for this user & company
+                var existingCurrentAddresses = _context.AddressData
+                    .Where(x => x.CompanyId == companyId && x.UserId == userId && x.IsCurrent && x.IsRegisteredOffice == true);
+
+                foreach (var addr in existingCurrentAddresses)
+                {
+                    addr.IsCurrent = false;
+                    _context.AddressData.Update(addr);
+                }
+
+                // STEP 2: Check if exact same address already exists
+                var existingAddress = _context.AddressData.FirstOrDefault(x =>
+                                       x.HouseName == addressData.HouseName &&
+                                       x.Street == addressData.Street &&
+                                       x.Locality == addressData.Locality &&
+                                       x.Town == addressData.Town &&
+                                       x.County == addressData.County &&
+                                       x.Country == addressData.Country &&
+                                       x.PostCode == addressData.PostCode &&
+                                       x.CompanyId == companyId &&
+                                       x.IsRegisteredOffice == true
+                                   );
+
+                if (existingAddress != null)
+                {
+                    // Case 2: Same address exists → update IsCurrent to true
+                    existingAddress.IsCurrent = true;
+                    _context.AddressData.Update(existingAddress);
+                }
+                else
+                {
+                    // Case 3: New unique address → insert new record
+                    addressData.IsCurrent = true;
+                    _context.AddressData.Add(addressData);
+                }
+
+
+                //addressData.IsCurrent = true;
+                //_context.AddressData.Add(addressData);
             }
 
             using (var conn = new SqlConnection(connectionString))
@@ -186,11 +234,11 @@ namespace Spendwise_WebApp.Pages.FormationPage
                     cmd.Parameters.AddWithValue("@Createdby", userId);
                     int rowsAffected = await cmd.ExecuteNonQueryAsync();
 
-                    if (rowsAffected == 0)
-                    {
-                        ModelState.AddModelError("", "Data not found.");
-                        return new JsonResult(new { success = false });
-                    }
+                    //if (rowsAffected == 0)
+                    //{
+                    //    ModelState.AddModelError("", "Data not found.");
+                    //    return new JsonResult(new { success = false });
+                    //}
                 }
             }
 
@@ -241,7 +289,45 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 request.IsBusiness = true;
                 request.CompanyId = companyId;
                 request.UserId = userId;
-                _context.AddressData.Add(request);
+
+
+                // STEP 1: Reset IsCurrent = false for any current address for this user & company
+                var existingCurrentAddresses = _context.AddressData
+                    .Where(x => x.CompanyId == companyId && x.UserId == userId && x.IsCurrent && x.IsBusiness == true);
+
+                foreach (var addr in existingCurrentAddresses)
+                {
+                    addr.IsCurrent = false;
+                    _context.AddressData.Update(addr);
+                }
+
+                // STEP 2: Check if exact same address already exists
+                var existingAddress = _context.AddressData.FirstOrDefault(x =>
+                                       x.HouseName == request.HouseName &&
+                                       x.Street == request.Street &&
+                                       x.Locality == request.Locality &&
+                                       x.Town == request.Town &&
+                                       x.County == request.County &&
+                                       x.Country == request.Country &&
+                                       x.PostCode == request.PostCode &&
+                                       x.CompanyId == companyId &&
+                                       x.IsBusiness == true
+                                   );
+
+                if (existingAddress != null)
+                {
+                    // Case 2: Same address exists → update IsCurrent to true
+                    existingAddress.IsCurrent = true;
+                    _context.AddressData.Update(existingAddress);
+                }
+                else
+                {
+                    // Case 3: New unique address → insert new record
+                    request.IsCurrent = true;
+                    _context.AddressData.Add(request);
+                }
+
+                //_context.AddressData.Add(request);
             }
             await _context.SaveChangesAsync();
 

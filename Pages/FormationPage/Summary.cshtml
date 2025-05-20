@@ -3,7 +3,10 @@
 @{
     Layout = null;
 }
-
+@{
+    var RegistredOfficeAddress = Model.AddressList.Where(x => x.IsRegisteredOffice == true && x.IsCurrent == true).FirstOrDefault();
+    var BusinessOfficeAddress = Model.AddressList.Where(x => x.IsBusiness == true && x.IsCurrent == true).FirstOrDefault();
+}
 <div>
     <div class="ef-order-form-nav-step-wrapper">
         <div class="w-container ef-order-form-nav-step-content">
@@ -57,7 +60,7 @@
                                                 <div class="ef-review-title">Company Name</div>
                                             </div>
                                             <div class="w-col w-col-7">
-                                                <div>CAMPAUK LTD</div>
+                                                <div>@Model.Particular.CompanyName</div>
                                             </div>
                                         </div>
 
@@ -67,7 +70,7 @@
                                             </div>
                                             <div class="w-col w-col-7">
                                                 <div>
-                                                    Limited By Shares
+                                                    @Model.Particular.CompanyType
                                                 </div>
                                             </div>
                                         </div>
@@ -78,7 +81,7 @@
                                             </div>
                                             <div class="w-col w-col-7">
                                                 <div>
-                                                    England and Wales
+                                                    @Model.Particular.Jurisdiction
                                                 </div>
                                             </div>
                                         </div>
@@ -90,7 +93,7 @@
                                             <div class="w-col w-col-5 ef-review-sic-codes-col">
                                                 <div class="ef-review-sic-code">
                                                     <p>
-                                                        Growing of rice
+                                                        @Html.Raw(Model.Particular.SIC_Code)
                                                     </p>
                                                 </div>
                                             </div>
@@ -102,54 +105,99 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="ef-review-business-address-wrapper">
-                                <h3>Registered Office</h3>
-                                <div class="w-row">
-                                    <div class="w-col w-col-11">
-                                        <div class="w-row row-margin">
-                                            <div class="w-col w-col-5">
-                                                <div class="ef-review-title">Email</div>
-                                            </div>
-                                            <div class="w-col w-col-7">
-                                                <div>
-                                                    it@spendwiseacc.com
+                            @if (RegistredOfficeAddress != null)
+                            {
+                                <div class="ef-review-business-address-wrapper">
+                                    <h3>Registered Office</h3>
+                                    <div class="w-row">
+                                        <div class="w-col w-col-11">
+                                            <div class="w-row row-margin">
+                                                <div class="w-col w-col-5">
+                                                    <div class="ef-review-title">Email</div>
+                                                </div>
+                                                <div class="w-col w-col-7">
+                                                    <div>
+                                                        @Model.RegistredEmail
+                                                    </div>
+                                                </div>
+                                                <div class="w-col w-col-1">
                                                 </div>
                                             </div>
-                                            <div class="w-col w-col-1">
+
+                                            <div class="w-row row-margin">
+                                                <div class="w-col w-col-5">
+                                                    <div class="ef-review-title">Addresses</div>
+                                                </div>
+                                                <div class="w-col w-col-7">
+                                                    <div>
+                                                        Registered Office - Pay Monthly
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="w-row row-margin">
+                                                <div class="w-col w-col-5">
+                                                    <div class="ef-review-title">Forwarding Address</div>
+                                                </div>
+                                                <div class="w-col w-col-7">
+
+                                                    <div>
+                                                        @RegistredOfficeAddress.HouseName,@RegistredOfficeAddress.Street,@RegistredOfficeAddress.Locality,
+                                                        @RegistredOfficeAddress.County,@RegistredOfficeAddress.PostCode,@RegistredOfficeAddress.Country
+                                                        @* 15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM *@
+                                                    </div>
+                                                </div>
+                                                <div class="w-col w-col-1">
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="w-row row-margin">
-                                            <div class="w-col w-col-5">
-                                                <div class="ef-review-title">Addresses</div>
-                                            </div>
-                                            <div class="w-col w-col-7">
-                                                <div>
-                                                    Registered Office - Pay Monthly
-                                                </div>
-                                            </div>
+                                        <div class="w-col w-col-1">
+                                            <button type="button" class="btn btn-success" onclick="">Edit</button>
                                         </div>
-
-                                        <div class="w-row row-margin">
-                                            <div class="w-col w-col-5">
-                                                <div class="ef-review-title">Forwarding Address</div>
-                                            </div>
-                                            <div class="w-col w-col-7">
-                                                <div>
-                                                    15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM
-                                                </div>
-                                            </div>
-                                            <div class="w-col w-col-1">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="w-col w-col-1">
-                                        <button type="button" class="btn btn-success" onclick="">Edit</button>
                                     </div>
                                 </div>
-                            </div>
+                            }
+                            @if (BusinessOfficeAddress != null)
+                            {
+                                <div class="ef-review-business-address-wrapper">
+                                    <h3>Business Office</h3>
+                                    <div class="w-row">
+                                        <div class="w-col w-col-11">
+                                            <div class="w-row row-margin">
+                                                <div class="w-col w-col-5">
+                                                    <div class="ef-review-title">Addresses</div>
+                                                </div>
+                                                <div class="w-col w-col-7">
+                                                    <div>
+                                                        Business Office - Pay Monthly
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="w-row row-margin">
+                                                <div class="w-col w-col-5">
+                                                    <div class="ef-review-title">Business Address</div>
+                                                </div>
+                                                <div class="w-col w-col-7">
+
+                                                    <div>
+                                                        @BusinessOfficeAddress.HouseName,@BusinessOfficeAddress.Street,@BusinessOfficeAddress.Locality,
+                                                        @BusinessOfficeAddress.County,@BusinessOfficeAddress.PostCode,@BusinessOfficeAddress.Country
+                                                        @* 15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM *@
+                                                    </div>
+                                                </div>
+                                                <div class="w-col w-col-1">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="w-col w-col-1">
+                                            <button type="button" class="btn btn-success" onclick="">Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
 
                             <div class="ef-review-appointments">
                                 <h3>Appointments</h3>
