@@ -47,7 +47,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var position = _context.OtherLegalOfficers.FirstOrDefault(x => x.UserId == userId && x.LegalOfficerId == officerId);
 
             addressData = await _context.AddressData.Where(m =>  m.UserId == userId && m.CompanyId == companyId).ToListAsync();
-
+            OtherOfficers = position;
 
             if (position != null && !string.IsNullOrWhiteSpace(position.PositionName))
             {
