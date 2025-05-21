@@ -12,36 +12,14 @@
                         <h3>A company registration package for non-profit organisations</h3>
                         <div class="compare-packages-panel__actions">
                             <div class="compare-packages-panel__prices">
-                                <span class="compare-packages-panel__price">£69.99</span>
+                                <span class="compare-packages-panel__price">£@Model.Package.Price</span>
                             </div>
                             <a href="/BuyPackage?packageName=Limited By Guarantee" class="button9 js-routing button button--secondary">Buy Now</a>
                         </div>
                     </div>
                     <div class="compare-packages-panel__body">
                         <div class="compare-packages-panel__columns">
-                            <div>
-                                <p>Our Limited by Guarantee package, at a cost of just £69.99 +VAT, is ideal for those who wish to set up a limited company for non-profit purposes - i.e. a club, sporting association, community project, workers' cooperative or membership organisation.</p>
-                                <p>This package provides:</p>
-                                <ul class="fa-ul">
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> online company registration</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> a full set of digital company documents</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> filing of the first confirmation statement</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> free .com or .co.uk domain name</li>
-                                </ul>
-
-                                <h4>Savings when you choose this package</h4>
-                                <p>The cost of our Limited by Guarantee Package is £69.99, however, if you were to purchase each item in this package separately, the total cost would be £118.99 +VAT. That's a saving of £49.00.</p>
-
-                                <h4>This package is not suitable to form the following companies:</h4>
-                                <ul class="fa-ul">
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> A Charity company.</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> A company requiring exemption from using the word ‘limited’ in the company name.</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> A company using the words Association, Benevolent, Federation, Foundation, Society or Trust in the company name.</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> A Right to Manage company.</li>
-                                </ul>
-                                <p>To form these companies or use bespoke articles of association, please call our Customer Service Team at <a href="tel:+442038972233">020 3897 2233</a>, and we will be happy to assist you.</p>
-                                <p><strong>Please note:</strong> Company documents are delivered free of charge within the UK. For overseas deliveries, Royal Mail postage rates + 15% will be charged.</p>
-                            </div>
+                            @Html.Raw(Model.Package.Description)
                             <div>
                                 <h3>Package Features:</h3>
                                 <div class="compare-packages-panel__included-items">

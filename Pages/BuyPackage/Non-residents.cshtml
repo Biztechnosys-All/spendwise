@@ -3,7 +3,7 @@
 @{
     Layout = null;
 }
-<section id="non-residents-content" class="compare-packages-panel compare-packages-panel--desktop">
+<section id="non-residents-content" class="compare-packages-panel">
     <div>
         <div class="row">
             <div class="col">
@@ -12,41 +12,14 @@
                         <h3>Ideal for Non-UK Residents</h3>
                         <div class="compare-packages-panel__actions">
                             <div class="compare-packages-panel__prices">
-                                <span class="compare-packages-panel__price">£164.99</span>
+                                <span class="compare-packages-panel__price">£@Model.Package.Price</span>
                             </div>
                             <a href="/name-check-non-residents-package/" class="button6 js-routing button button--secondary">Buy Now</a>
                         </div>
                     </div>
                     <div class="compare-packages-panel__body">
                         <div class="compare-packages-panel__columns">
-                            <div>
-                                <p>A package for non-residents who wish to set up a UK limited company, including:</p>
-                                <ul class="fa-ul">
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> online company registration</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> WorldFirst UK business banking referral</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> three Covent Garden address services</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> free worldwide delivery of company documents</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> free online company manager</li>
-                                </ul>
-
-                                <h4>How much will I save by choosing this package?</h4>
-                                <p>If you were to buy the items included in this package individually, it would cost a total of £567.99. Therefore, at a discounted price of £164.99, you will enjoy a huge saving of £403.00 +VAT.</p>
-
-                                <h4>WorldFirst UK Business Account Referral</h4>
-                                <p>The simplest and quickest business banking solution for non-UK residents, and so we have included a referral to WorldFirst within our non-UK residents' package.</p>
-                                <p>It provides international business banking with worldwide coverage, allowing you to open 10+ local currency accounts for free and spend in over 40+ currencies.</p>
-                                <p>From Amazon and AliExpress, to PayPal and Shopify, you can get paid easily, no matter where in the world your customers are.</p>
-
-                                <a href="https://portal.worldfirst.com/register?region=UK&amp;affiliate_id=10378"><img src="https://1stformations.s3.eu-west-1.amazonaws.com/images/banners/WFT-AWARENESS_BANNER.png" alt="Worldfirst Banking"></a>
-
-                                <h4>Apostilled Document Service</h4>
-                                <p>Many non-UK residents choose to open a bank account in their own country as opposed to in the UK; however, a bank in another country will normally require you to legalise or ‘apostille’ your UK company documents.</p>
-                                <p>Our <a href="/apostilled-documents/">Apostilled Documents Service</a> can be added to any of our company formation packages on our Checkout page.</p>
-
-                                <h4>Please note:</h4>
-                                <p>† All registered office and service address mail (official government mail) will be scanned and emailed to you free of charge. Business address mail will be forwarded to you by scan and email at a cost of 50p per item. Any items of value, such as bank cards, will be forwarded to an address of your choice and charged at Royal Mail International postal rates plus a 15% handling charge.</p>
-                                <p>‡ Your printed company documents will be sent to you free of charge by International Business Tracked Delivery Service.</p>
-                            </div>
+                            @Html.Raw(Model.Package.Description)
                             <div>
                                 <h3>Package Features:</h3>
                                 <div class="compare-packages-panel__included-items">

@@ -101,7 +101,7 @@
                                                 <h3 class="site-nav__menu-heading">International</h3>
                                                 <ul class="site-nav__menu-links">
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a href="#">
+                                                        <a onclick="ShowTypeBasedPackage('Non-residents')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Non-Residents Package
                                                         </a>
@@ -112,13 +112,13 @@
                                                 <h3 class="site-nav__menu-heading">Other company packages</h3>
                                                 <ul class="site-nav__menu-links">
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a href="#">
+                                                        <a onclick="ShowTypeBasedPackage('Guarantee')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Limited By Guarantee
                                                         </a>
                                                     </li>
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a href="#">
+                                                        <a onclick="ShowTypeBasedPackage('LLP')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Limited Liability Partnership
                                                         </a>
@@ -960,8 +960,8 @@
                 <div class="col">
                     <div class="home-non-residents__text">
                         <p>This package includes limited company registration, UK business banking, London address services with international mail forwarding, and more. <a href="#non-res--eligible-countries" data-lity="">A full list of eligible countries can be found here</a>.</p>
-                        <div class="home-non-residents__cta">
-                            <a class="button button--secondary" href="/package/non-residents/">Non-Residents Package</a>
+                        <div class="home-non-residents__cta" style="text-align: center;">
+                            <a class="button button--secondary" style="padding: 2%; font-size: 15px;" onclick="ShowTypeBasedPackage('Non-residents')">Non-Residents Package</a>
                         </div>
                     </div>
                     <div class="home-non-residents__image">
@@ -2371,6 +2371,21 @@
             $("#cNameAv").hide();
             $("#cNameNotAv").hide();
             $(".company-name-search").show();
+        }
+
+        function ShowTypeBasedPackage(Type) {
+            if (Type == "Non-residents") {
+                const redirectUrl = `/BuyPackage#Non-residents`;
+                window.location.href = redirectUrl;                
+            }
+            else if (Type == "LLP") {
+               const redirectUrl = `/BuyPackage#LLP`;
+                window.location.href = redirectUrl; 
+            }
+            else if (Type == "Guarantee") {
+                const redirectUrl = `/BuyPackage#Guarantee`;
+                window.location.href = redirectUrl;
+            }
         }
     </script>
 }
