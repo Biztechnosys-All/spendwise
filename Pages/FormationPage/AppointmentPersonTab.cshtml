@@ -863,8 +863,9 @@
         }
     });
 
-    function openAddressModal(type, addressData = null) {
+    function openAddressModal(type) {
         // Set the type: "Registered" or "Business"
+        $('#inPersonSecondAddressModal').find("input").val("");
         $('#hndAddressType').val(type);
         $('#inPersonSecondAddressModal').modal('show');
     }

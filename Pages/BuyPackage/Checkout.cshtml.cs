@@ -65,25 +65,13 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             var rawCookie = Request.Cookies["selectedPackageItems"];
             if (!string.IsNullOrEmpty(rawCookie))
             {
-                // 2. URL-decode the cookie string
+                // 1. URL-decode the cookie string
                 var decodedJson = HttpUtility.UrlDecode(rawCookie);
 
-                // 3. Deserialize the JSON array into a List<string>
-                List<string> items = JsonSerializer.Deserialize<List<string>>(decodedJson);
+                // 2. Deserialize the JSON array of integers
+                List<int> itemIds = JsonSerializer.Deserialize<List<int>>(decodedJson);
 
-                // 4. Use regex to extract item IDs
-                var regex = new Regex("id=\\\"CheckOut_included_(\\d+)\\\"");
-                List<string> itemIds = new List<string>();
-
-                foreach (var item in items)
-                {
-                    var match = regex.Match(item);
-                    if (match.Success)
-                    {
-                        itemIds.Add(match.Groups[1].Value);
-                    }
-                }
-
+                // 3. Convert to CSV
                 SelectedItemIdsCsv = string.Join(",", itemIds);
             }
 

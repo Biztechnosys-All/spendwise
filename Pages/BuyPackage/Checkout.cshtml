@@ -249,6 +249,7 @@
     //     let selectedPackageItems = [];
     // }
     function AddItemToCheckout(itemId) {
+        debugger;
         var PackItems = $("#PackageItem_" + itemId).children();
         var ItemName = $(PackItems[0]).text();
         var ItemPrice = $(PackItems[1]).text();
@@ -261,10 +262,12 @@
                                                             <td style="text-align:right" id="CheckOut_included_${itemId}_Price">£${ItemPrice}</td>
                                                         </tr>
                                                 `;
-        selectedPackageItems.push(CheckoutItemStr);
+        
         if (CheckoutItemStr != "") {
             $("#CheckoutItems").append(CheckoutItemStr);
         }
+
+        selectedPackageItems.push(itemId);
 
         const ItemStr = `<li class="efOrderContentsListItem" id="CheckOut_included_${itemId}">${ItemName} <span class="OrderContentsListItemPrice">£${ItemPrice}</span></li> `;
         selectedAdditionalPackageItems.push(ItemStr);
@@ -411,9 +414,11 @@
     }());
 
     function btnCheckoutClick() {
+        debugger;
         let isChecked = $('#ChkCheckoutTerms').prop('checked');
         var token = $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
         if (isChecked) {
+            console.log(JSON.stringify(selectedPackageItems));
             const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
             Cookies.set("NetAmount", $("#spmNetAmount").text(), expires);
             Cookies.set("VatAmount", $("#spmVatAmount").text(), expires);

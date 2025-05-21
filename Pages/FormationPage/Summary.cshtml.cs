@@ -47,7 +47,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             Particular.SIC_Code = Sic_Code_desc;
 
             #region Registered Office Address
-            RegistredEmail = _context.CompanyDetails.Where(x=> x.Createdby == userId && x.CompanyId.ToString() == selectCompanyId).FirstOrDefault().RegisteredEmail;
+            RegistredEmail = _context.CompanyDetails.Where(x=> x.Createdby == userId && x.CompanyId.ToString() == selectCompanyId).FirstOrDefault()?.RegisteredEmail;
             var OfficeAddress = _context.AddressData.Where(x => x.UserId == userId && x.CompanyId.ToString() == selectCompanyId).ToList();
             AddressList = OfficeAddress;
 
