@@ -105,7 +105,7 @@
                                                 <h3 class="site-nav__menu-heading">International</h3>
                                                 <ul class="site-nav__menu-links">
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a href="/package/non-residents/">
+                                                        <a onclick="ShowTypeBasedPackage('Non-residents')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Non-Residents Package
                                                         </a>
@@ -116,13 +116,13 @@
                                                 <h3 class="site-nav__menu-heading">Other company packages</h3>
                                                 <ul class="site-nav__menu-links">
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a href="/package/limited-by-guarantee/">
+                                                        <a onclick="ShowTypeBasedPackage('Guarantee')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Limited By Guarantee
                                                         </a>
                                                     </li>
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a href="/package/llp/">
+                                                        <a onclick="ShowTypeBasedPackage('LLP')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Limited Liability Partnership
                                                         </a>
@@ -547,6 +547,24 @@
             // Show the toast
             var toast = new bootstrap.Toast(document.getElementById('myToast'));
             toast.show();
+        }
+
+        function ShowTypeBasedPackage(Type) {
+            if (Type == "Non-residents") {
+                const redirectUrl = `/BuyPackage#Non-residents`;
+                window.location.href = redirectUrl;
+                window.location.reload();
+            }
+            else if (Type == "LLP") {
+               const redirectUrl = `/BuyPackage#LLP`;
+                window.location.href = redirectUrl;
+                window.location.reload();
+            }
+            else if (Type == "Guarantee") {
+                const redirectUrl = `/BuyPackage#Guarantee`;
+                window.location.href = redirectUrl;
+                window.location.reload();
+            }
         }
     </script>
 </body>

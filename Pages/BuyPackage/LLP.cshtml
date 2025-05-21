@@ -12,37 +12,14 @@
                         <h3>Limited Liability Partnership Package</h3>
                         <div class="compare-packages-panel__actions">
                             <div class="compare-packages-panel__prices">
-                                <span class="compare-packages-panel__price">£74.99</span>
+                                <span class="compare-packages-panel__price">£@Model.Package.Price</span>
                             </div>
                             <a href="/BuyPackage?packageName=LLP" class="button8 js-routing button button--secondary">Buy Now</a>
                         </div>
                     </div>
                     <div class="compare-packages-panel__body">
                         <div class="compare-packages-panel__columns">
-                            <div>
-                                <p>Our limited liability partnership formation package, at a cost of £74.99 +VAT, is ideal for any type of profession that would normally operate as a traditional partnership, but whose members require limited liability.</p>
-                                <p>Our LLP Package provides:</p>
-                                <ul class="fa-ul">
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> online Companies House registration</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> digital and printed LLP company documents</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> a draft LLP Agreement</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> filing of the first confirmation statement</li>
-                                    <li><i class="fa-li fa fa-angle-right" aria-hidden="true"></i> a free.com or .co.uk domain name</li>
-                                </ul>
-
-                                <p>As soon as Companies House approves your new LLP registration, we will send your Certificate of Incorporation, LLP documents, and a draft LLP Agreement to your email address.</p>
-                                <p>If you require a formal LLP Agreement, simply email your completed draft to Spendwise and we will prepare and deliver two printed copies of the document by 1st class post.</p>
-
-                                <h4>How much will I save by choosing this package?</h4>
-                                <p>If you were to buy the items included in this package individually, it would cost a total of £138.99. Therefore, at a package price of £74.99, you will enjoy a saving of £64.00 +VAT.</p>
-
-                                <p><strong>Please note:</strong></p>
-                                <ol>
-                                    <li>A formal LLP Agreement is not a legal requirement; however, it is essential if the LLP members want to contribute capital and/or share business profits in any way other than equally.</li>
-                                    <li>Company documents are delivered free of charge within the UK. For overseas deliveries, Royal Mail postage rates + 15% will be charged.</li>
-                                    <li>The business bank account referral offers are only available to companies with UK resident directors and shareholders. Companies with overseas directors and shareholders are not eligible for this offer. We have partnered with WorldFirst to provide a business banking referral for non-UK residents. You will get the option to add a WorldFirst bank account during the order process. Account openings are subject to approval.</li>
-                                </ol>
-                            </div>
+                            @Html.Raw(Model.Package.Description)
                             <div>
                                 <h3>Package Features:</h3>
                                 <div class="compare-packages-panel__included-items">

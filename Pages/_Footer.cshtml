@@ -8,9 +8,9 @@
                     <li><a href="/Package/Digital">Digital Package</a></li>
                     <li><a href="/Package/Privacy">Privacy Package</a></li>
                     <li><a href="/Package/All%20Inclusive">All Inclusive Package</a></li>
-                    <li><a href="#">Non-Residents Package</a></li>
-                    <li><a href="#">LLP Package</a></li>
-                    <li><a href="#">Guarantee Package</a></li>
+                    <li><a style="cursor: pointer;" onclick="ShowTypeBasedPackage('Non-residents')">Non-Residents Package</a></li>
+                    <li><a style="cursor: pointer;" onclick="ShowTypeBasedPackage('LLP')">LLP Package</a></li>
+                    <li><a style="cursor: pointer;" onclick="ShowTypeBasedPackage('Guarantee')">Guarantee Package</a></li>
                 </ul>
             </div>
             <div class="site-footer__col site-footer__col--nav">
@@ -232,3 +232,20 @@
         </div>
     </div>
 </footer>
+
+<script>
+    function ShowTypeBasedPackage(Type) {
+        if (Type == "Non-residents") {
+            const redirectUrl = `/BuyPackage#Non-residents`;
+            window.location.href = redirectUrl;
+        }
+        else if (Type == "LLP") {
+           const redirectUrl = `/BuyPackage#LLP`;
+            window.location.href = redirectUrl;
+        }
+        else if (Type == "Guarantee") {
+            const redirectUrl = `/BuyPackage#Guarantee`;
+            window.location.href = redirectUrl;
+        }
+    }
+</script>
