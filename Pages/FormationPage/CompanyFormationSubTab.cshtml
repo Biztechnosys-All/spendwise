@@ -942,11 +942,10 @@
                             }
                         }
                         else {
-                            isValid = false;
-                            $("#warnigMessage").show();
-                            $("#alertCompanyName").html(str1);
-                            $("#otherSubCompanyName").show();
+                            isValid = true;
+                            $("#warnigMessage").hide();
                             $("#llpSubCompanyName").hide();
+                            $("#otherSubCompanyName").hide();
                         }
                     }
                     if (id == "#Particular_Activities") {
@@ -1024,6 +1023,7 @@
 
     function openAddressModal(type, addressData = null) {
         // Set the type: "Registered" or "Business"
+        $("#secondAddressModal").find("input").val("");
         $('#hndAddressType').val(type);
         $('#secondAddressModal').modal('show');
     }
@@ -1111,12 +1111,12 @@
 
                     response.data.forEach((item, index) => {
                         const html = `
-                                                                                    <a href="#" class="ef-js-sic-code-row sic-code-row" order-id="${index + 1}" data-attr-sic-id="${item.sicCode}" style="display: block;">
-                                                                                            <div class="ef-js-sic-code-row-text">${item.sicCode} - ${item.description}</div>
-                                                                                    <div class="ef-js-plus-button-container">
-                                                                                            <img class="ef-js-plus-button" src="/images/add.png">
-                                                                                    </div>
-                                                                                </a>`;
+                                                                                        <a href="#" class="ef-js-sic-code-row sic-code-row" order-id="${index + 1}" data-attr-sic-id="${item.sicCode}" style="display: block;">
+                                                                                                <div class="ef-js-sic-code-row-text">${item.sicCode} - ${item.description}</div>
+                                                                                        <div class="ef-js-plus-button-container">
+                                                                                                <img class="ef-js-plus-button" src="/images/add.png">
+                                                                                        </div>
+                                                                                    </a>`;
                         container.append(html);
                     });
                 } else {
@@ -1182,6 +1182,26 @@
     function saveAddressData(type) {
         var isValid = true;
 
+        const registeredOfficeAddress = {
+            houseName: "@(RegistredOfficeAddress?.HouseName ?? "")",
+            street: "@(RegistredOfficeAddress?.Street ?? "")",
+            postCode: "@(RegistredOfficeAddress?.PostCode ?? "")",
+            town: "@(RegistredOfficeAddress?.Town ?? "")",
+            country: "@(RegistredOfficeAddress?.Country ?? "")",
+            county: "@(RegistredOfficeAddress?.County ?? "")",
+            locality: "@(RegistredOfficeAddress?.Locality ?? "")"
+        };
+
+        const businessOfficeAddress = {
+            houseName: "@(BusinessOfficeAddress?.HouseName ?? "")",
+            street: "@(BusinessOfficeAddress?.Street ?? "")",
+            postCode: "@(BusinessOfficeAddress?.PostCode ?? "")",
+            town: "@(BusinessOfficeAddress?.Town ?? "")",
+            country: "@(BusinessOfficeAddress?.Country ?? "")",
+            county: "@(BusinessOfficeAddress?.County ?? "")",
+            locality: "@(BusinessOfficeAddress?.Locality ?? "")"
+        };
+
         if (type == "registered") {
             // Field validation helper
             function validateField(id, errorId, fieldName) {
@@ -1194,10 +1214,12 @@
                 }
             }
 
+            
+
             validateField("#Company_RegisteredEmail", "#Address_RegisteredEmail_error", "Registered Email");
 
             const registeredEmail = $("#Company_RegisteredEmail").val().trim();
-            const addressData = {
+            let addressData = {
                 addressId: parseInt($("#Address_AddressId").val()) || 0,
                 houseName: $("#Address_HouseName").val(),
                 street: $("#Address_Street").val(),
@@ -1207,6 +1229,9 @@
                 county: $("#Address_County").val(),
                 locality: $("#Address_Locality").val()
             };
+            if($("#Address_HouseName").val() == "" && $("#Address_Street").val() == ""){
+                addressData = registeredOfficeAddress;
+            }
             const payload = {
                 registeredEmail: registeredEmail,
                 address: addressData
@@ -1233,12 +1258,12 @@
                         }
                         else {
                             console.log("Success:", response);
-                            showToast('Data Saved.', 'success');
+                            showToast('Registered Address Saved.', 'success');
                             $("#secondAddressModal").modal('hide');
                             $("#addressModal").modal('hide');
-                            window.location.reload();
-                            const redirectUrl = `/FormationPage/Company-Formation?section=CompanyFormation#address`;
-                            window.location.href = redirectUrl;
+                            // window.location.reload();
+                            // const redirectUrl = `/FormationPage/Company-Formation?section=CompanyFormation#address`;
+                            // window.location.href = redirectUrl;
                         }
                     },
                     error: function (xhr) {
@@ -1247,8 +1272,9 @@
                 });
             }
         }
-        else if (type == "business"){
-            const addressData = {
+        else if (type == "business") {
+            debugger;
+            let addressData = {
                 addressId: parseInt($("#Address_AddressId").val()) || 0,
                 houseName: $("#Address_HouseName").val(),
                 street: $("#Address_Street").val(),
@@ -1258,6 +1284,11 @@
                 county: $("#Address_County").val(),
                 locality: $("#Address_Locality").val()
             };
+
+            if($("#Address_HouseName").val() == "" && $("#Address_Street").val() == ""){
+                addressData = businessOfficeAddress;
+            }
+
             $.ajax({
                 url: "/FormationPage/CompanyFormationSubTab?handler=SaveBusinessAddress",
                 method: "POST",
@@ -1275,12 +1306,12 @@
                     }
                     else {
                         console.log("Success:", response);
-                        showToast('Data Saved.', 'success');
+                        showToast('Business Address Saved.', 'success');
                         $("#secondAddressModal").modal('hide');
                         $("#addressModal").modal('hide');
-                        window.location.reload();
-                        const redirectUrl = `/FormationPage/Company-Formation?section=CompanyFormation#business-address`;
-                        window.location.href = redirectUrl;
+                        // window.location.reload();
+                        // const redirectUrl = `/FormationPage/Company-Formation?section=CompanyFormation#business-address`;
+                        // window.location.href = redirectUrl;
                     }
                 },
                 error: function (xhr) {
@@ -1382,15 +1413,15 @@
         }
 
         const SicStr = `
-                                                        <li class="ef-sic-code" data-sic-code="${sicCode}">
-                                                            <div class="sic-text">${description}</div>
-                                                            <div class="ef-remove-sic-code-img-container">
-                                                                <div class="ef-remove-sic-code" onclick="FormBuilder.RemoveSicCode(this);">
-                                                                        <img class="ef-remove-sic-code-img" src="/images/cross.png" alt="X">
-                                                                    <input type="hidden" value="${sicCode}" name="siccodes[]">
+                                                            <li class="ef-sic-code" data-sic-code="${sicCode}">
+                                                                <div class="sic-text">${description}</div>
+                                                                <div class="ef-remove-sic-code-img-container">
+                                                                    <div class="ef-remove-sic-code" onclick="FormBuilder.RemoveSicCode(this);">
+                                                                            <img class="ef-remove-sic-code-img" src="/images/cross.png" alt="X">
+                                                                        <input type="hidden" value="${sicCode}" name="siccodes[]">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>`;
+                                                            </li>`;
 
         $list.append(SicStr);
         $row.hide();
@@ -1440,9 +1471,9 @@
                 // Create dynamic file input with new ID
                 const newId = `fileInput_${selectedValue}`;
                 const fileInputHtml = `
-                                                          <label> ${selectedValue} : </label>
-                                                          <input class="form-control" type="file" style="width: 40%;" id="identityFile" multiple accept="application/pdf" />
-                                                          <button type="button" class="btn btn-primary" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('identity', 'identityFile', identityFilesData)">Add Identity File</button>`;
+                                                              <label> ${selectedValue} : </label>
+                                                              <input class="form-control" type="file" style="width: 40%;" id="identityFile" multiple accept="application/pdf" />
+                                                              <button type="button" class="btn btn-primary" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('identity', 'identityFile', identityFilesData)">Add Identity File</button>`;
 
                 // Show wrapper and set new input
                 fileInputWrapper.html(fileInputHtml).show();
@@ -1461,9 +1492,9 @@
                 // Create dynamic file input with new ID
                 const newId = `fileInput_${selectedValue}`;
                 const fileInputHtml = `
-                                                          <label> ${selectedValue} : </label>
-                                                          <input class="form-control" type="file" style="width: 40%;" id="addressFile" multiple accept="application/pdf" />
-                                                          <button type="button" class="btn btn-primary" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('address', 'addressFile', addressFilesData)">Add Address File</button>`;
+                                                              <label> ${selectedValue} : </label>
+                                                              <input class="form-control" type="file" style="width: 40%;" id="addressFile" multiple accept="application/pdf" />
+                                                              <button type="button" class="btn btn-primary" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('address', 'addressFile', addressFilesData)">Add Address File</button>`;
 
                 // Show wrapper and set new input
                 fileInputWrapper.html(fileInputHtml).show();

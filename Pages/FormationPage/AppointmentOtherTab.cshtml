@@ -681,8 +681,9 @@
         });
     });
 
-    function openAddressModal(type, addressData = null) {
+    function openAddressModal(type) {
         // Set the type: "Registered" or "Business"
+        $('#inOtherSecondAddressModal').find("input").val("");
         $('#hndAddressType').val(type);
         $('#inOtherSecondAddressModal').modal('show');
     }
@@ -769,7 +770,7 @@
         };
 
         if(type == "Residential") {
-            if($("#PersonAddress_HouseName").val() == "" && $("#PersonAddress_Street").val() == ""){
+            if ($("#OtherAddress_HouseName").val() == "" && $("#OtherAddress_Street").val() == "") {
                 addressData = registeredOfficeAddress;
             }
             $.ajax({
@@ -799,7 +800,7 @@
             });
         }
         else if (type == "Service"){
-            if($("#PersonAddress_HouseName").val() == "" && $("#PersonAddress_Street").val() == ""){
+            if ($("#OtherAddress_HouseName").val() == "" && $("#OtherAddress_Street").val() == "") {
                 addressData = serviceAddress;
             }
             $.ajax({

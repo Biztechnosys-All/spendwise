@@ -145,6 +145,15 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                     await _context.SaveChangesAsync();
                 }
 
+                var savedCompanyId = Request.Cookies["ComanyId"];
+                var CompanyData = await _context.CompanyDetails.Where(x => x.CompanyId.ToString() == savedCompanyId).FirstOrDefaultAsync();
+                if (CompanyData != null)
+                {
+                    CompanyData.Createdby = userData.UserID;
+                    _context.Attach(CompanyData).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+
                 return new JsonResult(new
                 {
                     success = true,

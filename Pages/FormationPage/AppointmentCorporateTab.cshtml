@@ -524,7 +524,7 @@
         if (selectedData?.length === 0) {
             $("#position-error").html("Please select the Position.").show();
         }
-        else{
+        else {
             $("#position-error").html("Please select the Position.").hide();
         }
 
@@ -570,7 +570,7 @@
             $("#position-error").html("Please select the Position.").show();
             showToast('Please filled required details.', 'warning');
         }
-        else{
+        else {
             isValid = true;
             $("#position-error").html("Please select the Position.").hide();
         }
@@ -597,7 +597,7 @@
         validateField("#CorporateOfficers_LawGoverned", "#CorporateOfficers_LawGoverned_error", "LawGoverned");
         validateField("#CorporateOfficers_LegalForm", "#CorporateOfficers_LegalForm_error", "LegalForm");
 
-        if(isValid) {
+        if (isValid) {
             saveCorporateChooseAddressData();
             var formData = {
                 Title: $('#CorporateOfficers_Title').val(),
@@ -631,8 +631,9 @@
         }
     });
 
-    function openAddressModal(type, addressData = null) {
+    function openAddressModal(type) {
         // Set the type: "Registered" or "Business"
+        $('#inCorporateSecondAddressModal').find("input").val("");
         $('#hndAddressType').val(type);
         $('#inCorporateSecondAddressModal').modal('show');
     }
@@ -682,6 +683,16 @@
     }
 
     function saveCorporateChooseAddressData() {
+        const registeredOfficeAddress = {
+            houseName: "@(RegisteredOfficeAddress?.HouseName ?? "")",
+            street: "@(RegisteredOfficeAddress?.Street ?? "")",
+            postCode: "@(RegisteredOfficeAddress?.PostCode ?? "")",
+            town: "@(RegisteredOfficeAddress?.Town ?? "")",
+            country: "@(RegisteredOfficeAddress?.Country ?? "")",
+            county: "@(RegisteredOfficeAddress?.County ?? "")",
+            locality: "@(RegisteredOfficeAddress?.Locality ?? "")"
+        };
+
         const addressData = {
             addressId: parseInt($("#CorporateAddress_AddressId").val()) || 0,
             houseName: $("#CorporateAddress_HouseName").val(),
@@ -692,6 +703,10 @@
             county: $("#CorporateAddress_County").val(),
             locality: $("#CorporateAddress_Locality").val()
         };
+
+        if ($("#CorporateAddress_HouseName").val() == "" && $("#CorporateAddress_Street").val() == "") {
+            addressData = registeredOfficeAddress;
+        }
 
         $.ajax({
             url: "/FormationPage/AppointmentCorporateTab?handler=SaveCorporateAddress",
