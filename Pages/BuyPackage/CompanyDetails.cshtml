@@ -1300,12 +1300,13 @@
     }
 
     function bindAddressToForm(data) {
+        debugger;
         if (!data) return;
         console.log("data", data);
-        const lines = data.line_1.split(' ');
+        //const lines = data.line_1.split(' ');
 
         document.getElementById('Address_HouseName').value = data.building_number || '';
-        document.getElementById('Address_Street').value = lines[1] + ' ' + lines[2]?.trim() || '';
+        document.getElementById('Address_Street').value = data.line_1.trim(); //lines[1] + ' ' + lines[2]?.trim() || '';
         document.getElementById('Address_Town').value = data.town_or_city || '';
         document.getElementById('Address_County').value = data.county || '';
         document.getElementById('Address_PostCode').value = data.postcode || '';

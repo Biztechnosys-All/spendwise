@@ -88,12 +88,41 @@ namespace Spendwise_WebApp.Pages.FormationPage
             }
         }
 
-        public IActionResult OnPostSaveOfficerDetails([FromBody] CompanyOfficer officer)
+        public async Task<IActionResult> OnPostSaveOfficerDetails([FromBody] CompanyOfficer officer)
         {
             try
             {
                 officer.DOB = DateTime.ParseExact(officer.DOB.ToString("dd-MM-yyyy"), "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 TempData["OfficerData"] = JsonConvert.SerializeObject(officer);
+
+                var userEmail = Request.Cookies["UserEmail"];
+                var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+                var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
+                var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+
+                var posData = TempData["PositionData"] as string;
+                var positions = JsonConvert.DeserializeObject<PositionRequestData>(posData);
+                var data = new CompanyOfficer
+                {
+                    PositionName = positions.Position,
+                    FirstName = officer.FirstName,
+                    LastName = officer.LastName,
+                    Title = officer.Title,
+                    DOB = officer.DOB,
+                    Nationality = officer.Nationality,
+                    Occupation = officer.Occupation,
+                    Authentication1 = officer.Authentication1,
+                    Authentication2 = officer.Authentication2,
+                    Authentication3 = officer.Authentication3,
+                    AuthenticationAns1 = officer.AuthenticationAns1,
+                    AuthenticationAns2 = officer.AuthenticationAns2,
+                    AuthenticationAns3 = officer.AuthenticationAns3,
+                    UserId = userId,
+                    CompanyID = companyId
+                };
+                _context.CompanyOfficers.Add(data);
+                await _context.SaveChangesAsync();
+
                 return new JsonResult(new { success = true });
             }
             catch (Exception ex)
@@ -122,26 +151,26 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 var positions = JsonConvert.DeserializeObject<PositionRequestData>(posData);
                 var officer = JsonConvert.DeserializeObject<CompanyOfficer>(offData);
 
-                var data = new CompanyOfficer
-                {
-                    PositionName = positions.Position,
-                    FirstName = officer.FirstName,
-                    LastName = officer.LastName,
-                    Title = officer.Title,
-                    DOB = officer.DOB,
-                    Nationality = officer.Nationality,
-                    Occupation = officer.Occupation,
-                    Authentication1 = officer.Authentication1,
-                    Authentication2 = officer.Authentication2,
-                    Authentication3 = officer.Authentication3,
-                    AuthenticationAns1 = officer.AuthenticationAns1,
-                    AuthenticationAns2 = officer.AuthenticationAns2,
-                    AuthenticationAns3 = officer.AuthenticationAns3,
-                    UserId = userId,
-                    CompanyID = companyId
-                };
-                _context.CompanyOfficers.Add(data);
-                await _context.SaveChangesAsync();
+                //var data = new CompanyOfficer
+                //{
+                //    PositionName = positions.Position,
+                //    FirstName = officer.FirstName,
+                //    LastName = officer.LastName,
+                //    Title = officer.Title,
+                //    DOB = officer.DOB,
+                //    Nationality = officer.Nationality,
+                //    Occupation = officer.Occupation,
+                //    Authentication1 = officer.Authentication1,
+                //    Authentication2 = officer.Authentication2,
+                //    Authentication3 = officer.Authentication3,
+                //    AuthenticationAns1 = officer.AuthenticationAns1,
+                //    AuthenticationAns2 = officer.AuthenticationAns2,
+                //    AuthenticationAns3 = officer.AuthenticationAns3,
+                //    UserId = userId,
+                //    CompanyID = companyId
+                //};
+                //_context.CompanyOfficers.Add(data);
+                //await _context.SaveChangesAsync();
 
                 return new JsonResult(new { success = true });
             }

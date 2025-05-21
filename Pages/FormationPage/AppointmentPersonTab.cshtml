@@ -829,7 +829,7 @@
         validateField("#Officers_AuthenticationAns3", "#Officers_AuthenticationAns3_error", "AuthenticationAns");
 
         if(isValid) {
-            savePersonChooseAddressData('Residential');
+            
             var formData = {
                 Title: $('#Officers_Title').val(),
                 FirstName: $('#Officers_FirstName').val(),
@@ -853,6 +853,7 @@
                 success: function (response) {
                     if (response.success) {
                         console.log(response.success);
+                        savePersonChooseAddressData('Residential');
                         showToast('Data Saved.', 'success');
                     }
                 },
@@ -935,20 +936,23 @@
 
         if(isValid) {
             savePersonChooseAddressData('Service');
-             $.ajax({
-                url: "/FormationPage/AppointmentPersonTab?handler=SaveAllTab",
-                method: "POST",
-                success: function (response) {
-                    if (response.success) {
-                        showToast('All Data Saved.', 'success');
-                        window.location.reload();
-                        $('html, body').scrollTop($('#appointment').offset().top);
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error:", xhr.statusText, xhr.responseText);
-                }
-            });
+            //  $.ajax({
+            //     url: "/FormationPage/AppointmentPersonTab?handler=SaveAllTab",
+            //     method: "POST",
+            //     success: function (response) {
+            //         if (response.success) {
+            //             showToast('All Data Saved.', 'success');
+            //             window.location.reload();
+            //             $('html, body').scrollTop($('#appointment').offset().top);
+            //         }
+            //     },
+            //     error: function (xhr) {
+            //         console.error("Error:", xhr.statusText, xhr.responseText);
+            //     }
+            // });
+            showToast('All Data Saved.', 'success');
+            window.location.reload();
+            $('html, body').scrollTop($('#appointment').offset().top);
         }
     });
 
@@ -1096,6 +1100,7 @@
                     }
                     else {
                         console.log("Success:", response);
+                        showToast('Officer data saved.', 'success');
                         $("#inPersonSecondAddressModal").modal('hide');
                         $("#addressModal").modal('hide');
                        //  window.location.reload();
@@ -1279,10 +1284,10 @@
     function bindAddressToForm(data) {
         if (!data) return;
         console.log("data", data);
-        const lines = data.line_1.split(' ');
+        //const lines = data.line_1.split(' ');
 
         document.getElementById('PersonAddress_HouseName').value = data.building_number || '';
-        document.getElementById('PersonAddress_Street').value = lines[1] + ' ' + lines[2]?.trim() || '';
+        document.getElementById('PersonAddress_Street').value = data.line_1.trim(); //lines[1] + ' ' + lines[2]?.trim() || '';
         document.getElementById('PersonAddress_Town').value = data.town_or_city || '';
         document.getElementById('PersonAddress_County').value = data.county || '';
         document.getElementById('PersonAddress_PostCode').value = data.postcode || '';

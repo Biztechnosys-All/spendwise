@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Spendwise_WebApp.Models;
+using System.ComponentModel.Design;
 
 namespace Spendwise_WebApp.Pages.FormationPage
 {
@@ -23,6 +24,10 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public List<AddressData> AddressList { get; set; } = default!;
         [BindProperty]
         public string RegistredEmail { get; set; }
+        [BindProperty]
+        public List<CompanyOfficer> OfficersList { get; set; } = default!;
+        [BindProperty]
+        public List<AddressData> PersonAddressList { get; set; } = default!;
 
         public async Task<IActionResult> OnGet()
         {
@@ -47,11 +52,22 @@ namespace Spendwise_WebApp.Pages.FormationPage
             Particular.SIC_Code = Sic_Code_desc;
 
             #region Registered Office Address
-            RegistredEmail = _context.CompanyDetails.Where(x=> x.Createdby == userId && x.CompanyId.ToString() == selectCompanyId).FirstOrDefault()?.RegisteredEmail;
+            RegistredEmail = _context.CompanyDetails.Where(x => x.Createdby == userId && x.CompanyId.ToString() == selectCompanyId).FirstOrDefault()?.RegisteredEmail;
             var OfficeAddress = _context.AddressData.Where(x => x.UserId == userId && x.CompanyId.ToString() == selectCompanyId).ToList();
             AddressList = OfficeAddress;
+            #endregion
 
+            #region Appoitment Data
+            var companyOfficerList = _context.CompanyOfficers.Where(x => x.UserId == userId && x.CompanyID.ToString() == selectCompanyId).ToList();
+            foreach(var companyofficer in companyOfficerList)
+            {
+                OfficersList = new List<CompanyOfficer>();
+                var officer = await _context.CompanyOfficers.Where(m => m.UserId == userId && m.OfficerId == companyofficer.OfficerId).FirstOrDefaultAsync();
+                OfficersList.Add(officer);
 
+                var personAddList = _context.AddressData.Where(x => x.UserId == userId && x.CompanyId.ToString() == selectCompanyId && x.OfficerId == companyofficer.OfficerId).ToList();
+                PersonAddressList = personAddList;
+            }
             #endregion
 
             return Page();
