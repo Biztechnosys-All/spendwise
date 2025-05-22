@@ -118,14 +118,14 @@
                                     <tr class="ui-widget-header">
                                         <td width="30%">Item</td>
                                         <td width="30%" style="text-align:center" class="remove-column">Quantity</td>
-                                        <td width="40%" style="position:absolute;right:30px">Price</td>
+                                        <td width="40%" class="text-right">Price</td>
 									</tr>
                                 </thead>
 								<tbody id="CheckoutItems">
 									<tr class="efIncludedItemTableRow efOdd" data-pattern="formation">
                                         <td width="30%"><b>@Model.SelectedPackage.PackageName</b></td>
                                         <td width="30%" style="text-align:center" class="remove-column fs-15"><input type="hidden" name="quantity[P2043]" value="1"> 1</td>
-                                        <td width="40%" align="right" class="fs-15" style="position:absolute;right:30px">£@Model.SelectedPackage.Price</td>
+                                        <td width="40%" class="fs-15 text-right">£@Model.SelectedPackage.Price</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -2,7 +2,7 @@
 @import url('common.css');
 body.modal-open {
     height: 100vh;
-    overflow-y: hidden;
+    overflow-y: hidden !important;
 }
 #efSection60Row, .pp_social, .visible-mobile, td.res-new-td span.res-title-td {
     display: none !important
@@ -3338,7 +3338,8 @@ input.searchfront, input.searchpackages {
     color: #a7a7a7;
     border-style: solid;
     border-color: #8f9095;
-    border-width: 1px 0 1px 1px
+    border-width: 1px 0 1px 1px;
+
 }
 
 input.searchpackages {
@@ -14850,7 +14851,7 @@ ol.footnote {
     }
 
     TABLE#efIncludedTable td:last-child {
-        text-align: left !important;
+        text-align: right !important;
         width: 70px;
         padding-right: 0 !important
     }
@@ -19163,7 +19164,8 @@ hr.hr-searchagain {
         padding-left: 10px;
         box-sizing: border-box;
         color: #b1b1b1;
-        font-size: 16px
+        font-size: 16px;
+        border-radius:5px;
     }
 
         .custom.ncinput-wrap-new-amber input#company_name.efInputText:focus, .custom.ncinput-wrap-new input#company_name.efInputText:focus, .custom.ncinput-wrap input#company_name.efInputText:focus {
@@ -26940,12 +26942,17 @@ hr.hr-searchagain {
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
     border-color: #fff !important;
     }
-
+BUTTON.efButton.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only {
+    height: 35px !important;
+}
 @media (max-width: 768px) {
     .nav.nav-tabs.nav-checkout li{
        width:100%;
     }
     #efEverythingInTheOrderContainer { 
         margin: 0px !important
+    }
+    .nav.nav-tabs.justify-content-center .nav-item span.active.nav-link.packageTab, .nav.nav-tabs.justify-content-center .nav-item .nav-link.packageTab.PackTabProcessed {
+        background:var(--color-green-four);
     }
 }
