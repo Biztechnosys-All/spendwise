@@ -495,7 +495,7 @@ input.ui-button::-moz-focus-inner, button.ui-button::-moz-focus-inner {
     position: absolute;
     top: 0;
     left: 0;
-    padding: .2em;
+    padding: 0;
     outline: 0
 }
 
