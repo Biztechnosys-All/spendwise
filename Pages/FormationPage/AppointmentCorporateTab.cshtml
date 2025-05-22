@@ -861,10 +861,10 @@
     function bindAddressToForm(data) {
         if (!data) return;
         console.log("data", data);
-        const lines = data.line_1.split(' ');
+        //const lines = data.line_1.split(' ');
 
         document.getElementById('CorporateAddress_HouseName').value = data.building_number || '';
-        document.getElementById('CorporateAddress_Street').value = lines[1] + ' ' + lines[2]?.trim() || '';
+        document.getElementById('CorporateAddress_Street').value = data.line_1.trim(); //lines[1] + ' ' + lines[2]?.trim() || '';
         document.getElementById('CorporateAddress_Town').value = data.town_or_city || '';
         document.getElementById('CorporateAddress_County').value = data.county || '';
         document.getElementById('CorporateAddress_PostCode').value = data.postcode || '';

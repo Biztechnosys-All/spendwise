@@ -6,6 +6,9 @@
 @{
     var RegistredOfficeAddress = Model.AddressList.Where(x => x.IsRegisteredOffice == true && x.IsCurrent == true).FirstOrDefault();
     var BusinessOfficeAddress = Model.AddressList.Where(x => x.IsBusiness == true && x.IsCurrent == true).FirstOrDefault();
+    // var BusinessOfficeAddress = Model.AddressList.Where(x => x.IsBusiness == true && x.IsCurrent == true).FirstOrDefault();
+    // var BusinessOfficeAddress = Model.AddressList.Where(x => x.IsBusiness == true && x.IsCurrent == true).FirstOrDefault();
+    // var BusinessOfficeAddress = Model.AddressList.Where(x => x.IsBusiness == true && x.IsCurrent == true).FirstOrDefault();
 }
 <div>
     <div class="ef-order-form-nav-step-wrapper">
@@ -203,6 +206,7 @@
                                 <h3>Appointments</h3>
                                 <div class="w-row">
                                     <div class="w-col w-col-11">
+                                        @foreach (var item in Model.OfficersList){
                                         <div class="w-row row-margin ef-review-officer">
                                             <div class="w-row row-margin ef-head-row">
                                                 <div class="w-col w-col-5 ef-review-officer-label-col">
@@ -210,7 +214,7 @@
                                                 </div>
                                                 <div class="w-col w-col-7 ef-officer-additional-info-col">
                                                     <div>
-                                                        Kunjbala Patel
+                                                            @($"{item.FirstName} {item.LastName}")
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,73 +225,7 @@
                                                 </div>
                                                 <div class="w-col w-col-7 ef-officer-additional-info-col">
                                                     <div>
-                                                        Shareholder
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Holdings</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    <div class="ef-review-officer-holdings">
-                                                        <p>
-                                                            1 x ORDINARY at 1 GBP
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">
-                                                        Address
-                                                    </div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Service Address</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    Service Address - Pay Monthly
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Forwarding Address</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    22, First Avenue, WEMBLEY, Middlesex, HA9 8QG, UNITED KINGDOM
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="w-row row-margin ef-review-officer">
-                                            <div class="w-row row-margin ef-head-row">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title"> Name</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    <div>
-                                                        Arjun Patel
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Roles</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    <div>
-                                                        Director
+                                                            @item.PositionName
                                                     </div>
                                                 </div>
                                             </div>
@@ -297,7 +235,7 @@
                                                     <div class="ef-review-title">DOB</div>
                                                 </div>
                                                 <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    31/08/1988
+                                                        @item.DOB.ToString("dd/MM/yyyy")
                                                 </div>
                                             </div>
 
@@ -306,7 +244,7 @@
                                                     <div class="ef-review-title"> Occupation</div>
                                                 </div>
                                                 <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    Mortgage Adviser
+                                                    @item.Occupation
                                                 </div>
                                             </div>
 
@@ -315,10 +253,13 @@
                                                     <div class="ef-review-title">Nationality</div>
                                                 </div>
                                                 <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    British
+                                                    @item.Nationality
                                                 </div>
                                             </div>
-
+                                            @{
+                                                    var ResidentialAdress = @Model.PersonAddressList.Where(x => x.OfficerId == item.OfficerId && x.IsResidetialAddress == true).FirstOrDefault();
+                                                    var ServiceAdress = @Model.PersonAddressList.Where(x => x.OfficerId == item.OfficerId && x.IsServiceAddress == true).FirstOrDefault();
+                                            }
                                             <div class="w-row row-margin">
                                                 <div class="w-col w-col-5 ef-review-officer-label-col">
                                                     <div class="ef-review-title">
@@ -326,7 +267,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM
+                                                        @ResidentialAdress.HouseName,@ResidentialAdress.Street,@ResidentialAdress.Locality,
+                                                        @ResidentialAdress.County,@ResidentialAdress.PostCode,@ResidentialAdress.Country
                                                 </div>
                                             </div>
 
@@ -335,100 +277,12 @@
                                                     <div class="ef-review-title">Service Address</div>
                                                 </div>
                                                 <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    22, First Avenue, WEMBLEY, Middlesex, HA9 8QG, UNITED KINGDOM
+                                                        @ServiceAdress.HouseName,@ServiceAdress.Street,@ServiceAdress.Locality,
+                                                        @ServiceAdress.County,@ServiceAdress.PostCode,@ServiceAdress.Country
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="w-row row-margin ef-review-officer">
-                                            <div class="w-row row-margin ef-head-row">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title"> Name</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    <div>
-                                                        ada
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Roles</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    <div>
-                                                        Person of Significant Control
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Registration Number</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    -
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Place Registered</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    -
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">UK entity</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    No
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Law Governed</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    asd
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Legal Form</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    sad
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Address</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    15, Harrow Way, Watford, Hertfordshire, WD19 5EH, UNITED KINGDOM
-                                                </div>
-                                            </div>
-
-                                            <div class="w-row row-margin">
-                                                <div class="w-col w-col-5 ef-review-officer-label-col">
-                                                    <div class="ef-review-title">Nature Of Control</div>
-                                                </div>
-                                                <div class="w-col w-col-7 ef-officer-additional-info-col">
-                                                    <span class="ef-applies-to-header">Individual</span>
-                                                    <ul>
-                                                        <li class="ef-applies-to-list"><span>Ownership of shares: More than 25% but not more than 50%</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                     <div class="w-col w-col-1">
                                         <div class="w-col w-col-1 ef-review-edit-wrapper">
