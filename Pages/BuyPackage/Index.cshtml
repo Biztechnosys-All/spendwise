@@ -179,7 +179,7 @@
                             $("#selectPackageCompnameDiv").show();
                         }
                         $.ajax({
-                            url: "/BuyPackage/Non-residents",
+                            url: "/BuyPackage/limited-company",
                             type: "get",
                             success: function (result) {
                                 $("#CompanyTypeBasedPackage").html(result);
@@ -378,7 +378,7 @@
         }
 
         function CheckCompanyName() {
-            // alert();
+            Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
             if ($("#company_name").val() == "") {
                 $("#errorCompanyname").css("display", "block");
             }

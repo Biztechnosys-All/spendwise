@@ -8,9 +8,9 @@
                     <li><a href="/Package/Digital">Digital Package</a></li>
                     <li><a href="/Package/Privacy">Privacy Package</a></li>
                     <li><a href="/Package/All%20Inclusive">All Inclusive Package</a></li>
-                    <li><a style="cursor: pointer;" onclick="ShowTypeBasedPackage('Non-residents')">Non-Residents Package</a></li>
-                    <li><a style="cursor: pointer;" onclick="ShowTypeBasedPackage('LLP')">LLP Package</a></li>
-                    <li><a style="cursor: pointer;" onclick="ShowTypeBasedPackage('Guarantee')">Guarantee Package</a></li>
+                    <li><a style="cursor: pointer;" onclick="ShowMenuTypeBasedPackage('Non-residents')">Non-Residents Package</a></li>
+                    <li><a style="cursor: pointer;" onclick="ShowMenuTypeBasedPackage('LLP')">LLP Package</a></li>
+                    <li><a style="cursor: pointer;" onclick="ShowMenuTypeBasedPackage('Guarantee')">Guarantee Package</a></li>
                 </ul>
             </div>
             <div class="site-footer__col site-footer__col--nav">
@@ -234,7 +234,7 @@
 </footer>
 
 <script>
-    function ShowTypeBasedPackage(Type) {
+    function ShowMenuTypeBasedPackage(Type) {
         if (Type == "Non-residents") {
             const redirectUrl = `/BuyPackage#Non-residents`;
             window.location.href = redirectUrl;

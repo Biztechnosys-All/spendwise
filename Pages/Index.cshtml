@@ -101,7 +101,7 @@
                                                 <h3 class="site-nav__menu-heading">International</h3>
                                                 <ul class="site-nav__menu-links">
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a onclick="ShowTypeBasedPackage('Non-residents')">
+                                                        <a onclick="ShowMenuTypeBasedPackage('Non-residents')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Non-Residents Package
                                                         </a>
@@ -112,13 +112,13 @@
                                                 <h3 class="site-nav__menu-heading">Other company packages</h3>
                                                 <ul class="site-nav__menu-links">
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a onclick="ShowTypeBasedPackage('Guarantee')">
+                                                        <a onclick="ShowMenuTypeBasedPackage('Guarantee')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Limited By Guarantee
                                                         </a>
                                                     </li>
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a onclick="ShowTypeBasedPackage('LLP')">
+                                                        <a onclick="ShowMenuTypeBasedPackage('LLP')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Limited Liability Partnership
                                                         </a>
@@ -961,7 +961,7 @@
                     <div class="home-non-residents__text">
                         <p>This package includes limited company registration, UK business banking, London address services with international mail forwarding, and more. <a href="#non-res--eligible-countries" data-lity="">A full list of eligible countries can be found here</a>.</p>
                         <div class="home-non-residents__cta" style="text-align: center;">
-                            <a class="button button--secondary" style="padding: 2%; font-size: 15px;" onclick="ShowTypeBasedPackage('Non-residents')">Non-Residents Package</a>
+                            <a class="button button--secondary" style="padding: 2%; font-size: 15px;" onclick="ShowMenuTypeBasedPackage('Non-residents')">Non-Residents Package</a>
                         </div>
                     </div>
                     <div class="home-non-residents__image">
@@ -2308,12 +2308,14 @@
 
             $('#CompanyName').keypress(function (e) {
                 if (e.which === 13) {
+                    Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
                     e.preventDefault(); // Prevent form submission
                     $('#CompanynamecheckBtn').click(); // Simulate button click
                 }
             });
 
             $("#CompanynamecheckBtn").click(function () {
+                Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
                 $("#CompanyName").addClass("spinner-ring");
                 var companyName = $("#CompanyName").val().trim().toUpperCase();
 
@@ -2371,9 +2373,10 @@
             $("#cNameAv").hide();
             $("#cNameNotAv").hide();
             $(".company-name-search").show();
+            Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
         }
 
-        function ShowTypeBasedPackage(Type) {
+        function ShowMenuTypeBasedPackage(Type) {
             if (Type == "Non-residents") {
                 const redirectUrl = `/BuyPackage#Non-residents`;
                 window.location.href = redirectUrl;                

@@ -1846,3 +1846,87 @@ ef-information-box p {
         min-width:200px;
     }
 }
+
+.ef-primary-table {
+    width: 100%;
+    margin-top: 0px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.ef-primary-table tr:nth-child(odd) {
+    background-color: #fff !important;
+}
+
+.ef-primary-table tr:nth-child(even) {
+    background-color: #EDF2F5 !important;
+}
+
+.ef-primary-table th {
+    background-color: #ACB5BA !important;
+    color: #FFFFFF;
+    font-size: 15px;
+    padding: 5px;
+    text-align: left !important;
+    vertical-align: middle;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.ef-primary-table td {
+   border: none !important;
+   text-align: left !important;
+   font-weight: 500;
+   padding: 5px 5px 5px 10px;
+}
+
+.ef-remove-officer {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: 0;
+    border-radius: 0;
+    font-weight: 500;
+    background-color: #fff !important;
+    border: 1px solid #d90000 !important;
+    color: #d90000 !important;
+    padding: 10px 15px !important;
+    width: auto !important;
+    font-size: 14px !important;
+    outline: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.ef-remove-officer:hover {
+    border: 1px solid #bc0404 !important;
+    color: #bc0404 !important;
+    background-color: #efefef !important;
+}
+
+.ef-edit-officer {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: 0;
+    border-radius: 0;
+    font-weight: 500;
+    background-color: #FFFFFF !important;
+    border: 1px solid #84888a !important;
+    color: #6f7b82 !important;
+    padding: 10px 15px !important;
+    width: auto !important;
+    font-size: 14px !important;
+    outline: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.ef-edit-officer:hover {
+    background-color: #efefef !important;
+    border-color: #84888a !important;
+    color: #333 !important;
+    text-decoration: none;
+}

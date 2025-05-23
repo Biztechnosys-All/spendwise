@@ -57,6 +57,7 @@
  <script>
     $('#company_name').keypress(function (e) {
         if (e.which === 13) {
+            Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
             e.preventDefault(); // Prevent form submission
             CheckCompanyName(); // Simulate button click
         }
