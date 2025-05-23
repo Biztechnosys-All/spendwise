@@ -33,15 +33,13 @@
         overflow: hidden;
     }
 
-    #efPackageNet span, #efPackageTax span, #efPackageTotal span {
-        width: 75px !important;
-    }
+   
 
     #efPackageNet span, #efPackageTax span, #efPackageTotal span {
         font-weight: 700;
         float: right;
         display: block;
-        width: 120px;
+       padding-left:10px;
     }
 </style>
 <div class="container mr-top-20">
@@ -116,16 +114,16 @@
                             <table class="efTable efPackageTable ui-widget-content" id="efIncludedTable" width="100%">
                                 <thead>
                                     <tr class="ui-widget-header">
-                                        <td width="30%">Item</td>
-                                        <td width="30%" style="text-align:center" class="remove-column">Quantity</td>
-                                        <td width="40%" class="text-right">Price</td>
+                                        <td width="70%">Item</td>
+                                        <!--<td width="30%" style="text-align:center" class="remove-column">Quantity</td>-->
+                                        <td width="30%" class="text-right">Price</td>
 									</tr>
                                 </thead>
 								<tbody id="CheckoutItems">
 									<tr class="efIncludedItemTableRow efOdd" data-pattern="formation">
-                                        <td width="30%"><b>@Model.SelectedPackage.PackageName</b></td>
-                                        <td width="30%" style="text-align:center" class="remove-column fs-15"><input type="hidden" name="quantity[P2043]" value="1"> 1</td>
-                                        <td width="40%" class="fs-15 text-right">£@Model.SelectedPackage.Price</td>
+                                        <td width="70%"><b>@Model.SelectedPackage.PackageName</b></td>
+                                        <!--<td width="30%" style="text-align:center" class="remove-column fs-15"><input type="hidden" name="quantity[P2043]" value="1"> 1</td>-->
+                                        <td width="30%" class="fs-15 text-right">£@Model.SelectedPackage.Price</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -257,9 +255,8 @@
 
         const CheckoutItemStr = `
                                                         <tr id="CheckOut_included_${itemId}" class="efOptionalTrProduct efEven">
-                                                                    <td colspan="3">${ItemName}</td>
-                                                <td style="text-align:right"><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="X" onclick="removePackageItem(${itemId})" role="button" aria-disabled="false"></td>
-                                                            <td style="text-align:right" id="CheckOut_included_${itemId}_Price">£${ItemPrice}</td>
+                                                            <td>${ItemName}</td>                                              
+                                                            <td style="text-align:right" id="CheckOut_included_${itemId}_Price"><span><input type="button" class="efButton ui-button ui-widget ui-state-default ui-corner-all" value="X" onclick="removePackageItem(${itemId})" role="button" aria-disabled="false"></span> <span style=" display: inline-block; width: 50px;" class="chekout-price">£${ItemPrice}</span></td>
                                                         </tr>
                                                 `;
         
