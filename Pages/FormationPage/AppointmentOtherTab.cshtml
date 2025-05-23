@@ -146,7 +146,7 @@
                                                                     <span class="ef-js-forwarding-address">
                                                                         @if (ResidentialOfficeAddress != null)
                                                                         {
-                                                                            @($"{ResidentialOfficeAddress.HouseName}, {ResidentialOfficeAddress.Street}, {ResidentialOfficeAddress.Town}, {ResidentialOfficeAddress.County}, {ResidentialOfficeAddress.PostCode}, {ResidentialOfficeAddress.Country}")
+                                                                            @($"{ResidentialOfficeAddress.HouseName} {ResidentialOfficeAddress.Street}, {ResidentialOfficeAddress.Town}, {ResidentialOfficeAddress.County}, {ResidentialOfficeAddress.PostCode}, {ResidentialOfficeAddress.Country}")
                                                                         }
                                                                     </span>
                                                                 </div>
@@ -203,7 +203,7 @@
                                                                 <span class="service-forwarding-address">
                                                                     @if (ServiceOfficeAddress != null)
                                                                     {
-                                                                        @($"{ServiceOfficeAddress.HouseName}, {ServiceOfficeAddress.Street}, {ServiceOfficeAddress.Town}, {ServiceOfficeAddress.County}, {ServiceOfficeAddress.PostCode}, {ServiceOfficeAddress.Country}")
+                                                                        @($"{ServiceOfficeAddress.HouseName} {ServiceOfficeAddress.Street}, {ServiceOfficeAddress.Town}, {ServiceOfficeAddress.County}, {ServiceOfficeAddress.PostCode}, {ServiceOfficeAddress.Country}")
                                                                     }
                                                                 </span>
                                                             </div>
@@ -567,7 +567,7 @@
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>
-                    @item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
+                    @item.HouseName @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
                 </span>
                 <button type="button"
                         class="btn btn-success btn-sm"
@@ -582,7 +582,7 @@
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>
-                    @item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
+                    @item.HouseName @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
                 </span>
                 <button type="button"
                         class="btn btn-success btn-sm"
@@ -711,25 +711,27 @@
             var type = $('#hndAddressType').val();
             if (type === 'Residential') {
                 $(".ef-js-forwarding-address").html("");
-                const addressHtml = [
-                    $("#OtherAddress_HouseName").val(),
+                const houseName = $("#OtherAddress_HouseName").val();
+                const otherParts = [
                     $("#OtherAddress_Street").val(),
                     $("#OtherAddress_Town").val(),
                     $("#OtherAddress_County").val(),
                     $("#OtherAddress_PostCode").val(),
                     $("#OtherAddress_Country").val()
-                ].filter(Boolean).join(', ');
+                ].filter(Boolean);
+                const addressHtml = (houseName ? houseName + ' ' : '') + otherParts.join(', ');
                 $(".ef-js-forwarding-address").html(addressHtml);
             } else if (type === 'Service') {
                 $(".service-forwarding-address").html("");
-                const addressHtml = [
-                    $("#OtherAddress_HouseName").val(),
+                const houseName = $("#OtherAddress_HouseName").val();
+                const otherParts = [
                     $("#OtherAddress_Street").val(),
                     $("#OtherAddress_Town").val(),
                     $("#OtherAddress_County").val(),
                     $("#OtherAddress_PostCode").val(),
                     $("#OtherAddress_Country").val()
-                ].filter(Boolean).join(', ');
+                ].filter(Boolean);
+                const addressHtml = (houseName ? houseName + ' ' : '') + otherParts.join(', ');
                 $(".service-forwarding-address").html(addressHtml);
             }
 
@@ -1042,7 +1044,7 @@
         //const lines = data.line_1.split(' ');
 
         document.getElementById('OtherAddress_HouseName').value = data.building_number || '';
-        document.getElementById('OtherAddress_Street').value = data.line_1.trim(); //lines[1] + ' ' + lines[2]?.trim() || '';
+        document.getElementById('OtherAddress_Street').value = data.line_1.trim().replace(data.building_number, '').trim(); //lines[1] + ' ' + lines[2]?.trim() || '';
         document.getElementById('OtherAddress_Town').value = data.town_or_city || '';
         document.getElementById('OtherAddress_County').value = data.county || '';
         document.getElementById('OtherAddress_PostCode').value = data.postcode || '';

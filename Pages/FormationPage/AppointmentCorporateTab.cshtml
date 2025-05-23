@@ -502,7 +502,7 @@
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>
-                    @item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
+                    @item.HouseName @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
                 </span>
                 <button type="button"
                         class="btn btn-success btn-sm"
@@ -668,14 +668,15 @@
 
         if (isValid) {
             $(".registered-forwarding-address").html("");
-            const addressHtml = [
-                $("#CorporateAddress_HouseName").val(),
+            const houseName = $("#CorporateAddress_HouseName").val();
+            const otherParts = [
                 $("#CorporateAddress_Street").val(),
                 $("#CorporateAddress_Town").val(),
                 $("#CorporateAddress_County").val(),
                 $("#CorporateAddress_PostCode").val(),
                 $("#CorporateAddress_Country").val()
-            ].filter(Boolean).join(', ');
+            ].filter(Boolean);
+            const addressHtml = (houseName ? houseName + ' ' : '') + otherParts.join(', ');
             $(".registered-forwarding-address").html(addressHtml);
 
             $("#inCorporateSecondAddressModal").modal("hide");
@@ -864,7 +865,7 @@
         //const lines = data.line_1.split(' ');
 
         document.getElementById('CorporateAddress_HouseName').value = data.building_number || '';
-        document.getElementById('CorporateAddress_Street').value = data.line_1.trim(); //lines[1] + ' ' + lines[2]?.trim() || '';
+        document.getElementById('CorporateAddress_Street').value = data.line_1.trim().replace(data.building_number, '').trim(); //lines[1] + ' ' + lines[2]?.trim() || '';
         document.getElementById('CorporateAddress_Town').value = data.town_or_city || '';
         document.getElementById('CorporateAddress_County').value = data.county || '';
         document.getElementById('CorporateAddress_PostCode').value = data.postcode || '';
