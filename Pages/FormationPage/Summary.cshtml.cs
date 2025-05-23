@@ -22,12 +22,16 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public AddressData Address { get; set; } = default!;
         [BindProperty]
         public List<AddressData> AddressList { get; set; } = default!;
+
         [BindProperty]
         public string RegistredEmail { get; set; }
         [BindProperty]
         public List<CompanyOfficer> OfficersList { get; set; } = default!;
         [BindProperty]
         public List<AddressData> PersonAddressList { get; set; } = default!;
+
+        [BindProperty]
+        public List<Document> UploadedDocuments { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
@@ -36,6 +40,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             Particular = await _context.Particulars.FirstOrDefaultAsync(m => m.UserId == userId && m.CompanyId.ToString() == selectCompanyId);
+            var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
             var Sic_Code_desc = string.Empty;
             foreach (var item in Particular.SIC_Code.Split(','))
@@ -48,7 +53,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             {
                 Sic_Code_desc = Sic_Code_desc.Substring(0, Sic_Code_desc.Length - 5);
             }
-
+            UploadedDocuments = await _context.Documents.Where(x => x.UserId == userId && x.CompanyId == companyId).ToListAsync();
             Particular.SIC_Code = Sic_Code_desc;
 
             #region Registered Office Address

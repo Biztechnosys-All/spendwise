@@ -294,19 +294,48 @@
 
                             <div class="ef-review-documents">
                                 <h3>Documents</h3>
-                                <div class="w-row">
-                                    <div class="w-col w-col-11">
-                                        <div class="w-row row-margin">
-                                            <div class="w-col w-col-5">
-                                                <div class="ef-review-title">Memorandum and Articles</div>
-                                            </div>
-                                            <div class="w-col w-col-7">
-                                                <div class="ef-review-official-document">
-                                                    Generic Limited by Shares Articles
+                                @if (Model.UploadedDocuments != null && Model.UploadedDocuments.Count > 0)
+                                {
+                                    <label for="selectType" style="font-weight: 400; margin-top: 5px;">Proof of Identity:</label>
+                                    <div class="w-row">
+                                        @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "identity"))
+                                        {
+                                            <div class="w-col w-col-11">
+                                                <div class="w-row row-margin">
+                                                    <div class="w-col w-col-5">
+                                                        <div class="ef-review-title"> @item.DocumentName </div>
+                                                    </div>
+                                                    <div class="w-col w-col-7">
+                                                        <div class="ef-review-official-document">
+                                                            @item.FileName
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     </div>
+
+                                    <label for="selectType" style="font-weight: 400; margin-top: 5px;">Proof of Address:</label>
+                                    <div class="w-row">
+                                        @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "address"))
+                                        {
+                                            <div class="w-col w-col-11">
+                                                <div class="w-row row-margin">
+                                                    <div class="w-col w-col-5">
+                                                        <div class="ef-review-title"> @item.DocumentName </div>
+                                                    </div>
+                                                    <div class="w-col w-col-7">
+                                                        <div class="ef-review-official-document">
+                                                            @item.FileName
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+
+                                <div class="w-row">
                                     <div class="w-col w-col-1">
                                         <div class="w-col w-col-1 ef-review-edit-wrapper">
                                             <button type="button" class="btn btn-success" onclick="">Edit</button>
@@ -336,7 +365,7 @@
             <!-- start progress buttons -->
             <div class="w-row ef-next-prev-btn" id="ef-next-prev-btn">
                 <div class="w-col w-col-6" style="padding-left: 0px;">
-                    <button type="button" id="prevstep" class="ef-btn prevstep" onclick="">Previous: Company Formation</button>
+                    <button type="button" id="prevCompanyFormationTab" class="ef-btn prevstep" onclick="">Previous: Company Formation</button>
                 </div>
                 <div class="w-col w-col-6" style="padding-right: 0px;">
                     <button type="button" id="go-to-cart" class="ef-btn summary-nextstep">Save &amp; continue</button>
@@ -352,4 +381,20 @@
     $('html, body').animate({
         scrollTop: $('.SummaryContainer').offset()?.top
     }, 400); // Smooth scroll over 800ms
+
+    $("#prevCompanyFormationTab").click(function (){
+        var tab = $("#spnCompanyFormation").text();
+        var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+
+        $.ajax({
+            url: "/FormationPage/CompanyFormationSubTab",
+            type: "get",
+            success: function (result) {
+                $("#FormationTabContent").html(result);
+                window.location.reload();
+                const newUrl = '?section=' + tabName;
+                window.history.pushState({ path: newUrl }, '', newUrl);
+            }
+        });
+    });
 </script>

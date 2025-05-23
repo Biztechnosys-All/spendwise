@@ -42,6 +42,9 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
         public List<SelectListItem> SicCodeCategoryList { get; set; } = default!;
 
+        [BindProperty]
+        public List<CompanyOfficer> OfficersList { get; set; } = default!;
+
         //Document Tab
         [BindProperty]
         public List<DocumentUploadModel> IdentityFiles { get; set; }
@@ -56,6 +59,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public async Task<IActionResult> OnGet()
         {
             List<AddressData> addressData;
+            List<CompanyOfficer> officerData;
             var userEmail = Request.Cookies["UserEmail"];
             var selectCompanyId = Request.Cookies["ComanyId"];
 
@@ -71,15 +75,16 @@ namespace Spendwise_WebApp.Pages.FormationPage
                    .ToList();
 
             SIC_CodeList = await _context.SicCodes.Where(x => AddSIC_CodesItemIds.Contains(x.SicCode)).ToListAsync();
-
+            officerData = await _context.CompanyOfficers.Where(m => m.UserId == userId && m.CompanyID == companyId).ToListAsync();
             UploadedDocuments = await _context.Documents.Where(x => x.UserId == userId && x.CompanyId == companyId).ToListAsync();
 
-            if (addressData == null)
+            if (addressData == null && officerData == null)
             {
                 return NotFound();
             }
             else
             {
+                OfficersList = officerData;
                 AddressList = addressData;
             }
             SicCodeCategoryList = await _context.SicCodeCategory.Select(p => new SelectListItem
@@ -387,7 +392,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                         DocumentType = category,
                         DocumentName = item.DocumentType,
                         FileName = $"{userId}_{companyId}_{item.File.FileName}",
-                        FilePath = $"/uploads/{category}/{fileName}",
+                        FilePath = $"/Documents/{category}/{fileName}",
                         UploadedOn = DateTime.Now,
                         UserId = userId,
                         CompanyId = companyId
@@ -398,6 +403,111 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
 
             await _context.SaveChangesAsync();
+        }
+
+        public class RequestModel
+        {
+            public int Id { get; set; }
+        }
+
+        public async Task<IActionResult> OnPostRemoveUploadedDocument([FromBody] RequestModel request)
+        {
+            var item = await _context.Documents.FindAsync(request.Id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.Documents.Remove(item);
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { success = true });
+        }
+
+        public async Task<IActionResult> OnPostEditIdentityDocument()
+        {
+            var userEmail = Request.Cookies["UserEmail"];
+            var selectCompanyId = Request.Cookies["ComanyId"];
+            var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
+            var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+
+            var documentId = Convert.ToInt32(Request.Form["DocumentId"]);
+            var documentType = Request.Form["DocumentType"];
+            var documentName = Request.Form["DocumentName"];
+            var uploadedFile = Request.Form.Files.FirstOrDefault();
+
+            var document = await _context.Documents.FindAsync(documentId);
+            if (document == null)
+            {
+                return new JsonResult(new { success = false, message = "Document not found" });
+            }
+
+            if (uploadedFile != null)
+            {
+                var uploadsFolder = Path.Combine("wwwroot", "Documents");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var uniqueFileName = $"{userId}_{companyId}_{uploadedFile.FileName}";
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(stream);
+                }
+
+                document.FileName = $"{userId}_{companyId}_{uploadedFile.FileName}";
+                document.FilePath = $"/Documents/{documentType}/{uniqueFileName}"; // For serving later
+            }
+
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { success = true });
+        }
+
+        public async Task<IActionResult> OnPostEditAddressDocument()
+        {
+            var userEmail = Request.Cookies["UserEmail"];
+            var selectCompanyId = Request.Cookies["ComanyId"];
+            var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
+            var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+
+            var documentId = Convert.ToInt32(Request.Form["DocumentId"]);
+            var documentType = Request.Form["DocumentType"];
+            var documentName = Request.Form["DocumentName"];
+            var uploadedFile = Request.Form.Files.FirstOrDefault();
+
+            var document = await _context.Documents.FindAsync(documentId);
+            if (document == null)
+            {
+                return new JsonResult(new { success = false, message = "Document not found" });
+            }
+
+            if (uploadedFile != null)
+            {
+                var uploadsFolder = Path.Combine("wwwroot", "Documents");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var uniqueFileName = $"{userId}_{companyId}_{uploadedFile.FileName}";
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(stream);
+                }
+
+                document.FileName = $"{userId}_{companyId}_{uploadedFile.FileName}";
+                document.FilePath = $"/Documents/{documentType}/{uniqueFileName}"; // For serving later
+            }
+
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { success = true });
         }
     }
 }

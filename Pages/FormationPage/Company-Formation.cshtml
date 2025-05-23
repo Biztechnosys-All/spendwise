@@ -234,7 +234,7 @@
                         type: "get",
                         success: function (result) {
                             $("#FormationTabContent").html(result);
-
+                            location.reload();
                             const newUrl = '?section=' + tabName;
                             window.history.pushState({ path: newUrl }, '', newUrl);
                         }
@@ -250,7 +250,6 @@
                         type: "get",
                         success: function (result) {
                             $("#FormationTabContent").html(result);
-
                             const newUrl = '?section=' + tabName;
                             window.history.pushState({ path: newUrl }, '', newUrl);
                         }
@@ -266,7 +265,6 @@
                         type: "get",
                         success: function (result) {
                             $("#FormationTabContent").html(result);
-
                             const newUrl = '?section=' + tabName;
                             window.history.pushState({ path: newUrl }, '', newUrl);
                         }

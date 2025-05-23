@@ -5,17 +5,17 @@
 }
 <style>
     .w-input, .w-select {
-    border: 1px solid #84888a !important;
-    font-size: 14px !important;
+        border: 1px solid #84888a !important;
+        font-size: 14px !important;
     }
 
     .ef-sic-code-filter {
-    display: none;
-    min-height: 300px;
-    height: 340px;
-    max-height: 400px;
-    overflow-x: scroll;
-    overflow-x: hidden;
+        display: none;
+        min-height: 300px;
+        height: 340px;
+        max-height: 400px;
+        overflow-x: scroll;
+        overflow-x: hidden;
     }
 
     .address-panel {
@@ -455,49 +455,81 @@
                         <h1> Documents </h1>
                     </div>
 
+                    <div class="ef-information-box">
+                        <h2 class="ef-information-box-title"> Reasons documents will not be accepted </h2>
+                        
+                            <p> Blurred  </p>                            
+                            <p> Illegible   </p>
+                            <p> Out-of-Date  </p>
+                            <p> Incomplete  </p>
+                        
+                    </div>
+
                     <div>
                         @if (Model.UploadedDocuments != null && Model.UploadedDocuments.Count > 0)
                         {
-                            <label for="selectType">Choose a Proof of Identity:</label>
-                            <table class="table table-bordered" style="border: 1px solid;">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"> DocumentName</th>
-                                        <th scope="col"> FileName</th>
-                                    </tr>
-                                </thead>
+                            <label for="selectType" style="font-weight: 600;">Choose a Proof of Identity:</label>
+                            <table id="ef-current-appointments-table" class="ef-primary-table table">
                                 <tbody>
+                                    <tr>
+                                        <th>DocumentName</th>
+                                        <th>FileName</th>
+                                        <th></th>
+                                    </tr>
                                     @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "identity"))
                                     {
-                                        <tr>
-                                            <td> @item.DocumentName</td>
-                                            <td> @item.FileName</td>
+                                        <tr class="w-row-even">
+                                            <td>
+                                                @item.DocumentName
+                                            </td>
+                                            <td>
+                                                @item.FileName
+                                            </td>
+                                            <td>
+                                                <span style="">
+                                                    <a class="ef-edit-officer" href="@item.FilePath" target="_blank">View</a>
+                                                    <button type="button" class="ef-edit-officer" onclick='editUploadedDocument(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                                    <button type="button" class="ef-remove-officer" onclick="btnRemoveDocument(@item.DocumentId)">Remove</button>
+                                                </span>
+                                            </td>
                                         </tr>
-                                    }                                    
+                                    }
                                 </tbody>
                             </table>
 
-                            <label for="selectType">Choose a Proof of Address:</label>
-                            <table class="table table-bordered" style="border: 1px solid;">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"> DocumentName</th>
-                                        <th scope="col"> FileName</th>
-                                    </tr>
-                                </thead>
+                            <label for="selectType" style="font-weight: 600;">Choose a Proof of Address:</label>
+                            <table id="ef-current-appointments-table" class="ef-primary-table table">
                                 <tbody>
+                                    <tr>
+                                        <th>DocumentName</th>
+                                        <th>FileName</th>
+                                        <th></th>
+                                    </tr>
                                     @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "address"))
                                     {
-                                        <tr>
-                                            <td> @item.DocumentName</td>
-                                            <td> @item.FileName</td>
+                                        <tr class="w-row-even">
+                                            <td>
+                                                @item.DocumentName
+                                            </td>
+                                            <td>
+                                                @item.FileName
+                                            </td>
+                                            <td>
+                                                <span style="">
+                                                    <a class="ef-edit-officer" href="@item.FilePath" target="_blank">View</a>
+                                                    <button type="button" class="ef-edit-officer" onclick='editUploadedDocument(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                                    <button type="button" class="ef-remove-officer" onclick="btnRemoveDocument(@item.DocumentId)">Remove</button>
+                                                </span>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
                         }
-                        
                     </div>
+
+                    <input type="hidden" id="documentId" />
+                    <input type="hidden" id="documentType" />
 
                     <div class="ef-registered-office-step" id="ef-panel-content">
                         <div id="ef-panel-inner-content">
@@ -528,9 +560,17 @@
                                         <select class="form-select" id="addressType">
                                             <option value="">-- Select --</option>
                                             <option value="OutsideDrivingLicence"> Driving Licence For Outside  </option>
-                                            <option value="MarriageCertificate"> Marriage Certificate </option>
                                             <option value="DrivingLicence"> Driving Licence </option>
                                             <option value="BirthCertificate"> Birth Certificate </option>
+                                            <option value="MarriageCertificate"> Marriage Certificate </option>
+                                            <option value="CivilPartnershipCertificate"> Civil Partnership Certificate </option>
+                                            <option value="MortgageStatement"> Mortgage Statement </option>
+                                            <option value="FinancialStatement"> Financial Statement(pension or endowment) </option>
+                                            <option value="ConfirmationLetter "> Bank or Building Society Account Opening Confirmation Letter  </option>
+                                            <option value="OriginalUtilityBill"> Original Utility Bill </option>
+                                            <option value="BenefitStatement "> Benefit Statement </option>
+                                            <option value="P45-P60 Statement "> P45 or P60 Statement  </option>
+                                            <option value="CouncilTaxbill"> Council Tax bill </option>
                                         </select>
                                     </div>
                                 </div>
@@ -544,7 +584,7 @@
                     </div>
 
                     <div class="add-save">
-                        <button type="button" id="saveDocument" class="ef-btn nextstep ef-save-next-btn"> Save & Next</button>
+                        <button type="button" id="gotoSummaryTab" class="ef-btn nextstep ef-save-next-btn"> Save & Next</button>
                     </div>
                 </div>
             </div>
@@ -1024,7 +1064,6 @@
         });
     });
 
-
     function openAddressModal(type, addressData = null) {
         // Set the type: "Registered" or "Business"
         $("#secondAddressModal").find("input").val("");
@@ -1218,7 +1257,7 @@
                 }
             }
 
-            
+
 
             validateField("#Company_RegisteredEmail", "#Address_RegisteredEmail_error", "Registered Email");
 
@@ -1363,7 +1402,6 @@
         CloseRegisteredAddressPanel();
     }
 
-
     // $('#Particular_SIC_Code').on('keyup', function () {
     //     const query = $(this).val().toLowerCase().trim();
 
@@ -1444,6 +1482,9 @@
         }
     };
 
+    let identityFilesData = [];
+    let addressFilesData = [];
+
     function handleFiles(type, inputId, dataArray) {
         const docType = $(`#${type}Type`).val();
         const files = $(`#${inputId}`)[0]?.files;
@@ -1457,12 +1498,47 @@
             dataArray.push({ docType: docType, file: files[i] });
         }
 
-        $(`#${inputId}`).val(""); // Clear input
+        $(`#${inputId}`).val(""); // Clear input\
+        let formData = new FormData();
+        identityFilesData.forEach((item, index) => {
+            formData.append(`IdentityFiles[${index}].DocumentType`, item.docType);
+            formData.append(`IdentityFiles[${index}].File`, item.file);
+        });
+
+        addressFilesData.forEach((item, index) => {
+            formData.append(`AddressFiles[${index}].DocumentType`, item.docType);
+            formData.append(`AddressFiles[${index}].File`, item.file);
+        });
+
+        console.log("type",type);
+        console.log("inputId",inputId);
+        console.log("dataArray",dataArray[0]?.docType);
+
+        const option = dataArray[0]?.docType;
+        $(option).prop('disabled', true);
+
+        $.ajax({
+            url: "/FormationPage/CompanyFormationSubTab?handler=SaveDocumentTabData",
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.success) {
+                    showToast('Document is uploaded.', 'success');
+                    if(type == "identity") {
+                        $(`#identityType option[value='${option}']`).prop("disabled", true);
+                    }
+                    else if(type == "address") {
+                        $(`#addressType option[value='${option}']`).prop("disabled", true);
+                    }
+                }
+            },
+            error: function (xhr) {
+                console.error("Error:", xhr.statusText, xhr.responseText);
+            }
+        });
     }
-
-
-    let identityFilesData = [];
-    let addressFilesData = [];
 
     $(document).ready(function () {
         $("#identityType").change(function () {
@@ -1477,7 +1553,7 @@
                 const fileInputHtml = `
                                                               <label> ${selectedValue} : </label>
                                                               <input class="form-control" type="file" style="width: 40%;" id="identityFile" multiple accept="application/pdf" />
-                                                              <button type="button" class="btn btn-primary" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('identity', 'identityFile', identityFilesData)">Add Identity File</button>`;
+                                                              <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('identity', 'identityFile', identityFilesData)">Add</button>`;
 
                 // Show wrapper and set new input
                 fileInputWrapper.html(fileInputHtml).show();
@@ -1498,7 +1574,7 @@
                 const fileInputHtml = `
                                                               <label> ${selectedValue} : </label>
                                                               <input class="form-control" type="file" style="width: 40%;" id="addressFile" multiple accept="application/pdf" />
-                                                              <button type="button" class="btn btn-primary" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('address', 'addressFile', addressFilesData)">Add Address File</button>`;
+                                                              <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('address', 'addressFile', addressFilesData)">Add</button>`;
 
                 // Show wrapper and set new input
                 fileInputWrapper.html(fileInputHtml).show();
@@ -1506,50 +1582,22 @@
                 fileInputWrapper.hide().html('');
             }
         });
+    });
 
-
-        $('#saveDocument').click(function () {
-            $(".ef-nav-section-link").removeClass("current");
-
-            var tab = $("#spnSummary").text();
-            var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
-            let formData = new FormData();
-            identityFilesData.forEach((item, index) => {
-                formData.append(`IdentityFiles[${index}].DocumentType`, item.docType);
-                formData.append(`IdentityFiles[${index}].File`, item.file);
-            });
-
-            addressFilesData.forEach((item, index) => {
-                formData.append(`AddressFiles[${index}].DocumentType`, item.docType);
-                formData.append(`AddressFiles[${index}].File`, item.file);
-            });
-
-            $.ajax({
-                url: "/FormationPage/CompanyFormationSubTab?handler=SaveDocumentTabData",
-                method: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    if (response.success) {
-                        showToast('Data Saved.', 'success');
-                        $.ajax({
-                            url: "/FormationPage/Summary",
-                            type: "get",
-                            success: function (result) {
-                                $("#FormationTabContent").html(result);
-                                $(".summary-tab").addClass("current");
-
-                                // const newUrl = '?section=' + tabName;
-                                // window.history.pushState({ path: newUrl }, '', newUrl);
-                            }
-                        });
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error:", xhr.statusText, xhr.responseText);
-                }
-            });
+    $('#gotoSummaryTab').click(function () {
+        $(".ef-nav-section-link").removeClass("current");
+        var tab = $("#spnSummary").text();
+        var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+        $.ajax({
+            url: "/FormationPage/Summary",
+            type: "get",
+            success: function (result) {
+                $("#FormationTabContent").html(result);
+                $(".summary-tab").addClass("current");
+                
+                const newUrl = '?section=' + tabName;
+                window.history.pushState({ path: newUrl }, '', newUrl);
+            }
         });
     });
 
@@ -1665,5 +1713,144 @@
         else {
             document.getElementById('Address_Country').value = data.country || '';
         }
+    }
+
+    function btnRemoveDocument(id){
+            if(confirm("Are you sure you want to delete this?")) {
+                $.ajax({
+                    url: "/FormationPage/CompanyFormationSubTab?handler=RemoveUploadedDocument",
+                    type: "POST",
+                    data: JSON.stringify({ id: id }),
+                    contentType: "application/json",
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log("Error deleting record.");
+                    }
+                });
+            }
+        };
+
+    function editUploadedDocument(data) {
+        if(data.documentType == "identity"){
+            $("#identityType").val(data.documentName);
+            $("#documentType").val(data.documentType);
+            $("#documentId").val(data.documentId);
+            const selectedValue = `${data.documentName}`;
+            const fileInputWrapper = $('#fileInputWrapper');
+            $('#identityType option[value="' + selectedValue + '"]').prop('disabled', true);
+            if (selectedValue) {
+                // Create dynamic file input with new ID
+                const fileInputHtml = `
+                      <label> ${selectedValue} : </label>
+                      <input class="form-control" type="file" style="width: 40%;" id="identityFile" multiple accept="application/pdf" />
+                      <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="updateIdenitityFiles()"">Update</button>`;
+
+                // Show wrapper and set new input
+                fileInputWrapper.html(fileInputHtml).show();
+            } else {
+                fileInputWrapper.hide().html('');
+            }
+        }
+        else if(data.documentType == "address"){
+            $("#addressType").val(data.documentName);
+            $("#documentType").val(data.documentType);
+            $("#documentId").val(data.documentId);
+            const selectedValue = `${data.documentName}`;
+            const fileInputWrapper = $('#fileInputForAddress');
+            $('#addressType option[value="' + selectedValue + '"]').prop('disabled', true);
+
+            if (selectedValue) {
+                // Create dynamic file input with new ID
+                const fileInputHtml = `
+                       <label> ${selectedValue} : </label>
+                       <input class="form-control" type="file" style="width: 40%;" id="addressFile" multiple accept="application/pdf" />
+                       <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="updateAddressFiles()">Update</button>`;
+
+                // Show wrapper and set new input
+                fileInputWrapper.html(fileInputHtml).show();
+            } else {
+                fileInputWrapper.hide().html('');
+            }
+        }
+    }
+
+    function updateIdenitityFiles() {
+        const documentId = $('#documentId').val();
+        const documentType = $('#documentType').val();
+        const documentName = $('#identityType').val();
+        const file = $('#identityFile')[0]?.files[0];
+
+        if (!documentName || !documentType) {
+            alert("Document name and type are required.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("DocumentId", documentId);
+        formData.append("DocumentType", documentType);
+        formData.append("DocumentName", documentName);
+
+        if (file) {
+            formData.append("File", file);
+        }
+
+        $.ajax({
+            url: "/FormationPage/CompanyFormationSubTab?handler=EditIdentityDocument",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                if (res.success) {
+                    showToast("Document updated successfully", "success");
+                } else {
+                    showToast("Update failed", "error");
+                }
+            },
+            error: function (xhr) {
+                console.error("Edit error:", xhr.responseText);
+            }
+        });
+    }
+
+    function updateAddressFiles() {
+        const documentId = $('#documentId').val();
+        const documentType = $('#documentType').val();
+        const documentName = $('#addressType').val();
+        const file = $('#addressFile')[0]?.files[0];
+
+        if (!documentName || !documentType) {
+            alert("Document name and type are required.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("DocumentId", documentId);
+        formData.append("DocumentType", documentType);
+        formData.append("DocumentName", documentName);
+
+        if (file) {
+            formData.append("File", file);
+        }
+
+        $.ajax({
+            url: "/FormationPage/CompanyFormationSubTab?handler=EditAddressDocument",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                if (res.success) {
+                    showToast("Document updated successfully", "success");                   
+                } else {
+                    showToast("Update failed", "error");
+                }
+            },
+            error: function (xhr) {
+                console.error("Edit error:", xhr.responseText);
+            }
+        });
     }
 </script>

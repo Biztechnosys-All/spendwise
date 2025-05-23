@@ -105,7 +105,7 @@
                                                 <h3 class="site-nav__menu-heading">International</h3>
                                                 <ul class="site-nav__menu-links">
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a onclick="ShowTypeBasedPackage('Non-residents')">
+                                                        <a onclick="ShowMenuTypeBasedPackage('Non-residents')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Non-Residents Package
                                                         </a>
@@ -116,13 +116,13 @@
                                                 <h3 class="site-nav__menu-heading">Other company packages</h3>
                                                 <ul class="site-nav__menu-links">
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a onclick="ShowTypeBasedPackage('Guarantee')">
+                                                        <a onclick="ShowMenuTypeBasedPackage('Guarantee')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Limited By Guarantee
                                                         </a>
                                                     </li>
                                                     <li class="site-nav__menu-sub-item">
-                                                        <a onclick="ShowTypeBasedPackage('LLP')">
+                                                        <a onclick="ShowMenuTypeBasedPackage('LLP')">
                                                             <i class="fa-solid fa-angle-right"></i>
                                                             Limited Liability Partnership
                                                         </a>
@@ -549,7 +549,7 @@
             toast.show();
         }
 
-        function ShowTypeBasedPackage(Type) {
+        function ShowMenuTypeBasedPackage(Type) {
             if (Type == "Non-residents") {
                 const redirectUrl = `/BuyPackage#Non-residents`;
                 window.location.href = redirectUrl;
