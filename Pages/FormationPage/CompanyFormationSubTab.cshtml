@@ -1510,13 +1510,6 @@
             formData.append(`AddressFiles[${index}].File`, item.file);
         });
 
-        console.log("type",type);
-        console.log("inputId",inputId);
-        console.log("dataArray",dataArray[0]?.docType);
-
-        const option = dataArray[0]?.docType;
-        $(option).prop('disabled', true);
-
         $.ajax({
             url: "/FormationPage/CompanyFormationSubTab?handler=SaveDocumentTabData",
             method: "POST",
@@ -1527,10 +1520,10 @@
                 if (response.success) {
                     showToast('Document is uploaded.', 'success');
                     if(type == "identity") {
-                        $(`#identityType option[value='${option}']`).prop("disabled", true);
+                        $(`#identityType option[value='${docType}']`).prop("disabled", true);
                     }
                     else if(type == "address") {
-                        $(`#addressType option[value='${option}']`).prop("disabled", true);
+                        $(`#addressType option[value='${docType}']`).prop("disabled", true);
                     }
                 }
             },
@@ -1739,7 +1732,7 @@
             $("#documentId").val(data.documentId);
             const selectedValue = `${data.documentName}`;
             const fileInputWrapper = $('#fileInputWrapper');
-            $('#identityType option[value="' + selectedValue + '"]').prop('disabled', true);
+
             if (selectedValue) {
                 // Create dynamic file input with new ID
                 const fileInputHtml = `
@@ -1805,6 +1798,7 @@
             success: function (res) {
                 if (res.success) {
                     showToast("Document updated successfully", "success");
+                    $('#identityType option[value="' + documentName + '"]').prop('disabled', true);
                 } else {
                     showToast("Update failed", "error");
                 }
@@ -1844,6 +1838,7 @@
             success: function (res) {
                 if (res.success) {
                     showToast("Document updated successfully", "success");                   
+                    $('#addressType option[value="' + documentName + '"]').prop('disabled', true);
                 } else {
                     showToast("Update failed", "error");
                 }

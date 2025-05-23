@@ -92,11 +92,11 @@ namespace Spendwise_WebApp.Pages.FormationPage
         {
             try
             {
-                officer.DOB = DateTime.ParseExact(officer.DOB.ToString("dd-MM-yyyy"), "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                TempData["OfficerData"] = JsonConvert.SerializeObject(officer);
+                //officer.DOB = DateTime.ParseExact(officer.DOB.ToString("dd-MM-yyyy"), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                //TempData["OfficerData"] = JsonConvert.SerializeObject(officer);
 
                 var userEmail = Request.Cookies["UserEmail"];
-                var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+                var selectCompanyId = Request.Cookies["ComanyId"];
                 var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
                 var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
@@ -136,7 +136,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             try
             {
                 var userEmail = Request.Cookies["UserEmail"];
-                var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+                var selectCompanyId = Request.Cookies["ComanyId"];
                 var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
                 var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
@@ -183,7 +183,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public async Task<JsonResult> OnPostSavePersonResidentialAddress([FromBody] AddressData request)
         {
             var userEmail = Request.Cookies["UserEmail"];
-            var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+            var selectCompanyId = Request.Cookies["ComanyId"];
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
@@ -248,6 +248,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                                            x.Country == request.Country &&
                                            x.PostCode == request.PostCode &&
                                            x.CompanyId == companyId &&
+                                           x.OfficerId == officerId &&
                                            x.IsResidetialAddress == true
                                        );
 
@@ -285,7 +286,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             try
             {
                 var userEmail = Request.Cookies["UserEmail"];
-                var selectCompanyId = (string.IsNullOrEmpty(Request.Cookies["SelectCompanyId"]) ? Request.Cookies["ComanyId"] : Request.Cookies["SelectCompanyId"]);
+                var selectCompanyId = Request.Cookies["ComanyId"];
                 var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
                 var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
@@ -348,6 +349,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                                            x.Country == request.Country &&
                                            x.PostCode == request.PostCode &&
                                            x.CompanyId == companyId &&
+                                           x.OfficerId == officerId &&
                                            x.IsServiceAddress == true
                                        );
 
