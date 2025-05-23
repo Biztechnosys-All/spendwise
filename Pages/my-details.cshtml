@@ -162,7 +162,7 @@
                                             <td>
                                                 <input asp-for="@primaryAdd.HouseName" type="hidden" class="form-control" />
                                                 <span class="form-control address" id="billingPostalAddress" name="billingPostalAddress" data-email-address="BILLING">
-                                                    @primaryAdd.HouseName, @primaryAdd.Street,@primaryAdd.Locality, @primaryAdd.Town, @primaryAdd.County, @primaryAdd.PostCode, @primaryAdd.Country
+                                                    @primaryAdd.HouseName @primaryAdd.Street,@primaryAdd.Locality, @primaryAdd.Town, @primaryAdd.County, @primaryAdd.PostCode, @primaryAdd.Country
                                                 </span>
                                                 <span asp-validation-for="@primaryAdd.HouseName" class="text-danger fw-bold p-1"></span>
                                                 <div>
@@ -191,7 +191,7 @@
                                             </td>
                                             <td>
                                                 <span class="form-control address" id="billingPostalAddress" name="billingPostalAddress" data-email-address="BILLING">
-                                                    @billingAdd.HouseName, @billingAdd.Street, @billingAdd.Locality, @billingAdd.Town, @billingAdd.County, @billingAdd.PostCode, @billingAdd.Country
+                                                    @billingAdd.HouseName @billingAdd.Street, @billingAdd.Locality, @billingAdd.Town, @billingAdd.County, @billingAdd.PostCode, @billingAdd.Country
                                                 </span>
                                                 <div>
                                                     <button type="button" class="btn btn-success" id="ef-js-new-primary" role="button" aria-disabled="false">

@@ -296,7 +296,7 @@
                                                             <span class="ef-js-forwarding-address">
                                                                 @if (RegistredOfficeAddress != null)
                                                                 {
-                                                                    @($"{RegistredOfficeAddress.HouseName}, {RegistredOfficeAddress.Street}, {RegistredOfficeAddress.Town}, {RegistredOfficeAddress.County}, {RegistredOfficeAddress.PostCode}, {RegistredOfficeAddress.Country}")
+                                                                    @($"{RegistredOfficeAddress.HouseName} {RegistredOfficeAddress.Street}, {RegistredOfficeAddress.Town}, {RegistredOfficeAddress.County}, {RegistredOfficeAddress.PostCode}, {RegistredOfficeAddress.Country}")
                                                                 }
                                                             </span>
                                                         </div>
@@ -365,7 +365,7 @@
                                                     <span class="ef-js-forwarding-business-address">
                                                         @if (BusinessOfficeAddress != null)
                                                         {
-                                                            @($"{BusinessOfficeAddress.HouseName}, {BusinessOfficeAddress.Street}, {BusinessOfficeAddress.Town}, {BusinessOfficeAddress.County}, {BusinessOfficeAddress.PostCode}, {BusinessOfficeAddress.Country}")
+                                                            @($"{BusinessOfficeAddress.HouseName} {BusinessOfficeAddress.Street}, {BusinessOfficeAddress.Town}, {BusinessOfficeAddress.County}, {BusinessOfficeAddress.PostCode}, {BusinessOfficeAddress.Country}")
                                                         }
                                                     </span>
                                                 </div>
@@ -883,7 +883,7 @@
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>
-                    @item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
+                    @item.HouseName @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
                 </span>
                 <button type="button"
                         class="btn btn-success btn-sm"
@@ -898,7 +898,7 @@
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>
-                    @item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
+                    @item.HouseName @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country
                 </span>
                 <button type="button"
                         class="btn btn-success btn-sm"
@@ -1195,25 +1195,27 @@
             var type = $('#hndAddressType').val();
             if (type === 'Registered') {
                 $(".ef-js-forwarding-address").html("");
-                const addressHtml = [
-                    $("#Address_HouseName").val(),
+                const houseName = $("#Address_HouseName").val();
+                const otherParts = [
                     $("#Address_Street").val(),
                     $("#Address_Town").val(),
                     $("#Address_County").val(),
                     $("#Address_PostCode").val(),
                     $("#Address_Country").val()
-                ].filter(Boolean).join(', ');
+                ].filter(Boolean);
+                const addressHtml = (houseName ? houseName + ' ' : '') + otherParts.join(', ');
                 $(".ef-js-forwarding-address").html(addressHtml);
             } else if (type === 'Business') {
                 $("#ef-js-forwarding-business-address").html("");
-                const addressHtml = [
-                    $("#Address_HouseName").val(),
+                const houseName = $("#Address_HouseName").val();
+                const otherParts = [
                     $("#Address_Street").val(),
                     $("#Address_Town").val(),
                     $("#Address_County").val(),
                     $("#Address_PostCode").val(),
                     $("#Address_Country").val()
-                ].filter(Boolean).join(', ');
+                ].filter(Boolean);
+                const addressHtml = (houseName ? houseName + ' ' : '') + otherParts.join(', ');
                 $(".ef-js-forwarding-business-address").html(addressHtml);
             }
 
@@ -1703,7 +1705,7 @@
         //const lines = data.line_1.split(' ');
 
         document.getElementById('Address_HouseName').value = data.building_number || '';
-        document.getElementById('Address_Street').value = data.line_1.trim(); //lines[1] + ' ' + lines[2]?.trim() || '';
+        document.getElementById('Address_Street').value = data.line_1.trim().replace(data.building_number, '').trim(); //lines[1] + ' ' + lines[2]?.trim() || '';
         document.getElementById('Address_Town').value = data.town_or_city || '';
         document.getElementById('Address_County').value = data.county || '';
         document.getElementById('Address_PostCode').value = data.postcode || '';
