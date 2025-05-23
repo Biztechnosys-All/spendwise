@@ -14835,26 +14835,13 @@ ol.footnote {
         padding: 10px
     }
 
-        .efPaddedTable tr, .efTable tr, .efTable tr td {
+        /*.efPaddedTable tr, .efTable tr, .efTable tr td {
             box-sizing: border-box;
             display: inline-block;
             width: 100%
-        }
+        }*/
 
-            .efPaddedTable tr, .efTable tr td {
-                float: left
-            }
 
-    TABLE#efIncludedTable td:first-child {
-        padding-left: 0 !important;
-        width: calc(100% - 70px)
-    }
-
-    TABLE#efIncludedTable td:last-child {
-        text-align: right !important;
-        width: 70px;
-        padding-right: 0 !important
-    }
 
     .efTable tr td.efFieldLabel {
         background-color: #f2f2f2;

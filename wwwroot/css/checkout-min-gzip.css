@@ -343,6 +343,7 @@ input.addQuantity {
     box-shadow: inset 0 0 3px #fff
 }
 
+
 #originalCart .efTable td {
     padding: 6px 0;
     line-height: 18px;
@@ -704,5 +705,32 @@ span.fa-stack.fs-31.fc-yellow {
 
     input[type=button], input[type=submit] {
         -webkit-appearance: none !important
+    }
+}
+@media only screen and (min-width:361px) and (max-width:768px) {
+    .efOptionalTrProduct {
+        font-size: 14px !important;
+    }
+
+    .chekout-price {
+        padding-top: 5px;
+    }
+
+    #efPackageAgreeTerms {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    .efOptionalTrProduct {
+        font-size: 14px !important;
+    }
+
+    .chekout-price {
+        padding-top: 5px;
+    }
+
+    #efPackageAgreeTerms {
+        font-size: 11px;
     }
 }
