@@ -53,7 +53,9 @@ body.pace-running {
     color: var(--color-white);
     background-color: var(--color-green);
 }
-
+.efPaymentGatewayBillingDetails {
+    margin-top:10px;
+}
 #payment-gateway .efCustomerTypeWrapper {
     margin-top: 0;
 }
@@ -809,8 +811,11 @@ button .ui-button-text {
 
 .fileld-position .efPasswordEyeOpenIcon.ef-js-text-mask {
     top: 55px !important;
+    right: 20px !important;
 }
-
+.efPasswordEyeClosedIcon.ef-js-text-mask {
+    right: 20px;
+}
 .ef-hide {
     display: none !important;
 }
