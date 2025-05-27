@@ -44,7 +44,7 @@
                                 <button type="button" id="go-to-cart" class="ef-btn additional-button">
                                     Save &amp; Continue
                                 </button>
-                                <button class="btn btn-success" onclick="">
+                                <button class="btn btn-success" onclick="downloadSummary()">
                                     Download Summary
                                 </button>
                             </div>
@@ -397,4 +397,8 @@
             }
         });
     });
+
+    function downloadSummary(){
+        window.location.href = "/FormationPage/Summary?handler=DownloadSummaryPDF";
+    }
 </script>
