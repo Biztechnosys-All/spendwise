@@ -146,8 +146,11 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
             var html = $@"
             <html>
-            <head></head>
-            <body style='font-size: 12px; color: #000; margin: 20px;'>
+            <head>
+<style>
+body{{font-family: Arial; font-size: 12px; color: #000; margin: 20px;}}
+</style></head>
+            <body>
                 <h3 style='font-size: 16px; font-weight: bold; border: 1px solid #000; padding: 5px; margin-top: 30px;text-align:center;background-color:#d7f5cb;color:#38761d;'>{ParticularData.CompanyName}</h3>
                 <table style='width: 100%; border-collapse: collapse; margin-bottom: 20px;'>
                     <tr><td style='width: 30%; font-weight: bold;'>Company Name</td><td>{ParticularData.CompanyName}</td></tr>
