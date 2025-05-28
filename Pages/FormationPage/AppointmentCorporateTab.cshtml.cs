@@ -100,7 +100,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                     return new JsonResult(new { success = false, message = "Missing data" });
                 }
 
-                var positions = JsonConvert.DeserializeObject<PositionRequestData>(posData);
+                var positions = JsonConvert.DeserializeObject<CorporatePositionRequestData>(posData);
 
                 var data = new CorporateCompanyOfficers
                 {

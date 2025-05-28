@@ -96,6 +96,12 @@
                         $("#appOtherTab").css('display', 'none');
                         $("#appointmentTab").html(result);
                         $('html, body').scrollTop($('#appointmentTab').offset().top);
+                        $('#isDirector').prop('checked', false);
+                        $('#isShareholder').prop('checked', false);
+                        $('#isSecretary').prop('checked', false);
+                        $('#isPSC').prop('checked', false);
+                        document.getElementById('goToNextTab').style.display = 'none';
+                        document.getElementById('addNewOfficer').style.display = 'none';
                     }
                 });
             }

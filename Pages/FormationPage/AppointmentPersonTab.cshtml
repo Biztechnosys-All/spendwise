@@ -20,7 +20,7 @@
             </div>
             <div class="w-tabs" id="ef-officer-form-wrapper">
                 <!-- start tabs -->
-                <div class="w-tab-menu ef-officer-form-tab-menu ef-person-tab">
+                @*  <div class="w-tab-menu ef-officer-form-tab-menu ef-person-tab">
                     <a class="tab-link w-tab-link w-inline-block" aria-current="page" data-target="#position">
                         <div>Position</div>
                     </a>
@@ -33,7 +33,7 @@
                     <a class="tab-link w-tab-link w-inline-block" data-target="#addressing" style="width: 133px;">
                         <div>Addressing</div>
                     </a>
-                </div>
+                </div> *@
                 <!-- end tabs -->
                 <div id="scrollContainer">
                     <div class="tab-pane current" id="Formation">
@@ -70,28 +70,28 @@
                                             <div class="w-row row-role-select">
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" type="checkbox" value="Director" @(selected.Contains("Director") ? "checked" : "") />
+                                                        <input class="w-checkbox-input" type="checkbox" id="isDirector" value="Director" @(selected.Contains("Director") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-topdog">Director</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|TOP_DOG_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" type="checkbox" value="Shareholder" @(selected.Contains("Shareholder") ? "checked" : "") />
+                                                        <input class="w-checkbox-input" type="checkbox" id="isShareholder" value="Shareholder" @(selected.Contains("Shareholder") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-holder">Shareholder</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|HOLDER_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" type="checkbox" value="Secretary" @(selected.Contains("Secretary") ? "checked" : "") />
+                                                        <input class="w-checkbox-input" type="checkbox" id="isSecretary" value="Secretary" @(selected.Contains("Secretary") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-secretary">Secretary</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|SECRETARY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" type="checkbox" value="PSC" @(selected.Contains("PSC") ? "checked" : "") />
+                                                        <input class="w-checkbox-input" type="checkbox" id="isPSC" value="PSC" @(selected.Contains("PSC") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-PSC">Person with Significant Control (PSC)</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|PSC"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
@@ -101,11 +101,11 @@
                                     </div>
                                 </div>
                                 <div class="w-row">&nbsp;</div>
-                                <div class="w-row">
+                                @* <div class="w-row">
                                     <div class="w-col">
                                         <button type="button" id="btnPersonPosition" class="ef-btn ef-primary-btn ef-submit-btn">Next</button>
                                     </div>
-                                </div>
+                                </div> *@
                             </div>
                             <!-- end position tab -->
                         </div>
@@ -116,7 +116,20 @@
                                     <h1> Officer </h1>
                                 </div>
                                 <div class="define-new-hide ef-form-wrap ef-recent-officer-box" style="">
-                                    <h2>Recent Officers</h2>
+                                    <div class="ef-item-box ef-selected">
+                                        <div class="ef-item-content">
+                                            <div class="w-row ef-panel-row">
+                                                <div class="w-officer-col">
+                                                    <h3 class="forward-address">Recent Officers</h3>
+                                                    <button type="button" class="ef-btn ef-select-btn" onclick="showOfficerPanel()">
+                                                        Recently used Officers
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @* <h2>Recent Officers</h2>
+
                                     <div class="" style="margin-bottom:25px">
                                         @foreach (var item in Model.OfficersList)
                                         {
@@ -131,9 +144,9 @@
                                                 </div>
                                             </div>
                                         }
-                                    </div>
+                                    </div> *@
                                 </div>
-                                <div class="ef-form-wrap define-new-hide ef-create-officer-box" style="margin-bottom: 25px;">
+                                @* <div class="ef-form-wrap define-new-hide ef-create-officer-box" style="margin-bottom: 25px;">
                                     <h2>New Officer</h2>
                                     <div class="w-clearfix simple-row-elem">
                                         <div class="w-row ef-panel-row">
@@ -145,7 +158,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> *@
                             </div>
                         </div>
 
@@ -158,7 +171,7 @@
                                     <h2 class="ef-information-box-title">Personal Details</h2>
                                     <p>It is recommended you enter your name as it appears on your ID, eg. passport or drivers licence.</p>
                                 </div>
-                                <div style="display:none; font-size: 20px;" class="ef-alert-box fail" id="address-error"> </div>
+                                <div style="display:none; font-size: 20px;" class="ef-alert-box fail" id="residentialAddress-error"> </div>
                                 <div style="display:none;" class="ef-alert-box fail" id="no-officer-nationality">
                                     <span style="float:right;" class="ef-modal-help-icon nationality-help" data-ref="HELP|NATIONALITY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                     <div id="" class="ef-alert-box-main-text main-error-text"></div>
@@ -170,6 +183,7 @@
                                         <div class="w-row row-margin">
                                             <div class="w-col w-col-6" style="">
                                                 <div id="officer-title-wrapper">
+                                                    <input type="hidden" asp-for="Officers.OfficerId" />
                                                     <div id="officer-label-wrapper">
                                                     </div>
                                                     <div class="ef-autocomplete-wrapper">
@@ -248,8 +262,9 @@
                                                                 <label class="field-label" id="pac-q1-label" for="pac-q1">Select First 3 letters of</label>
                                                             </div>
                                                             <div class="w-col w-col-5">
-                                                                <select class="w-select appointments-field" asp-for="Officers.Authentication1">
-                                                                    <option value="MUM" selected="selected" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                <select class="w-select appointments-field auth-select" asp-for="Officers.Authentication1" style="margin-bottom: 20px;">
+                                                                    <option value=""> --Select-- </option>
+                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
                                                                     <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
                                                                     <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
                                                                     <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
@@ -271,11 +286,12 @@
                                                                 <label class="field-label" id="pac-q2-label" for="pac-q2">Select Last 3 digits of</label>
                                                             </div>
                                                             <div class="w-col w-col-5">
-                                                                <select class="w-select appointments-field" asp-for="Officers.Authentication2">
-                                                                    <option value="MUM" selected="selected" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                <select class="w-select appointments-field auth-select" asp-for="Officers.Authentication2" style="margin-bottom: 20px;">
+                                                                    <option value=""> --Select-- </option>
+                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
                                                                     <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
                                                                     <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
-                                                                    <option value="TEL" data-label="Select Last 3 digits of" selected="selected">Telephone Number</option>
+                                                                    <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
                                                                     <option value="NATINS" data-label="Select Last 3 characters of">National Insurance</option>
                                                                     <option value="PASSNO" data-label="Select Last 3 digits of">Passport Number</option>
                                                                 </select>
@@ -294,8 +310,9 @@
                                                                 <label class="field-label" id="pac-q3-label" for="pac-q3">Select First 3 letters of</label>
                                                             </div>
                                                             <div class="w-col w-col-5">
-                                                                <select class="w-select appointments-field" asp-for="Officers.Authentication3">
-                                                                    <option value="MUM" selected="selected" data-label="Select First 3 letters of">Mother's Maiden Name</option>
+                                                                <select class="w-select appointments-field auth-select" asp-for="Officers.Authentication3" style="margin-bottom: 20px;">
+                                                                    <option value=""> --Select-- </option>
+                                                                    <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
                                                                     <option value="DAD" data-label="Select First 3 letters of">Father's Forename</option>
                                                                     <option value="BIRTOWN" data-label="Select First 3 letters of">Town Of Birth</option>
                                                                     <option value="TEL" data-label="Select Last 3 digits of">Telephone Number</option>
@@ -308,7 +325,7 @@
                                                                 <label class="field-label" for="pac-a3">Answer</label>
                                                             </div>
                                                             <div class="w-col w-col-3 w-clearfix">
-                                                                <input class="w-input ef-pac-answer" type="text" asp-for="Officers.AuthenticationAns3"  />
+                                                                <input class="w-input ef-pac-answer" type="text" asp-for="Officers.AuthenticationAns3" />
                                                                 <span class="text-address-error-message" id="Officers_AuthenticationAns3_error" style="display: none;"></span>
                                                             </div>
                                                         </div>
@@ -319,11 +336,11 @@
                                     </div>
                                 </div>
                                 <div class="w-row">&nbsp;</div>
-                                <div class="w-row">
+                               @*  <div class="w-row">
                                     <div class="w-col">
                                         <button type="button" id="officer-submit-details-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step"> Save </button>
                                     </div>
-                                </div>
+                                </div> *@
                             </div>
                         </div>
 
@@ -439,7 +456,54 @@
                                             <!-- end item details -->
                                         </div>
                                     </div>
-                                    <!-- original ForwardingAddress-->
+
+                                    @* List Of Officer *@
+                                    <div>
+                                        @if (Model.OfficersList != null && Model.OfficersList.Count > 0)
+                                        {
+                                            <label for="selectType" class="currentAppointment">Current Appointments</label>
+                                            <p> Below is a list of officers currently assigned to your company. </p>
+                                            <table id="ef-current-appointments-table" class="ef-primary-table table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th> Name </th>
+                                                        <th> Director </th>
+                                                        <th> Shareholder </th>
+                                                        <th> Secretary </th>
+                                                        <th> PSC </th>
+                                                        <th></th>
+                                                    </tr>
+                                                    @foreach (var item in Model.OfficersList)
+                                                    {
+                                                        var position = item.PositionName?.Split(',') ?? Array.Empty<string>();
+                                                        <tr class="w-row-even">
+                                                            <td>
+                                                                @item.FirstName @item.LastName
+                                                            </td>
+                                                            <td>
+                                                                @(position.Contains("Director") ? "✔" : "❌")
+                                                            </td>
+                                                            <td>
+                                                                @(position.Contains("Shareholder") ? "✔" : "❌")
+                                                            </td>
+                                                            <td>
+                                                                @(position.Contains("Secretary") ? "✔" : "❌")
+                                                            </td>
+                                                            <td>
+                                                                @(position.Contains("PSC") ? "✔" : "❌")
+                                                            </td>
+                                                            <td>
+                                                                <span style="">
+                                                                    <button type="button" class="ef-remove-officer" onclick="btnRemovePersonOfficer(@item.OfficerId)">Remove</button>
+                                                                    <button type="button" class="ef-edit-officer" onclick='editPersonOfficer(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </div>
                                     <div class="hr-line-2"></div>
                                 </div>
                                 <!-- end of service address wrappeer -->
@@ -447,7 +511,9 @@
                                 <div class="w-row">
                                     <div class="w-col">
                                         <button type="button" class="btn btn-success" onclick="btnBackToMainPage()">Back</button>
-                                        <button type="button" id="submit-person-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step"> Save & Next </button>
+                                        <button type="button" id="goToNextTab" class="ef-btn ef-next-btn "> Next </button>
+                                        <button type="button" id="addNewOfficer" class="ef-btn ef-new-btn"> Add New Officer </button>
+                                        <button type="button" id="submit-person-tab" class="ef-btn ef-app-submit-btn"> Save Person Officer </button>
                                     </div>
                                 </div>
                             </div>
@@ -759,110 +825,131 @@
     </ul>
 </div>
 
+@* Choose Officer *@
+<div id="personChooseOfficerPanel" class="address-panel shadow p-3" style="display:none;">
+    <h5>Select an Address</h5>
+    <button class="btn btn-secondary mt-2" onclick="closeOfficerPanel()">Close</button>
+    <div id="personOfficerList" style="display:none;">
+        @foreach (var item in Model.OfficersList)
+        {
+            <div class="w-clearfix simple-row-elem">
+                <div class="w-row ef-panel-row">
+                    <div class="w-col w-col-8">
+                        <p>@item.FirstName @item.LastName</p>
+                    </div>
+                    <div class="w-col w-col-4 w-clearfix add-col">
+                        <button type="button" class="ef-btn ef-primary-btn ef-choose-btn" onclick='btnGoToDetailsTab(@Html.Raw(Json.Serialize(item)))'>Choose</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
 <script>
-    $("#btnPersonPosition").click(function () {
-        var selectedData = [];
-        $(".w-checkbox-input:checked").each(function () {
-            selectedData.push($(this).val());
-        });
+    // $("#btnPersonPosition").click(function () {
+    //     var selectedData = [];
+    //     $(".w-checkbox-input:checked").each(function () {
+    //         selectedData.push($(this).val());
+    //     });
 
-        if (selectedData?.length === 0) {
-            $("#position-error").html("Please select the Position.").show();
-        }
-        else{
-            $("#position-error").html("Please select the Position.").hide();
-        }
+    //     if (selectedData?.length === 0) {
+    //         $("#position-error").html("Please select the Position.").show();
+    //     }
+    //     else{
+    //         $("#position-error").html("Please select the Position.").hide();
+    //     }
 
-        const selectedPosition = selectedData.join(",");
+    //     const selectedPosition = selectedData.join(",");
 
-        $.ajax({
-            url: "/FormationPage/AppointmentPersonTab?handler=SavePersonPositionData",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ position: selectedPosition }),
-            success: function (response) {
-                if (response.success) {
-                    showToast('Position Data Saved.', 'success');
-                    console.log(response.success);
-                }
-            },
-            error: function (xhr) {
-                console.error("Error:", xhr.statusText, xhr.responseText);
-            }
-        });
-    });
+    //     $.ajax({
+    //         url: "/FormationPage/AppointmentPersonTab?handler=SavePersonPositionData",
+    //         method: "POST",
+    //         contentType: "application/json",
+    //         data: JSON.stringify({ position: selectedPosition }),
+    //         success: function (response) {
+    //             if (response.success) {
+    //                 showToast('Position Data Saved.', 'success');
+    //                 console.log(response.success);
+    //             }
+    //         },
+    //         error: function (xhr) {
+    //             console.error("Error:", xhr.statusText, xhr.responseText);
+    //         }
+    //     });
+    // });
 
-    document.getElementById("create-new-person-officer").addEventListener("click", function () {
-        setTimeout(function () {
-            const detailsSection = document.getElementById("details");
-            if (detailsSection) {
-                detailsSection.scrollIntoView({ behavior: "smooth" });
-            }
-        }, 300); // Adjust timeout if needed to wait for tab change
-    });
+    // document.getElementById("create-new-person-officer")?.addEventListener("click", function () {
+    //     setTimeout(function () {
+    //         const detailsSection = document.getElementById("details");
+    //         if (detailsSection) {
+    //             detailsSection.scrollIntoView({ behavior: "smooth" });
+    //         }
+    //     }, 300); // Adjust timeout if needed to wait for tab change
+    // });
 
-    $("#officer-submit-details-tab").click(function () {
-        var isValid = true;
+    // $("#officer-submit-details-tab").click(function () {
+    //     var isValid = true;
 
-        // Field validation helper
-        function validateField(id, errorId, fieldName) {
-            const value = $(id).val().trim();
-            if (value === "") {
-                isValid = false;
-                $(errorId).text(`${fieldName} is required.`).show();
-            } else {
-                $(errorId).text("").hide();
-            }
-        }
+    //     // Field validation helper
+    //     function validateField(id, errorId, fieldName) {
+    //         const value = $(id).val().trim();
+    //         if (value === "") {
+    //             isValid = false;
+    //             $(errorId).text(`${fieldName} is required.`).show();
+    //         } else {
+    //             $(errorId).text("").hide();
+    //         }
+    //     }
 
-        validateField("#Officers_Title", "#Officers_Title_error", "Title");
-        validateField("#Officers_FirstName", "#Officers_FirstName_error", "FirstName");
-        validateField("#Officers_LastName", "#Officers_LastName_error", "LastName");
-        validateField("#Officers_DOB", "#Officers_DOB_error", "Date of Birth");
-        validateField("#Officers_Nationality", "#Officers_Nationality_error", "Nationality");
-        validateField("#Officers_Occupation", "#Officers_Occupation_error", "Occupation");
-        validateField("#Officers_Authentication1", "#Officers_Authentication1_error", "Authentication");
-        validateField("#Officers_AuthenticationAns1", "#Officers_AuthenticationAns1_error", "AuthenticationAns");
-        validateField("#Officers_Authentication2", "#Officers_Authentication2_error", "Authentication");
-        validateField("#Officers_AuthenticationAns2", "#Officers_AuthenticationAns2_error", "AuthenticationAns");
-        validateField("#Officers_Authentication3", "#Officers_Authentication3_error", "Authentication");
-        validateField("#Officers_AuthenticationAns3", "#Officers_AuthenticationAns3_error", "AuthenticationAns");
+    //     validateField("#Officers_Title", "#Officers_Title_error", "Title");
+    //     validateField("#Officers_FirstName", "#Officers_FirstName_error", "FirstName");
+    //     validateField("#Officers_LastName", "#Officers_LastName_error", "LastName");
+    //     validateField("#Officers_DOB", "#Officers_DOB_error", "Date of Birth");
+    //     validateField("#Officers_Nationality", "#Officers_Nationality_error", "Nationality");
+    //     validateField("#Officers_Occupation", "#Officers_Occupation_error", "Occupation");
+    //     validateField("#Officers_Authentication1", "#Officers_Authentication1_error", "Authentication");
+    //     validateField("#Officers_AuthenticationAns1", "#Officers_AuthenticationAns1_error", "AuthenticationAns");
+    //     validateField("#Officers_Authentication2", "#Officers_Authentication2_error", "Authentication");
+    //     validateField("#Officers_AuthenticationAns2", "#Officers_AuthenticationAns2_error", "AuthenticationAns");
+    //     validateField("#Officers_Authentication3", "#Officers_Authentication3_error", "Authentication");
+    //     validateField("#Officers_AuthenticationAns3", "#Officers_AuthenticationAns3_error", "AuthenticationAns");
 
-        if(isValid) {
-            
-            var formData = {
-                Title: $('#Officers_Title').val(),
-                FirstName: $('#Officers_FirstName').val(),
-                LastName: $('#Officers_LastName').val(),
-                DOB: $('#Officers_DOB').val(),
-                Nationality: $('#Officers_Nationality').val(),
-                Occupation: $('#Officers_Occupation').val(),
-                Authentication1: $('#Officers_Authentication1').val(),
-                AuthenticationAns1: $('#Officers_AuthenticationAns1').val(),
-                Authentication2: $('#Officers_Authentication2').val(),
-                AuthenticationAns2: $('#Officers_AuthenticationAns2').val(),
-                Authentication3: $('#Officers_Authentication3').val(),
-                AuthenticationAns3: $('#Officers_AuthenticationAns3').val(),
-            }
+    //     if(isValid) {
 
-            $.ajax({
-                url: "/FormationPage/AppointmentPersonTab?handler=SaveOfficerDetails",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(formData),
-                success: function (response) {
-                    if (response.success) {
-                        console.log(response.success);
-                        savePersonChooseAddressData('Residential');
-                        showToast('Data Saved.', 'success');
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error:", xhr.statusText, xhr.responseText);
-                }
-            });
-        }
-    });
+    //         var formData = {
+    //             Title: $('#Officers_Title').val(),
+    //             FirstName: $('#Officers_FirstName').val(),
+    //             LastName: $('#Officers_LastName').val(),
+    //             DOB: $('#Officers_DOB').val(),
+    //             Nationality: $('#Officers_Nationality').val(),
+    //             Occupation: $('#Officers_Occupation').val(),
+    //             Authentication1: $('#Officers_Authentication1').val(),
+    //             AuthenticationAns1: $('#Officers_AuthenticationAns1').val(),
+    //             Authentication2: $('#Officers_Authentication2').val(),
+    //             AuthenticationAns2: $('#Officers_AuthenticationAns2').val(),
+    //             Authentication3: $('#Officers_Authentication3').val(),
+    //             AuthenticationAns3: $('#Officers_AuthenticationAns3').val(),
+    //         }
+
+    //         $.ajax({
+    //             url: "/FormationPage/AppointmentPersonTab?handler=SaveOfficerDetails",
+    //             method: "POST",
+    //             contentType: "application/json",
+    //             data: JSON.stringify(formData),
+    //             success: function (response) {
+    //                 if (response.success) {
+    //                     console.log(response.success);
+    //                     savePersonChooseAddressData('Residential');
+    //                     showToast('Data Saved.', 'success');
+    //                 }
+    //             },
+    //             error: function (xhr) {
+    //                 console.error("Error:", xhr.statusText, xhr.responseText);
+    //             }
+    //         });
+    //     }
+    // });
 
     function openAddressModal(type) {
         // Set the type: "Registered" or "Business"
@@ -872,37 +959,38 @@
     }
 
     $("#submit-person-tab").click(function () {
-        var isValid = true; 
+        var isValid = true;
         var selectedData = [];
+        var residentialHouseName = "@(ResidentialOfficeAddress?.HouseName ?? "")";
+        var serviceHouseName = "@(ServiceOfficeAddress?.HouseName ?? "")";
+
         $(".w-checkbox-input:checked").each(function () {
             selectedData.push($(this).val());
         });
 
-        // var residentialAdd = $(".residential-forwarding-address").text().replace(/[\s\d.]+/g, '');
-        // var serviceAdd = $(".service-forwarding-address").text().replace(/[\s\d.]+/g, '');
-        // if(residentialAdd == "NoneSelected"){
-        //     isValid = false;
-        //     showToast('Please filled required details.', 'warning');
-        //     $("#address-error").html("Please select the Residential Address.").show();
-        // }
-        // else {
-        //     isValid = true;
-        //     $("#address-error").html("Please select the Residential Address.").hide();
-        // }
-
-        // if(serviceAdd == "NoneSelected"){
-        //     isValid = false;
-        //     showToast('Please filled required details.', 'warning');
-        //     $("#servicerAddress-error").html("Please select the Service Address.").show();
-        // }
-        // else{
-        //     $("#servicerAddress-error").html("Please select the Service Address.").hide();
-        // }
+        if($("#PersonAddress_HouseName").val() == "" && residentialHouseName == "") {
+            isValid = false; 
+            $("#residentialAddress-error").html("Please select the Residential Address.").show();
+            showToast('Please filled required details.', 'warning');
+            $('html, body').scrollTop($('#details').offset().top);
+        }
+        else if ($("#PersonAddress_HouseName").val() == "" && serviceHouseName == "") {
+            isValid = false;
+            $("#servicerAddress-error").html("Please select the Service Address.").show();
+            showToast('Please filled required details.', 'warning');
+            $('html, body').scrollTop($('#addressing').offset().top);
+        }
+        else {
+            isValid = true;
+            $("#residentialAddress-error").html("Please select the Position.").hide();
+            $("#servicerAddress-error").html("Please select the Position.").hide();
+        }
 
         if (selectedData?.length === 0) {
             isValid = false;
             $("#position-error").html("Please select the Position.").show();
             showToast('Please filled required details.', 'warning');
+            $('html, body').scrollTop($('#position').offset().top - 10);
         }
         else{
             isValid = true;
@@ -916,6 +1004,7 @@
                 isValid = false;
                 $(errorId).text(`${fieldName} is required.`).show();
                 showToast('Please filled required details.', 'warning');
+                $('html, body').scrollTop($('#details').offset().top);
             } else {
                 $(errorId).text("").hide();
             }
@@ -935,26 +1024,77 @@
         validateField("#Officers_AuthenticationAns3", "#Officers_AuthenticationAns3_error", "AuthenticationAns");
 
         if(isValid) {
-            savePersonChooseAddressData('Service');
-            //  $.ajax({
-            //     url: "/FormationPage/AppointmentPersonTab?handler=SaveAllTab",
-            //     method: "POST",
-            //     success: function (response) {
-            //         if (response.success) {
-            //             showToast('All Data Saved.', 'success');
-            //             window.location.reload();
-            //             $('html, body').scrollTop($('#appointment').offset().top);
-            //         }
-            //     },
-            //     error: function (xhr) {
-            //         console.error("Error:", xhr.statusText, xhr.responseText);
-            //     }
-            // });
-            showToast('All Data Saved.', 'success');
-            window.location.reload();
-            $('html, body').scrollTop($('#appointment').offset().top);
+            const selectedPosition = selectedData.join(",");
+            
+            var formData = {
+                OfficerId: $('#Officers_OfficerId').val(),
+                Title: $('#Officers_Title').val(),
+                FirstName: $('#Officers_FirstName').val(),
+                LastName: $('#Officers_LastName').val(),
+                DOB: $('#Officers_DOB').val(),
+                Nationality: $('#Officers_Nationality').val(),
+                Occupation: $('#Officers_Occupation').val(),
+                Authentication1: $('#Officers_Authentication1').val(),
+                AuthenticationAns1: $('#Officers_AuthenticationAns1').val(),
+                Authentication2: $('#Officers_Authentication2').val(),
+                AuthenticationAns2: $('#Officers_AuthenticationAns2').val(),
+                Authentication3: $('#Officers_Authentication3').val(),
+                AuthenticationAns3: $('#Officers_AuthenticationAns3').val(),
+            };
+
+            var payload = {
+                Officer: formData,
+                SelectedPosition: selectedPosition
+            };
+
+            $.ajax({
+                url: "/FormationPage/AppointmentPersonTab?handler=SaveOfficerDetails",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (response) {
+                    if (response.success) {
+                        savePersonChooseAddressData('Residential');
+                        savePersonChooseAddressData('Service');
+
+                        showToast('Data Saved.', 'success');
+
+                        document.getElementById('goToNextTab').style.display = 'block';
+                        document.getElementById('addNewOfficer').style.display = 'block';
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error:", xhr.statusText, xhr.responseText);
+                }
+            });
         }
     });
+
+    $("#addNewOfficer").click(function () {
+        $('#isDirector').prop('checked', false);
+        $('#isShareholder').prop('checked', false);
+        $('#isSecretary').prop('checked', false);
+        $('#isPSC').prop('checked', false);
+        $('#Officers_Title').val(''),
+        $('#Officers_FirstName').val(''),
+        $('#Officers_LastName').val(''),
+        $('#Officers_DOB').val(''),
+        $('#Officers_Nationality').val(''),
+        $('#Officers_Occupation').val(''),
+        $('#Officers_Authentication1').val(''),
+        $('#Officers_AuthenticationAns1').val(''),
+        $('#Officers_Authentication2').val(''),
+        $('#Officers_AuthenticationAns2').val(''),
+        $('#Officers_Authentication3').val(''),
+        $('#Officers_AuthenticationAns3').val(''),
+        $('html, body').scrollTop($('#appPersonTab').offset().top);
+    });
+
+    $("#goToNextTab").click(function () {
+        window.location.reload();
+        $('html, body').scrollTop($('#appointment').offset().top);
+    });
+
 
     function btnGoToDetailsTab(data) {
         if(data) {
@@ -976,7 +1116,7 @@
             $('#Officers_AuthenticationAns2').val(data.authenticationAns2),
             $('#Officers_Authentication3').val(data.authentication3),
             $('#Officers_AuthenticationAns3').val(data.authenticationAns3)
-            
+
             if (data.dob) {
                 let date = new Date(data.dob);
                 let day = ('0' + date.getDate()).slice(-2);
@@ -1299,5 +1439,130 @@
         else {
             document.getElementById('PersonAddress_Country').value = data.country || '';
         }
+    }
+
+    $(document).ready(function () {
+        document.getElementById('goToNextTab').style.display = 'none';
+        document.getElementById('addNewOfficer').style.display = 'none';
+
+        function updateDropDownOptions() {
+            let selectedValues = [];
+
+            $(".auth-select").each(function () {
+                const val = $(this).val();
+                if(val) {
+                    selectedValues.push(val);
+                }
+            });
+
+            $('.auth-select option').prop('disabled', false);
+
+            $(".auth-select").each(function () {
+                const currentSelect = $(this);
+                const currentVal = currentSelect.val();
+
+                selectedValues.forEach(function (val) {
+                    // Don't disable the value in the currently selected dropdown
+                    if (val !== currentVal) {
+                        currentSelect.find(`option[value="${val}"]`).prop('disabled', true);
+                    }
+                });
+            });
+        }
+
+         // On page load and when dropdown changes
+        updateDropDownOptions();
+        $('.auth-select').on('change', function () {
+            updateDropDownOptions();
+        });
+    });
+
+    function closeOfficerPanel() {
+        document.getElementById('personChooseOfficerPanel').style.display = 'none';
+    }
+
+    function showOfficerPanel() {
+        document.getElementById('personChooseOfficerPanel').style.display = 'block';
+        document.getElementById('personOfficerList').style.display = 'block';
+    }
+
+    function btnRemovePersonOfficer(id) {
+        if(confirm("Are you sure you want to delete this?")) {
+            $.ajax({
+                url: "/FormationPage/AppointmentPersonTab?handler=RemoveCurrentOfficer",
+                type: "POST",
+                data: JSON.stringify({ id: id }),
+                contentType: "application/json",
+                success: function () {
+                    showToast("Officer Remove Successfully", "success");
+                    // setTimeout(function() {
+                    //     window.location.reload();
+                    // }, 1000);
+                },
+                error: function (err) {
+                    showToast("Officer is not remove", "error");
+                }
+            });
+        }
+    }
+
+    function editPersonOfficer(data) {
+        const selectedPosition = data.positionName ? data.positionName.split(',').map(p => p.trim()) : [];
+        console.log("selectedPosition ::", selectedPosition);
+        
+        const officerId = data.officerId;
+        const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+        Cookies.set("PersonOfficerId", officerId, expires);
+
+        $.ajax({
+            url: "/FormationPage/AppointmentPersonTab",
+            type: "get",
+            success: function (result) {
+                $("#Formation").css('display', 'none');
+                $("#appCorporateTab").css('display', 'none');
+                $("#appOtherTab").css('display', 'none');
+                $("#appointmentTab").html(result);
+                $('html, body').scrollTop($('#appointmentTab').offset().top);
+
+                //Bind data based on Id
+                setTimeout(() => {
+                    const positionMap = {
+                        "Director": "isDirector",
+                        "Shareholder": "isShareholder",
+                        "Secretary": "isSecretary",
+                        "PSC": "isPSC"
+                    };
+
+                    Object.keys(positionMap).forEach(role => {
+                        const checkbox = document.getElementById(positionMap[role]);
+                        if (checkbox) {
+                            checkbox.checked = selectedPosition.includes(role);
+                        }
+                    });
+                }, 100);
+
+                $("#Officers_OfficerId").val(data.officerId);
+                $("#Officers_Title").val(data.title);
+                $("#Officers_FirstName").val(data.firstName);
+                $("#Officers_LastName").val(data.lastName);
+                $("#Officers_Nationality").val(data.nationality);
+                $("#Officers_Occupation").val(data.occupation);
+                $("#Officers_Authentication1").val(data.authentication1);
+                $("#Officers_AuthenticationAns1").val(data.authenticationAns1);
+                $("#Officers_Authentication2").val(data.authentication2);
+                $("#Officers_AuthenticationAns2").val(data.authenticationAns2);
+                $("#Officers_Authentication3").val(data.authentication3);
+                $("#Officers_AuthenticationAns3").val(data.authenticationAns3);
+
+                if (data.dob) {
+                    let date = new Date(data.dob);
+                    let day = ('0' + date.getDate()).slice(-2);
+                    let month = ('0' + (date.getMonth() + 1)).slice(-2);
+                    let year = date.getFullYear();
+                    let formatted = `${year}-${month}-${day}`; //yyyy-MM-dd
+                    $('#Officers_DOB').val(formatted);
+                }
+            }
+        });
     }
 </script>
