@@ -147,9 +147,16 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var html = $@"
             <html>
             <head>
-<style>
-body{{font-family: Arial; font-size: 12px; color: #000; margin: 20px;}}
-</style></head>
+                <style>
+                    @font-face {{
+                        font-family: 'Open Sans';
+                        font-style: normal;  
+                        font-weight: normal;  
+                        src: url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+                    }}
+                    body{{font-family: 'Open Sans'; font-size: 12px; color: #000; margin: 20px;}}
+                </style>
+            </head>
             <body>
                 <h3 style='font-size: 16px; font-weight: bold; border: 1px solid #000; padding: 5px; margin-top: 30px;text-align:center;background-color:#d7f5cb;color:#38761d;'>{ParticularData.CompanyName}</h3>
                 <table style='width: 100%; border-collapse: collapse; margin-bottom: 20px;'>

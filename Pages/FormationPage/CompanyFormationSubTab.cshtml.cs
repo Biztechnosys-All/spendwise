@@ -509,5 +509,19 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
             return new JsonResult(new { success = true });
         }
+
+        public async Task<IActionResult> OnPostRemoveCurrentOfficer([FromBody] RequestModel request)
+        {
+            var item = await _context.CompanyOfficers.FindAsync(request.Id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.CompanyOfficers.Remove(item);
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { success = true });
+        }
     }
 }

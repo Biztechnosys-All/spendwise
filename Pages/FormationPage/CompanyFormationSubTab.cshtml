@@ -30,9 +30,10 @@
         max-height: 70vh;
         overflow-y: auto;
     }
+
     @@media only screen and (max-width:768px) {
-        .address-panel {          
-            width: 90%;          
+        .address-panel {
+            width: 90%;
         }
     }
 </style>
@@ -146,16 +147,16 @@
                                             </label>
                                             <select class="w-select" asp-for="Particular.Jurisdiction">
                                                 <option value=""> --Select Jurisdiction-- </option>
-                                                <option value="EWs">
+                                                <option value="England and Wales">
                                                     England &amp; Wales
                                                 </option>
-                                                <option value="WA">
+                                                <option value="Wales">
                                                     Wales
                                                 </option>
-                                                <option value="SC">
+                                                <option value="Scotland">
                                                     Scotland
                                                 </option>
-                                                <option value="NI">
+                                                <option value="Northern Ireland">
                                                     Northern Ireland
                                                 </option>
                                             </select>
@@ -446,6 +447,53 @@
                             </div>
                         </div>
                     </div>
+
+                    <div>
+                        @if (Model.OfficersList != null && Model.OfficersList.Count > 0)
+                        {
+                            <label for="selectType" class="currentAppointment">Current Appointments</label>
+                            <p> Below is a list of officers currently assigned to your company. </p>
+                            <table id="ef-current-appointments-table" class="ef-primary-table table">
+                                <tbody>
+                                    <tr>
+                                        <th> Name </th>
+                                        <th> Director </th>
+                                        <th> Shareholder </th>
+                                        <th> Secretary </th>
+                                        <th> PSC </th>
+                                        <th></th>
+                                    </tr>
+                                    @foreach (var item in Model.OfficersList)
+                                    {
+                                        var position = item.PositionName?.Split(',') ?? Array.Empty<string>();
+                                        <tr class="w-row-even">
+                                            <td>
+                                                @item.FirstName @item.LastName
+                                            </td>
+                                            <td>
+                                                @(position.Contains("Director") ? "✔" : "❌")
+                                            </td>
+                                            <td>
+                                                @(position.Contains("Shareholder") ? "✔" : "❌")
+                                            </td>
+                                            <td>
+                                                @(position.Contains("Secretary") ? "✔" : "❌")
+                                            </td>
+                                            <td>
+                                                @(position.Contains("PSC") ? "✔" : "❌")
+                                            </td>
+                                            <td>
+                                                <span style="">
+                                                    <button type="button" class="ef-remove-officer" onclick="btnRemoveOfficer(@item.OfficerId)">Remove</button>
+                                                    <button type="button" class="ef-edit-officer" onclick='editCurrentOfficer(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
                 </div>
             </div>
 
@@ -457,12 +505,12 @@
 
                     <div class="ef-information-box">
                         <h2 class="ef-information-box-title"> Reasons documents will not be accepted </h2>
-                        
-                            <p> Blurred  </p>                            
-                            <p> Illegible   </p>
-                            <p> Out-of-Date  </p>
-                            <p> Incomplete  </p>
-                        
+
+                        <p> Blurred  </p>
+                        <p> Illegible   </p>
+                        <p> Out-of-Date  </p>
+                        <p> Incomplete  </p>
+
                     </div>
 
                     <div>
@@ -1547,7 +1595,7 @@
                 const newId = `fileInput_${selectedValue}`;
                 const fileInputHtml = `
                                                               <label> ${selectedValue} : </label>
-                                                              <input class="form-control" type="file" style="width: 40%;" id="identityFile" multiple accept="application/pdf" />
+                                                              <input class="form-control" type="file" style="width: 40%;" id="identityFile" accept=".pdf,.jpg,.doc,.png" />
                                                               <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('identity', 'identityFile', identityFilesData)">Add</button>`;
 
                 // Show wrapper and set new input
@@ -1555,6 +1603,18 @@
             } else {
                 fileInputWrapper.hide().html('');
             }
+
+            $('#identityFile').on('change', function () {
+                var allowedExtensions = /(\.pdf|\.jpg|\.doc|\.png)$/i;
+                var fileInput = $(this);
+                var filePath = fileInput.val();
+
+                if (!allowedExtensions.exec(filePath)) {
+                    showToast("Invalid file type. Only PDF, DOC, JPG, and PNG are allowed.", "warning");
+                    fileInput.val(''); // Clear the input
+                    return false;
+                }
+            });
         });
 
         $("#addressType").change(function () {
@@ -1568,7 +1628,7 @@
                 const newId = `fileInput_${selectedValue}`;
                 const fileInputHtml = `
                                                               <label> ${selectedValue} : </label>
-                                                              <input class="form-control" type="file" style="width: 40%;" id="addressFile" multiple accept="application/pdf" />
+                                                              <input class="form-control" type="file" style="width: 40%;" id="addressFile" accept=".pdf,.jpg,.doc,.png" />
                                                               <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('address', 'addressFile', addressFilesData)">Add</button>`;
 
                 // Show wrapper and set new input
@@ -1576,6 +1636,18 @@
             } else {
                 fileInputWrapper.hide().html('');
             }
+
+            $('#addressFile').on('change', function () {
+                var allowedExtensions = /(\.pdf|\.jpg|\.doc|\.png)$/i;
+                var fileInput = $(this);
+                var filePath = fileInput.val();
+
+                if (!allowedExtensions.exec(filePath)) {
+                    showToast("Invalid file type. Only PDF, DOC, JPG, and PNG are allowed.", "warning");
+                    fileInput.val(''); // Clear the input
+                    return false;
+                }
+            });
         });
     });
 
@@ -1589,7 +1661,7 @@
             success: function (result) {
                 $("#FormationTabContent").html(result);
                 $(".summary-tab").addClass("current");
-                
+
                 const newUrl = '?section=' + tabName;
                 window.history.pushState({ path: newUrl }, '', newUrl);
             }
@@ -1718,10 +1790,13 @@
                     data: JSON.stringify({ id: id }),
                     contentType: "application/json",
                     success: function () {
-                        location.reload();
+                        showToast("Document Remove Successfully", "success");
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
                     },
                     error: function (err) {
-                        console.log("Error deleting record.");
+                        showToast("Document is not removed", "error");
                     }
                 });
             }
@@ -1738,7 +1813,7 @@
                 // Create dynamic file input with new ID
                 const fileInputHtml = `
                       <label> ${selectedValue} : </label>
-                      <input class="form-control" type="file" style="width: 40%;" id="identityFile" multiple accept="application/pdf" />
+                      <input class="form-control" type="file" style="width: 40%;" id="identityFile" accept=".pdf,.jpg,.doc,.png" />
                       <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="updateIdenitityFiles()"">Update</button>`;
 
                 // Show wrapper and set new input
@@ -1746,6 +1821,18 @@
             } else {
                 fileInputWrapper.hide().html('');
             }
+
+            $('#identityFile').on('change', function () {
+                var allowedExtensions = /(\.pdf|\.jpg|\.doc|\.png)$/i;
+                var fileInput = $(this);
+                var filePath = fileInput.val();
+
+                if (!allowedExtensions.exec(filePath)) {
+                    showToast("Invalid file type. Only PDF, DOC, JPG, and PNG are allowed.", "warning");
+                    fileInput.val(''); // Clear the input
+                    return false;
+                }
+            });
         }
         else if(data.documentType == "address"){
             $("#addressType").val(data.documentName);
@@ -1758,7 +1845,7 @@
                 // Create dynamic file input with new ID
                 const fileInputHtml = `
                        <label> ${selectedValue} : </label>
-                       <input class="form-control" type="file" style="width: 40%;" id="addressFile" multiple accept="application/pdf" />
+                       <input class="form-control" type="file" style="width: 40%;" id="addressFile" accept=".pdf,.jpg,.doc,.png" />
                        <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="updateAddressFiles()">Update</button>`;
 
                 // Show wrapper and set new input
@@ -1766,6 +1853,18 @@
             } else {
                 fileInputWrapper.hide().html('');
             }
+
+            $('#addressFile').on('change', function () {
+                var allowedExtensions = /(\.pdf|\.jpg|\.doc|\.png)$/i;
+                var fileInput = $(this);
+                var filePath = fileInput.val();
+
+                if (!allowedExtensions.exec(filePath)) {
+                    showToast("Invalid file type. Only PDF, DOC, JPG, and PNG are allowed.", "warning");
+                    fileInput.val(''); // Clear the input
+                    return false;
+                }
+            });
         }
     }
 
@@ -1837,7 +1936,7 @@
             contentType: false,
             success: function (res) {
                 if (res.success) {
-                    showToast("Document updated successfully", "success");                   
+                    showToast("Document updated successfully", "success");
                     $('#addressType option[value="' + documentName + '"]').prop('disabled', true);
                 } else {
                     showToast("Update failed", "error");
@@ -1845,6 +1944,86 @@
             },
             error: function (xhr) {
                 console.error("Edit error:", xhr.responseText);
+            }
+        });
+    }
+
+    function btnRemoveOfficer(id) {
+        if(confirm("Are you sure you want to delete this?")) {
+            $.ajax({
+                url: "/FormationPage/CompanyFormationSubTab?handler=RemoveCurrentOfficer",
+                type: "POST",
+                data: JSON.stringify({ id: id }),
+                contentType: "application/json",
+                success: function () {
+                    showToast("Officer Remove Successfully", "success");
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                },
+                error: function (err) {
+                    showToast("Officer is not remove", "error");
+                }
+            });
+        }
+    }
+
+    function editCurrentOfficer(data) {
+        const selectedPosition = data.positionName ? data.positionName.split(',').map(p => p.trim()) : [];
+        console.log("selectedPosition ::", selectedPosition);
+
+        const officerId = data.officerId;
+        const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+        Cookies.set("PersonOfficerId", officerId, expires);
+
+        $.ajax({
+            url: "/FormationPage/AppointmentPersonTab",
+            type: "get",
+            success: function (result) {
+                $("#Formation").css('display', 'none');
+                $("#appCorporateTab").css('display', 'none');
+                $("#appOtherTab").css('display', 'none');
+                $("#appointmentTab").html(result);
+                $('html, body').scrollTop($('#appointmentTab').offset().top);
+
+                //Bind data based on Id
+                setTimeout(() => {
+                    const positionMap = {
+                        "Director": "isDirector",
+                        "Shareholder": "isShareholder",
+                        "Secretary": "isSecretary",
+                        "PSC": "isPSC"
+                    };
+
+                    Object.keys(positionMap).forEach(role => {
+                        const checkbox = document.getElementById(positionMap[role]);
+                        if (checkbox) {
+                            checkbox.checked = selectedPosition.includes(role);
+                        }
+                    });
+                }, 100);
+
+                $("#Officers_OfficerId").val(data.officerId);
+                $("#Officers_Title").val(data.title);
+                $("#Officers_FirstName").val(data.firstName);
+                $("#Officers_LastName").val(data.lastName);
+                $("#Officers_Nationality").val(data.nationality);
+                $("#Officers_Occupation").val(data.occupation);
+                $("#Officers_Authentication1").val(data.authentication1);
+                $("#Officers_AuthenticationAns1").val(data.authenticationAns1);
+                $("#Officers_Authentication2").val(data.authentication2);
+                $("#Officers_AuthenticationAns2").val(data.authenticationAns2);
+                $("#Officers_Authentication3").val(data.authentication3);
+                $("#Officers_AuthenticationAns3").val(data.authenticationAns3);
+
+                if (data.dob) {
+                    let date = new Date(data.dob);
+                    let day = ('0' + date.getDate()).slice(-2);
+                    let month = ('0' + (date.getMonth() + 1)).slice(-2);
+                    let year = date.getFullYear();
+                    let formatted = `${year}-${month}-${day}`; //yyyy-MM-dd
+                    $('#Officers_DOB').val(formatted);
+                }
             }
         });
     }

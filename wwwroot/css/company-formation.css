@@ -1040,6 +1040,7 @@ ef-information-box p {
     border: 1px solid #ddd;
     margin-bottom: 8px;
     padding: 6px 0 6px 0;
+    margin-top: 5px;
 }
 
 .w-clearfix:after, .w-clearfix:before {
@@ -1929,4 +1930,70 @@ ef-information-box p {
     border-color: #84888a !important;
     color: #333 !important;
     text-decoration: none;
+}
+
+.currentAppointment {
+    font-size: 22px !important;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.w-officer-col {
+    position: relative;
+    float: left;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ef-app-submit-btn {
+    background-color: #5ea72d !important;
+    border: 1px solid #5ea72d !important;
+    color: var(--color-white) !important;
+    float: right;
+    margin-right: 5px;
+}
+
+.ef-app-submit-btn:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    color: var(--color-white) !important;
+}
+
+.ef-new-btn {
+    background-color: #5ea72d !important;
+    border: 1px solid #5ea72d !important;
+    color: var(--color-white) !important;
+    float: right;
+    margin-right: 5px;
+}
+
+.ef-new-btn:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    color: var(--color-white) !important;
+}
+
+.ef-next-btn {
+    background-color: #5ea72d !important;
+    border: 1px solid #5ea72d !important;
+    color: var(--color-white) !important;
+    float: right;
+}
+
+.ef-next-btn:after {
+    content: "\f061";
+    font-family: fontawesome;
+    color: var(--color-white);
+    padding-left: 20px;
+    font-weight: normal;
+}
+
+.ef-next-btn:hover {
+    background-color: #329118 !important;
+    border-color: #329118 !important;
+    color: var(--color-white) !important;
 }
