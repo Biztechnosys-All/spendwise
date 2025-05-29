@@ -141,20 +141,26 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var htmlToPdf = new HtmlToPdfConverter
             {
                 Size = PageSize.A4,
-                Orientation = PageOrientation.Portrait
+                Orientation = PageOrientation.Portrait,
+                CustomWkHtmlArgs = "--enable-local-file-access"
             };
-
+            var fontPath = Path.GetFullPath("wwwroot/fonts/OpenSans-Regular.ttf").Replace("\\", "/");
             var html = $@"
             <html>
             <head>
-                <style>
+                 <style>
                     @font-face {{
                         font-family: 'Open Sans';
-                        font-style: normal;  
-                        font-weight: normal;  
-                        src: url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+                        src: url('file:///{fontPath}') format('truetype');
+                        font-weight: normal;
+                        font-style: normal;
                     }}
-                    body{{font-family: 'Open Sans'; font-size: 12px; color: #000; margin: 20px;}}
+                    body {{
+                        font-family: 'Open Sans', sans-serif;
+                        font-size: 12px;
+                        color: #000;
+                        margin: 20px;
+                }}
                 </style>
             </head>
             <body>
