@@ -90,7 +90,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         //    }
         //}
 
-        
+
         public async Task<JsonResult> OnPostSaveOfficerDetailsAsync([FromBody] OfficerRequestData payload)
         {
             try
@@ -138,7 +138,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 }
                 else
                 {
-                    var data = new CompanyOfficer
+                    officer = new CompanyOfficer
                     {
                         PositionName = positions,
                         FirstName = officer.FirstName,
@@ -156,12 +156,12 @@ namespace Spendwise_WebApp.Pages.FormationPage
                         UserId = userId,
                         CompanyID = companyId
                     };
-                    _context.CompanyOfficers.Add(data);
+                    _context.CompanyOfficers.Add(officer);
                 }
 
                 await _context.SaveChangesAsync();
 
-                return new JsonResult(new { success = true });
+                return new JsonResult(new { success = true, officerId = officer.OfficerId });
             }
             catch (Exception ex)
             {
@@ -225,7 +225,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
-            var officerId = Convert.ToInt32(Request.Cookies["PersonOfficerId"]);
+            //var officerId = _context.CompanyOfficers.Where(x => x.UserId == userId && x.CompanyID == companyId).FirstOrDefault()?.OfficerId;
             string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
 
             try
@@ -247,7 +247,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                             cmd.Parameters.AddWithValue("@County", request.County);
                             cmd.Parameters.AddWithValue("@Country", request.Country);
                             cmd.Parameters.AddWithValue("@IsResidetialAddress", true);
-                            cmd.Parameters.AddWithValue("@OfficerId", officerId);
+                            cmd.Parameters.AddWithValue("@OfficerId", request.OfficerId);
                             cmd.Parameters.AddWithValue("@AddressId", request.AddressId);
                             int rowsAffected = await cmd.ExecuteNonQueryAsync();
 
@@ -264,7 +264,6 @@ namespace Spendwise_WebApp.Pages.FormationPage
                     request.IsResidetialAddress = true;
                     request.CompanyId = companyId;
                     request.UserId = userId;
-                    request.OfficerId = officerId != null ? officerId : 0;
 
                     // STEP 1: Reset IsCurrent = false for any current address for this user & company
                     var existingCurrentAddresses = _context.AddressData
@@ -293,14 +292,13 @@ namespace Spendwise_WebApp.Pages.FormationPage
                     {
                         // Case 2: Same address exists → update IsCurrent to true
                         existingAddress.IsCurrent = true;
-                        existingAddress.OfficerId = officerId;
+                        existingAddress.OfficerId = request.OfficerId;
                         _context.AddressData.Update(existingAddress);
                     }
                     else
                     {
                         // Case 3: New unique address → insert new record
                         request.IsCurrent = true;
-                        request.OfficerId = officerId;
                         _context.AddressData.Add(request);
                     }
 
@@ -329,7 +327,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
                 var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
-                var officerId = Convert.ToInt32(Request.Cookies["PersonOfficerId"]);
+                //var officerId = Convert.ToInt32(Request.Cookies["PersonOfficerId"]);
                 string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
 
                 if (request.AddressId > 0)
@@ -349,7 +347,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                             cmd.Parameters.AddWithValue("@County", request.County);
                             cmd.Parameters.AddWithValue("@Country", request.Country);
                             cmd.Parameters.AddWithValue("@IsServiceAddress", true);
-                            cmd.Parameters.AddWithValue("@OfficerId", officerId);
+                            cmd.Parameters.AddWithValue("@OfficerId", request.OfficerId);
                             cmd.Parameters.AddWithValue("@AddressId", request.AddressId);
                             int rowsAffected = await cmd.ExecuteNonQueryAsync();
 
@@ -366,7 +364,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                     request.IsServiceAddress = true;
                     request.CompanyId = companyId;
                     request.UserId = userId;
-                    request.OfficerId = officerId != null ? officerId : 0;
+                    //request.OfficerId = officerId != null ? officerId : 0;
 
                     // STEP 1: Reset IsCurrent = false for any current address for this user & company
                     var existingCurrentAddresses = _context.AddressData
@@ -395,14 +393,13 @@ namespace Spendwise_WebApp.Pages.FormationPage
                     {
                         // Case 2: Same address exists → update IsCurrent to true
                         existingAddress.IsCurrent = true;
-                        existingAddress.OfficerId = officerId;
+                        existingAddress.OfficerId = request.OfficerId;
                         _context.AddressData.Update(existingAddress);
                     }
                     else
                     {
                         // Case 3: New unique address → insert new record
                         request.IsCurrent = true;
-                        request.OfficerId = officerId;
                         _context.AddressData.Add(request);
                     }
 
@@ -415,7 +412,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
                 return new JsonResult(new { success = true });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
