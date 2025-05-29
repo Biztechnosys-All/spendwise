@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using NReco.PdfGenerator;
 using Spendwise_WebApp.Models;
-using System.ComponentModel.Design;
-using System.Text;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 
 namespace Spendwise_WebApp.Pages.FormationPage
 {
@@ -33,7 +33,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public List<AddressData> PersonAddressList { get; set; } = default!;
 
         [BindProperty]
-        public List<Document> UploadedDocuments { get; set; }
+        public List<Spendwise_WebApp.Models.Document> UploadedDocuments { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
@@ -95,7 +95,6 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var companyId = _context.CompanyDetails
                 .FirstOrDefault(c => c.CompanyId.ToString() == selectCompanyId)?.CompanyId;
 
-            // List of pairs: SIC Code + Description
             var SicCodesWithDesc = new List<(string Code, string Description)>();
 
             if (!string.IsNullOrEmpty(ParticularData?.SIC_Code))
@@ -104,11 +103,8 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 {
                     var code = item.Trim();
                     var desc = _context.SicCodes.FirstOrDefault(x => x.SicCode == Convert.ToInt32(code))?.Description;
-
                     if (!string.IsNullOrEmpty(desc))
-                    {
                         SicCodesWithDesc.Add((code, desc));
-                    }
                 }
             }
 
@@ -116,123 +112,211 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 .Where(x => x.UserId == userId && x.CompanyId == companyId)
                 .ToListAsync();
 
-            #region Registered Office Address
-            RegistredEmail = _context.CompanyDetails.Where(x => x.Createdby == userId && x.CompanyId.ToString() == selectCompanyId).FirstOrDefault()?.RegisteredEmail;
-            var OfficeAddress = _context.AddressData.Where(x => x.UserId == userId && x.CompanyId.ToString() == selectCompanyId).ToList();
-            AddressList = OfficeAddress;
-            #endregion
+            RegistredEmail = _context.CompanyDetails
+                .Where(x => x.Createdby == userId && x.CompanyId.ToString() == selectCompanyId)
+                .FirstOrDefault()?.RegisteredEmail;
 
-            #region Appoitment Data
-            var companyOfficerList = _context.CompanyOfficers.Where(x => x.UserId == userId && x.CompanyID.ToString() == selectCompanyId).ToList();
+            AddressList = _context.AddressData
+                .Where(x => x.UserId == userId && x.CompanyId.ToString() == selectCompanyId)
+                .ToList();
+
+            var companyOfficerList = _context.CompanyOfficers
+                .Where(x => x.UserId == userId && x.CompanyID.ToString() == selectCompanyId)
+                .ToList();
+
+            OfficersList = new List<CompanyOfficer>();
+            PersonAddressList = new List<AddressData>();
             foreach (var companyofficer in companyOfficerList)
             {
-                OfficersList = new List<CompanyOfficer>();
-                var officer = await _context.CompanyOfficers.Where(m => m.UserId == userId && m.OfficerId == companyofficer.OfficerId).FirstOrDefaultAsync();
-                OfficersList.Add(officer);
+                var officer = await _context.CompanyOfficers
+                    .FirstOrDefaultAsync(m => m.UserId == userId && m.OfficerId == companyofficer.OfficerId);
+                if (officer != null)
+                    OfficersList.Add(officer);
 
-                var personAddList = _context.AddressData.Where(x => x.UserId == userId && x.CompanyId.ToString() == selectCompanyId && x.OfficerId == companyofficer.OfficerId).ToList();
-                PersonAddressList = personAddList;
-            }
-            #endregion
+                var personAddList = _context.AddressData
+                    .Where(x => x.UserId == userId && x.CompanyId.ToString() == selectCompanyId && x.OfficerId == companyofficer.OfficerId)
+                    .ToList();
 
-            var RegistredOfficeAddress = AddressList.Where(x => x.IsRegisteredOffice == true && x.IsCurrent == true).FirstOrDefault();
-            var BusinessOfficeAddress = AddressList.Where(x => x.IsBusiness == true && x.IsCurrent == true).FirstOrDefault();
-
-            var htmlToPdf = new HtmlToPdfConverter
-            {
-                Size = PageSize.A4,
-                Orientation = PageOrientation.Portrait
-            };
-
-            var ttfBytes = System.IO.File.ReadAllBytes("wwwroot/fonts/OpenSans-Regular.ttf");
-            var base64Font = Convert.ToBase64String(ttfBytes);
-
-            var html = $@"
-            <html>
-            <head>
-                 <style>
-                     body {{font-family: Arial, sans-serif;
-        font-size: 12px;
-        color: #000;
-        margin: 20px;
-    }}
-                </style>
-            </head>
-            <body>
-                <h3 style='font-size: 16px; font-weight: bold; border: 1px solid #000; padding: 5px; margin-top: 30px;text-align:center;background-color:#d7f5cb;color:#38761d;'>{ParticularData.CompanyName}</h3>
-                <table style='width: 100%; border-collapse: collapse; margin-bottom: 20px;'>
-                    <tr><td style='width: 30%; font-weight: bold;'>Company Name</td><td>{ParticularData.CompanyName}</td></tr>
-                    <tr><td style='font-weight: bold;'>Registred Office</td><td>{RegistredOfficeAddress.HouseName} {RegistredOfficeAddress.Street}, {RegistredOfficeAddress.Locality}, {RegistredOfficeAddress.County}, {RegistredOfficeAddress.PostCode}, {RegistredOfficeAddress.Country}</td></tr>
-                    <tr><td style='font-weight: bold;'>Business Office</td><td>{BusinessOfficeAddress.HouseName} {BusinessOfficeAddress.Street}, {BusinessOfficeAddress.Locality}, {BusinessOfficeAddress.County}, {BusinessOfficeAddress.PostCode}, {BusinessOfficeAddress.Country}</td></tr>
-                    <tr><td style='font-weight: bold;'>Registred Email</td><td>{RegistredEmail}</td></tr>
-                    <tr><td style='font-weight: bold;'>Company Type</td><td>{ParticularData.CompanyType}</td></tr>
-                    <tr><td style='font-weight: bold;'>Jurisdiction</td><td>{ParticularData.Jurisdiction}</td></tr>
-                </table>
-            
-                <h3 style='font-size: 16px; font-weight: bold; border: 1px solid #000; padding: 5px; margin-top: 30px;text-align:center;background-color:#d7f5cb;color:#38761d;'>Appointments</h3>";
-
-
-            foreach (var item in OfficersList)
-            {
-                var residential = PersonAddressList.FirstOrDefault(x => x.OfficerId == item.OfficerId && x.IsResidetialAddress);
-                var service = PersonAddressList.FirstOrDefault(x => x.OfficerId == item.OfficerId && x.IsServiceAddress);
-
-                html += $@"
-                <table style='width: 100%; border-collapse: collapse; margin-bottom: 20px;'>
-                    <tr><td style='width: 30%; font-weight: bold;'>Name</td><td>{item.FirstName} {item.LastName}</td></tr>
-                    <tr><td style='font-weight: bold;'>Roles</td><td>{item.PositionName}</td></tr>
-                    <tr><td style='font-weight: bold;'>DOB</td><td>{item.DOB:dd/MM/yyyy}</td></tr>
-                    <tr><td style='font-weight: bold;'>Occupation</td><td>{item.Occupation}</td></tr>
-                    <tr><td style='font-weight: bold;'>Nationality</td><td>{item.Nationality}</td></tr>
-                    <tr><td style='font-weight: bold;'>Residential Address</td><td>{residential?.HouseName} {residential?.Street}, {residential?.Locality}, {residential?.County}, {residential?.PostCode}, {residential?.Country}</td></tr>
-                    <tr><td style='font-weight: bold;'>Service Address</td><td>{service?.HouseName} {service?.Street}, {service?.Locality}, {service?.County}, {service?.PostCode}, {service?.Country}</td></tr>
-                </table>";
+                PersonAddressList.AddRange(personAddList);
             }
 
-            if (UploadedDocuments?.Count > 0)
+            var RegistredOfficeAddress = AddressList.FirstOrDefault(x => x.IsRegisteredOffice && x.IsCurrent);
+            var BusinessOfficeAddress = AddressList.FirstOrDefault(x => x.IsBusiness && x.IsCurrent);
+
+            var pdf = QuestPDF.Fluent.Document.Create(container =>
             {
-                var identities = UploadedDocuments.Where(x => x.DocumentType == "identity");
-                var addresses = UploadedDocuments.Where(x => x.DocumentType == "address");
-
-                html += "<h3 style='font-size: 16px; font-weight: bold; border: 1px solid #000; padding: 5px; margin-top: 30px;text-align:center;background-color:#d7f5cb;color:#38761d;'>Documents</h3>";
-
-                if (identities.Any())
+                container.Page(page =>
                 {
-                    html += "<h4>Proof of Identity</h4><table style='width: 100%; border-collapse: collapse; margin-bottom: 20px;'>";
-                    foreach (var doc in identities)
+                    page.Margin(20);
+                    page.Size(PageSizes.A4);
+
+                    page.Content().Column(col =>
                     {
-                        html += $"<tr><td style='width: 30%; font-weight: bold;'>{doc.DocumentName}</td><td>{doc.FileName}</td></tr>";
-                    }
-                    html += "</table>";
-                }
+                        // Company Name header with background, padding, border
+                        col.Item()
+                            .Element(e => e
+                                .Container()
+                                .Background("#d7f5cb")
+                                .Padding(5)
+                                .Text($"{ParticularData.CompanyName}")
+                                .Bold()
+                                .FontSize(16)
+                                .AlignCenter()
+                                .FontColor("#38761d"));
 
-                if (addresses.Any())
-                {
-                    html += "<h4>Proof of Address</h4><table style='width: 100%; border-collapse: collapse; margin-bottom: 20px;'>";
-                    foreach (var doc in addresses)
-                    {
-                        html += $"<tr><td style='width: 30%; font-weight: bold;'>{doc.DocumentName}</td><td>{doc.FileName}</td></tr>";
-                    }
-                    html += "</table>";
-                }
-            }
-            html += "<h3 style='font-size: 16px; font-weight: bold; border: 1px solid #000; padding: 5px; margin-top: 30px;text-align:center;background-color:#d7f5cb;color:#38761d;'>SIC Codes</h3>";
-            html += "<table style='width: 100%; border-collapse: collapse; margin-bottom: 20px;'>";
+                        // Horizontal line
+                        col.Item().LineHorizontal(1).LineColor("#ddd");
 
-            foreach (var sic in SicCodesWithDesc)
-            {
-                html += $"<tr><td style='width: 30%; font-weight: bold;'>{sic.Code}</td><td>{sic.Description}</td></tr>";
-            }
+                        // Company details table
+                        col.Item().Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.ConstantColumn(150);
+                                columns.RelativeColumn();
+                            });
 
-            html += "</table>";
+                            static IContainer CellStyle(IContainer container) =>
+                                container.PaddingVertical(2);
 
-            html += "</table></body></html>";
+                            void Row(string label, string? value)
+                            {
+                                table.Cell().Element(CellStyle).Text(label).Bold();
+                                table.Cell().Element(CellStyle).Text(value ?? "N/A");
+                            }
 
+                            Row("Company Name", ParticularData.CompanyName);
+                            Row("Registered Office", RegistredOfficeAddress != null
+                                ? $"{RegistredOfficeAddress.HouseName} {RegistredOfficeAddress.Street}, {RegistredOfficeAddress.Locality}, {RegistredOfficeAddress.County}, {RegistredOfficeAddress.PostCode}, {RegistredOfficeAddress.Country}"
+                                : "N/A");
+                            Row("Business Office", BusinessOfficeAddress != null
+                                ? $"{BusinessOfficeAddress.HouseName} {BusinessOfficeAddress.Street}, {BusinessOfficeAddress.Locality}, {BusinessOfficeAddress.County}, {BusinessOfficeAddress.PostCode}, {BusinessOfficeAddress.Country}"
+                                : "N/A");
+                            Row("Registered Email", RegistredEmail);
+                            Row("Company Type", ParticularData.CompanyType);
+                            Row("Jurisdiction", ParticularData.Jurisdiction);
+                        });
 
-            byte[] pdfBytes = htmlToPdf.GeneratePdf(html);
+                        // Section header: Appointments
+                        col.Item()
+                            .Element(e => e
+                                .Container()
+                                .PaddingTop(10)
+                                .Background("#d7f5cb")
+                                .Padding(5)
+                                .Text("Appointments")
+                                .Bold()
+                                .AlignCenter()
+                                .FontSize(14)
+                                .FontColor("#38761d"));
 
-            return File(pdfBytes, "application/pdf", $"{ParticularData.CompanyName} Summary.pdf");
+                        // Officers details
+                        foreach (var officer in OfficersList)
+                        {
+                            var residential = PersonAddressList.FirstOrDefault(x => x.OfficerId == officer.OfficerId && x.IsResidetialAddress);
+                            var service = PersonAddressList.FirstOrDefault(x => x.OfficerId == officer.OfficerId && x.IsServiceAddress);
+
+                            col.Item().Table(table =>
+                            {
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.ConstantColumn(150);
+                                    columns.RelativeColumn();
+                                });
+
+                                static IContainer CellStyle(IContainer container) =>
+                                    container.PaddingVertical(2);
+
+                                void Row(string label, string? value)
+                                {
+                                    table.Cell().Element(CellStyle).Text(label).Bold();
+                                    table.Cell().Element(CellStyle).Text(value ?? "N/A");
+                                }
+
+                                Row("Name", $"{officer.FirstName} {officer.LastName}");
+                                Row("Roles", officer.PositionName);
+                                Row("DOB", officer.DOB.ToString("dd/MM/yyyy"));
+                                Row("Occupation", officer.Occupation);
+                                Row("Nationality", officer.Nationality);
+                                Row("Residential Address", residential != null
+                                    ? $"{residential.HouseName} {residential.Street}, {residential.Locality}, {residential.County}, {residential.PostCode}, {residential.Country}"
+                                    : "N/A");
+                                Row("Service Address", service != null
+                                    ? $"{service.HouseName} {service.Street}, {service.Locality}, {service.County}, {service.PostCode}, {service.Country}"
+                                    : "N/A");
+                            });
+                        }
+
+                        // Documents section, if any
+                        if (UploadedDocuments.Any(x => x.DocumentType == "identity" || x.DocumentType == "address"))
+                        {
+                            col.Item()
+                                .Element(e => e
+                                    .Container()
+                                    .PaddingTop(10)
+                                    .Background("#d7f5cb")
+                                    .Padding(5)
+                                    .Text("Documents")
+                                    .Bold()
+                                    .AlignCenter()
+                                    .FontSize(14)
+                                    .FontColor("#38761d"));
+
+                            var identityDocs = UploadedDocuments.Where(d => d.DocumentType == "identity").ToList();
+                            if (identityDocs.Any())
+                            {
+                                col.Item()
+                                    .Element(e => e.Container().PaddingTop(5).Text("Proof of Identity").Bold());
+
+                                foreach (var doc in identityDocs)
+                                {
+                                    col.Item().Text($"{doc.DocumentName}: {doc.FileName}");
+                                }
+                            }
+
+                            var addressDocs = UploadedDocuments.Where(d => d.DocumentType == "address").ToList();
+                            if (addressDocs.Any())
+                            {
+                                col.Item()
+                                    .Element(e => e.Container().PaddingTop(5).Text("Proof of Address").Bold());
+
+                                foreach (var doc in addressDocs)
+                                {
+                                    col.Item().Text($"{doc.DocumentName}: {doc.FileName}");
+                                }
+                            }
+                        }
+
+                        // SIC Codes section
+                        if (SicCodesWithDesc.Any())
+                        {
+                            col.Item()
+                                .Element(e => e
+                                    .Container()
+                                    .PaddingTop(10)
+                                    .Background("#d7f5cb")
+                                    .Padding(5)
+                                    .Text("SIC Codes")
+                                    .Bold()
+                                    .AlignCenter()
+                                    .FontSize(14)
+                                    .FontColor("#38761d"));
+
+                            foreach (var sic in SicCodesWithDesc)
+                            {
+                                col.Item().Text($"{sic.Code}: {sic.Description}");
+                            }
+                        }
+                    });
+                });
+            });
+            QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+            var pdfBytes = pdf.GeneratePdf();
+            return File(pdfBytes, "application/pdf", $"{ParticularData.CompanyName}_Summary.pdf");
         }
+
+
+
 
     }
 }
