@@ -1022,12 +1022,12 @@
         validateField("#Officers_AuthenticationAns2", "#Officers_AuthenticationAns2_error", "AuthenticationAns");
         validateField("#Officers_Authentication3", "#Officers_Authentication3_error", "Authentication");
         validateField("#Officers_AuthenticationAns3", "#Officers_AuthenticationAns3_error", "AuthenticationAns");
-
+        
         if(isValid) {
             const selectedPosition = selectedData.join(",");
             
             var formData = {
-                OfficerId: $('#Officers_OfficerId').val(),
+                OfficerId: $('#Officers_OfficerId').val() || 0,
                 Title: $('#Officers_Title').val(),
                 FirstName: $('#Officers_FirstName').val(),
                 LastName: $('#Officers_LastName').val(),
@@ -1054,10 +1054,12 @@
                 data: JSON.stringify(payload),
                 success: function (response) {
                     if (response.success) {
-                        savePersonChooseAddressData('Residential');
-                        savePersonChooseAddressData('Service');
-
-                        showToast('Data Saved.', 'success');
+                        let officerId = response.officerId;
+                        savePersonChooseAddressData(officerId);
+                        // savePersonChooseAddressData('Service', officerId);
+                        setTimeout(function() {
+                            showToast('Data Saved.', 'success');
+                        }, 500);
 
                         document.getElementById('goToNextTab').style.display = 'block';
                         document.getElementById('addNewOfficer').style.display = 'block';
@@ -1137,6 +1139,9 @@
         });
     });
 
+    let residentialAddressData = null;
+    let serviceAddressData = null;
+
     function saveChooseAddressData() {
         var isValid = true;
 
@@ -1158,7 +1163,45 @@
 
         if (isValid) {
             var type = $('#hndAddressType').val();
+            const residentialOfficeAddress = {
+                houseName: "@(ResidentialOfficeAddress?.HouseName ?? "")",
+                street: "@(ResidentialOfficeAddress?.Street ?? "")",
+                postCode: "@(ResidentialOfficeAddress?.PostCode ?? "")",
+                town: "@(ResidentialOfficeAddress?.Town ?? "")",
+                country: "@(ResidentialOfficeAddress?.Country ?? "")",
+                county: "@(ResidentialOfficeAddress?.County ?? "")",
+                locality: "@(ResidentialOfficeAddress?.Locality ?? "")",
+            };
+
+            const serviceAddress = {
+                houseName: "@(ServiceOfficeAddress?.HouseName ?? "")",
+                street: "@(ServiceOfficeAddress?.Street ?? "")",
+                postCode: "@(ServiceOfficeAddress?.PostCode ?? "")",
+                town: "@(ServiceOfficeAddress?.Town ?? "")",
+                country: "@(ServiceOfficeAddress?.Country ?? "")",
+                county: "@(ServiceOfficeAddress?.County ?? "")",
+                locality: "@(ServiceOfficeAddress?.Locality ?? "")",
+            };
+
+            let addressData = {
+               addressId: parseInt($("#PersonAddress_AddressId").val()) || 0,
+               houseName: $("#PersonAddress_HouseName").val(),
+               street: $("#PersonAddress_Street").val(),
+               postCode: $("#PersonAddress_PostCode").val(),
+               town: $("#PersonAddress_Town").val(),
+               country: $("#PersonAddress_Country").val(),
+               county: $("#PersonAddress_County").val(),
+               locality: $("#PersonAddress_Locality").val(),
+            };
+
             if (type === 'Residential') {
+                if($("#PersonAddress_HouseName").val() == "" && $("#PersonAddress_Street").val() == ""){
+                    residentialAddressData = residentialOfficeAddress;
+                }
+                else {
+                    residentialAddressData = addressData;
+                }
+
                 $(".ef-js-forwarding-address").html("");
                 const houseName = $("#PersonAddress_HouseName").val();
                 const otherParts = [
@@ -1171,6 +1214,13 @@
                 const addressHtml = (houseName ? houseName + ' ' : '') + otherParts.join(', ');
                 $(".ef-js-forwarding-address").html(addressHtml);
             } else if (type === 'Service') {
+                if($("#PersonAddress_HouseName").val() == "" && $("#PersonAddress_Street").val() == ""){
+                    serviceAddressData = serviceAddress;
+                }
+                else {
+                    serviceAddressData = addressData;
+                }
+
                 $(".service-forwarding-address").html("");
                 const houseName = $("#PersonAddress_HouseName").val();
                 const otherParts = [
@@ -1189,103 +1239,35 @@
         }
     }
 
-    function savePersonChooseAddressData(type) {
-         const registeredOfficeAddress = {
-             houseName: "@(ResidentialOfficeAddress?.HouseName ?? "")",
-             street: "@(ResidentialOfficeAddress?.Street ?? "")",
-             postCode: "@(ResidentialOfficeAddress?.PostCode ?? "")",
-             town: "@(ResidentialOfficeAddress?.Town ?? "")",
-             country: "@(ResidentialOfficeAddress?.Country ?? "")",
-             county: "@(ResidentialOfficeAddress?.County ?? "")",
-             locality: "@(ResidentialOfficeAddress?.Locality ?? "")"
-         };
+    function savePersonChooseAddressData(officerId) {
+        const saveAddress = (data, handler) => {
+            if (!data) return;
 
-         const serviceAddress = {
-             houseName: "@(ServiceOfficeAddress?.HouseName ?? "")",
-             street: "@(ServiceOfficeAddress?.Street ?? "")",
-             postCode: "@(ServiceOfficeAddress?.PostCode ?? "")",
-             town: "@(ServiceOfficeAddress?.Town ?? "")",
-             country: "@(ServiceOfficeAddress?.Country ?? "")",
-             county: "@(ServiceOfficeAddress?.County ?? "")",
-             locality: "@(ServiceOfficeAddress?.Locality ?? "")"
-         };
+            data.officerId = officerId;
 
-        let addressData = {
-            addressId: parseInt($("#PersonAddress_AddressId").val()) || 0,
-            houseName: $("#PersonAddress_HouseName").val(),
-            street: $("#PersonAddress_Street").val(),
-            postCode: $("#PersonAddress_PostCode").val(),
-            town: $("#PersonAddress_Town").val(),
-            country: $("#PersonAddress_Country").val(),
-            county: $("#PersonAddress_County").val(),
-            locality: $("#PersonAddress_Locality").val()
+            $.ajax({
+                url: `/FormationPage/AppointmentPersonTab?handler=${handler}`,
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    if (!response.success) {
+                        for (const [field, message] of Object.entries(response.errors)) {
+                            const errorSpan = document.getElementById(`${field}-error`);
+                            if (errorSpan) errorSpan.textContent = message;
+                        }
+                    } else {
+                        console.log(`${handler} saved`);
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error saving address:", xhr.statusText, xhr.responseText);
+                }
+            });
         };
 
-        if(type == "Residential") {
-            if($("#PersonAddress_HouseName").val() == "" && $("#PersonAddress_Street").val() == ""){
-                addressData = registeredOfficeAddress;
-            }
-            $.ajax({
-                url: "/FormationPage/AppointmentPersonTab?handler=SavePersonResidentialAddress",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(addressData),
-                success: function (response) {
-                    if (!response.success) {
-                        // Loop through returned errors and set messages
-                        for (const [field, message] of Object.entries(response.errors)) {
-                            const errorSpan = document.getElementById(`${field}-error`);
-                            if (errorSpan) {
-                                errorSpan.textContent = message;
-                            }
-                        }
-                    }
-                    else {
-                        console.log("Success:", response);
-                        showToast('Officer data saved.', 'success');
-                        $("#inPersonSecondAddressModal").modal('hide');
-                        $("#addressModal").modal('hide');
-                       //  window.location.reload();
-                       // $('html, body').scrollTop($('#appointmentTab').offset().top);
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error:", xhr.statusText, xhr.responseText);
-                }
-            });
-        }
-        else if (type == "Service"){
-            if($("#PersonAddress_HouseName").val() == "" && $("#PersonAddress_Street").val() == ""){
-                addressData = serviceAddress;
-            }
-            $.ajax({
-                url: "/FormationPage/AppointmentPersonTab?handler=SavePersonServiceAddress",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(addressData),
-                success: function (response) {
-                    if (!response.success) {
-                        // Loop through returned errors and set messages
-                        for (const [field, message] of Object.entries(response.errors)) {
-                            const errorSpan = document.getElementById(`${field}-error`);
-                            if (errorSpan) {
-                                errorSpan.textContent = message;
-                            }
-                        }
-                    }
-                    else {
-                        console.log("Success:", response);
-                        $("#inPersonSecondAddressModal").modal('hide');
-                        $("#addressModal").modal('hide');
-                        // window.location.reload();
-                        // $('html, body').scrollTop($('#appointmentTab').offset().top);
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error:", xhr.statusText, xhr.responseText);
-                }
-            });
-        }
+        saveAddress(residentialAddressData, "SavePersonResidentialAddress");
+        saveAddress(serviceAddressData, "SavePersonServiceAddress");
     }
 
     function editPersonAddress(data) {
