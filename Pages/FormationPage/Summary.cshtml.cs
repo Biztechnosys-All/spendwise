@@ -151,18 +151,11 @@ namespace Spendwise_WebApp.Pages.FormationPage
             <html>
             <head>
                  <style>
-                    @font-face {{
-                        font-family: 'Open Sans';
-                        src: url('data:font/truetype;charset=utf-8;base64,{base64Font}') format('truetype');
-                        font-weight: normal;
-                        font-style: normal;
-                    }}
-                    body {{
-                        font-family: 'Open Sans', sans-serif;
-                        font-size: 12px;
-                        color: #000;
-                        margin: 20px;
-                }}
+                     body {{font-family: Arial, sans-serif;
+        font-size: 12px;
+        color: #000;
+        margin: 20px;
+    }}
                 </style>
             </head>
             <body>
