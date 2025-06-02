@@ -65,16 +65,9 @@ namespace Spendwise_WebApp.Pages.FormationPage
             #endregion
 
             #region Appoitment Data
-            var companyOfficerList = _context.CompanyOfficers.Where(x => x.UserId == userId && x.CompanyID.ToString() == selectCompanyId).ToList();
-            foreach (var companyofficer in companyOfficerList)
-            {
-                OfficersList = new List<CompanyOfficer>();
-                var officer = await _context.CompanyOfficers.Where(m => m.UserId == userId && m.OfficerId == companyofficer.OfficerId).FirstOrDefaultAsync();
-                OfficersList.Add(officer);
-
-                var personAddList = _context.AddressData.Where(x => x.UserId == userId && x.CompanyId.ToString() == selectCompanyId && x.OfficerId == companyofficer.OfficerId).ToList();
-                PersonAddressList = personAddList;
-            }
+            OfficersList = _context.CompanyOfficers.Where(x => x.UserId == userId && x.CompanyID.ToString() == selectCompanyId).ToList();
+            var personAddList = _context.AddressData.Where(x => x.UserId == userId && x.CompanyId.ToString() == selectCompanyId).ToList();
+            PersonAddressList = personAddList;
             #endregion
 
             return Page();
@@ -215,6 +208,11 @@ namespace Spendwise_WebApp.Pages.FormationPage
                         {
                             var residential = PersonAddressList.FirstOrDefault(x => x.OfficerId == officer.OfficerId && x.IsResidetialAddress);
                             var service = PersonAddressList.FirstOrDefault(x => x.OfficerId == officer.OfficerId && x.IsServiceAddress);
+
+                            if (officer != OfficersList.First())
+                            {
+                                col.Item().PaddingTop(10); // You can adjust this value (e.g., 5, 15) for more/less space
+                            }
 
                             col.Item().Table(table =>
                             {

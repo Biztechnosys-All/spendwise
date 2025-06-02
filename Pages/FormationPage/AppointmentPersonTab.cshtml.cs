@@ -218,7 +218,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         //    }
         //}
 
-        public async Task<JsonResult> OnPostSavePersonResidentialAddress([FromBody] AddressData request)
+        public async Task<JsonResult> OnPostSavePersonResidentialAddressAsync([FromBody] AddressData request)
         {
             var userEmail = Request.Cookies["UserEmail"];
             var selectCompanyId = Request.Cookies["ComanyId"];
@@ -285,6 +285,8 @@ namespace Spendwise_WebApp.Pages.FormationPage
                                            x.Country == request.Country &&
                                            x.PostCode == request.PostCode &&
                                            x.CompanyId == companyId &&
+                                           x.OfficerId == request.OfficerId &&
+                                           x.UserId == userId &&
                                            x.IsResidetialAddress == true
                                        );
 
@@ -292,7 +294,6 @@ namespace Spendwise_WebApp.Pages.FormationPage
                     {
                         // Case 2: Same address exists → update IsCurrent to true
                         existingAddress.IsCurrent = true;
-                        existingAddress.OfficerId = request.OfficerId;
                         _context.AddressData.Update(existingAddress);
                     }
                     else
@@ -318,7 +319,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
         }
 
-        public async Task<JsonResult> OnPostSavePersonServiceAddress([FromBody] AddressData request)
+        public async Task<JsonResult> OnPostSavePersonServiceAddressAsync([FromBody] AddressData request)
         {
             try
             {
@@ -386,6 +387,8 @@ namespace Spendwise_WebApp.Pages.FormationPage
                                            x.Country == request.Country &&
                                            x.PostCode == request.PostCode &&
                                            x.CompanyId == companyId &&
+                                           x.OfficerId == request.OfficerId &&
+                                           x.UserId == userId &&
                                            x.IsServiceAddress == true
                                        );
 
@@ -393,7 +396,6 @@ namespace Spendwise_WebApp.Pages.FormationPage
                     {
                         // Case 2: Same address exists → update IsCurrent to true
                         existingAddress.IsCurrent = true;
-                        existingAddress.OfficerId = request.OfficerId;
                         _context.AddressData.Update(existingAddress);
                     }
                     else
@@ -418,7 +420,12 @@ namespace Spendwise_WebApp.Pages.FormationPage
             }
         }
 
-        public async Task<IActionResult> OnPostRemoveCurrentOfficer([FromBody] RequestModel request)
+        public class RequestPersonModel
+        {
+            public int Id { get; set; }
+        }
+
+        public async Task<IActionResult> OnPostRemoveCurrentOfficer([FromBody] RequestPersonModel request)
         {
             var item = await _context.CompanyOfficers.FindAsync(request.Id);
             if (item == null)

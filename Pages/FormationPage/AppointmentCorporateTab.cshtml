@@ -19,14 +19,14 @@
             </div>
             <div class="w-tabs" id="ef-officer-form-wrapper">
                 <!-- start tabs -->
-                <div class="w-tab-menu ef-officer-form-tab-menu ef-corporate-tab">
+                @* <div class="w-tab-menu ef-officer-form-tab-menu ef-corporate-tab">
                     <a class="tab-link w-tab-link w-inline-block" aria-current="page" data-target="#corporate-position">
                         <div> Position </div>
                     </a>
                     <a class="tab-link w-tab-link w-inline-block" data-target="#corporate-details">
                         <div> Details </div>
                     </a>
-                </div>
+                </div> *@
                 <!-- end tabs -->
                 <div id="scrollContainer">
                     <div class="tab-pane current">
@@ -63,28 +63,28 @@
                                             <div class="w-row row-role-select">
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" type="checkbox" value="Director" @(selected.Contains("Director") ? "checked" : "") />
+                                                        <input class="w-checkbox-input" type="checkbox" id="isCorporateDirector" value="Director" @(selected.Contains("Director") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-topdog">Director</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|TOP_DOG_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" type="checkbox" value="Shareholder" @(selected.Contains("Shareholder") ? "checked" : "") />
+                                                        <input class="w-checkbox-input" type="checkbox" id="isCorporateShareholder" value="Shareholder" @(selected.Contains("Shareholder") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-holder">Shareholder</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|HOLDER_LBS"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" type="checkbox" value="Secretary" @(selected.Contains("Secretary") ? "checked" : "") />
+                                                        <input class="w-checkbox-input" type="checkbox" id="isCorporateSecretary" value="Secretary" @(selected.Contains("Secretary") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-secretary">Secretary</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|SECRETARY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" type="checkbox" value="PSC" @(selected.Contains("PSC") ? "checked" : "") />
+                                                        <input class="w-checkbox-input" type="checkbox" id="isCorporatePSC" value="PSC" @(selected.Contains("PSC") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-PSC">Person with Significant Control (PSC)</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|PSC"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
@@ -94,11 +94,11 @@
                                     </div>
                                 </div>
                                 <div class="w-row">&nbsp;</div>
-                                <div class="w-row">
+                                @* <div class="w-row">
                                     <div class="w-col">
                                         <button type="button" id="corporate-position-tab" class="ef-btn ef-corporate-save">Save</button>
                                     </div>
-                                </div>
+                                </div> *@
                             </div>
                         </div>
 
@@ -127,6 +127,7 @@
                                                     <div id="officer-label-wrapper">
                                                         <h3>Authoriser Details</h3>
                                                     </div>
+                                                    <input type="hidden" asp-for="CorporateOfficers.CorporateOfficerId" />
                                                     <div class="ef-autocomplete-wrapper">
                                                         <label class="field-label" for="officer-title">Title</label>
                                                         <input class="w-input" type="text" placeholder="Title" asp-for="CorporateOfficers.Title" />
@@ -218,7 +219,7 @@
                                                                     <span class="registered-forwarding-address">
                                                                         @if (RegisteredOfficeAddress != null)
                                                                         {
-                                                                            @($"{RegisteredOfficeAddress.HouseName}, {RegisteredOfficeAddress.Street}, {RegisteredOfficeAddress.Town}, {RegisteredOfficeAddress.County}, {RegisteredOfficeAddress.PostCode}, {RegisteredOfficeAddress.Country}")
+                                                                            @($"{RegisteredOfficeAddress.HouseName} {RegisteredOfficeAddress.Street}, {RegisteredOfficeAddress.Town}, {RegisteredOfficeAddress.County}, {RegisteredOfficeAddress.PostCode}, {RegisteredOfficeAddress.Country}")
                                                                         }
                                                                     </span>
                                                                 </div>
@@ -229,12 +230,60 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div>
+                                        @if (Model.CorporateOfficersList != null && Model.CorporateOfficersList.Count > 0)
+                                        {
+                                            <label for="selectType" class="currentAppointment"> Corporate Officer List </label>
+                                            <p> Below is a list of officers currently assigned to your company. </p>
+                                            <table id="ef-current-appointments-table" class="ef-primary-table table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th> Name </th>
+                                                        <th> Director </th>
+                                                        <th> Shareholder </th>
+                                                        <th> Secretary </th>
+                                                        <th> PSC </th>
+                                                        <th></th>
+                                                    </tr>
+                                                    @foreach (var item in Model.CorporateOfficersList)
+                                                    {
+                                                        var position = item.PositionName?.Split(',') ?? Array.Empty<string>();
+                                                        <tr class="w-row-even">
+                                                            <td>
+                                                                @item.FirstName @item.LastName
+                                                            </td>
+                                                            <td>
+                                                                @(position.Contains("Director") ? "✔" : "❌")
+                                                            </td>
+                                                            <td>
+                                                                @(position.Contains("Shareholder") ? "✔" : "❌")
+                                                            </td>
+                                                            <td>
+                                                                @(position.Contains("Secretary") ? "✔" : "❌")
+                                                            </td>
+                                                            <td>
+                                                                @(position.Contains("PSC") ? "✔" : "❌")
+                                                            </td>
+                                                            <td>
+                                                                <span style="">
+                                                                    <button type="button" class="ef-remove-officer" onclick="btnRemoveCorporateOfficer(@item.CorporateOfficerId)">Remove</button>
+                                                                    <button type="button" class="ef-edit-officer" onclick='editCorporateOfficer(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </div>
                                 </div>
                                 <div class="w-row">&nbsp;</div>
                                 <div class="w-row">
                                     <div class="w-col">
                                         <button type="button" class="btn btn-success" onclick="btnBackToMainPage()">Back</button>
-                                        <button type="button" id="corporate-submit-details-tab" class="ef-btn ef-submit-btn"> Save & Next</button>
+                                        <button type="button" id="goToCorporateNextTab" class="ef-btn ef-next-btn "> Next </button>
+                                        <button type="button" id="addNewCorporateOfficer" class="ef-btn ef-new-btn"> Add New Corporate Officer </button>
+                                        <button type="button" id="corporate-submit-details-tab" class="ef-btn ef-app-submit-btn"> Save Corporate Officer</button>
                                     </div>
                                 </div>
                             </div>
@@ -515,37 +564,57 @@
 </div>
 
 <script>
-    $("#corporate-position-tab").click(function () {
-        var selectedData = [];
-        $(".w-checkbox-input:checked").each(function () {
-            selectedData.push($(this).val());
-        });
-
-        if (selectedData?.length === 0) {
-            $("#position-error").html("Please select the Position.").show();
-        }
-        else {
-            $("#position-error").html("Please select the Position.").hide();
-        }
-
-        const selectedPosition = selectedData.join(",");
-
-        $.ajax({
-            url: "/FormationPage/AppointmentCorporateTab?handler=SaveCorporatePositionData",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ position: selectedPosition }),
-            success: function (response) {
-                if (response.success) {
-                    showToast('Position Data Saved.', 'success');
-                    console.log(response.success);
-                }
-            },
-            error: function (xhr) {
-                console.error("Error:", xhr.statusText, xhr.responseText);
-            }
-        });
+    $(document).ready(function () {
+        document.getElementById('goToCorporateNextTab').style.display = 'none';
+        document.getElementById('addNewCorporateOfficer').style.display = 'none';
+        $('#CorporateOfficers_CorporateOfficerId').val('');
+        $('#isCorporateDirector').prop('checked', false);
+        $('#isCorporateShareholder').prop('checked', false);
+        $('#isCorporateSecretary').prop('checked', false);
+        $('#isCorporatePSC').prop('checked', false);
+        $('#CorporateOfficers_Title').val('');
+        $('#CorporateOfficers_FirstName').val('');
+        $('#CorporateOfficers_LastName').val('');
+        $('#CorporateOfficers_LegalName').val('');
+        $('.officer-corporate-is-uk-status').prop('checked', false);
+        $('#CorporateOfficers_RegistrationNumber').val('');
+        $('#CorporateOfficers_PlaceRegistered').val('');
+        $('#CorporateOfficers_RegistryHeld').val('');
+        $('#CorporateOfficers_LawGoverned').val('');
+        $('#CorporateOfficers_LegalForm').val('');
     });
+
+    // $("#corporate-position-tab").click(function () {
+    //     var selectedData = [];
+    //     $(".w-checkbox-input:checked").each(function () {
+    //         selectedData.push($(this).val());
+    //     });
+
+    //     if (selectedData?.length === 0) {
+    //         $("#position-error").html("Please select the Position.").show();
+    //     }
+    //     else {
+    //         $("#position-error").html("Please select the Position.").hide();
+    //     }
+
+    //     const selectedPosition = selectedData.join(",");
+
+    //     $.ajax({
+    //         url: "/FormationPage/AppointmentCorporateTab?handler=SaveCorporatePositionData",
+    //         method: "POST",
+    //         contentType: "application/json",
+    //         data: JSON.stringify({ position: selectedPosition }),
+    //         success: function (response) {
+    //             if (response.success) {
+    //                 showToast('Position Data Saved.', 'success');
+    //                 console.log(response.success);
+    //             }
+    //         },
+    //         error: function (xhr) {
+    //             console.error("Error:", xhr.statusText, xhr.responseText);
+    //         }
+    //     });
+    // });
 
     $("#corporate-submit-details-tab").click(function () {
         var isValid = true;
@@ -553,22 +622,25 @@
         $(".w-checkbox-input:checked").each(function () {
             selectedData.push($(this).val());
         });
+        var registeredlHouseName = "@(RegisteredOfficeAddress?.HouseName ?? "")";
 
-        // var registeredlAdd = $(".officer-registered-address").text().replace(/[\s\d.]+/g, '');
-        // if(registeredlAdd == "NoneSelected"){
-        //     isValid = false;
-        //     showToast('Please filled required details.', 'warning');
-        //     $("#address-error").html("Please select the Registered Address.").show();
-        // }
-        // else {
-        //     isValid = true;
-        //     $("#address-error").html("Please select the Registered Address.").hide();
-        // }
+
+        if($("#CorporateAddress_HouseName").val() == "" && registeredlHouseName == "") {
+            isValid = false;
+            $("#address-error").html("Please select the Registered Address.").show();
+            showToast('Please filled required details.', 'warning');
+            $('html, body').scrollTop($('#corporate-details').offset().top);
+        }
+        else {
+            isValid = true;
+            $("#address-error").html("Please select the Registered Address.").hide();
+        }
 
         if (selectedData?.length === 0) {
             isValid = false;
             $("#position-error").html("Please select the Position.").show();
             showToast('Please filled required details.', 'warning');
+            $('html, body').scrollTop($('#corporate-position').offset().top);
         }
         else {
             isValid = true;
@@ -582,6 +654,7 @@
                 isValid = false;
                 $(errorId).text(`${fieldName} is required.`).show();
                 showToast('Please filled required details.', 'warning');
+                $('html, body').scrollTop($('#corporate-details').offset().top);
             } else {
                 $(errorId).text("").hide();
             }
@@ -598,8 +671,10 @@
         validateField("#CorporateOfficers_LegalForm", "#CorporateOfficers_LegalForm_error", "LegalForm");
 
         if (isValid) {
-            saveCorporateChooseAddressData();
+            const selectedPosition = selectedData.join(",");
+            
             var formData = {
+                CorporateOfficerId: $('#CorporateOfficers_CorporateOfficerId').val() || 0,
                 Title: $('#CorporateOfficers_Title').val(),
                 FirstName: $('#CorporateOfficers_FirstName').val(),
                 LastName: $('#CorporateOfficers_LastName').val(),
@@ -612,16 +687,27 @@
                 LegalForm: $('#CorporateOfficers_LegalForm').val(),
             }
 
+             var payload = {
+                Officer: formData,
+                SelectedPosition: selectedPosition
+            };
+
             $.ajax({
                 url: "/FormationPage/AppointmentCorporateTab?handler=SaveCorporateDetails",
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify(formData),
+                data: JSON.stringify(payload),
                 success: function (response) {
                     if (response.success) {
-                        showToast('All Data Saved.', 'success');
-                        window.location.reload();
-                        $('html, body').scrollTop($('#appointment').offset().top);
+                        let officerId = response.officerId;
+                        saveCorporateChooseAddressData(officerId);
+
+                        setTimeout(function() {
+                            showToast('Data Saved.', 'success');
+                        }, 500);
+
+                        document.getElementById('goToCorporateNextTab').style.display = 'block';
+                        document.getElementById('addNewCorporateOfficer').style.display = 'block';
                     }
                 },
                 error: function (xhr) {
@@ -629,6 +715,29 @@
                 }
             });
         }
+    });
+
+    $("#addNewCorporateOfficer").click(function () {
+        $('#isCorporateDirector').prop('checked', false);
+        $('#isCorporateShareholder').prop('checked', false);
+        $('#isCorporateSecretary').prop('checked', false);
+        $('#isCorporatePSC').prop('checked', false);
+        $('#CorporateOfficers_Title').val('');
+        $('#CorporateOfficers_FirstName').val('');
+        $('#CorporateOfficers_LastName').val('');
+        $('#CorporateOfficers_LegalName').val('');
+        $('.officer-corporate-is-uk-status').prop('checked', false);
+        $('#CorporateOfficers_RegistrationNumber').val('');
+        $('#CorporateOfficers_PlaceRegistered').val('');
+        $('#CorporateOfficers_RegistryHeld').val('');
+        $('#CorporateOfficers_LawGoverned').val('');
+        $('#CorporateOfficers_LegalForm').val('');
+        $('html, body').scrollTop($('#appCorporateTab').offset().top);
+    });
+
+    $("#goToCorporateNextTab").click(function () {
+        window.location.reload();
+        $('html, body').scrollTop($('#appointment').offset().top);
     });
 
     function openAddressModal(type) {
@@ -646,6 +755,8 @@
             $('#inCorporateSecondAddressModal').modal('show');
         });
     });
+
+    let registeredAddressData = null;
 
     function saveChooseAddressData() {
         var isValid = true;
@@ -666,7 +777,19 @@
         validateFields("#CorporateAddress_Town", "#CorporateAddress_Town_error", "Town");
         validateFields("#CorporateAddress_PostCode", "#CorporateAddress_PostCode_error", "Postcode");
 
+        const addressData = {
+            addressId: parseInt($("#CorporateAddress_AddressId").val()) || 0,
+            houseName: $("#CorporateAddress_HouseName").val(),
+            street: $("#CorporateAddress_Street").val(),
+            postCode: $("#CorporateAddress_PostCode").val(),
+            town: $("#CorporateAddress_Town").val(),
+            country: $("#CorporateAddress_Country").val(),
+            county: $("#CorporateAddress_County").val(),
+            locality: $("#CorporateAddress_Locality").val()
+        };
+
         if (isValid) {
+            registeredAddressData = addressData;
             $(".registered-forwarding-address").html("");
             const houseName = $("#CorporateAddress_HouseName").val();
             const otherParts = [
@@ -683,58 +806,48 @@
         }
     }
 
-    function saveCorporateChooseAddressData() {
-        const registeredOfficeAddress = {
+    function saveCorporateChooseAddressData(officerId) {
+        const registeredAddress = {
             houseName: "@(RegisteredOfficeAddress?.HouseName ?? "")",
             street: "@(RegisteredOfficeAddress?.Street ?? "")",
             postCode: "@(RegisteredOfficeAddress?.PostCode ?? "")",
             town: "@(RegisteredOfficeAddress?.Town ?? "")",
             country: "@(RegisteredOfficeAddress?.Country ?? "")",
             county: "@(RegisteredOfficeAddress?.County ?? "")",
-            locality: "@(RegisteredOfficeAddress?.Locality ?? "")"
+            locality: "@(RegisteredOfficeAddress?.Locality ?? "")",
         };
 
-        const addressData = {
-            addressId: parseInt($("#CorporateAddress_AddressId").val()) || 0,
-            houseName: $("#CorporateAddress_HouseName").val(),
-            street: $("#CorporateAddress_Street").val(),
-            postCode: $("#CorporateAddress_PostCode").val(),
-            town: $("#CorporateAddress_Town").val(),
-            country: $("#CorporateAddress_Country").val(),
-            county: $("#CorporateAddress_County").val(),
-            locality: $("#CorporateAddress_Locality").val()
+        const saveCorporateAddress = (data, handler) => {
+            if (!data) return;
+
+            data.officerId = officerId;
+
+            $.ajax({
+                url: `/FormationPage/AppointmentCorporateTab?handler=${handler}`,
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    if (!response.success) {
+                        for (const [field, message] of Object.entries(response.errors)) {
+                            const errorSpan = document.getElementById(`${field}-error`);
+                            if (errorSpan) errorSpan.textContent = message;
+                        }
+                    } else {
+                        console.log(`${handler} saved`);
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error saving address:", xhr.statusText, xhr.responseText);
+                }
+            });
         };
 
-        if ($("#CorporateAddress_HouseName").val() == "" && $("#CorporateAddress_Street").val() == "") {
-            addressData = registeredOfficeAddress;
+        if($("#CorporateAddress_HouseName").val() == "" && $("#CorporateAddress_Street").val() == ""){
+            registeredAddressData = registeredAddress;
         }
 
-        $.ajax({
-            url: "/FormationPage/AppointmentCorporateTab?handler=SaveCorporateAddress",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(addressData),
-            success: function (response) {
-                if (!response.success) {
-                    // Loop through returned errors and set messages
-                    for (const [field, message] of Object.entries(response.errors)) {
-                        const errorSpan = document.getElementById(`${field}-error`);
-                        if (errorSpan) {
-                            errorSpan.textContent = message;
-                        }
-                    }
-                }
-                else {
-                    console.log("Success:", response);
-                    $("#inCorporateSecondAddressModal").modal('hide');
-                    $("#addressModal").modal('hide');
-                    showToast('Data Saved.', 'success');
-                }
-            },
-            error: function (xhr) {
-                console.error("Error:", xhr.statusText, xhr.responseText);
-            }
-        });
+        saveCorporateAddress(registeredAddressData, "SaveCorporateAddress");
     }
 
     function editCorporateAddress(data) {
@@ -874,6 +987,68 @@
         }
         else {
             document.getElementById('CorporateAddress_Country').value = data.country || '';
+        }
+    }
+
+    function btnRemoveCorporateOfficer(id) {
+        if(confirm("Are you sure you want to delete this?")) {
+            $.ajax({
+                url: "/FormationPage/AppointmentCorporateTab?handler=RemoveCorporateOfficer",
+                type: "POST",
+                data: JSON.stringify({ id: id }),
+                contentType: "application/json",
+                success: function () {
+                    showToast("Officer Remove Successfully", "success");
+                    // setTimeout(function() {
+                    //     window.location.reload();
+                    // }, 1000);
+                },
+                error: function (err) {
+                    showToast("Officer is not remove", "error");
+                }
+            });
+        }
+    }
+
+    function editCorporateOfficer(data) {
+        $('.officer-corporate-is-uk-status').prop('checked', false);
+        const selectedPosition = data.positionName ? data.positionName.split(',').map(p => p.trim()) : [];
+        
+        $('html, body').scrollTop($('#appointmentTab').offset().top);
+
+        //Bind data based on Id
+        setTimeout(() => {
+            const positionMap = {
+                "Director": "isCorporateDirector",
+                "Shareholder": "isCorporateShareholder",
+                "Secretary": "isCorporateSecretary",
+                "PSC": "isCorporatePSC"
+            };
+
+            Object.keys(positionMap).forEach(role => {
+                const checkbox = document.getElementById(positionMap[role]);
+                if (checkbox) {
+                    checkbox.checked = selectedPosition.includes(role);
+                }
+            });
+        }, 100);
+
+        $("#CorporateOfficers_CorporateOfficerId").val(data.corporateOfficerId);
+        $("#CorporateOfficers_Title").val(data.title);
+        $("#CorporateOfficers_FirstName").val(data.firstName);
+        $("#CorporateOfficers_LastName").val(data.lastName);
+        $("#CorporateOfficers_LegalName").val(data.legalName);
+        $("#CorporateOfficers_RegistrationNumber").val(data.registrationNumber);
+        $("#CorporateOfficers_PlaceRegistered").val(data.placeRegistered);
+        $("#CorporateOfficers_RegistryHeld").val(data.registryHeld);
+        $("#CorporateOfficers_LawGoverned").val(data.lawGoverned);
+        $("#CorporateOfficers_LegalForm").val(data.legalForm);
+
+        if (data.registeredInUK) {
+            const corporateIsUk = document.querySelector(`.officer-corporate-is-uk-status[value="${data.registeredInUK}"]`);
+            if (corporateIsUk) {
+                corporateIsUk.checked = true;
+            }
         }
     }
 </script>

@@ -247,7 +247,7 @@
     //     let selectedPackageItems = [];
     // }
     function AddItemToCheckout(itemId) {
-        debugger;
+        
         var PackItems = $("#PackageItem_" + itemId).children();
         var ItemName = $(PackItems[0]).text();
         var ItemPrice = $(PackItems[1]).text();
@@ -411,7 +411,7 @@
     }());
 
     function btnCheckoutClick() {
-        debugger;
+        
         let isChecked = $('#ChkCheckoutTerms').prop('checked');
         var token = $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
         if (isChecked) {

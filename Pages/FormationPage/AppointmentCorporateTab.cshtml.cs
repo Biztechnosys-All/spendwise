@@ -39,6 +39,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public async Task<IActionResult> OnGet()
         {
             List<AddressData> addressData;
+            List<CorporateCompanyOfficers> officerData;
             var userEmail = Request.Cookies["UserEmail"];
             var selectCompanyId = Request.Cookies["ComanyId"];
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
@@ -47,6 +48,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var position = _context.CorporateCompanyOfficers.FirstOrDefault(x => x.UserId == userId && x.CorporateOfficerId == officerId);
             Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId.ToString() == selectCompanyId);
             addressData = await _context.AddressData.Where(m => m.UserId == userId && m.CompanyId == companyId).ToListAsync();
+            officerData = await _context.CorporateCompanyOfficers.Where(m => m.UserId == userId).ToListAsync();
 
             CorporateRegisteredInUk = position?.RegisteredInUK;
             CorporateOfficers = position;
@@ -55,73 +57,107 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 CorporateSelectedPosition = position.PositionName.Split(',').ToList();
             }
 
-            if (addressData == null)
+            if (addressData == null && officerData == null)
             {
                 return NotFound();
             }
             else
             {
+                CorporateOfficersList = officerData;
                 CorporateAddressList = addressData;
             }
             return Page();
         }
 
-        public class CorporatePositionRequestData
+        //public class CorporatePositionRequestData
+        //{
+        //    public string Position { get; set; }
+        //}
+
+        //public IActionResult OnPostSaveCorporatePositionData([FromBody] CorporatePositionRequestData data)
+        //{
+        //    try
+        //    {
+        //        TempData["CorporatePositionData"] = JsonConvert.SerializeObject(data);
+        //        return new JsonResult(new { success = true });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
+        public class CorporateOfficerRequestData
         {
-            public string Position { get; set; }
+            public CorporateCompanyOfficers Officer { get; set; }
+            public string SelectedPosition { get; set; }
         }
 
-        public IActionResult OnPostSaveCorporatePositionData([FromBody] CorporatePositionRequestData data)
+        public async Task<IActionResult> OnPostSaveCorporateDetails([FromBody] CorporateOfficerRequestData payload)
         {
             try
             {
-                TempData["CorporatePositionData"] = JsonConvert.SerializeObject(data);
-                return new JsonResult(new { success = true });
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+                var corporateOfficer = payload.Officer;
+                var positions = payload.SelectedPosition;
 
-        public async Task<IActionResult> OnPostSaveCorporateDetails([FromBody] CorporateCompanyOfficers corporateOfficer)
-        {
-            try
-            {
                 var userEmail = Request.Cookies["UserEmail"];
                 var selectCompanyId = Request.Cookies["ComanyId"];
                 var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
                 var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+                string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
 
-                var posData = TempData["CorporatePositionData"] as string;
-
-                if (string.IsNullOrEmpty(posData))
+                if (corporateOfficer.CorporateOfficerId > 0)
                 {
-                    return new JsonResult(new { success = false, message = "Missing data" });
+
+                    using (var conn = new SqlConnection(connectionString))
+                    {
+                        await conn.OpenAsync();
+                        string query = "UPDATE CorporateCompanyOfficers SET Title = @Title, FirstName = @FirstName, LastName = @LastName, LegalName = @LegalName, RegisteredInUK = @RegisteredInUK, RegistrationNumber = @RegistrationNumber, PlaceRegistered = @PlaceRegistered, RegistryHeld = @RegistryHeld, LawGoverned = @LawGoverned, LegalForm = @LegalForm WHERE CorporateOfficerId = @CorporateOfficerId";
+                        using (var cmd = new SqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@Title", corporateOfficer.Title);
+                            cmd.Parameters.AddWithValue("@FirstName", corporateOfficer.FirstName);
+                            cmd.Parameters.AddWithValue("@LastName", corporateOfficer.LastName);
+                            cmd.Parameters.AddWithValue("@LegalName", corporateOfficer.LegalName);
+                            cmd.Parameters.AddWithValue("@RegisteredInUK", corporateOfficer.RegisteredInUK);
+                            cmd.Parameters.AddWithValue("@RegistrationNumber", corporateOfficer.RegistrationNumber);
+                            cmd.Parameters.AddWithValue("@PlaceRegistered", corporateOfficer.PlaceRegistered);
+                            cmd.Parameters.AddWithValue("@RegistryHeld", corporateOfficer.RegistryHeld);
+                            cmd.Parameters.AddWithValue("@LawGoverned", corporateOfficer.LawGoverned);
+                            cmd.Parameters.AddWithValue("@LegalForm", corporateOfficer.LegalForm);
+                            cmd.Parameters.AddWithValue("@CorporateOfficerId", corporateOfficer.CorporateOfficerId);
+                            int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                            if (rowsAffected == 0)
+                            {
+                                ModelState.AddModelError("", "Data not found.");
+                                return new JsonResult(new { success = false });
+                            }
+                        }
+                    }
                 }
-
-                var positions = JsonConvert.DeserializeObject<CorporatePositionRequestData>(posData);
-
-                var data = new CorporateCompanyOfficers
+                else
                 {
-                    PositionName = positions.Position,
-                    Title = corporateOfficer.Title,
-                    FirstName = corporateOfficer.FirstName,
-                    LastName = corporateOfficer.LastName,
-                    LegalName = corporateOfficer.LegalName,
-                    RegisteredInUK = corporateOfficer.RegisteredInUK,
-                    RegistrationNumber = corporateOfficer.RegistrationNumber,
-                    PlaceRegistered = corporateOfficer.PlaceRegistered,
-                    RegistryHeld = corporateOfficer.RegistryHeld,
-                    LawGoverned = corporateOfficer.LawGoverned,
-                    LegalForm = corporateOfficer.LegalForm,
-                    UserId = userId,
-                    CompanyID = companyId
-                };
-                _context.CorporateCompanyOfficers.Add(data);
+                    corporateOfficer = new CorporateCompanyOfficers
+                    {
+                        PositionName = positions,
+                        Title = corporateOfficer.Title,
+                        FirstName = corporateOfficer.FirstName,
+                        LastName = corporateOfficer.LastName,
+                        LegalName = corporateOfficer.LegalName,
+                        RegisteredInUK = corporateOfficer.RegisteredInUK,
+                        RegistrationNumber = corporateOfficer.RegistrationNumber,
+                        PlaceRegistered = corporateOfficer.PlaceRegistered,
+                        RegistryHeld = corporateOfficer.RegistryHeld,
+                        LawGoverned = corporateOfficer.LawGoverned,
+                        LegalForm = corporateOfficer.LegalForm,
+                        UserId = userId,
+                        CompanyID = companyId
+                    };
+                    _context.CorporateCompanyOfficers.Add(corporateOfficer);
+                }
                 await _context.SaveChangesAsync();
 
-                return new JsonResult(new { success = true });
+                return new JsonResult(new { success = true, officerId = corporateOfficer.CorporateOfficerId });
             }
             catch (Exception ex)
             {
@@ -136,7 +172,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
 
-            var officerId = _context.CorporateCompanyOfficers.Where(x => x.UserId == userId && x.CompanyID == companyId).FirstOrDefault()?.CorporateOfficerId;
+            //var officerId = _context.CorporateCompanyOfficers.Where(x => x.UserId == userId && x.CompanyID == companyId).FirstOrDefault()?.CorporateOfficerId;
             string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
 
             try
@@ -158,7 +194,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
                             cmd.Parameters.AddWithValue("@County", request.County);
                             cmd.Parameters.AddWithValue("@Country", request.Country);
                             cmd.Parameters.AddWithValue("@IsRegisteredOffice", true);
-                            cmd.Parameters.AddWithValue("@OfficerId", officerId);
+                            cmd.Parameters.AddWithValue("@OfficerId", request.OfficerId);
                             cmd.Parameters.AddWithValue("@AddressId", request.AddressId);
                             int rowsAffected = await cmd.ExecuteNonQueryAsync();
 
@@ -175,7 +211,6 @@ namespace Spendwise_WebApp.Pages.FormationPage
                     request.IsRegisteredOffice = true;
                     request.CompanyId = companyId;
                     request.UserId = userId;
-                    request.OfficerId = officerId != null ? officerId : 0;
 
                     // STEP 1: Reset IsCurrent = false for any current address for this user & company
                     var existingCurrentAddresses = _context.AddressData
@@ -197,7 +232,8 @@ namespace Spendwise_WebApp.Pages.FormationPage
                                            x.Country == request.Country &&
                                            x.PostCode == request.PostCode &&
                                            x.CompanyId == companyId &&
-                                           x.OfficerId == officerId &&
+                                           x.OfficerId == request.OfficerId &&
+                                           x.UserId == userId &&
                                            x.IsRegisteredOffice == true
                                        );
 
@@ -228,6 +264,24 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 throw;
             }
 
+        }
+        public class RequestCorporateModel
+        {
+            public int Id { get; set; }
+        }
+
+        public async Task<IActionResult> OnPostRemoveCorporateOfficer([FromBody] RequestCorporateModel request)
+        {
+            var item = await _context.CorporateCompanyOfficers.FindAsync(request.Id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.CorporateCompanyOfficers.Remove(item);
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { success = true });
         }
     }
 }

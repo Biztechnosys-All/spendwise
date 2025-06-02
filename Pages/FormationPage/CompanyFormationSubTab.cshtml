@@ -955,7 +955,6 @@
 </div>
 <script>
     function saveFormationData(type) {
-        debugger;
         if (type == "particular") {
 
             var errorMessages = [];
@@ -978,7 +977,6 @@
 
             // Field validation helper
             function validateField(id, fieldName) {
-                debugger;
                 var value = $(id).val().trim();
                 if (value === "") {
                     //isValid = false;
@@ -1362,7 +1360,6 @@
             }
         }
         else if (type == "business") {
-            debugger;
             let addressData = {
                 addressId: parseInt($("#Address_AddressId").val()) || 0,
                 houseName: $("#Address_HouseName").val(),
@@ -1545,7 +1542,9 @@
         }
 
         $(`#${inputId}`).val(""); // Clear input\
+
         let formData = new FormData();
+
         identityFilesData.forEach((item, index) => {
             formData.append(`IdentityFiles[${index}].DocumentType`, item.docType);
             formData.append(`IdentityFiles[${index}].File`, item.file);
@@ -1579,28 +1578,21 @@
         });
     }
 
-    $(document).ready(function () {
-        $("#identityType").change(function () {
-            const selectedValue = $(this).val();
-            const fileInputWrapper = $('#fileInputWrapper');
+    $("#identityType").change(function () {
+        const selectedValue = $(this).val();
+        const fileInputWrapper = $('#fileInputWrapper');
 
-            // const showFileInputFor = ['Passport', 'ResidencePermit', 'DrivingLicence', 'BirthCertificate'];
+        if (selectedValue) {
+            const fileInputHtml = `
+                <label> ${selectedValue} : </label>
+                <input class="form-control" type="file" style="width: 40%;" id="identityFile" accept=".pdf,.jpg,.doc,.png" />
+                <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('identity', 'identityFile', identityFilesData)">Add</button>
+            `;
 
-            if (selectedValue) {
-                // Create dynamic file input with new ID
-                const newId = `fileInput_${selectedValue}`;
-                const fileInputHtml = `
-                                                              <label> ${selectedValue} : </label>
-                                                              <input class="form-control" type="file" style="width: 40%;" id="identityFile" accept=".pdf,.jpg,.doc,.png" />
-                                                              <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('identity', 'identityFile', identityFilesData)">Add</button>`;
+            // Show wrapper and set new input
+            fileInputWrapper.html(fileInputHtml).show();
 
-                // Show wrapper and set new input
-                fileInputWrapper.html(fileInputHtml).show();
-            } else {
-                fileInputWrapper.hide().html('');
-            }
-
-            $('#identityFile').on('change', function () {
+            $('#identityFile').off('change').on('change', function () {
                 var allowedExtensions = /(\.pdf|\.jpg|\.doc|\.png)$/i;
                 var fileInput = $(this);
                 var filePath = fileInput.val();
@@ -1611,29 +1603,26 @@
                     return false;
                 }
             });
-        });
+        } else {
+            fileInputWrapper.hide().html('');
+        }
+    });
 
-        $("#addressType").change(function () {
-            const selectedValue = $(this).val();
-            const fileInputWrapper = $('#fileInputForAddress');
+    $("#addressType").change(function () {
+        const selectedValue = $(this).val();
+        const fileInputWrapper = $('#fileInputForAddress');
 
-            // const showFileInputFor = ['OutsideDrivingLicence', 'MarriageCertificate', 'DrivingLicence', 'BirthCertificate'];
+        if (selectedValue) {
+            const fileInputHtml = `
+                <label> ${selectedValue} : </label>
+                <input class="form-control" type="file" style="width: 40%;" id="addressFile" accept=".pdf,.jpg,.doc,.png" />
+                <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('address', 'addressFile', addressFilesData)">Add</button>
+            `;
 
-            if (selectedValue) {
-                // Create dynamic file input with new ID
-                const newId = `fileInput_${selectedValue}`;
-                const fileInputHtml = `
-                                                              <label> ${selectedValue} : </label>
-                                                              <input class="form-control" type="file" style="width: 40%;" id="addressFile" accept=".pdf,.jpg,.doc,.png" />
-                                                              <button type="button" class="btn ef-primary-btn" style="margin-top: -60px; margin-left: 46%;" onclick="handleFiles('address', 'addressFile', addressFilesData)">Add</button>`;
+            // Show wrapper and set new input
+            fileInputWrapper.html(fileInputHtml).show();
 
-                // Show wrapper and set new input
-                fileInputWrapper.html(fileInputHtml).show();
-            } else {
-                fileInputWrapper.hide().html('');
-            }
-
-            $('#addressFile').on('change', function () {
+            $('#addressFile').off('change').on('change', function () {
                 var allowedExtensions = /(\.pdf|\.jpg|\.doc|\.png)$/i;
                 var fileInput = $(this);
                 var filePath = fileInput.val();
@@ -1644,7 +1633,9 @@
                     return false;
                 }
             });
-        });
+        } else {
+            fileInputWrapper.hide().html('');
+        }
     });
 
     $('#gotoSummaryTab').click(function () {

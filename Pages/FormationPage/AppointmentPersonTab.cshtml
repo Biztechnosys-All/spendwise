@@ -1160,28 +1160,9 @@
         validateFields("#PersonAddress_Street", "#PersonAddress_Street_error", "Street");
         validateFields("#PersonAddress_Town", "#PersonAddress_Town_error", "Town");
         validateFields("#PersonAddress_PostCode", "#PersonAddress_PostCode_error", "Postcode");
-
+        
         if (isValid) {
             var type = $('#hndAddressType').val();
-            const residentialOfficeAddress = {
-                houseName: "@(ResidentialOfficeAddress?.HouseName ?? "")",
-                street: "@(ResidentialOfficeAddress?.Street ?? "")",
-                postCode: "@(ResidentialOfficeAddress?.PostCode ?? "")",
-                town: "@(ResidentialOfficeAddress?.Town ?? "")",
-                country: "@(ResidentialOfficeAddress?.Country ?? "")",
-                county: "@(ResidentialOfficeAddress?.County ?? "")",
-                locality: "@(ResidentialOfficeAddress?.Locality ?? "")",
-            };
-
-            const serviceAddress = {
-                houseName: "@(ServiceOfficeAddress?.HouseName ?? "")",
-                street: "@(ServiceOfficeAddress?.Street ?? "")",
-                postCode: "@(ServiceOfficeAddress?.PostCode ?? "")",
-                town: "@(ServiceOfficeAddress?.Town ?? "")",
-                country: "@(ServiceOfficeAddress?.Country ?? "")",
-                county: "@(ServiceOfficeAddress?.County ?? "")",
-                locality: "@(ServiceOfficeAddress?.Locality ?? "")",
-            };
 
             let addressData = {
                addressId: parseInt($("#PersonAddress_AddressId").val()) || 0,
@@ -1195,13 +1176,7 @@
             };
 
             if (type === 'Residential') {
-                if($("#PersonAddress_HouseName").val() == "" && $("#PersonAddress_Street").val() == ""){
-                    residentialAddressData = residentialOfficeAddress;
-                }
-                else {
-                    residentialAddressData = addressData;
-                }
-
+                residentialAddressData = addressData;
                 $(".ef-js-forwarding-address").html("");
                 const houseName = $("#PersonAddress_HouseName").val();
                 const otherParts = [
@@ -1214,13 +1189,7 @@
                 const addressHtml = (houseName ? houseName + ' ' : '') + otherParts.join(', ');
                 $(".ef-js-forwarding-address").html(addressHtml);
             } else if (type === 'Service') {
-                if($("#PersonAddress_HouseName").val() == "" && $("#PersonAddress_Street").val() == ""){
-                    serviceAddressData = serviceAddress;
-                }
-                else {
-                    serviceAddressData = addressData;
-                }
-
+                serviceAddressData = addressData;
                 $(".service-forwarding-address").html("");
                 const houseName = $("#PersonAddress_HouseName").val();
                 const otherParts = [
@@ -1240,6 +1209,25 @@
     }
 
     function savePersonChooseAddressData(officerId) {
+        const residentialAddress = {
+            houseName: "@(ResidentialOfficeAddress?.HouseName ?? "")",
+            street: "@(ResidentialOfficeAddress?.Street ?? "")",
+            postCode: "@(ResidentialOfficeAddress?.PostCode ?? "")",
+            town: "@(ResidentialOfficeAddress?.Town ?? "")",
+            country: "@(ResidentialOfficeAddress?.Country ?? "")",
+            county: "@(ResidentialOfficeAddress?.County ?? "")",
+            locality: "@(ResidentialOfficeAddress?.Locality ?? "")",
+        };
+
+        const serviceAddress = {
+            houseName: "@(ServiceOfficeAddress?.HouseName ?? "")",
+            street: "@(ServiceOfficeAddress?.Street ?? "")",
+            postCode: "@(ServiceOfficeAddress?.PostCode ?? "")",
+            town: "@(ServiceOfficeAddress?.Town ?? "")",
+            country: "@(ServiceOfficeAddress?.Country ?? "")",
+            county: "@(ServiceOfficeAddress?.County ?? "")",
+            locality: "@(ServiceOfficeAddress?.Locality ?? "")",
+        };
         const saveAddress = (data, handler) => {
             if (!data) return;
 
@@ -1265,6 +1253,11 @@
                 }
             });
         };
+
+        if($("#PersonAddress_HouseName").val() == "" && $("#PersonAddress_Street").val() == ""){
+            residentialAddressData = residentialAddress;
+            serviceAddressData = serviceAddress;
+        }
 
         saveAddress(residentialAddressData, "SavePersonResidentialAddress");
         saveAddress(serviceAddressData, "SavePersonServiceAddress");
@@ -1490,61 +1483,46 @@
 
     function editPersonOfficer(data) {
         const selectedPosition = data.positionName ? data.positionName.split(',').map(p => p.trim()) : [];
-        console.log("selectedPosition ::", selectedPosition);
         
-        const officerId = data.officerId;
-        const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
-        Cookies.set("PersonOfficerId", officerId, expires);
+        $('html, body').scrollTop($('#appointmentTab').offset().top);
 
-        $.ajax({
-            url: "/FormationPage/AppointmentPersonTab",
-            type: "get",
-            success: function (result) {
-                $("#Formation").css('display', 'none');
-                $("#appCorporateTab").css('display', 'none');
-                $("#appOtherTab").css('display', 'none');
-                $("#appointmentTab").html(result);
-                $('html, body').scrollTop($('#appointmentTab').offset().top);
+        //Bind data based on Id
+        setTimeout(() => {
+            const positionMap = {
+                "Director": "isDirector",
+                "Shareholder": "isShareholder",
+                "Secretary": "isSecretary",
+                "PSC": "isPSC"
+            };
 
-                //Bind data based on Id
-                setTimeout(() => {
-                    const positionMap = {
-                        "Director": "isDirector",
-                        "Shareholder": "isShareholder",
-                        "Secretary": "isSecretary",
-                        "PSC": "isPSC"
-                    };
-
-                    Object.keys(positionMap).forEach(role => {
-                        const checkbox = document.getElementById(positionMap[role]);
-                        if (checkbox) {
-                            checkbox.checked = selectedPosition.includes(role);
-                        }
-                    });
-                }, 100);
-
-                $("#Officers_OfficerId").val(data.officerId);
-                $("#Officers_Title").val(data.title);
-                $("#Officers_FirstName").val(data.firstName);
-                $("#Officers_LastName").val(data.lastName);
-                $("#Officers_Nationality").val(data.nationality);
-                $("#Officers_Occupation").val(data.occupation);
-                $("#Officers_Authentication1").val(data.authentication1);
-                $("#Officers_AuthenticationAns1").val(data.authenticationAns1);
-                $("#Officers_Authentication2").val(data.authentication2);
-                $("#Officers_AuthenticationAns2").val(data.authenticationAns2);
-                $("#Officers_Authentication3").val(data.authentication3);
-                $("#Officers_AuthenticationAns3").val(data.authenticationAns3);
-
-                if (data.dob) {
-                    let date = new Date(data.dob);
-                    let day = ('0' + date.getDate()).slice(-2);
-                    let month = ('0' + (date.getMonth() + 1)).slice(-2);
-                    let year = date.getFullYear();
-                    let formatted = `${year}-${month}-${day}`; //yyyy-MM-dd
-                    $('#Officers_DOB').val(formatted);
+            Object.keys(positionMap).forEach(role => {
+                const checkbox = document.getElementById(positionMap[role]);
+                if (checkbox) {
+                    checkbox.checked = selectedPosition.includes(role);
                 }
-            }
-        });
+            });
+        }, 100);
+
+        $("#Officers_OfficerId").val(data.officerId);
+        $("#Officers_Title").val(data.title);
+        $("#Officers_FirstName").val(data.firstName);
+        $("#Officers_LastName").val(data.lastName);
+        $("#Officers_Nationality").val(data.nationality);
+        $("#Officers_Occupation").val(data.occupation);
+        $("#Officers_Authentication1").val(data.authentication1);
+        $("#Officers_AuthenticationAns1").val(data.authenticationAns1);
+        $("#Officers_Authentication2").val(data.authentication2);
+        $("#Officers_AuthenticationAns2").val(data.authenticationAns2);
+        $("#Officers_Authentication3").val(data.authentication3);
+        $("#Officers_AuthenticationAns3").val(data.authenticationAns3);
+
+        if (data.dob) {
+            let date = new Date(data.dob);
+            let day = ('0' + date.getDate()).slice(-2);
+            let month = ('0' + (date.getMonth() + 1)).slice(-2);
+            let year = date.getFullYear();
+            let formatted = `${year}-${month}-${day}`; //yyyy-MM-dd
+            $('#Officers_DOB').val(formatted);
+        }
     }
 </script>
