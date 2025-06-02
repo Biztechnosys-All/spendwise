@@ -106,7 +106,7 @@
                 });
             }
             else if(type == "corporate") {
-                 $.ajax({
+                $.ajax({
                     url: "/FormationPage/AppointmentCorporateTab",
                     type: "get",
                     success: function (result) {
@@ -125,7 +125,7 @@
                 })
             }
             else if(type == "other-legal-entity") {
-                 $.ajax({
+                $.ajax({
                     url: "/FormationPage/AppointmentOtherTab",
                     type: "get",
                     success: function (result) {
@@ -134,6 +134,9 @@
                         $("#appCorporateTab").css('display', 'none');
                         $("#appointmentTab").html(result);
                         $('html, body').scrollTop($('#appointmentTab').offset().top);
+                        $('#isOtherPSC').prop('checked', false);
+                        document.getElementById('goToNextTab').style.display = 'none';
+                        document.getElementById('addNewOtherEntity').style.display = 'none';
                     }
                 })
             }
