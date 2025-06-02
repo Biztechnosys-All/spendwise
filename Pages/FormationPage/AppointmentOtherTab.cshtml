@@ -21,7 +21,7 @@
             </div>
             <div class="w-tabs" id="ef-officer-form-wrapper">
                 <!-- start tabs -->
-                <div class="w-tab-menu ef-officer-form-tab-menu ef-other-tab">
+                @* <div class="w-tab-menu ef-officer-form-tab-menu ef-other-tab">
                     <a class="tab-link w-tab-link w-inline-block" aria-current="page" data-target="#other-position">
                         <div> Position </div>
                     </a>
@@ -31,7 +31,7 @@
                     <a class="tab-link w-tab-link w-inline-block" data-target="#other-addressing" style="width: 130px;">
                         <div> Addressing </div>
                     </a>
-                </div>
+                </div> *@
                 <!-- end tabs -->
                 <div id="scrollContainer">
                     <div class="tab-pane current">
@@ -69,7 +69,7 @@
                                             <div class="w-row row-role-select">
                                                 <div class="w-col">
                                                     <div class="w-checkbox">
-                                                        <input class="w-checkbox-input" type="checkbox" value="PSC" @(selected.Contains("PSC") ? "checked" : "") />
+                                                        <input class="w-checkbox-input" type="checkbox" id="isOtherPSC" value="PSC" @(selected.Contains("PSC") ? "checked" : "") />
                                                         <label class="w-form-label" for="officer-PSC">Person with Significant Control (PSC)</label>
                                                         <span class="ef-modal-help-icon" data-ref="HELP|PSC"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                                     </div>
@@ -78,11 +78,11 @@
                                         </div>
                                     </div>
                                     <div class="w-row">&nbsp;</div>
-                                    <div class="w-row">
+                                    @* <div class="w-row">
                                         <div class="w-col">
                                             <button type="button" id="btnOtherLegalPosition" class="ef-btn ef-other-save"> Save </button>
                                         </div>
-                                    </div>
+                                    </div> *@
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                                     <span style="float:right;" class="ef-modal-help-icon nationality-help" data-ref="HELP|NATIONALITY"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                     <div id="" class="ef-alert-box-main-text main-error-text"></div>
                                 </div>
-                                <div style="display:none; font-size: 20px;" class="ef-alert-box fail" id="address-error"> </div>
+                                <div style="display:none; font-size: 20px;" class="ef-alert-box fail" id="servicerAddress-error"> </div>
                                 <div id="officer-details-div">
                                     <div class="ef-form-wrap">
                                         <h2 id="preselected-officer">
@@ -112,6 +112,7 @@
                                         <div class="hr-line-1"></div>
                                         <div class="w-row row-margin">
                                             <div class="w-col w-col-7">
+                                                <input type="hidden" asp-for="OtherOfficers.LegalOfficerId" />
                                                 <div id="officer-corporate-name-wrapper">
                                                     <label class="field-label" for="officer-corporate-name">Legal Name</label>
                                                     <input class="w-input" type="text" placeholder="Legal Name" asp-for="OtherOfficers.LegalName" />
@@ -159,11 +160,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="w-row">
+                                @* <div class="w-row">
                                     <div class="w-col">
                                         <button type="button" id="btnSubmitOtherDetailsTab" class="ef-btn ef-other-save"> Save </button>
                                     </div>
-                                </div>
+                                </div> *@
                             </div>
                         </div>
 
@@ -279,13 +280,52 @@
                                             <!-- end item details -->
                                         </div>
                                     </div>
+
+                                    @* List Of Officer *@
+                                    <div>
+                                        @if (Model.OtherOfficersList != null && Model.OtherOfficersList.Count > 0)
+                                        {
+                                            <label for="selectType" class="currentAppointment">Current Appointments</label>
+                                            <p> Below is a list of officers currently assigned to your company. </p>
+                                            <table id="ef-current-appointments-table" class="ef-primary-table table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th> Name </th>
+                                                        <th> PSC </th>
+                                                        <th></th>
+                                                    </tr>
+                                                    @foreach (var item in Model.OtherOfficersList)
+                                                    {
+                                                        var position = item.PositionName?.Split(',') ?? Array.Empty<string>();
+                                                        <tr class="w-row-even">
+                                                            <td>
+                                                                @item.LegalName
+                                                            </td>
+                                                            <td>
+                                                                @(position.Contains("PSC") ? "✔" : "❌")
+                                                            </td>
+                                                            <td>
+                                                                <span style="">
+                                                                    <button type="button" class="ef-remove-officer" onclick="btnRemoveLegalEntity(@item.LegalOfficerId)">Remove</button>
+                                                                    <button type="button" class="ef-edit-officer" onclick='editLegalEntity(@Html.Raw(Json.Serialize(item)))'>Edit</button>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </div>
+
                                     <div class="hr-line-2"></div>
                                 </div>
                                 <div class="w-row">&nbsp;</div>
                                 <div class="w-row">
                                     <div class="w-col">
                                         <button type="button" class="btn btn-success" onclick="btnBackToMainPage()">Back</button>
-                                        <button type="button" id="btnSubmitOtherLegalEntityTab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step"> Save & Next</button>
+                                        <button type="button" id="goToNextTab" class="ef-btn ef-next-btn "> Next </button>
+                                        <button type="button" id="addNewOtherEntity" class="ef-btn ef-new-btn"> Add New Entity </button>
+                                        <button type="button" id="btnSubmitOtherLegalEntityTab" class="ef-btn ef-app-submit-btn"> Save </button>
                                     </div>
                                 </div>
                             </div>
@@ -297,86 +337,6 @@
     </div>
 </div>
 
-@* Choose Address Modal *@
-@* <div class="modal fade" id="otherAddressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
-                <p>Tell us where to forward your mail to you, by entering your address below.</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <div id="an-address" class="ef-address-form" style="">
-                    <div>
-                        <div id="use-previous-address-or-search" class="address-form-div" style="display:block">
-                            <h4>Recently used addresses</h4>
-
-                            <div id="residentialAddressSection" class="address-section">
-                                @foreach (var item in Model.OtherAddressList.Where(x => x.IsResidetialAddress == true))
-                                {
-                                    <div class="w-clearfix simple-row-elem">
-                                        <div class="w-row ef-panel-row">
-                                            <div class="w-col w-col-8">
-                                                <p>@item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country</p>
-                                            </div>
-                                            <div class="w-col w-col-4 w-clearfix add-col">
-                                                <button type="button" class="ef-btn ef-alt-address-btn" onclick='editOtherAddress(@Html.Raw(Json.Serialize(item)))'>Edit</button>
-                                                <button type="button" class="ef-btn ef-select-btn" onclick='selectOtherAddress(@Html.Raw(Json.Serialize(item)))'>Select</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-
-                            <div id="serviceAddressSection" class="address-section">
-                                @foreach (var item in Model.OtherAddressList.Where(x => x.IsServiceAddress == true))
-                                {
-                                    <div class="w-clearfix simple-row-elem">
-                                        <div class="w-row ef-panel-row">
-                                            <div class="w-col w-col-8">
-                                                <p>@item.HouseName, @item.Street, @item.Town, @item.County, @item.PostCode, @item.Country</p>
-                                            </div>
-                                            <div class="w-col w-col-4 w-clearfix add-col">
-                                                <button type="button" class="ef-btn ef-alt-address-btn" onclick='editOtherAddress(@Html.Raw(Json.Serialize(item)))'>Edit</button>
-                                                <button type="button" class="ef-btn ef-select-btn" onclick='selectOtherAddress(@Html.Raw(Json.Serialize(item)))'>Select</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-
-                            <h4>Or enter a new Address</h4>
-
-                            <div class="w-clearfix simple-row-elem">
-                                <div class="w-row ef-panel-row">
-                                    <div class="w-col w-col-8">
-                                        <p>Enter new Address</p>
-                                    </div>
-                                    <div class="w-col w-col-4 w-clearfix add-col">
-                                        <button type="button" class="ef-btn ef-select-btn" id="openOtherSecondModal">Select</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div lass="ef-cancel-btn-wrapper">
-                                <div class="w-clearfix">
-                                    <button type="button" class="ef-btn ef-cancel-address" data-bs-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
- *@
 <div class="modal fade" id="inOtherSecondAddressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
     <input type="hidden" id="hndAddressType" name="hndAddressType" value="" />
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -595,82 +555,89 @@
 </div>
 
 <script>
-    let addressType = null;
-    $("#btnOtherLegalPosition").click(function () {
-        var selectedData = [];
-        $(".w-checkbox-input:checked").each(function () {
-            selectedData.push($(this).val());
-        });
-
-        if (selectedData?.length === 0) {
-            $("#position-error").html("Please select the Position.").show();
-        }
-        else{
-            $("#position-error").html("Please select the Position.").hide();
-        }
-
-        const selectedPosition = selectedData.join(",");
-
-        $.ajax({
-            url: "/FormationPage/AppointmentOtherTab?handler=SaveOtherPositionData",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ position: selectedPosition }),
-            success: function (response) {
-                if (response.success) {
-                    showToast('Position Data Saved.', 'success');
-                    console.log(response.success);
-                }
-            },
-            error: function (xhr) {
-                console.error("Error:", xhr.statusText, xhr.responseText);
-            }
-        });
+    $(document).ready(function () {
+        $('#isOtherPSC').prop('checked', false);
+        $('#OtherOfficers_LegalName').val(''),
+        $('#OtherOfficers_LawGoverned').val(''),
+        $('#OtherOfficers_LegalForm').val(''),
+        document.getElementById('goToNextTab').style.display = 'none';
+        document.getElementById('addNewOtherEntity').style.display = 'none';
     });
+    // $("#btnOtherLegalPosition").click(function () {
+    //     var selectedData = [];
+    //     $(".w-checkbox-input:checked").each(function () {
+    //         selectedData.push($(this).val());
+    //     });
 
-    $("#btnSubmitOtherDetailsTab").click(function () {
-       var isValid = true;
+    //     if (selectedData?.length === 0) {
+    //         $("#position-error").html("Please select the Position.").show();
+    //     }
+    //     else{
+    //         $("#position-error").html("Please select the Position.").hide();
+    //     }
 
-        // Field validation helper
-        function validateField(id, errorId, fieldName) {
-            const value = $(id).val().trim();
-            if (value === "") {
-                isValid = false;
-                $(errorId).text(`${fieldName} is required.`).show();
-            } else {
-                $(errorId).text("").hide();
-            }
-        }
+    //     const selectedPosition = selectedData.join(",");
 
-        validateField("#OtherOfficers_LegalName", "#OtherOfficers_LegalName_error", "LegalName");
-        validateField("#OtherOfficers_LawGoverned", "#OtherOfficers_LawGoverned_error", "LawGoverned");
-        validateField("#OtherOfficers_LegalForm", "#OtherOfficers_LegalForm_error", "LegalForm");
+    //     $.ajax({
+    //         url: "/FormationPage/AppointmentOtherTab?handler=SaveOtherPositionData",
+    //         method: "POST",
+    //         contentType: "application/json",
+    //         data: JSON.stringify({ position: selectedPosition }),
+    //         success: function (response) {
+    //             if (response.success) {
+    //                 showToast('Position Data Saved.', 'success');
+    //                 console.log(response.success);
+    //             }
+    //         },
+    //         error: function (xhr) {
+    //             console.error("Error:", xhr.statusText, xhr.responseText);
+    //         }
+    //     });
+    // });
 
-        if(isValid) {
-            saveOtherChooseAddressData('Residential');
-            var formData = {
-                LegalName: $('#OtherOfficers_LegalName').val(),
-                LawGoverned: $('#OtherOfficers_LawGoverned').val(),
-                LegalForm: $('#OtherOfficers_LegalForm').val(),
-            }
+    // $("#btnSubmitOtherDetailsTab").click(function () {
+    //     var isValid = true;
 
-            $.ajax({
-                url: "/FormationPage/AppointmentOtherTab?handler=SaveLegalOfficerDetails",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(formData),
-                success: function (response) {
-                    if (response.success) {
-                        console.log(response.success);
-                        showToast('Data Saved.', 'success');
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error:", xhr.statusText, xhr.responseText);
-                }
-            });
-        }
-    });
+    //     // Field validation helper
+    //     function validateField(id, errorId, fieldName) {
+    //         const value = $(id).val().trim();
+    //         if (value === "") {
+    //             isValid = false;
+    //             $(errorId).text(`${fieldName} is required.`).show();
+    //         } else {
+    //             $(errorId).text("").hide();
+    //         }
+    //     }
+
+    //     validateField("#OtherOfficers_LegalName", "#OtherOfficers_LegalName_error", "LegalName");
+    //     validateField("#OtherOfficers_LawGoverned", "#OtherOfficers_LawGoverned_error", "LawGoverned");
+    //     validateField("#OtherOfficers_LegalForm", "#OtherOfficers_LegalForm_error", "LegalForm");
+
+    //     if(isValid) {
+    //         saveOtherChooseAddressData('Residential');
+    //         var formData = {
+    //             LegalName: $('#OtherOfficers_LegalName').val(),
+    //             LawGoverned: $('#OtherOfficers_LawGoverned').val(),
+    //             LegalForm: $('#OtherOfficers_LegalForm').val(),
+    //         }
+
+    //         $.ajax({
+    //             url: "/FormationPage/AppointmentOtherTab?handler=SaveLegalOfficerDetails",
+    //             method: "POST",
+    //             contentType: "application/json",
+    //             data: JSON.stringify(formData),
+    //             success: function (response) {
+    //                 if (response.success) {
+    //                     console.log(response.success);
+    //                     showToast('Data Saved.', 'success');
+    //                 }
+    //             },
+    //             error: function (xhr) {
+    //                 console.error("Error:", xhr.statusText, xhr.responseText);
+    //             }
+    //         });
+    //     }
+    // });
 
     // Open Second Modal
     $('#openOtherSecondModal').on('click', function () {
@@ -687,6 +654,118 @@
         $('#hndAddressType').val(type);
         $('#inOtherSecondAddressModal').modal('show');
     }
+
+    $("#btnSubmitOtherLegalEntityTab").click(function () {
+        var isValid = true;
+        var selectedData = [];
+        var residentialHouseName = "@(ResidentialOfficeAddress?.HouseName ?? "")";
+        var serviceHouseName = "@(ServiceOfficeAddress?.HouseName ?? "")";
+
+        $(".w-checkbox-input:checked").each(function () {
+             selectedData.push($(this).val());
+        });
+
+        if($("#OtherAddress_HouseName").val() == "" && residentialHouseName == "") {
+            isValid = false;
+            $("#residentialAddress-error").html("Please select the Residential Address.").show();
+            showToast('Please filled required details.', 'warning');
+            $('html, body').scrollTop($('#other-details').offset().top);
+        }
+        else if ($("#OtherAddress_HouseName").val() == "" && serviceHouseName == "") {
+            isValid = false;
+            $("#servicerAddress-error").html("Please select the Service Address.").show();
+            showToast('Please filled required details.', 'warning');
+            $('html, body').scrollTop($('#other-addressing').offset().top);
+        }
+        else {
+            isValid = true;
+            $("#residentialAddress-error").html("Please select the Position.").hide();
+            $("#servicerAddress-error").html("Please select the Position.").hide();
+        }
+
+        if (selectedData?.length === 0) {
+            isValid = false;
+            $("#position-error").html("Please select the Position.").show();
+            showToast('Please filled required details.', 'warning');
+            $('html, body').scrollTop($('#other-position').offset().top - 10);
+        }
+        else{
+            isValid = true;
+            $("#position-error").html("Please select the Position.").hide();
+        }
+
+        // Field validation helper
+        function validateField(id, errorId, fieldName) {
+            const value = $(id).val().trim();
+            if (value === "") {
+                isValid = false;
+                $(errorId).text(`${fieldName} is required.`).show();
+                showToast('Please filled required details.', 'warning');
+                $('html, body').scrollTop($('#other-details').offset().top);
+            } else {
+                $(errorId).text("").hide();
+            }
+        }
+
+        validateField("#OtherOfficers_LegalName", "#OtherOfficers_LegalName_error", "LegalName");
+        validateField("#OtherOfficers_LawGoverned", "#OtherOfficers_LawGoverned_error", "LawGoverned");
+        validateField("#OtherOfficers_LegalForm", "#OtherOfficers_LegalForm_error", "LegalForm");
+
+        if(isValid) {
+            const selectedPosition = selectedData.join(",");
+
+            var formData = {
+                LegalOfficerId: $('#OtherOfficers_LegalOfficerId').val() || 0,
+                LegalName: $('#OtherOfficers_LegalName').val(),
+                LawGoverned: $('#OtherOfficers_LawGoverned').val(),
+                LegalForm: $('#OtherOfficers_LegalForm').val(),
+            }
+
+            var payload = {
+                Officer: formData,
+                SelectedPosition: selectedPosition
+            };
+
+            $.ajax({
+                url: "/FormationPage/AppointmentOtherTab?handler=SaveLegalEntityDetails",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (response) {
+                    if (response.success) {
+                        let officerId = response.officerId;
+                        saveOtherChooseAddressData(officerId);
+
+                        setTimeout(function() {
+                            showToast('Data Saved.', 'success');
+                        }, 500);
+
+                        document.getElementById('goToNextTab').style.display = 'block';
+                        document.getElementById('addNewOtherEntity').style.display = 'block';
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error:", xhr.statusText, xhr.responseText);
+                }
+            });
+        }
+    });
+
+    $("#addNewOtherEntity").click(function () {
+        $('#isOtherPSC').prop('checked', false);
+        $('#OtherOfficers_LegalName').val(''),
+        $('#OtherOfficers_LawGoverned').val(''),
+        $('#OtherOfficers_LegalForm').val(''),
+        $('html, body').scrollTop($('#appOtherTab').offset().top);
+    });
+
+    $("#goToNextTab").click(function () {
+        window.location.reload();
+        $('html, body').scrollTop($('#appointment').offset().top);
+    });
+
+    let otherResidentialAddressData = null;
+    let otherServiceAddressData = null;
 
     function saveChooseAddressData() {
         var isValid = true;
@@ -709,7 +788,20 @@
 
         if (isValid) {
             var type = $('#hndAddressType').val();
+
+             let addressData = {
+               addressId: parseInt($("#OtherAddress_AddressId").val()) || 0,
+               houseName: $("#OtherAddress_HouseName").val(),
+               street: $("#OtherAddress_Street").val(),
+               postCode: $("#OtherAddress_PostCode").val(),
+               town: $("#OtherAddress_Town").val(),
+               country: $("#OtherAddress_Country").val(),
+               county: $("#OtherAddress_County").val(),
+               locality: $("#OtherAddress_Locality").val(),
+            };
+
             if (type === 'Residential') {
+                otherResidentialAddressData = addressData;
                 $(".ef-js-forwarding-address").html("");
                 const houseName = $("#OtherAddress_HouseName").val();
                 const otherParts = [
@@ -722,6 +814,7 @@
                 const addressHtml = (houseName ? houseName + ' ' : '') + otherParts.join(', ');
                 $(".ef-js-forwarding-address").html(addressHtml);
             } else if (type === 'Service') {
+                otherServiceAddressData = addressData;
                 $(".service-forwarding-address").html("");
                 const houseName = $("#OtherAddress_HouseName").val();
                 const otherParts = [
@@ -739,8 +832,8 @@
         }
     }
 
-    function saveOtherChooseAddressData(type) {
-        const registeredOfficeAddress = {
+    function saveOtherChooseAddressData(officerId) {
+        const residentialAddress = {
              houseName: "@(ResidentialOfficeAddress?.HouseName ?? "")",
              street: "@(ResidentialOfficeAddress?.Street ?? "")",
              postCode: "@(ResidentialOfficeAddress?.PostCode ?? "")",
@@ -760,76 +853,39 @@
              locality: "@(ServiceOfficeAddress?.Locality ?? "")"
          };
 
-        let addressData = {
-            addressId: parseInt($("#OtherAddress_AddressId").val()) || 0,
-            houseName: $("#OtherAddress_HouseName").val(),
-            street: $("#OtherAddress_Street").val(),
-            postCode: $("#OtherAddress_PostCode").val(),
-            town: $("#OtherAddress_Town").val(),
-            country: $("#OtherAddress_Country").val(),
-            county: $("#OtherAddress_County").val(),
-            locality: $("#OtherAddress_Locality").val()
+         const saveAddress = (data, handler) => {
+            if (!data) return;
+
+            data.officerId = officerId;
+
+            $.ajax({
+                url: `/FormationPage/AppointmentOtherTab?handler=${handler}`,
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    if (!response.success) {
+                        for (const [field, message] of Object.entries(response.errors)) {
+                            const errorSpan = document.getElementById(`${field}-error`);
+                            if (errorSpan) errorSpan.textContent = message;
+                        }
+                    } else {
+                        console.log(`${handler} saved`);
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error saving address:", xhr.statusText, xhr.responseText);
+                }
+            });
         };
 
-        if(type == "Residential") {
-            if ($("#OtherAddress_HouseName").val() == "" && $("#OtherAddress_Street").val() == "") {
-                addressData = registeredOfficeAddress;
-            }
-            $.ajax({
-                url: "/FormationPage/AppointmentOtherTab?handler=SaveOtherResidentialAddress",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(addressData),
-                success: function (response) {
-                    if (!response.success) {
-                        // Loop through returned errors and set messages
-                        for (const [field, message] of Object.entries(response.errors)) {
-                            const errorSpan = document.getElementById(`${field}-error`);
-                            if (errorSpan) {
-                                errorSpan.textContent = message;
-                            }
-                        }
-                    }
-                    else {
-                        console.log("Success:", response);
-                        $("#inOtherSecondAddressModal").modal('hide');
-                        $("#otherAddressModal").modal('hide');
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error:", xhr.statusText, xhr.responseText);
-                }
-            });
+        if($("#OtherAddress_HouseName").val() == "" && $("#OtherAddress_Street").val() == ""){
+            otherResidentialAddressData = residentialAddress;
+            otherServiceAddressData = serviceAddress;
         }
-        else if (type == "Service"){
-            if ($("#OtherAddress_HouseName").val() == "" && $("#OtherAddress_Street").val() == "") {
-                addressData = serviceAddress;
-            }
-            $.ajax({
-                url: "/FormationPage/AppointmentOtherTab?handler=SaveOtherServiceAddress",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(addressData),
-                success: function (response) {
-                    if (!response.success) {
-                        // Loop through returned errors and set messages
-                        for (const [field, message] of Object.entries(response.errors)) {
-                            const errorSpan = document.getElementById(`${field}-error`);
-                            if (errorSpan) {
-                                errorSpan.textContent = message;
-                            }
-                        }
-                    }
-                    else {
-                        $("#inOtherSecondAddressModal").modal('hide');
-                        $("#otherAddressModal").modal('hide');
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error:", xhr.statusText, xhr.responseText);
-                }
-            });
-        }
+
+        saveAddress(otherResidentialAddressData, "SaveOtherResidentialAddress");
+        saveAddress(otherServiceAddressData, "SaveOtherServiceAddress");
     }
 
     function editOtherAddress(data) {
@@ -867,79 +923,6 @@
         $("#OtherAddress_PostCode").val(data.postCode);
         ClosePersonAddressPanel();
     }
-
-    $("#btnSubmitOtherLegalEntityTab").click(function () {
-        var isValid = true;
-        var selectedData = [];
-        $(".w-checkbox-input:checked").each(function () {
-            selectedData.push($(this).val());
-        });
-
-        // var residentialAdd = $(".other-officer-residential-address").text().replace(/[\s\d.]+/g, '');
-        // var serviceAdd = $(".other-officer-service-address").text().replace(/[\s\d.]+/g, '');
-        // if(residentialAdd == "NoneSelected"){
-        //     isValid = false;
-        //     showToast('Please filled required details.', 'warning');
-        //     $("#address-error").html("Please select the Residential Address.").show();
-        // }
-        // else {
-        //     isValid = true;
-        //     $("#address-error").html("Please select the Residential Address.").hide();
-        // }
-
-        // if(serviceAdd == "NoneSelected"){
-        //     isValid = false;
-        //     showToast('Please filled required details.', 'warning');
-        //     $("#servicerAddress-error").html("Please select the Service Address.").show();
-        // }
-        // else{
-        //     $("#servicerAddress-error").html("Please select the Service Address.").hide();
-        // }
-
-        if (selectedData?.length === 0) {
-            isValid = false;
-            $("#position-error").html("Please select the Position.").show();
-            showToast('Please filled required details.', 'warning');
-        }
-        else{
-            isValid = true;
-            $("#position-error").html("Please select the Position.").hide();
-        }
-
-        // Field validation helper
-        function validateField(id, errorId, fieldName) {
-            const value = $(id).val().trim();
-            if (value === "") {
-                isValid = false;
-                $(errorId).text(`${fieldName} is required.`).show();
-                showToast('Please filled required details.', 'warning');
-            } else {
-                $(errorId).text("").hide();
-            }
-        }
-
-        validateField("#OtherOfficers_LegalName", "#OtherOfficers_LegalName_error", "LegalName");
-        validateField("#OtherOfficers_LawGoverned", "#OtherOfficers_LawGoverned_error", "LawGoverned");
-        validateField("#OtherOfficers_LegalForm", "#OtherOfficers_LegalForm_error", "LegalForm");
-
-        if(isValid) {
-            saveOtherChooseAddressData('Service');
-             $.ajax({
-                url: "/FormationPage/AppointmentOtherTab?handler=SaveAllTab",
-                method: "POST",
-                success: function (response) {
-                    if (response.success) {
-                        showToast('All Data Saved.', 'success');
-                        window.location.reload();
-                        $('html, body').scrollTop($('#appointment').offset().top);
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error:", xhr.statusText, xhr.responseText);
-                }
-            });
-        }
-    });
 
     function appointmentPostCodeLookup() {
         const postCode = $("#other-postcode-lookup").val();
@@ -1054,6 +1037,51 @@
         else {
             document.getElementById('OtherAddress_Country').value = data.country || '';
         }
+    }
+
+    function btnRemoveLegalEntity(id) {
+        if(confirm("Are you sure you want to delete this?")) {
+            $.ajax({
+                url: "/FormationPage/AppointmentOtherTab?handler=RemoveCurrentEntity",
+                type: "POST",
+                data: JSON.stringify({ id: id }),
+                contentType: "application/json",
+                success: function () {
+                    showToast("Entity Remove Successfully", "success");
+                    // setTimeout(function() {
+                    //     window.location.reload();
+                    // }, 1000);
+                },
+                error: function (err) {
+                    showToast("Entity is not remove", "error");
+                }
+            });
+        }
+    }
+
+    function editLegalEntity(data) {
+        const selectedPosition = data.positionName ? data.positionName.split(',').map(p => p.trim()) : [];
+
+        $('html, body').scrollTop($('#appointmentTab').offset().top);
+
+        //Bind data based on Id
+        setTimeout(() => {
+            const positionMap = {
+                "PSC": "isOtherPSC"
+            };
+
+            Object.keys(positionMap).forEach(role => {
+                const checkbox = document.getElementById(positionMap[role]);
+                if (checkbox) {
+                    checkbox.checked = selectedPosition.includes(role);
+                }
+            });
+        }, 100);
+
+        $('#OtherOfficers_LegalOfficerId').val(data.legalOfficerId);
+        $('#OtherOfficers_LegalName').val(data.legalName);
+        $('#OtherOfficers_LawGoverned').val(data.lawGoverned);
+        $('#OtherOfficers_LegalForm').val(data.legalForm);
     }
 </script>
 
