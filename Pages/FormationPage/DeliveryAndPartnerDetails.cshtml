@@ -1,0 +1,151 @@
+﻿@page
+@model Spendwise_WebApp.Pages.FormationPage.DeliveryAndPartnerDetailsModel
+@{
+    Layout = null;
+}
+
+<div id="deliveryAndPartnerServices">
+    <div class="ef-order-form-nav-step-wrapper">
+        <div class="w-container ef-order-form-nav-step-content">
+            <a class="nav-link ef-companyformation-steps" aria-current="page" href="#partnerServices" style="height: 40px; float: left; width: 25%;">
+                <div class="ef-order-form-nav-item-text">
+                    <div class="ef-order-form-nav-item-indicator step-1-active"></div>
+                    Delivery & Partner Services
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div id="efPageContent" class="ui-widget">
+        <h2>Payment For CAMPAUK LTD</h2>
+        <form method="post" action="/cart/" id="efGoPayNowForm">
+            <input type="hidden" name="_ga" id="_ga" value="">
+            <input type="hidden" name="csrf-token" value="116707275bd1ad108dfa4fa49eb5783b900d7e7429d787de0b22a07cdcd9e703">
+            <input type="hidden" name="o" value="5126304">
+
+            <table id="efCartProductsTable" class="efTable ui-widget-content">
+                <tbody>
+                    <tr class="ui-widget-header" style="background-color: #38761d !important;">
+                        <td>Product</td>
+                        @* <td style="text-align:center">Quantity</td> *@
+                        <td style="text-align:right">Unit Price</td>
+                        <td style="text-align:right">Net</td>
+                        <td style="text-align:right">VAT</td>
+                        <td></td>
+                    </tr>
+
+                    <tr class="efTableSubheader efCompanyNameRow efCartCompanyHeader">
+                        <td colspan="6" style=""><a href="">CAMPAUK LTD</a></td>
+                    </tr>
+
+                    <tr class="efOdd">
+                        <td data-title="Product">
+                            <div>
+                                @Model?.SelectedPackage?.PackageName
+                            </div>
+                        </td>
+                        @* <td style="text-align:center" data-title="Quantity">1</td> *@
+                        <td style="text-align:right;" data-title="Unit Price">
+                            £
+                            @Model?.SelectedPackage?.Price
+                        </td>
+                        <td style="text-align:right" id="packageNetAmount" data-title="Net">£@Model?.SelectedPackage?.Price</td>
+                        <td style="text-align:right" id="packageVatAmount" data-title="VAT"></td>
+                        <td style="text-align:right" data-title=""></td>
+                    </tr>
+
+                    @foreach (var item in Model.AdditionalPackageItems)
+                    {
+                        <tr class="efOdd">
+                            <td data-title="Product">
+                                <div>
+                                    @item.ItemName
+                                </div>
+                            </td>
+                            @* <td style="text-align:center" data-title="Quantity">1</td> *@
+                            <td style="text-align:right;" data-title="Unit Price">
+                                £
+                                @item.price
+                            </td>
+                            <td style="text-align:right" id="addPackageNetAmount" data-title="Net">£@item.price</td>
+                            <td style="text-align:right" id="addPackageVatAmount" data-title="VAT"></td>
+                            <td style="text-align:right" data-title=""></td>
+                        </tr>
+                    }
+
+                    <tr class="efTableSubheader efCartNetTotalTr" id="efNetTotalRow">
+                        <td colspan="4" class="efCartNetTotalLabel" style="">Net Total:</td>
+                        <td class="efCartNetTotalVal"></td>
+                        <td></td>
+                    </tr>
+
+                    <tr class="efTableSubheader efCartVatTr" id="efVatTotalRow">
+                        <td colspan="4" class="efCartVatLabel">V.A.T:</td>
+                        <td class="efCartVatVal"></td>
+                        <td></td>
+                    </tr>
+
+                    <tr class="efTableSubheader efCartTotalTr" id="efTotalPriceRow">
+                        <td colspan="4" class="efCartTotalLabel">Total:</td>
+                        <td class="efCartTotalVal"></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <p id="tnc-check" class="ef-terms-and-conditions-check">
+            <span>
+                <input type="checkbox" id="tcagree-checkbox" value="1">
+                <label for="tcagree-checkbox" id="tcagree-checkbox-label">
+                    I agree to the <a href="/terms" target="_blank" rel="noopener">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
+                </label>
+            </span>
+        </p>
+
+        <!-- checkout button wrapper -->
+        <div class="efCartCheckoutButtonWrapper cart-checkoutBtn-wrapper" style="text-align:right; ">
+            <div>
+                <span class="efCartCheckoutButtonLoader efHide"></span>
+                <span class="efCartCheckoutButton" id="ef-checkout-action" role="button" aria-disabled="false">Submit</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var NetAmount = parseFloat($("#packageNetAmount").text().replace('£', ''));
+        let vat = NetAmount * 0.20;
+        $("#packageVatAmount").text("£" + vat.toFixed(2));
+        
+        // For Additional package
+        var AddintionalNetAmount = parseFloat($("#addPackageNetAmount").text().replace('£', ''));
+        let Addintionalvat = AddintionalNetAmount * 0.20;
+        $("#addPackageVatAmount").text("£" + Addintionalvat.toFixed(2));
+
+        let netTotal = 0;
+        let vatTotal = 0;
+
+        // Sum all Net values
+        $("#packageNetAmount, #addPackageNetAmount").each(function () {
+            let value = parseFloat($(this).text().replace("£", "").trim());
+            if (!isNaN(value)) {
+                netTotal += value;
+            }
+        });
+
+        // Sum all VAT values
+        $("#packageVatAmount, #addPackageVatAmount").each(function () {
+            let value = parseFloat($(this).text().replace("£", "").trim());
+            if (!isNaN(value)) {
+                vatTotal += value;
+            }
+        });
+
+        // Update the totals in the summary rows
+        $(".efCartNetTotalVal").text("£" + netTotal.toFixed(2));
+        $(".efCartVatVal").text("£" + vatTotal.toFixed(2));
+        $(".efCartTotalVal").text("£" + (netTotal + vatTotal).toFixed(2));
+    });
+</script>

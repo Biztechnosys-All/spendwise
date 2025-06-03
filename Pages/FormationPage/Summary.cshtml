@@ -368,7 +368,7 @@
                     <button type="button" id="prevCompanyFormationTab" class="ef-btn prevstep" onclick="">Previous: Company Formation</button>
                 </div>
                 <div class="w-col w-col-6" style="padding-right: 0px;">
-                    <button type="button" id="go-to-cart" class="ef-btn summary-nextstep">Save &amp; continue</button>
+                    <button type="button" class="ef-btn summary-nextstep" id="goToCart">Save &amp; continue</button>
                 </div>
             </div>
             <!-- end progress buttons -->
@@ -401,4 +401,31 @@
     function downloadSummary(){
         window.location.href = "/FormationPage/Summary?handler=DownloadSummaryPDF";
     }
+
+    $("#goToCart").click(function () {
+        isValid = true;
+        if(!$("#terms-lawful-activity").is(":checked")) {
+            // e.preventDefault();
+            isValid = false;
+            showToast("Legalities is required", "warning");
+        }
+
+        if(isValid) {
+            $(".ef-nav-section-link").removeClass("current");
+            var tab = $("#spnPartnerDetails").text();
+            var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+            $.ajax({
+                url: "/FormationPage/DeliveryAndPartnerDetails",
+                type: "get",
+                success: function (result) {
+                    $("#FormationTabContent").html(result);
+                    $(".partner-tab").addClass("current");
+                    $('html, body').scrollTop($('#deliveryAndPartnerServices').offset().top);
+
+                    const newUrl = '?section=' + tabName;
+                    window.history.pushState({ path: newUrl }, '', newUrl);
+                }
+            });
+        }
+    });
 </script>

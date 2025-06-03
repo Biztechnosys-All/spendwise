@@ -32,7 +32,7 @@
                                             <a class="ef-nav-section-title" id="spnSummary" href="#Summary">2. Summary</a>
                                             <div class="ef-nav-section-description">Details about your order</div>
                                         </div>
-                                        <div class="ef-nav-section-link " data-tab="partner-services">
+                                        <div class="ef-nav-section-link partner-tab" data-tab="partner-services">
                                             <a class="ef-nav-section-title" id="spnPartnerDetails" href="#">3. Delivery &amp; Partner Services</a>
                                             <div class="ef-nav-section-description">Delivery &amp; partner details</div>
                                         </div>
@@ -271,12 +271,12 @@
                     });
                 }
                 else if($(this).data("tab") == "partner-services"){
-                    var tab = $("#spnSummary").text();
+                    var tab = $("#spnPartnerDetails").text();
                     var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
                     $(this).addClass("current");
 
                     $.ajax({
-                        url: "/FormationPage/Summary",
+                        url: "/FormationPage/DeliveryAndPartnerDetails",
                         type: "get",
                         success: function (result) {
                             $("#FormationTabContent").html(result);
