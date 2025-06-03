@@ -104,7 +104,7 @@
                                     </div>
 
                                     <div class="w-col w-col-1">
-                                        <button type="button" class="btn btn-success" onclick="">Edit</button>
+                                        <button type="button" class="btn btn-success" onclick="redirectToFormation('Particular')">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@
                                         </div>
 
                                         <div class="w-col w-col-1">
-                                            <button type="button" class="btn btn-success" onclick="">Edit</button>
+                                            <button type="button" class="btn btn-success" onclick="redirectToFormation('RegisteredAddress')">Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -196,7 +196,7 @@
                                         </div>
 
                                         <div class="w-col w-col-1">
-                                            <button type="button" class="btn btn-success" onclick="">Edit</button>
+                                            <button type="button" class="btn btn-success" onclick="redirectToFormation('BusinessAddress')">Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -286,7 +286,7 @@
                                     </div>
                                     <div class="w-col w-col-1">
                                         <div class="w-col w-col-1 ef-review-edit-wrapper">
-                                            <button type="button" class="btn btn-success" onclick="">Edit</button>
+                                            <button type="button" class="btn btn-success" onclick="redirectToFormation('Appointment')">Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -338,7 +338,7 @@
                                 <div class="w-row">
                                     <div class="w-col w-col-1">
                                         <div class="w-col w-col-1 ef-review-edit-wrapper">
-                                            <button type="button" class="btn btn-success" onclick="">Edit</button>
+                                            <button type="button" class="btn btn-success" onclick="redirectToFormation('Document')">Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -428,4 +428,77 @@
             });
         }
     });
+
+    function redirectToFormation(type) {
+        if(type == 'Particular') {
+            $.ajax({
+                url: "/FormationPage/CompanyFormationSubTab",
+                type: "get",
+                success: function (result) {
+                    $("#appointmentTab").css('display', 'none');
+                    $("#FormationTabContent").html(result);
+                    $(".partner-tab").removeClass("current");
+                    $(".summary-tab").removeClass("current");
+                    $(".formation-tab").addClass("current");
+                    $('html, body').scrollTop($('#particular').offset().top);
+                }
+            });
+        }
+        else if(type == 'RegisteredAddress') {
+            $.ajax({
+                url: "/FormationPage/CompanyFormationSubTab",
+                type: "get",
+                success: function (result) {
+                    $("#appointmentTab").css('display', 'none');
+                    $("#FormationTabContent").html(result);
+                    $(".partner-tab").removeClass("current");
+                    $(".summary-tab").removeClass("current");
+                    $(".formation-tab").addClass("current");
+                    $('html, body').scrollTop($('#address').offset().top);
+                }
+            });
+        }
+        else if(type == 'BusinessAddress') {
+            $.ajax({
+                url: "/FormationPage/CompanyFormationSubTab",
+                type: "get",
+                success: function (result) {
+                    $("#appointmentTab").css('display', 'none');
+                    $("#FormationTabContent").html(result);
+                    $(".partner-tab").removeClass("current");
+                    $(".summary-tab").removeClass("current");
+                    $(".formation-tab").addClass("current");
+                    $('html, body').scrollTop($('#business-address').offset().top);
+                }
+            });
+        }
+        else if(type == 'Appointment') {
+            $.ajax({
+                url: "/FormationPage/CompanyFormationSubTab",
+                type: "get",
+                success: function (result) {
+                    $("#appointmentTab").css('display', 'none');
+                    $("#FormationTabContent").html(result);
+                    $(".partner-tab").removeClass("current");
+                    $(".summary-tab").removeClass("current");
+                    $(".formation-tab").addClass("current");
+                    $('html, body').scrollTop($('#appointment').offset().top);
+                }
+            });
+        }
+        else if(type == 'Document') {
+            $.ajax({
+                url: "/FormationPage/CompanyFormationSubTab",
+                type: "get",
+                success: function (result) {
+                    $("#appointmentTab").css('display', 'none');
+                    $("#FormationTabContent").html(result);
+                    $(".partner-tab").removeClass("current");
+                    $(".summary-tab").removeClass("current");
+                    $(".formation-tab").addClass("current");
+                    $('html, body').scrollTop($('#document').offset().top);
+                }
+            });
+        }
+    }
 </script>
