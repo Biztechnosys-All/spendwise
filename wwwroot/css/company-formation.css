@@ -1997,3 +1997,31 @@ ef-information-box p {
     border-color: #329118 !important;
     color: var(--color-white) !important;
 }
+
+
+/*Delivery & Partner Services*/
+.efOdd td {
+    font-weight: 400;
+}
+
+.efTableSubheader td {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.efCartCheckoutButton {
+    padding: .5em 1em !important;
+    border-radius: .25em;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: #5ea72d !important;
+    min-height: 27px;
+    line-height: 25px;
+    vertical-align: top;
+    margin-left: 5px;
+    border: 0 !important;
+    color: #fff !important;
+    height: auto !important;
+    display: inline-block;
+    float: left
+}

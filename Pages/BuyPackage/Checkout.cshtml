@@ -443,6 +443,7 @@
                                 $("#spnSelectPackage").addClass("PackTabProcessed");
                                 $("#spnCheckout").addClass("PackTabProcessed");
                                 $("#spnSelectCompName").text($("#hdnSelectedCompany").val());
+                                Cookies.set("OrderId", data.orderId, expires);
                             }
                         })
                     }                    
