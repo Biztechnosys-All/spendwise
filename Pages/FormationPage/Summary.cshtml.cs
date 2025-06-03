@@ -5,6 +5,8 @@ using Spendwise_WebApp.Models;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace Spendwise_WebApp.Pages.FormationPage
 {
@@ -12,6 +14,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
     {
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
         private readonly IConfiguration _config;
+        private static readonly HttpClient client = new HttpClient();
 
         public SummaryModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration config)
         {
@@ -310,11 +313,56 @@ namespace Spendwise_WebApp.Pages.FormationPage
             });
             QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
             var pdfBytes = pdf.GeneratePdf();
+            //await RunTestAsync();
             return File(pdfBytes, "application/pdf", $"{ParticularData.CompanyName}_Summary.pdf");
         }
 
 
+        //public async Task RunTestAsync()
+        //{
+        //    //string base64ApiKey = "BASE64ENCODED_API_KEY";
+        //    string url = "https://try.access.worldpay.com/cardPayments/customerInitiatedTransactions";
 
+        //    var jsonBody = @"
+        //    {
+        //      ""transactionReference"": ""Memory265-13/08/1876"",
+        //      ""channel"": ""ecom"",
+        //      ""merchant"": {
+        //        ""entity"": ""default""
+        //      },
+        //      ""instruction"": {
+        //        ""requestAutoSettlement"": {
+        //          ""enabled"": false
+        //        },
+        //        ""narrative"": {
+        //          ""line1"": ""Mind Palace""
+        //        },
+        //        ""value"": {
+        //          ""currency"": ""GBP"",
+        //          ""amount"": 250
+        //        },
+        //        ""paymentInstrument"": {
+        //          ""type"": ""card/plain"",
+        //          ""cardNumber"": ""4444333322221111"",
+        //          ""expiryDate"": {
+        //            ""month"": 5,
+        //            ""year"": 2035
+        //          }
+        //        }
+        //      }
+        //    }";
+
+        //    var request = new HttpRequestMessage(HttpMethod.Post, url);
+        //    //request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64ApiKey);
+        //    request.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+        //    HttpResponseMessage response = await client.SendAsync(request);
+        //    string result = await response.Content.ReadAsStringAsync();
+
+        //    Console.WriteLine($"Status Code: {response.StatusCode}");
+        //    Console.WriteLine("Response:");
+        //    Console.WriteLine(result);
+        //}
 
     }
 }
