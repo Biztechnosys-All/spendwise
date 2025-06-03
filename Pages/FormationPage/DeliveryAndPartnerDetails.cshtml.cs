@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Spendwise_WebApp.DLL;
 using Spendwise_WebApp.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Spendwise_WebApp.Pages.FormationPage
 {
@@ -27,6 +28,10 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
         [BindProperty]
         public List<AdditionalPackageItem>? AdditionalPackageItems { get; set; }
+
+        [BindProperty]
+        public CompanyDetail Company { get; set; } = default!;
+
         public async Task<IActionResult> OnGet()
         {
             var orderId = Convert.ToInt32(Request.Cookies["OrderId"]);
@@ -49,6 +54,21 @@ namespace Spendwise_WebApp.Pages.FormationPage
             AdditionalPackageItems = await _context.AdditionalPackageItems.Where(x => AddPackageItemIds.Contains(x.AdditionalPackageItemId)).ToListAsync();
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostSubmitCompanyToReview()
+        {
+            CompanyName = Request.Cookies["companyName"];
+            var companyId = Request.Cookies["ComanyId"]; // typo: should probably be "CompanyId"
+            Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId.ToString() == companyId);
+
+            if (Company != null)
+            {
+                Company.CompanyStatus = "InReview";
+                await _context.SaveChangesAsync(); // Use await with async SaveChangesAsync()
+            }
+
+            return new JsonResult(new { success = true });
         }
     }
 }

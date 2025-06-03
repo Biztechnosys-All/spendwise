@@ -96,7 +96,7 @@
 
         <p id="tnc-check" class="ef-terms-and-conditions-check">
             <span>
-                <input type="checkbox" id="tcagree-checkbox" value="1">
+                <input type="checkbox" id="agree-checkbox" value="1">
                 <label for="tcagree-checkbox" id="tcagree-checkbox-label">
                     I agree to the <a href="/terms" target="_blank" rel="noopener">Terms and Conditions</a> &amp; <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
                 </label>
@@ -107,7 +107,7 @@
         <div class="efCartCheckoutButtonWrapper cart-checkoutBtn-wrapper" style="text-align:right; ">
             <div>
                 <span class="efCartCheckoutButtonLoader efHide"></span>
-                <span class="efCartCheckoutButton" id="ef-checkout-action" role="button" aria-disabled="false">Submit</span>
+                <span class="efCartCheckoutButton" id="SubmitToReview" role="button" aria-disabled="false" onclick="handleSubmitToReviewClick()">Submit</span>
             </div>
         </div>
     </div>
@@ -148,4 +148,31 @@
         $(".efCartVatVal").text("£" + vatTotal.toFixed(2));
         $(".efCartTotalVal").text("£" + (netTotal + vatTotal).toFixed(2));
     });
+    function handleSubmitToReviewClick() {
+        // Check if the checkbox with id "agree-checkbox" is checked
+        if ($("#agree-checkbox").is(":checked")) {
+            $.ajax({
+                url: "/FormationPage/DeliveryAndPartnerDetails?handler=SubmitCompanyToReview",
+                type: "POST",
+                contentType: "application/json",
+                success: function (result) {
+                    if (result.success) {
+                        showToast("Company submitted for review successfully!", "success");
+                        $("#SubmitToReview")
+                            .attr("aria-disabled", "true")
+                            .addClass("disabled")
+                            .off("click"); 
+                    } else {
+                        showToast("Failed to submit company for review.", "danger");
+                    }
+                },
+                error: function () {
+                    showToast("An error occurred while submitting the company.", "danger");
+                }
+            });
+        } else {
+            // Show error toast if checkbox is not checked
+            showToast("Please agree to the terms before submitting.", "danger");
+        }
+    }
 </script>
