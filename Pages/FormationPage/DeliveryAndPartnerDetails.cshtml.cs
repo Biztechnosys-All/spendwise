@@ -20,7 +20,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public Package? SelectedPackage { get; set; }
 
         [BindProperty]
-        public string? PackageVat { get; set; }
+        public string? CompanyName { get; set; }
 
         [BindProperty]
         public Orders? Order { get; set; }
@@ -37,6 +37,8 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var AddPackageItemIds = SelectedAddPackageItems.Split(',', StringSplitOptions.RemoveEmptyEntries)
                    .Select(int.Parse)
                    .ToList();
+
+            CompanyName = Request.Cookies["companyName"];
 
             if (AddPackageItemIds == null || AddPackageItemIds.Count() == 0)
             {
