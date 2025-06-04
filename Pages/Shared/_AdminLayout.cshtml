@@ -73,6 +73,12 @@
                                 <p>Additional Package Items</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/Admin/CompanyApplications" class="nav-link">
+                                <i class="nav-icon bi bi-circle-fill"></i>
+                                <p>Company Applications</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -81,6 +87,15 @@
             @RenderBody()
         </main> 
         
+    </div>
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;right:20%;width:400px;">
+        <div id="myToast" class="toast align-items-center text-white bg-success border-0 p-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage">
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
     </div>
     <script src="/js/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
@@ -124,6 +139,15 @@
         function doAdminLogout(){
             //Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
             window.location.href = '/Admin/Login?handler=Logout';
+        }
+        function showToast(message, type = 'success') {
+            // Update message and color
+            $('#toastMessage').text(message);
+            $('#myToast').removeClass('bg-success bg-danger bg-warning').addClass(`bg-${type}`);
+
+            // Show the toast
+            var toast = new bootstrap.Toast(document.getElementById('myToast'));
+            toast.show();
         }
 
     </script>
