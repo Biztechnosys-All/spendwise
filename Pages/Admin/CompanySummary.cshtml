@@ -1,0 +1,114 @@
+﻿@page "{companyId:int}"
+@model Spendwise_WebApp.Pages.Admin.CompanySummaryModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@Model.Summary.CompanyName Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1, h2, h3, h4 {
+            margin: 0;
+            padding: 0;
+            color: #2a7d2e;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #2a7d2e;
+            padding-bottom: 5px;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .field {
+            margin-bottom: 5px;
+        }
+
+            .field strong {
+                display: inline-block;
+                width: 150px;
+            }
+
+        ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>@Model.Summary.CompanyName Summary</h1>
+
+    <div class="section">
+        <div class="section-title">Company Information</div>
+        <div class="field"><strong>Company Name:</strong> @Model.Summary.CompanyName</div>
+        <div class="field"><strong>Registered Email:</strong> @Model.Summary.RegisteredEmail</div>
+        <div class="field"><strong>Jurisdiction:</strong> @Model.Summary.Jurisdiction</div>
+        <div class="field"><strong>Company Type:</strong> @Model.Summary.CompanyType</div>
+        <div class="field"><strong>Registered Office:</strong> @Model.Summary.RegisteredOfficeAddress</div>
+        <div class="field"><strong>Business Office:</strong> @Model.Summary.BusinessOfficeAddress</div>
+    </div>
+
+    @if (Model.Summary.Officers.Any())
+    {
+        <div class="section">
+            <div class="section-title">Appointments</div>
+            @foreach (var officer in Model.Summary.Officers)
+            {
+                <div class="field"><strong>Name:</strong> @officer.FullName</div>
+                <div class="field"><strong>Roles:</strong> @officer.PositionName</div>
+                <div class="field"><strong>DOB:</strong> @(officer.DOB.ToString("dd/MM/yyyy"))</div>
+                <div class="field"><strong>Occupation:</strong> @officer.Occupation</div>
+                <div class="field"><strong>Nationality:</strong> @officer.Nationality</div>
+                <div class="field"><strong>Residential Address:</strong> @officer.ResidentialAddress</div>
+                <div class="field"><strong>Service Address:</strong> @officer.ServiceAddress</div>
+                <hr />
+            }
+        </div>
+    }
+
+    @if (Model.Summary.Documents.Any())
+    {
+        <div class="section">
+            <div class="section-title">Documents</div>
+            <ul>
+                @foreach (var doc in Model.Summary.Documents)
+                {
+                    <li>@doc.DocumentName - @doc.FileName</li>
+                }
+            </ul>
+        </div>
+    }
+
+    @if (Model.Summary.SicCodesWithDesc != null && Model.Summary.SicCodesWithDesc.Any())
+    {
+        <div class="section">
+            <div class="section-title">SIC Codes</div>
+            @foreach (var sic in Model.Summary.SicCodesWithDesc)
+            {
+                <div class="field">@sic.Code: @sic.Description</div>
+            }
+        </div>
+    }
+</body>
+</html>

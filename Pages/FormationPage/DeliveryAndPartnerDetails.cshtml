@@ -158,10 +158,7 @@
                 success: function (result) {
                     if (result.success) {
                         showToast("Company submitted for review successfully!", "success");
-                        $("#SubmitToReview")
-                            .attr("aria-disabled", "true")
-                            .addClass("disabled")
-                            .off("click"); 
+                        
                     } else {
                         showToast("Failed to submit company for review.", "danger");
                     }

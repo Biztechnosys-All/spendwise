@@ -1,0 +1,79 @@
+﻿@page
+@model Spendwise_WebApp.Pages.Admin.CompanyApplicationsModel
+@{
+    ViewData["Title"] = "Company Applications";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+
+<div style="padding:1.5%;">
+    <h3>Company Applications</h3>
+    <table class=" table table-bordered table-hover dataTable dtr-inline">
+        <thead>
+            <tr>
+                <th>
+                    Company Name
+                </th>
+                <th>
+                    Submitted By
+                </th>
+                <th>Summary</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.SubmittedCompanyList != null && Model.SubmittedCompanyList.Any())
+            {
+                @foreach (var item in Model.SubmittedCompanyList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserEmail)
+                        </td>
+                        <td><a class="btn btn-dark" target="_blank" href="/Admin/CompanySummary/@item.CompanyId">View</a></td>
+                        <td>
+                            <a class="btn btn-dark" onclick="handleCompnayStatus('Approved')">Approve </a> |
+                            <a class="btn btn-dark" onclick="handleCompnayStatus('Rejected')">Reject</a>
+                            @* | <a asp-page="./Delete" asp-route-id="@item.UserID" class="btn btn-dark">Delete</a> *@
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" class="text-center">
+                        No Company Applications Submitted.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function handleCompnayStatus(status) {
+        // Check if the checkbox with id "agree-checkbox" is checked
+        $.ajax({
+            url: "/Admin/CompanyApplications?handler=UpdateCompanyStatus",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ status: status }),
+            success: function (result) {
+                if (result.success) {
+                    showToast("Company status updated successfully!", "success");
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                    
+                } else {
+                    showToast("Failed to update company status.", "danger");
+                }
+            },
+            error: function () {
+                showToast("An error occurred while updating Company status.", "danger");
+            }
+        });
+    }
+</script>
