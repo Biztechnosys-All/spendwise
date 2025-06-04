@@ -2025,3 +2025,52 @@ ef-information-box p {
     display: inline-block;
     float: left
 }
+
+.deliveryTable td {
+    padding: 10px 10px 30px !important;
+}
+
+.efCartMlcIntro {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.efPanelContent strong {
+    font-weight: bolder;
+    font-size: 16px!important;
+}
+
+.address-panel {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    background: #fff;
+    border-radius: 10px;
+    z-index: 2000;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+@media only screen and (max-width:768px) {
+    .address-panel {
+        width: 90%;
+    }
+}
+
+.efCartPaymentlLabel {
+    text-align: right;
+    font-size: 1rem !important;
+}
+
+.efCartPaymentVal {
+    text-align: right;
+    font-size: 1rem !important;
+}
+
+.efCartPaymentDueVal {
+    text-align: right;
+    font-size: 1rem !important;
+}
