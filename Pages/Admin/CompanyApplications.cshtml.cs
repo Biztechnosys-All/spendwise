@@ -44,12 +44,15 @@ namespace Spendwise_WebApp.Pages.Admin
 
             SubmittedCompanyList = await (from c in _context.CompanyDetails
                                           join u in _context.Users on c.Createdby equals u.UserID
-                                          where c.CompanyStatus == "InReview"
+                                          join o in _context.Orders on c.CompanyId equals o.CompanyId
+                                          where c.CompanyStatus != "InComplete"
                                           select new SubmittedCompany
                                           {
                                               CompanyId = c.CompanyId,
                                               CompanyName = c.CompanyName,
-                                              UserEmail = u.Email
+                                              UserEmail = u.Email,
+                                              OrderNo = o.OrderId,
+                                              CompnayStatus = c.CompanyStatus
                                           }).ToListAsync();
             return Page();
         }
@@ -76,5 +79,7 @@ namespace Spendwise_WebApp.Pages.Admin
         public string CompanyName { get; set; }
         public string UserEmail { get; set; }
         public int CompanyId { get; set; }
+        public int OrderNo { get; set; }
+        public string CompnayStatus { get; set; }
     }
 }
