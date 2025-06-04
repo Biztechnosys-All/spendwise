@@ -16,8 +16,10 @@
                 <th>
                     Submitted By
                 </th>
+                <th>Order Refrence</th>
+                <th>Status</th>
                 <th>Summary</th>
-                <th></th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -32,12 +34,27 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.UserEmail)
                         </td>
-                        <td><a class="btn btn-dark" target="_blank" href="/Admin/CompanySummary/@item.CompanyId">View</a></td>
                         <td>
-                            <a class="btn btn-dark" onclick="handleCompnayStatus('Approved')">Approve </a> |
-                            <a class="btn btn-dark" onclick="handleCompnayStatus('Rejected')">Reject</a>
-                            @* | <a asp-page="./Delete" asp-route-id="@item.UserID" class="btn btn-dark">Delete</a> *@
+                            @Html.DisplayFor(modelItem => item.OrderNo)
                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompnayStatus)
+                        </td>
+                        <td><a class="btn btn-dark" target="_blank" href="/Admin/CompanySummary/@item.CompanyId">View</a></td>
+                        @if (item.CompnayStatus == "Approved")
+                        {
+                            <td>
+                                <a class="btn btn-dark disabled" onclick="handleCompnayStatus('Approved')">Approve </a> |
+                                <a class="btn btn-dark disabled" onclick="handleCompnayStatus('Action Required')">Reject</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a class="btn btn-dark" onclick="handleCompnayStatus('Approved')">Approve </a> |
+                                <a class="btn btn-dark" onclick="handleCompnayStatus('Action Required')">Reject</a>
+                            </td>
+                        }
                     </tr>
                 }
             }
@@ -66,7 +83,7 @@
                     setTimeout(function () {
                         window.location.reload();
                     }, 1000);
-                    
+
                 } else {
                     showToast("Failed to update company status.", "danger");
                 }

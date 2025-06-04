@@ -1,9 +1,14 @@
 ﻿@page
 @model Spendwise_WebApp.Pages.FormationPage.DeliveryAndPartnerDetailsModel
+@using System.Text.Json
 @{
     Layout = null;
 }
-
+<style>
+    caption, td, th {
+        padding: 1% !important;
+    }
+</style>
 <div id="deliveryAndPartnerServices">
     <div class="ef-order-form-nav-step-wrapper">
         <div class="w-container ef-order-form-nav-step-content">
@@ -24,18 +29,19 @@
             <input type="hidden" name="o" value="5126304">
 
             <table id="efCartProductsTable" class="efTable ui-widget-content">
-                <tbody>
+                <thead>
                     <tr class="ui-widget-header" style="background-color: #38761d !important;">
-                        <td>Product</td>
-                        @* <td style="text-align:center">Quantity</td> *@
-                        <td style="text-align:right">Unit Price</td>
-                        <td style="text-align:right">Net</td>
-                        <td style="text-align:right">VAT</td>
-                        <td></td>
+                        <th>Product</th>
+                        <th style="text-align:right">Unit Price</th>
+                        <th style="text-align:right">Net</th>
+                        <th style="text-align:right">VAT</th>
                     </tr>
+                </thead>
+                <tbody>
+
 
                     <tr class="efTableSubheader efCompanyNameRow efCartCompanyHeader">
-                        <td colspan="6" style=""><a href=""> @Model.Company.CompanyName </a></td>
+                        <td><a href=""> @Model.CompanyName </a></td>
                     </tr>
 
                     <tr class="efOdd">
@@ -51,7 +57,6 @@
                         </td>
                         <td style="text-align:right" id="packageNetAmount" data-title="Net">£@Model?.SelectedPackage?.Price</td>
                         <td style="text-align:right" id="packageVatAmount" data-title="VAT"></td>
-                        <td style="text-align:right" data-title=""></td>
                     </tr>
 
                     @foreach (var item in Model.AdditionalPackageItems)
@@ -67,28 +72,24 @@
                                 £
                                 @item.price
                             </td>
-                            <td style="text-align:right" id="addPackageNetAmount" data-title="Net">£@item.price</td>
-                            <td style="text-align:right" id="addPackageVatAmount" data-title="VAT"></td>
-                            <td style="text-align:right" data-title=""></td>
+                            <td style="text-align:right" id="addPackageNetAmount_@item.AdditionalPackageItemId" data-title="Net">£@item.price</td>
+                            <td style="text-align:right" id="addPackageVatAmount_@item.AdditionalPackageItemId" data-title="VAT"></td>
                         </tr>
                     }
 
                     <tr class="efTableSubheader efCartNetTotalTr" id="efNetTotalRow">
-                        <td colspan="4" class="efCartNetTotalLabel" style="">Net Total:</td>
+                        <td colspan="3" class="efCartNetTotalLabel" style="">Net Total:</td>
                         <td class="efCartNetTotalVal"></td>
-                        <td></td>
                     </tr>
 
                     <tr class="efTableSubheader efCartVatTr" id="efVatTotalRow">
-                        <td colspan="4" class="efCartVatLabel">V.A.T:</td>
+                        <td colspan="3" class="efCartVatLabel">V.A.T:</td>
                         <td class="efCartVatVal"></td>
-                        <td></td>
                     </tr>
 
                     <tr class="efTableSubheader efCartTotalTr" id="efTotalPriceRow">
-                        <td colspan="4" class="efCartTotalLabel">Total:</td>
+                        <td colspan="3" class="efCartTotalLabel">Total:</td>
                         <td class="efCartTotalVal"></td>
-                        <td></td>
                     </tr>
 
                     <tr class="efTableSubheader efCartNetTotalTr" id="efNetTotalRow">
@@ -249,28 +250,41 @@
         $("#packageVatAmount").text("£" + vat.toFixed(2));
 
         // For Additional package
-        var AddintionalNetAmount = parseFloat($("#addPackageNetAmount").text().replace('£', ''));
-        let Addintionalvat = AddintionalNetAmount * 0.20;
-        $("#addPackageVatAmount").text("£" + Addintionalvat.toFixed(2));
+        var additionalPackageItems = @Html.Raw(JsonSerializer.Serialize(Model.AdditionalPackageItems));
 
-        let netTotal = 0;
-        let vatTotal = 0;
+        // Now loop through in JavaScript/jQuery
+        var netTotal = 0;
+        var vatTotal = 0;
 
-        // Sum all Net values
-        $("#packageNetAmount, #addPackageNetAmount").each(function () {
-            let value = parseFloat($(this).text().replace("£", "").trim());
-            if (!isNaN(value)) {
-                netTotal += value;
+        // Loop through Additional Packages
+        $.each(additionalPackageItems, function (index, item) {
+            // VAT for Additional Package
+            var netAmount = parseFloat($("#addPackageNetAmount_" + item.AdditionalPackageItemId).text().replace('£', '').trim());
+            var vatAmount = netAmount * 0.20;
+            $("#addPackageVatAmount_" + item.AdditionalPackageItemId).text("£" + vatAmount.toFixed(2));
+
+            // Sum net amount
+            if (!isNaN(netAmount)) {
+                netTotal += netAmount;
+            }
+
+            // Sum VAT
+            if (!isNaN(vatAmount)) {
+                vatTotal += vatAmount;
             }
         });
 
-        // Sum all VAT values
-        $("#packageVatAmount, #addPackageVatAmount").each(function () {
-            let value = parseFloat($(this).text().replace("£", "").trim());
-            if (!isNaN(value)) {
-                vatTotal += value;
-            }
-        });
+        // Main package values
+        var mainNetAmount = parseFloat($("#packageNetAmount").text().replace("£", "").trim());
+        var mainVatAmount = parseFloat($("#packageVatAmount").text().replace("£", "").trim());
+
+        if (!isNaN(mainNetAmount)) {
+            netTotal += mainNetAmount;
+        }
+
+        if (!isNaN(mainVatAmount)) {
+            vatTotal += mainVatAmount;
+        }
 
         // Update the totals in the summary rows
         $(".efCartNetTotalVal").text("£" + netTotal.toFixed(2));
@@ -289,11 +303,6 @@
                 success: function (result) {
                     if (result.success) {
                         showToast("Company submitted for review successfully!", "success");
-
-                        setTimeout(function () {
-                            const redirectUrl = `/Confirmation`;
-                            window.location.href = redirectUrl;
-                        }, 1000);
 
                     } else {
                         showToast("Failed to submit company for review.", "danger");
