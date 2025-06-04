@@ -1,0 +1,70 @@
+﻿@page
+@model Spendwise_WebApp.Pages.ConfirmationModel
+@{
+    ViewData["Title"] = "Confirmation";
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+
+<style>
+    .efConfirmationTitle {
+        line-height: 1.26;
+        margin-bottom: 15px;
+        color: #242424;
+        font-size: 22px;
+    }
+
+    .efConfirmationContent {
+        font-size: 16px;
+    }
+</style>
+
+<div class="container-inner margin-top-th">
+    <h1 style="padding-top:30px;padding-bottom:15px;color:#242424;margin-bottom:30px">
+        Order Submitted!
+    </h1>
+
+    <h2 class="efConfirmationTitle"> 
+        Order Reference: @Model.OrderId
+    </h2>
+
+    <div style="float:left;width:100%;max-width:80%" class="order_status">
+        <p class="efConfirmationContent">Thank you for your order. You will receive an email confirmation of this order. Please keep this email for your records. </p>
+
+        <h2 class="efConfirmationTitle">
+            Company formation orders…what happens next
+        </h2>
+        <p class="mr-bot-15 efConfirmationContent">
+            Your application will be sent to Companies House for approval. Most companies are approved within 24 hours; however, it may take longer.
+        </p>
+        <p class="mr-bot-15 efConfirmationContent" style="color:#00B0F0;">
+            Please do not contact us for order updates as Companies House do not provide them. We will inform you as soon as your company is registered.
+        </p>
+        <p class="efConfirmationContent" style="color:#00B0F0;">
+            Thank you for your patience.
+        </p>
+        <h2 class="efConfirmationTitle">
+            After Companies House approval
+        </h2>
+        <p class="efConfirmationContent">
+            We will send your company documents and WebFiling Authentication Code within our order fulfilled email.
+        </p>
+        <p class="efConfirmationContent">
+            If your order includes printed documents, these will be sent to you by post within 24 hours.
+        </p>
+        <h2 class="efConfirmationTitle">
+            Non-UK residents
+        </h2>
+        <p class="mr-bot-15 efConfirmationContent">
+            Before we can process your order, we will require your Proof of ID and Address. Please look out for our email requesting this information and respond promptly.
+        </p>
+        <p class="efConfirmationContent" style="color:#00B0F0;">
+            Orders for Non-UK residents may take longer due to ID verification. We will inform you once the ID verification process is complete and your company application has been submitted to Companies House.
+        </p>
+        <p class="mr-top-15 efConfirmationContent">
+            Thank you for choosing 1st Formations.
+        </p>
+        <p class="mr-top-25 efConfirmationContent">Graeme Donnelly <br> CEO, Spendwise </p>
+        <br>
+    </div>
+    <div class="clearfix"></div>
+</div>

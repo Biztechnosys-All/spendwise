@@ -24,7 +24,16 @@ namespace Spendwise_WebApp.Pages.FormationPage
         public string? CompanyName { get; set; }
 
         [BindProperty]
+        public List<AddressData> CartAddressList { get; set; }
+
+        [BindProperty]
+        public AddressData DeliveryAddressList { get; set; }
+
+        [BindProperty]
         public Orders? Order { get; set; }
+
+        [BindProperty]
+        public User User { get; set; }
 
         [BindProperty]
         public List<AdditionalPackageItem>? AdditionalPackageItems { get; set; }
@@ -34,7 +43,13 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
         public async Task<IActionResult> OnGet()
         {
+            var userEmail = Request.Cookies["UserEmail"];
+            var selectCompanyId = Request.Cookies["ComanyId"];
+            var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
+            var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
             var orderId = Convert.ToInt32(Request.Cookies["OrderId"]);
+
+            List<AddressData> addressData;
             Order = await _context.Orders.Where(x => x.OrderId == orderId).FirstOrDefaultAsync();
             SelectedPackage = await _context.packages.Where(x => x.PackageId == Order.PackageID).FirstOrDefaultAsync();
 
@@ -53,6 +68,20 @@ namespace Spendwise_WebApp.Pages.FormationPage
 
             AdditionalPackageItems = await _context.AdditionalPackageItems.Where(x => AddPackageItemIds.Contains(x.AdditionalPackageItemId)).ToListAsync();
 
+            addressData = await _context.AddressData.Where(x => x.UserId == userId && x.CompanyId == companyId).ToListAsync();
+            DeliveryAddressList = await _context.AddressData.Where(x => x.UserId == userId && x.CompanyId == companyId).FirstOrDefaultAsync();
+
+            if (addressData == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                CartAddressList = addressData;
+            }
+
+            User = await _context.Users.FirstOrDefaultAsync(x => x.UserID == userId);
+            Company = await _context.CompanyDetails.FirstOrDefaultAsync(x => x.CompanyId.ToString() == selectCompanyId);
             return Page();
         }
 

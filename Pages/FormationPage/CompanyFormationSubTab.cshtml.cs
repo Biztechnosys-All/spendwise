@@ -101,6 +101,8 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var selectCompanyId = Request.Cookies["ComanyId"];
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+            var companyDetails = await _context.CompanyDetails.Where(x => x.Createdby == userId && x.CompanyId == companyId).FirstOrDefaultAsync();
+            string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
 
             var UserParticularsData = await _context.Particulars.FirstOrDefaultAsync(x => x.UserId == userId && x.CompanyId == companyId);
             if (UserParticularsData != null)
@@ -114,9 +116,26 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 particular.UserId = userId;
                 particular.CompanyId = companyId;
                 _context.Particulars.Add(particular);
-                await _context.SaveChangesAsync();
             }
 
+            using (var conn = new SqlConnection(connectionString))
+            {
+                await conn.OpenAsync();
+                string query = "UPDATE CompanyDetails SET CompanyName = @CompanyName WHERE CompanyId = @CompanyId";
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CompanyName", particular.CompanyName);
+                    cmd.Parameters.AddWithValue("@CompanyId", companyDetails.CompanyId);
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                    if (rowsAffected == 0)
+                    {
+                        ModelState.AddModelError("", "Data not found.");
+                        return new JsonResult(new { success = false });
+                    }
+                }
+            }
+            await _context.SaveChangesAsync();
 
             return new JsonResult(new { success = true });
         }
