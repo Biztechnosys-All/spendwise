@@ -104,11 +104,17 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var companyDetails = await _context.CompanyDetails.Where(x => x.Createdby == userId && x.CompanyId == companyId).FirstOrDefaultAsync();
             string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
 
-            var UserParticularsData = await _context.Particulars.FirstOrDefaultAsync(x => x.UserId == userId && x.CompanyId == companyId);
+            Particular UserParticularsData = await _context.Particulars.FirstOrDefaultAsync(x => x.UserId == userId && x.CompanyId == companyId);
             if (UserParticularsData != null)
             {
-                particular.UserId = userId;
-                particular.CompanyId = companyId;
+                UserParticularsData.UserId = userId;
+                UserParticularsData.CompanyId = companyId;
+                UserParticularsData.CompanyName = particular.CompanyName;
+                UserParticularsData.CompanyType = particular.CompanyType;
+                UserParticularsData.Jurisdiction = particular.Jurisdiction;
+                UserParticularsData.Activities = particular.Activities;
+                UserParticularsData.SIC_Code = particular.SIC_Code;
+              
                 await _context.SaveChangesAsync();
             }
             else

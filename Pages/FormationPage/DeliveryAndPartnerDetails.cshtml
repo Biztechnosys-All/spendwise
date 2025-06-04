@@ -41,7 +41,7 @@
 
 
                     <tr class="efTableSubheader efCompanyNameRow efCartCompanyHeader">
-                        <td><a href=""> @Model.CompanyName </a></td>
+                        <td colspan="4"><a href=""> @Model.CompanyName </a></td>
                     </tr>
 
                     <tr class="efOdd">
@@ -93,15 +93,13 @@
                     </tr>
 
                     <tr class="efTableSubheader efCartNetTotalTr" id="efNetTotalRow">
-                        <td colspan="4" class="efCartPaymentlLabel">Previous Payment:</td>
+                        <td colspan="3" class="efCartPaymentlLabel">Previous Payment:</td>
                         <td class="efCartPaymentVal"></td>
-                        <td></td>
                     </tr>
 
                     <tr class="efTableSubheader efCartNetTotalTr" id="efNetTotalRow">
-                        <td colspan="4" class="efCartPaymentlLabel">Payment Due:</td>
+                        <td colspan="3" class="efCartPaymentlLabel">Payment Due:</td>
                         <td class="efCartPaymentDueVal"> £0.00 </td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -290,7 +288,7 @@
         $(".efCartNetTotalVal").text("£" + netTotal.toFixed(2));
         $(".efCartVatVal").text("£" + vatTotal.toFixed(2));
         $(".efCartTotalVal").text("£" + (netTotal + vatTotal).toFixed(2));
-        $(".efCartPaymentVal").text("£" + (netTotal + vatTotal).toFixed(2));
+        $(".efCartPaymentVal").text("- £" + (netTotal + vatTotal).toFixed(2));
     });
 
     function handleSubmitToReviewClick() {
@@ -303,7 +301,10 @@
                 success: function (result) {
                     if (result.success) {
                         showToast("Company submitted for review successfully!", "success");
-
+                        setTimeout(function () {
+                            const redirectUrl = `/Confirmation`;
+                            window.location.href = redirectUrl;
+                        }, 1000);
                     } else {
                         showToast("Failed to submit company for review.", "danger");
                     }
