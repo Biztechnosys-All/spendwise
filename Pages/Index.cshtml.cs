@@ -45,25 +45,44 @@ namespace Spendwise_WebApp.Pages
             var PackageFeatureList = await _context.PackageFeatures.ToListAsync();
             Package = await _context.packages.Where(x=>x.IsLimitedCompanyPkg == true).ToListAsync();
 
-            foreach (var item in Package)
+            //foreach (var item in Package)
+            //{
+            //    var selectedFeatures = string.Empty;
+            //    var last = item.PackageFeatures.Split(',').Last();
+            //    foreach (var FeatureId in item.PackageFeatures.Split(','))
+            //    {
+            //        if (FeatureId.Equals(last))
+            //        {
+            //            selectedFeatures += PackageFeatureList.Where(x => x.FeatureId.ToString() == FeatureId).Select(y => y.Feature).FirstOrDefault().ToString();
+            //        }
+            //        else
+            //        {
+            //            selectedFeatures += PackageFeatureList.Where(x => x.FeatureId.ToString() == FeatureId).Select(y => y.Feature).FirstOrDefault().ToString() + ", ";
+            //        }
+
+            //    }
+            //    item.PackageFeatures = selectedFeatures;
+            //}
+
+            foreach (var package in Package)
             {
-                var selectedFeatures = string.Empty;
-                var last = item.PackageFeatures.Split(',').Last();
-                foreach (var FeatureId in item.PackageFeatures.Split(','))
+                var featureIds = package.PackageFeatures.Split(',');
+                var selectedFeaturesList = new List<string>();
+
+                foreach (var featureId in featureIds)
                 {
-                    if (FeatureId.Equals(last))
+                    var featureItem = PackageFeatureList.FirstOrDefault(x => x.FeatureId.ToString() == featureId.Trim());
+                    if (featureItem != null)
                     {
-                        selectedFeatures += PackageFeatureList.Where(x => x.FeatureId.ToString() == FeatureId).Select(y => y.Feature).FirstOrDefault().ToString();
+                        // Combine Feature and PackageInfo as needed
+                        var combined = $"{featureItem.Feature} ({featureItem.FeatureInfo})";
+                        selectedFeaturesList.Add(combined);
                     }
-                    else
-                    {
-                        selectedFeatures += PackageFeatureList.Where(x => x.FeatureId.ToString() == FeatureId).Select(y => y.Feature).FirstOrDefault().ToString() + ", ";
-                    }
-
                 }
-                item.PackageFeatures = selectedFeatures;
-            }
 
+                // Join with comma + space
+                package.PackageFeatures = string.Join(", ", selectedFeaturesList);
+            }
         }
 
         public async Task<IActionResult> OnPost()

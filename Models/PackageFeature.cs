@@ -8,5 +8,7 @@ namespace Spendwise_WebApp.Models
         public int FeatureId { get; set; }
         [Required]
         public string Feature { get; set; }
+        [Required]
+        public string FeatureInfo { get; set; }
     }
 }

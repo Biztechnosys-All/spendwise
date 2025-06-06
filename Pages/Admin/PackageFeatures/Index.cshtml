@@ -17,6 +17,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.PackageFeatures[0].Feature)
                 </th>
+               @*  <th>
+                    @Html.DisplayNameFor(model => model.PackageFeatures[0].FeatureInfo)
+                </th> *@
                 <th></th>
             </tr>
         </thead>
@@ -27,6 +30,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Feature)
                     </td>
+                   @*  <td>
+                        @Html.DisplayFor(modelItem => item.FeatureInfo)
+                    </td> *@
                     <td>
                         <a asp-page="./Edit" asp-route-id="@item.FeatureId" class="btn btn-dark">Edit</a> |
                         <a asp-page="./Details" asp-route-id="@item.FeatureId" class="btn btn-dark">Details</a> |
