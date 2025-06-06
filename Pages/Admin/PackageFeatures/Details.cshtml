@@ -18,6 +18,12 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.PackageFeatures.Feature)
             </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PackageFeatures.FeatureInfo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.Raw(Model.PackageFeatures.FeatureInfo)
+            </dd>
         </dl>
     </div>
     <div>

@@ -655,12 +655,36 @@
                                         <div class="home-packages__content">
                                             <p class="home-packages__feature-title">Package details:</p>
                                             @{
-                                                List<string> Features = item.PackageFeatures.Split(',').ToList();
+                                                List<string> Features = item.PackageFeatures
+                                                .Split(new[] { "), " }, StringSplitOptions.None)
+                                                .Select(f => f.Trim().TrimEnd(',') + (f.EndsWith(")") ? "" : ")")) // Ensure closing ')' is added if missing
+                                                .ToList();
                                             }
                                             <ul class="home-packages__items">
-                                                @foreach (var Feature in Features)
+                                                @foreach (var featureString in Features)
                                                 {
-                                                    <li>@Feature</li>
+                                                    var featureParts = featureString.Trim().Split(new char[] { '(' }, 2);
+                                                    var featureName = featureParts[0].Trim();
+                                                    var featureInfo = featureParts.Length > 1 ? featureParts[1].TrimEnd(')') : "";
+                                                    <li style="justify-content: space-between;">
+                                                        @featureName
+                                                        @if (!string.IsNullOrEmpty(featureInfo))
+                                                        {
+                                                            <div >
+                                                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                                                </span>
+                                                                <div class="infobox">
+                                                                    <div class="infobox__wrapper">
+                                                                        <a class="infobox__close">×</a>
+                                                                        <div class="infobox__content">
+                                                                            @Html.Raw(featureInfo)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </li>
                                                 }
                                             </ul>
                                         </div>
@@ -2379,16 +2403,57 @@
         function ShowMenuTypeBasedPackage(Type) {
             if (Type == "Non-residents") {
                 const redirectUrl = `/BuyPackage#Non-residents`;
-                window.location.href = redirectUrl;                
+                window.location.href = redirectUrl;
             }
             else if (Type == "LLP") {
                const redirectUrl = `/BuyPackage#LLP`;
-                window.location.href = redirectUrl; 
+                window.location.href = redirectUrl;
             }
             else if (Type == "Guarantee") {
                 const redirectUrl = `/BuyPackage#Guarantee`;
                 window.location.href = redirectUrl;
             }
         }
+
+            (function tooltipModal() {
+            var infobox = $(".infobox"),
+                infoboxBtn = $(".infobox-btn"),
+                closeBtn = $(".infobox__close"),
+                resizeTimeout;
+            function getViewportWidth() {
+                viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+            }
+            function infoboxController() {
+                getViewportWidth();
+                infoboxBtn.off();
+                if (viewportWidth < 980) {
+                    infoboxBtn.click(function () {
+                        $(this).next().addClass("infobox--active");
+                    });
+                    infobox.click(function () {
+                        $(this).removeClass("infobox--active");
+                    });
+                    $(".infobox__content").click(function (e) {
+                        e.stopPropagation();
+                    });
+                } else {
+                    infoboxBtn.mouseenter(function () {
+                        closeBtn.before("<span class='infobox__triangle'></span>");
+                        $(this).next().addClass("infobox--active");
+                    })
+                    infoboxBtn.mouseleave(function () {
+                        $(this).next().removeClass("infobox--active");
+                        $(this).next().find(".infobox__triangle").remove();
+                    });
+                }
+            }
+            $(function () {
+                infoboxController();
+            });
+            $(window).resize(function () {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(infoboxController, 500);
+            });
+        }());
     </script>
 }
