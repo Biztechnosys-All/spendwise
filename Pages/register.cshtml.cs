@@ -140,7 +140,6 @@ namespace Spendwise_WebApp.Pages
 
             string pathToFile = Path.Combine(_env.WebRootPath, "EmailTemplate", "Confirm_Account_Registration.html");
 
-            var builder = new MimeKit.BodyBuilder();
             string htmlTemplate;
             using (StreamReader reader = System.IO.File.OpenText(pathToFile))
             {
