@@ -11,6 +11,10 @@
             margin-top: 0;
         }
     }
+    
+    .info-icon {
+        position: relative;
+    }
 </style>
 
 <section class="home-hero">
@@ -670,7 +674,7 @@
                                                         @featureName
                                                         @if (!string.IsNullOrEmpty(featureInfo))
                                                         {
-                                                            <div >
+                                                            <div class="info-icon">
                                                                 <span class="checkout-additional-items__item--icon infobox-btn">
                                                                     <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
                                                                 </span>
@@ -727,12 +731,36 @@
                                         <div class="inner-div">
                                             <p class="home-packages__feature-title">Top Features</p>
                                             @{
-                                                List<string> Features = item.PackageFeatures.Split(',').ToList();
+                                                List<string> Features = item.PackageFeatures
+                                                .Split(new[] { "), " }, StringSplitOptions.None)
+                                                .Select(f => f.Trim().TrimEnd(',') + (f.EndsWith(")") ? "" : ")")) // Ensure closing ')' is added if missing
+                                                .ToList();
                                             }
                                             <ul class="home-packages__items">
-                                                @foreach (var Feature in Features)
+                                                @foreach (var featureString in Features)
                                                 {
-                                                    <li>@Feature</li>
+                                                    var featureParts = featureString.Trim().Split(new char[] { '(' }, 2);
+                                                    var featureName = featureParts[0].Trim();
+                                                    var featureInfo = featureParts.Length > 1 ? featureParts[1].TrimEnd(')') : "";
+                                                    <li style="justify-content: space-between;">
+                                                        @featureName
+                                                        @if (!string.IsNullOrEmpty(featureInfo))
+                                                        {
+                                                            <div class="info-icon">
+                                                                <span class="checkout-additional-items__item--icon infobox-btn">
+                                                                    <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
+                                                                </span>
+                                                                <div class="infobox">
+                                                                    <div class="infobox__wrapper">
+                                                                        <a class="infobox__close">×</a>
+                                                                        <div class="infobox__content">
+                                                                            @Html.Raw(featureInfo)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </li>
                                                 }
                                             </ul>
                                             <div class="home-packages__buttons">

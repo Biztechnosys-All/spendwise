@@ -94,7 +94,9 @@
             <ul>
                 @foreach (var doc in Model.Summary.Documents)
                 {
-                    <li>@doc.DocumentName - @doc.FileName</li>
+                    <li>@doc.DocumentName -
+                        <a href="@doc.FilePath" target="_blank" style="text-decoration: none;">@doc.FileName</a>                        
+                    </li>
                 }
             </ul>
         </div>
