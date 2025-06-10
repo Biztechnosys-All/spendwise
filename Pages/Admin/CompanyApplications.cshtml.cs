@@ -22,6 +22,7 @@ namespace Spendwise_WebApp.Pages.Admin
         public class RequestModel
         {
             public string status { get; set; }
+            public int CompanyId { get; set; }
         }
 
         public async Task<IActionResult> OnGet()
@@ -60,9 +61,9 @@ namespace Spendwise_WebApp.Pages.Admin
 
         public async Task<IActionResult> OnPostUpdateCompanyStatus([FromBody] RequestModel request)
         {
-           var CompanyName = Request.Cookies["companyName"];
-            var companyId = Request.Cookies["ComanyId"]; // typo: should probably be "CompanyId"
-            var Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId.ToString() == companyId);
+            var CompanyName = Request.Cookies["companyName"];
+            var companyId = request.CompanyId; // typo: should probably be "CompanyId"
+            var Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId == companyId);
 
             if (Company != null)
             {

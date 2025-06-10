@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to SpendWise</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            /*background-color: #f4f6f8;*/
+            margin: 0;
+            padding: 0;
+        }}
+
+        .container {{
+            max-width: 45rem;
+            background-color: #ffffff;
+            /*margin: 40px auto;*/
+            /*padding: 30px;*/
+            border-radius: 8px;
+            /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+        }}
+
+        h4 {{
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 10px;
+        }}
+
+        p {{
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }}
+
+        .username {{
+            font-weight: bold;
+            color: #2c3e50;
+            margin-left: 40px;
+        }}
+
+        .footer {{
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }}
+
+        .footer p {{
+            margin: 5px 0;
+        }}
+
+        /*.contact-info {{
+            margin-top: 10px;
+        }}*/
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Dear {2} {3},</p>
+        <p style="margin-left: 40px;">We have created a customer account for you on our website. Please find below your username.</p>
+        <p class="username">Username: {1}</p>
+        <p style="margin-left: 40px;">To get started, please verify your email address by clicking the button below:</pstyle="margin-left:>
+
+        <p style='text-align: center;'>
+            <a href='{4}'
+               style='display: inline-block; padding: 12px 24px; background-color: #4CAF50; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold;'>
+                Verify Email
+            </a>
+        </p>
+        <p>
+            Kind regards,<br>
+            SpendWise Company Formations Team
+        </p>
+
+
+        <div class="footer">
+            <h4>Contact Us</h4>
+            <p>We are here to help.</p>
+            <div class="contact-info">
+                <p>Email: <a href="mailto:info@spendwisefin.com">info@spendwisefin.com</a></p>
+                <p>Phone: 07789 851633</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
