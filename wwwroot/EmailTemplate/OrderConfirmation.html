@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SpendWise Order Confirmation</title>
+    <style>
+        body {{
+            background-color: #f6f6f6;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }}
+
+        .email-container {{
+            max-width: 650px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }}
+
+        .logo {{
+            text-align: center;
+            margin-bottom: 25px;
+        }}
+
+        .logo img {{
+            max-width: 180px;
+        }}
+
+        h2 {{
+            color: #2c3e50;
+            font-size: 20px;
+            margin-top: 10px;
+        }}
+
+        p {{
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }}
+
+        ul {{
+            padding-left: 20px;
+        }}
+
+        ul li {{
+            margin-bottom: 6px;
+        }}
+
+        .highlight {{
+            font-weight: bold;
+        }}
+
+        .footer {{
+            margin-top: 40px;
+            font-size: 14px;
+            color: #666666;
+        }}
+
+        .footer p {{
+            margin: 6px 0;
+        }}
+
+        a {{
+            color: #0056b3;
+            text-decoration: none;
+        }}
+    </style>
+</head>
+<body>
+    <div class="email-container">
+
+        <!-- Logo -->
+        <div class="logo">
+            <img src="https://i.postimg.cc/85ZPVbMB/Logo-for-website-Spend-Wise-Logo-New.png" alt="SpendWise Logo">
+        </div>
+
+        <!-- Main Content -->
+        <p>Dear {1} {2},</p>
+
+        <h2>Order Confirmation</h2>
+
+        <p>Thank you for your order. Please find your invoice attached – which has been paid.</p>
+
+        <p>Please accept this email as confirmation that your order is now in progress. Should you wish to contact us regarding this order, please do so using the details at the bottom of this email and quoting your order reference details:</p>
+
+        <p><span class="highlight">Order Number:</span> {3} </p>
+
+        <p>For confirmation, you have ordered the following products and services:</p>
+        <!--<ul>
+            <li> {4} </li>
+            <li> {5} </li>
+        </ul>-->
+
+        <p><strong>Note:</strong> Companies House usually take up to 24 hours to process a new company application, however, this is subject to their workload and may take longer. They only process applications between <strong>8:30am and 5:00pm, Monday to Friday.</strong></p>
+
+        <p>Many thanks for choosing SpendWise Company Formations today!</p>
+
+        <p>
+            Kind regards,<br>
+            The SpendWise Company Formations Team
+        </p>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>Contact Us</h3>
+            <p>We are here to help.</p>
+            <p>Email: <a href="mailto:info@spendwisefin.com">info@spendwisefin.com</a></p>
+            <p>Phone: 07789 851633</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -16,11 +16,13 @@ namespace Spendwise_WebApp.Pages
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
         private readonly IConfiguration _configuration;
         private readonly EmailSender _emailSender;
-        public registerModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration configuration, EmailSender emailSender)
+        private readonly IWebHostEnvironment _env;
+        public registerModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration configuration, EmailSender emailSender, IWebHostEnvironment env)
         {
             _context = context;
             _configuration = configuration;
             _emailSender = emailSender;
+            _env = env;
         }
 
         [BindProperty]
@@ -134,31 +136,25 @@ namespace Spendwise_WebApp.Pages
             _context.AddressData.Add(billingAddress);
             await _context.SaveChangesAsync();
 
+            string subject = "Welcome to SpendWise Company Formations";
+
+            string pathToFile = Path.Combine(_env.WebRootPath, "EmailTemplate", "Confirm_Account_Registration.html");
+
+            var builder = new MimeKit.BodyBuilder();
+            string htmlTemplate;
+            using (StreamReader reader = System.IO.File.OpenText(pathToFile))
+            {
+                htmlTemplate = await reader.ReadToEndAsync();
+            }
 
             var confirmationLink = Url.Page("/ConfirmEmail",
                 pageHandler: null,
                 values: new { email = User.Email, token = User.EmailVerificationToken },
                 protocol: Request.Scheme);
 
-            string EnailBody = $@"
-                <p>Hi there,</p>
-                
-                <p>Welcome to <strong>SpendWise</strong>! We’re excited to have you on board.</p>
-                
-                <p>To get started, please verify your email address by clicking the button below:</p>
-                
-                <p style='text-align: center;'>
-                  <a href='{confirmationLink}' 
-                     style='display: inline-block; padding: 12px 24px; background-color: #4CAF50; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold;'>
-                     Verify Email
-                  </a>
-                </p>
-                
-                <p>Thanks,<br>The SpendWise Team</p>
-                ";
+            string emailBody = string.Format(htmlTemplate, subject, User.Email, User.Forename, User.Surname, confirmationLink);
 
-            await _emailSender.SendEmailAsync(User.Email, "Welcome to SpendWise – Please Verify Your Email Address",
-                EnailBody);
+            await _emailSender.SendEmailAsync(User.Email, subject, emailBody);
 
             return RedirectToPage("/login");
         }
