@@ -92,12 +92,13 @@ namespace Spendwise_WebApp.Pages.Admin
                     // Documents
                     if (!string.IsNullOrWhiteSpace(row.DocumentName))
                     {
-                        if (!summary.Documents.Any(d => d.DocumentName == row.DocumentName && d.FileName == row.FileName))
+                        if (!summary.Documents.Any(d => d.DocumentName == row.DocumentName && d.FileName == row.FileName && d.FilePath == row.FilePath))
                         {
                             summary.Documents.Add(new DocumentSummary
                             {
                                 DocumentName = row.DocumentName,
-                                FileName = row.FileName
+                                FileName = row.FileName,
+                                FilePath = row.FilePath
                             });
                         }
                     }
