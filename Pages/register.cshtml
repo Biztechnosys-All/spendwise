@@ -10,6 +10,35 @@
         max-height: 300px; /* Adjust as needed */
         overflow-y: auto;
     }
+
+    .emailOtp {
+        position: absolute;
+        margin-top: -28px;
+        margin-left: 15rem;
+        font-size: 12px;
+        font-weight: bold;
+        color: red;
+        cursor: pointer;
+    }
+
+    .btnVerifyOtp {
+        position: absolute;
+        margin-top: -38px;
+        margin-left: 13rem;
+        background-color: #38761d;
+        color: white;
+    }
+
+    .btnVerifyOtp:hover {
+        color: white;
+    }
+
+    .otpTimer {
+        margin-left: -19rem;
+        margin-top: 40px;
+        position: absolute;
+        margin-bottom: 12px !important;
+    }
 </style>
 <link href="~/css/register.css" rel="stylesheet" />
 <div class="col-five padding-top-bot-tw client">
@@ -43,22 +72,23 @@
                     </div>
                 }
                 <!-- Main Form Content -->
-                <form name="register" id="register" method="post">
+                @* <form name="register"> *@
+                <div id="register">
                     <input type="hidden" name="pa" value="submit-registration">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="efRegisterUserWrapper efPanel ui-widget-content ui-corner-top">
                                 <div class="ui-corner-top ui-widget-header efPanelHeader">Account Holder</div>
                                 <div class="ui-corner-bottom efPanelContent">
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Organisation (if applicable):</label>
                                         <div class="col-sm-7">
                                             <input id="efUserOrganisationInput" class="form-control" type="text" name="Organisation" value="">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Title: <span class="text-danger">*</span></label>
-                                        <div class="col-sm-7" style="padding: 10px 10px 4px 10px;">
+                                        <div class="col-sm-7">
                                             <select class="form-select" asp-for="User.Title">
                                                 <option value="">Please select...</option>
                                                 <option value="Mr">Mr</option>
@@ -72,43 +102,51 @@
                                                 <option value="Lord">Lord</option>
                                                 <option value="Lady">Lady</option>
                                             </select>
-                                            <span asp-validation-for="User.Title" class="text-danger fw-bold p-1 field-msg"></span>
-
+                                            <span class="text-address-error-message" id="User_Title_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Forename: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <input asp-for="User.Forename" class="form-control" type="text" value="">
-                                            <span asp-validation-for="User.Forename" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <span class="text-address-error-message" id="User_Forename_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Surname: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <input asp-for="User.Surname" class="form-control" type="text" value="">
-                                            <span asp-validation-for="User.Surname" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <span class="text-address-error-message" id="User_Surname_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Phone Number: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <input asp-for="User.PhoneNumber" class="form-control" type="text" value="">
-                                            <span asp-validation-for="User.PhoneNumber" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <span class="text-address-error-message" id="User_PhoneNumber_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Email: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <input asp-for="User.Email" class="form-control" type="text" value="">
-                                            <span asp-validation-for="User.Email" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <label class="emailOtp" id="sendOtp"> </label>
+                                            <span class="text-address-error-message" id="User_Email_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row" id="otpSection" style="display: none; margin-bottom: 4rem">
+                                        <label class="col-sm-5 col-form-label"> Enter Otp:</label>
+                                        <div class="col-sm-7" style="margin-bottom: 8px;">
+                                            <input class="form-control" type="text" id="otp" style="width: 12rem;" />
+                                            <button class="btn btnVerifyOtp" id="verifyOtp"> Verify </button>
+                                        </div>
+                                        <span class="otpTimer" id="timer"></span>
+                                    </div>
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Password: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input asp-for="User.Password" id="passwordField" type="password" class="form-control js-password-constraints" value="">
-                                            <span asp-validation-for="User.Password" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <input asp-for="User.Password" id="passwordField" type="password" class="form-control js-password-constraints">
+                                            <span class="text-address-error-message" id="User_Password_Error" style="display: none;"></span>
                                             <!-- Eye Open Icon (Visible initially) -->
                                             <span class="efPasswordEyeOpenIcon ef-js-text-mask" id="showPassword" onclick="togglePassword()" style="cursor: pointer;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
@@ -152,55 +190,54 @@
                             <div class="efRegisterUserAddressWrapper efPanel ui-widget-content ui-corner-top">
                                 <div class="efPanelHeader ui-corner-top ui-widget-header">Primary Address</div>
                                 <div class="efPanelContent ui-corner-bottom">
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Post Code: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <input class="form-control txtPostCodeInput" type="text" value="">
                                             <button type="button" style="margin:5px 0" class="efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="postcodeLookup()" role="button" aria-disabled="false"><span class="ui-button-text">Find Address</span></button>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">House Name / Number: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <input asp-for="Address.HouseName" class="form-control" type="text" value="">
-                                            <span asp-validation-for="Address.HouseName" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <span class="text-address-error-message" id="Address_HouseName_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Street: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <input asp-for="Address.Street" class="form-control" type="text" value="">
-                                            <span asp-validation-for="Address.Street" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <span class="text-address-error-message" id="Address_Street_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Locality:</label>
                                         <div class="col-sm-7">
                                             <input asp-for="Address.Locality" class="form-control" type="text" value="">
-                                            <span asp-validation-for="Address.Locality" class="text-danger fw-bold p-1 field-msg"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Town: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <input asp-for="Address.Town" class="form-control" type="text" value="">
-                                            <span asp-validation-for="Address.Town" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <span class="text-address-error-message" id="Address_Town_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">County:</label>
                                         <div class="col-sm-7">
                                             <input asp-for="Address.County" class="form-control" type="text" value="">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Post Code: <span class="text-danger">*</span></label>
-                                        <div class="col-sm-7" style="padding:10px 10px 0px 10px">
+                                        <div class="col-sm-7">
                                             <input asp-for="Address.PostCode" class="form-control" type="text">
-                                            <span asp-validation-for="Address.PostCode" class="text-danger fw-bold p-1 field-msg"></span>
+                                            <span class="text-address-error-message" id="Address_PostCode_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="ef-registration form-group row">
                                         <label class="col-sm-5 col-form-label">Country: <span class="text-danger">*</span></label>
                                         <div class="col-sm-7" style="padding:0px 10px 0px 10px">
                                             <select style="" asp-for="Address.Country" class="ui-widget-select form-select">
@@ -449,6 +486,7 @@
                                                 <option value="Zambia">Zambia</option>
                                                 <option value="Zimbabwe">Zimbabwe</option>
                                             </select>
+                                            <span class="text-address-error-message" id="Address_Country_Error" style="display: none;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -472,11 +510,11 @@
 
                     <div id="efRegisterSubmitButton">
                         @*  <input type="hidden" name="g-recaptcha-response" placeholder="" value="03AFcWeA7WBBbZswKLdoOIwf2fC3rEBnd3RN3FeSTxzmem0mWgsf6FLjeVpWlmZFQu855IFEOGbEY71yZ0pX8gtvvjOB6G5x8dVkvueHApMSJiGrh8cyUibaZONyKukKZxZjVli1if961d_m4GIhGrNgr1CgYscGgUL2RCZgUNsvQXYg4sZdVTIKDAkgFQcnZXMtKZ4lOJD00GfGyRXsZTdoBHqcnX340JAw1wgJn8Po3sBA3GPbK9K3cAmG3b4SSswWcwXv8AtDEelt1N5-0gHiRCWoVIqqtL4D_lHmYJSAdtFZqlJHeW2dmOsw_OcOBUE_0QKTpO2SwQJtsw0kCSFmsWpNeYdbtiQvyPgJNaxvl4-MBbepye5eGvmW7YAhJZzJz5R9kixGTu3IINviq0Mcaj7oharbxOBdHMHkAlMLcck_nPSl4eTXajyyzkA-q8EpgyAM0fGOc57se0LommmtVeEQ-2YoIGCahm1fL2E-D-3pIZ_fqivEgjyc9HYQdMjUgO-dWPheBz7oVnyu9OZINUwmd4IhrVJ9REKgx4m72qeSkfadndo3t5fFU_MadR_unzmFjdrws3x0mstQowGLuzpscFB2SVVE1Up5AEOKPxbMElePiZez2YCte8dVTh3IoUYKPdWf7hQymja4N_V5V8XM5Yi-EOcD7qaVghWf1EoZDpxKP8rsQ82NFfbZvScK6G8wfKTLPU37etDBpZvJbJ1bgVGKvLBXzQSQTD24AgHFpvpzDRrPwzAbccNHL8BvngcYvLmf_aRNqcUMYgUoFFsZ6aNSWrxR8UhDXSgprG5ZPjVq_mHDudzfughV5TbqNDHxbm-7ESilXuIhhc0CvAWuutbA3UsnxDbUaQgRyumROz3YfoftvnK8BKB07SdCMqE472YASV" id="g-recaptcha-response">        <br> *@
-                        <button class="btn btn-success" onclick="jQuery('#register').submit();" role="button" aria-disabled="false">Submit Registration</button>
+                        <button class="btn btn-success" id="registration">Submit Registration</button>
                     </div>
 
                     @* <input type="hidden" value="66c00db1c845014efb4a6b03f41a8fa2ea22d614f38559ddcbc194fc85b9cf7e" name="token"> *@
-                </form>
+                </div>
 
             </div>
             @* <img src="/assets/loaders/inline.gif" style="visibility:hidden"> *@
@@ -487,9 +525,9 @@
                     <p><input class="form-control" name="identifier" type="text" style="width:460px"></p>
                     <p><input type="submit" value="Submit" class="btn btn-success" style="float:right" role="button" aria-disabled="false"></p>
                 </form>
-                
+
             </div>
-            
+
             @*  <script>
             grecaptcha.ready(function () {
             grecaptcha.execute('6LctSPcUAAAAAGqGPCeWQHpISurU2OwIHk8P5BFB', { action: 'register' })
@@ -501,7 +539,7 @@
             </script> *@
 
         </div>
-       
+
     </div>
 </div>
 
@@ -523,6 +561,75 @@
 @section scripts
 {
     <script>
+        let emailVerify = false;
+        $("#registration").click(function() {
+            var isValid = true;
+            
+            function validateField(id, errorId, fieldName) {
+                const value = $(id).val()?.trim();
+                if (value === "") {
+                    isValid = false;
+                    $(errorId).text(`${fieldName} is required.`).show();
+                    showToast('Please filled required details.', 'warning');
+                } else {
+                    $(errorId).text("").hide();
+                }
+            }
+
+            validateField("#User_Title", "#User_Title_Error", "Title");
+            validateField("#User_Forename", "#User_Forename_Error", "Forename");
+            validateField("#User_Surname", "#User_Surname_Error", "Surname");
+            validateField("#User_PhoneNumber", "#User_PhoneNumber_Error", "PhoneNumber");
+            validateField("#User_Email", "#User_Email_Error", "Email");
+            validateField("#passwordField", "#User_Password_Error", "Password");
+            validateField("#Address_HouseName", "#Address_HouseName_Error", "HouseName");
+            validateField("#Address_Street", "#Address_Street_Error", "Street");
+            validateField("#Address_Town", "#Address_Town_Error", "Town");
+            validateField("#Address_Country", "#Address_Country_Error", "Country");
+            validateField("#Address_PostCode", "#Address_PostCode_Error", "PostCode");
+            debugger;
+            if(isValid) {
+                const userData = {
+                    Title: $("#User_Title").val(),
+                    Forename: $("#User_Forename").val(),
+                    Surname: $("#User_Surname").val(),
+                    PhoneNumber: $("#User_PhoneNumber").val(),
+                    Email: $("#User_Email").val(),
+                    Password: $("#passwordField").val(),
+                }
+                const addressData = {
+                    HouseName: $("#Address_HouseName").val(),
+                    Street: $("#Address_Street").val(),
+                    Town: $("#Address_Town").val(),
+                    Country: $("#Address_Country").val(),
+                    Locality: $("#Address_Locality").val(),
+                    County: $("#Address_County").val(),
+                    PostCode: $("#Address_PostCode").val(),
+                }
+
+                const payload = {
+                    UserData: userData,
+                    AddressData: addressData
+                }
+
+                if(emailVerify == false){
+                    showToast("Please Verify your Email!", "warning");
+                }
+                else {
+                    $.ajax({
+                        url: "/register?handler=Registration",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(payload),
+                        success: function (res) {
+                            if (res.success) {
+                                window.location.href = res.redirectUrl;
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         function postcodeLookup() {
             const postCode = $(".txtPostCodeInput").val();
@@ -629,5 +736,79 @@
                 hidePasswordIcon.style.display = "none";
             }
         }
+
+        $(".emailOtp").html("Verify");
+        let countdown;
+        let timerSeconds = 60;
+
+        function startTimer() {
+            $("#timer").text(`OTP is expired in ${timerSeconds}s`);
+            $(".emailOtp").html("Verify");
+
+            countdown = setInterval(function() {
+                timerSeconds--;
+                if(timerSeconds <= 0) {
+                    clearInterval(countdown);
+                    $("#timer").text("OTP is expired.");
+                    $(".emailOtp").html("Resend");
+                }
+                else {
+                    $("#timer").text(`OTP is expired in ${timerSeconds}s`);
+                }
+            },1000);
+        }
+
+        $("#sendOtp").click(function () {
+            var email = $("#User_Email").val();
+
+            $.ajax({
+                url: "/register?handler=SendOtp",
+                type: "POST",
+                data: JSON.stringify({ email: email }),
+                contentType: "application/json",
+                success: function (res) {
+                    if (res.success) {
+                        showToast("OTP sent to email!", "success");
+                        $("#otpSection").show();
+                        timerSeconds = 60;
+                        startTimer();
+                    } else {
+                        showToast("Error sending OTP.", "danger");
+                    }
+                }
+            });
+        });
+
+        $("#verifyOtp").click(function() {
+            var email = $("#User_Email").val();
+            var otp = $("#otp").val();
+
+            if(timerSeconds <= 0)
+            {
+                showToast("Please Resend your OTP.", "warning");
+            }
+            else {
+                $.ajax({
+                    url: "/register?handler=VerifyOtp",
+                    type: "POST",
+                    data: JSON.stringify({ email: email, otp: otp }),
+                    contentType: "application/json",
+                    success: function (res) {
+                        if (res.success) {
+                            emailVerify = true;
+                            showToast("Email verified successfully!", "success");
+                            clearInterval(countdown);
+                            $(".emailOtp").html("Verified").css({"color": "green", "display": "none"});
+                            $("#otpSection").hide();
+                        } else {
+                            showToast("Invalid OTP.", "danger");
+                             clearInterval(countdown);
+                             $("#timer").text("");
+                             $(".emailOtp").html("Resend");
+                        }
+                    }
+                });
+            }
+        });
     </script>
 }

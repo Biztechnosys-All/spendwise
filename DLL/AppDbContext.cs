@@ -23,6 +23,7 @@ namespace Spendwise_WebApp.DLL
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<CorporateCompanyOfficers> CorporateCompanyOfficers { get; set; }
         public virtual DbSet<OtherLegalOfficers> OtherLegalOfficers { get; set; }
+        public virtual DbSet<EmailOtp> EmailOtp { get; set; }
 
     }
 }

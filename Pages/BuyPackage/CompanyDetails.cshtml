@@ -22,6 +22,35 @@
             width: 90%;
         }
     }
+
+    .emailOtp {
+        position: absolute;
+        margin-top: -28px;
+        margin-left: 35rem;
+        font-size: 12px;
+        font-weight: bold;
+        color: red;
+        cursor: pointer;
+    }
+
+    .btnVerifyOtp {
+        position: absolute;
+        margin-top: -38px;
+        margin-left: 13rem;
+        background-color: #38761d;
+        color: white;
+    }
+
+    .btnVerifyOtp:hover {
+        color: white;
+    }
+
+    .otpTimer {
+        margin-left: -21rem;
+        margin-top: 40px;
+        position: absolute;
+        margin-bottom: 12px !important;
+    }
 </style>
 <link href="~/css/ef-core.min.css" rel="stylesheet" />
 <link href="~/css/company-details.css" rel="stylesheet" />
@@ -176,6 +205,15 @@
                                         <div class="efPaymentGatewayField">
                                             <label class="efPaymentGatewayLabel">Email</label>
                                             <input type="text" class="form-control" asp-for="User.Email" autocomplete="off">
+                                            <label class="emailOtp" id="sendOtp"> </label>
+                                        </div>
+                                        <div class="ef-registration efPaymentGatewayField" id="otpSection" style="display: none; margin-bottom: 4rem">
+                                            <label class="efPaymentGatewayLabel"> Enter Otp:</label>
+                                            <div class="col-sm-7" style="margin-bottom: 8px;">
+                                                <input class="form-control" type="text" id="otp" style="width: 12rem;" />
+                                                <button class="btn btnVerifyOtp" id="verifyOtp"> Verify </button>
+                                            </div>
+                                            <span class="otpTimer" id="timer"></span>
                                         </div>
                                         <div class="efPaymentGatewayField fileld-position">
                                             <label class="efPaymentGatewayLabel">Create Password</label>
@@ -1033,6 +1071,8 @@
         }
     }
 
+    let emailVerify = false;
+
     function handlePaybtn() {
         var isValid = true;
         var userEmail = Cookies.get("UserEmail");
@@ -1091,30 +1131,35 @@
 
             console.log("UserData =", UserData);
             if (!userEmail) {
-                $.ajax({
-                    url: "/BuyPackage/CompanyDetails?handler=CreateNewUser",
-                    method: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify(UserPayloadData),
-                    success: function (response) {
-                        console.log("Success:", response);
-                        if (response.success === false) {
-                            showToast(response.message, 'danger');
-                        } else {
-                            // Continue with your success logic
-                            console.log("User created:", response);
-                            const orderId = response.orderId;
-                            const token = response.token;
+                if(emailVerify == false){
+                    showToast("Please Verify your Email!", "warning");
+                }
+                else{
+                    $.ajax({
+                        url: "/BuyPackage/CompanyDetails?handler=CreateNewUser",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(UserPayloadData),
+                        success: function (response) {
+                            console.log("Success:", response);
+                            if (response.success === false) {
+                                showToast(response.message, 'danger');
+                            } else {
+                                // Continue with your success logic
+                                console.log("User created:", response);
+                                const orderId = response.orderId;
+                                const token = response.token;
 
-                            // Build the redirect URL
-                            const redirectUrl = `/FormationPage/Company-Formation`;
-                            window.location.href = redirectUrl;
+                                // Build the redirect URL
+                                const redirectUrl = `/FormationPage/Company-Formation`;
+                                window.location.href = redirectUrl;
+                            }
+                        },
+                        error: function (xhr) {
+                            console.error("Error:", xhr.statusText, xhr.responseText);
                         }
-                    },
-                    error: function (xhr) {
-                        console.error("Error:", xhr.statusText, xhr.responseText);
-                    }
-                });
+                    });
+                }
             }
             else if(Cookies.get("BillingAddress"))
             {
@@ -1323,4 +1368,79 @@
             document.getElementById('Address_Country').value = data.country || '';
         }
     }
+
+    $(".emailOtp").html("Verify");
+    let countdown;
+    let timerSeconds = 60;
+    
+    function startTimer() {
+        $("#timer").text(`OTP is expired in ${timerSeconds}s`);
+        $(".emailOtp").html("Verify");
+    
+        countdown = setInterval(function() {
+            timerSeconds--;
+            if(timerSeconds <= 0) {
+                clearInterval(countdown);
+                $("#timer").text("OTP is expired.");
+                $(".emailOtp").html("Resend");
+            }
+            else {
+                $("#timer").text(`OTP is expired in ${timerSeconds}s`);
+            }
+        },1000);
+    }
+    
+    $("#sendOtp").click(function () {
+        var email = $("#User_Email").val();
+    
+        $.ajax({
+            url: "/BuyPackage/CompanyDetails?handler=SendOtp",
+            type: "POST",
+            data: JSON.stringify({ email: email }),
+            contentType: "application/json",
+            success: function (res) {
+                if (res.success) {
+                    showToast("OTP sent to email!", "success");
+                    $("#otpSection").show();
+                    timerSeconds = 60;
+                    startTimer();
+                } else {
+                    showToast("Error sending OTP.", "danger");
+                }
+            }
+        });
+    });
+    
+    $("#verifyOtp").click(function(e) {
+        e.preventDefault();
+        var email = $("#User_Email").val();
+        var otp = $("#otp").val();
+    debugger;
+        if(timerSeconds <= 0)
+        {
+            showToast("Please Resend your OTP.", "warning");
+        }
+        else {
+            $.ajax({
+                url: "/BuyPackage/CompanyDetails?handler=VerifyOtp",
+                type: "POST",
+                data: JSON.stringify({ email: email, otp: otp }),
+                contentType: "application/json",
+                success: function (res) {
+                    if (res.success) {
+                        emailVerify = true;
+                        showToast("Email verified successfully!", "success");
+                        clearInterval(countdown);
+                        $(".emailOtp").html("Verified").css({"color": "green", "cursor": "none"});
+                        $("#otpSection").hide();
+                    } else {
+                        showToast("Invalid OTP.", "danger");
+                        clearInterval(countdown);
+                        $("#timer").text("");
+                        $(".emailOtp").html("Resend");
+                    }
+                }
+            });
+        }
+    });
 </script>

@@ -148,3 +148,20 @@ td select {
         margin-top: 10px;
     }
 }
+
+.text-address-error-message {
+    width: 100%;
+    clear: both;
+    display: block;
+    --bs-text-opacity: 1;
+    color: darkred !important;
+    font-weight: 700 !important;
+    padding: .25rem !important;
+    font-size: 12px;
+    margin-top: -3px;
+    margin-bottom: 5px
+}
+
+.ef-registration {
+    margin-bottom: 3rem;
+}
