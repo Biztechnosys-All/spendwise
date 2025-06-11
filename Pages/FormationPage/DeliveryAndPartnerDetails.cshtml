@@ -31,10 +31,10 @@
             <table id="efCartProductsTable" class="efTable ui-widget-content">
                 <thead>
                     <tr class="ui-widget-header" style="background-color: #38761d !important;">
-                        <th>Product</th>
-                        <th style="text-align:right">Unit Price</th>
-                        <th style="text-align:right">Net</th>
-                        <th style="text-align:right">VAT</th>
+                        <th width="25%">Product</th>
+                        <th width="35%" style="text-align:right">Unit Price</th>
+                        <th width="20%" style="text-align:right">Net</th>
+                        <th width="20%" style="text-align:right">VAT</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,53 +104,50 @@
                 </tbody>
             </table>
 
-            <div class="efPanel ui-corner-all ui-widget-content" id="efOutputOptionsContainer" style="margin-top:10px">
-                <div class="efPanelHeader ui-widget-header" style="background-color: #38761d !important; font-size: 18px; height: 4.5rem;">
+            <div id="efOutputOptionsContainer" class="table-display-section">
+                <div class="efPanelHeader sub-title">
                     <img src="/images/lorry.png" alt="" style="float:left;margin-right:4px;">
                     Delivery Details
-                    <p style="font-weight: normal; padding: 10px 0 10px; color: #000;">
+                    <div class="subtext">
                         Please check the recipient information below is correct, as these details will be used to deliver your order to you.
-                    </p>
+                    </div>
                 </div>
-                <div class="efPanelContent efPanelContentVeryCondensed ui-corner-bottom">
-                    <table class="efTable efTableVeryCondensed efTableUnbordered ui-corner-bottom ui-widget-content" style="width:auto">
-                        <tbody class="deliveryTable">
-                            <tr>
-                                <td><span class="efInputLabel">Order Description (optional):</span></td>
-                                <td><input type="text" class="efTextInput" name="order_note" value="@Model.Company.CompanyName"></td>
-                            </tr>
+                <div class="table-display">
 
-                            <tr>
-                                <td><span class="efInputLabel">Recipient Name:</span></td>
-                                <td><input type="text" class="efTextInput" name="recipient_name" value="@Model.User.Forename @Model.User.Surname"></td>
-                            </tr>
+                            <div class="row">
+                        <div class="col-md-6 col-xs-12"><span class="efInputLabel">Order Description (optional):</span></div>
+                        <div class="col-md-6 col-xs-12"><input type="text" class="form-control" name="order_note" value="@Model.Company.CompanyName"></div>
+                            </div>
 
-                            <tr>
-                                <td><span class="efInputLabel">Recipient Email:</span></td>
-                                <td><input id="emailfield" required="required" type="text" class="efTextInput" name="recipient_email" value="@Model.User.Email" placeholder="Required"></td>
-                            </tr>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12"><span class="efInputLabel">Recipient Name:</span></div>
+                        <div class="col-md-6 col-xs-12"><input type="text" class="form-control" name="recipient_name" value="@Model.User.Forename @Model.User.Surname"></div>
+                    </div>
 
-                            <tr>
-                                <td><span class="efInputLabel">Recipient Address:</span></td>
-                                <td>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12"><span class="efInputLabel">Recipient Email:</span></div>
+                        <div class="col-md-6 col-xs-12"><input id="emailfield" required="required" type="text" class="form-control" name="recipient_email" value="@Model.User.Email" placeholder="Required"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12"><span class="efInputLabel">Recipient Address:</span></div>
+                        <div class="col-md-6 col-xs-12">
                                     <input type="hidden" name="recipient_address" id="delivery-address-id" value="3360154">
-                                    <span id="delivery_address_string">
+                                    <div id="delivery_address_string">
                                         @($"{Model.DeliveryAddressList.Street}, {Model.DeliveryAddressList.Town}, {Model.DeliveryAddressList.County}, {Model.DeliveryAddressList.PostCode}, {Model.DeliveryAddressList.Country}")
-                                    </span>
-                                    <span style="display: none;" class="efButton ui-button ui-widget ef-js-choose-delivery-address ui-state-default ui-corner-all ui-button-text-only" data-delivery-address-label="Choose Address" role="button" aria-disabled="false">
+                                    </div>
+                            <div style="display: none;" class="efButton ui-button ui-widget ef-js-choose-delivery-address ui-state-default ui-corner-all ui-button-text-only" data-delivery-address-label="Choose Address" role="button" aria-disabled="false">
                                         <span class="ui-button-text">
                                             <img src="/images/arrow_rotate_clockwise.png" alt="" width="16" style="float:left;margin-right:4px">Choose Another
                                         </span>
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </div>
+                                </div>
+                            </div>
+
                 </div>
             </div>
-
-            <div class="efPanel ui-corner-all ui-widget-content" style="margin-top:10px">
-                <div class="efPanelHeader ui-widget-header" style="background-color: #38761d !important;">
+            <div class="div-display">
+                <div class="efPanelHeader sub-title">
                     <img src="/images/user_green.png" alt="" style="float:left;margin-right:4px;">
                     Cardholder's Details
                 </div>
@@ -168,10 +165,10 @@
                     <table id="js_regulated_user_tbl" class="efTable efTableUnbordered ui-corner-bottom ui-widget-content" style="width:auto; display: none;">
                         <tbody>
                             <tr>
-                                <td>
+                                <td width="50%">
                                     <b>Cardholder's Date of Birth: </b>
                                 </td>
-                                <td>
+                                <td width="50%">
                                     <input type="text" class="efTextInput efMLCDOB hasDatepicker" id="user_DOB" name="user_DOB" value="31/08/1988">
                                 </td>
                             </tr>

@@ -14913,7 +14913,7 @@ ol.footnote {
     }
 
     #efGoPayNowForm > .efTable.ui-widget-content tr {
-        background-color: #fafafa;
+        background-color: var(--green-color-three);
         display: inline-block;
         float: left;
         margin-bottom: 10px;
@@ -14942,7 +14942,7 @@ ol.footnote {
     }
 
     #efGoPayNowForm > .efTable.ui-widget-content tr td:last-child {
-        display: none !important
+        
     }
 
     #efGoPayNowForm #efNetTotalRow, #efGoPayNowForm #efTotalPriceRow, #efGoPayNowForm #efVatTotalRow {
@@ -22707,7 +22707,7 @@ div.dark_rounded #pp_full_res .pp_inline, div.dark_square #pp_full_res .pp_inlin
 }
 
 #efGoPayNowForm .efTableSubheader {
-    background-color: #f1f1f1
+    background-color: var(--color-green-three);
 }
 
 #efOutputOptionsContainer .ui-button, #lc-address-change.ui-button {
@@ -26905,6 +26905,34 @@ hr.hr-searchagain {
     height: 60px;
     font-size: 20px;
     font-weight: bold;
+}
+.btn-margin {
+    margin-top:15px;
+}
+.div-display {
+    display: table;
+}
+.sub-title {
+    background-color: #38761d !important;
+    font-size: 18px;
+    color: #fff !important;
+    font-weight: bold;
+}
+.subtext {
+    color: #fff;
+    font-size: 14px;
+}
+.table-display {
+    padding: 10px;
+}
+.table-display div {padding-bottom:10px;
+}
+.table-display-section {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.table-display-inner {
+    padding:20px;
 }
 @media only screen and (max-width:768px) {
     #efNameCheckResult {

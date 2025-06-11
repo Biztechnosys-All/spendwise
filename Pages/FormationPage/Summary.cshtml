@@ -293,53 +293,52 @@
                             </div>
 
                             <div class="ef-review-documents">
-                                <h3>Documents</h3>
-                                @if (Model.UploadedDocuments != null && Model.UploadedDocuments.Count > 0)
-                                {
-                                    <label for="selectType" style="font-weight: 400; margin-top: 5px;">Proof of Identity:</label>
-                                    <div class="w-row">
-                                        @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "identity"))
-                                        {
-                                            <div class="w-col w-col-11">
-                                                <div class="w-row row-margin">
-                                                    <div class="w-col w-col-5">
-                                                        <div class="ef-review-title"> @item.DocumentName </div>
-                                                    </div>
-                                                    <div class="w-col w-col-7">
-                                                        <a href="@item.FilePath" target="_blank" class="ef-review-official-document">
-                                                            @item.FileName
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-
-                                    <label for="selectType" style="font-weight: 400; margin-top: 5px;">Proof of Address:</label>
-                                    <div class="w-row">
-                                        @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "address"))
-                                        {
-                                            <div class="w-col w-col-11">
-                                                <div class="w-row row-margin">
-                                                    <div class="w-col w-col-5">
-                                                        <div class="ef-review-title"> @item.DocumentName </div>
-                                                    </div>
-                                                    <div class="w-col w-col-7">
-                                                        <a href="@item.FilePath" target="_blank" class="ef-review-official-document">
-                                                            @item.FileName
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                }
-
                                 <div class="w-row">
+                                    <div class="w-col w-col-11">
+                                        <h3>Documents</h3>
+                                        @if (Model.UploadedDocuments != null && Model.UploadedDocuments.Count > 0)
+                                        {
+                                            <label for="selectType" style="font-weight: 400; margin-top: 5px;">Proof of Identity:</label>
+                                            <div class="w-row">
+                                                @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "identity"))
+                                                {
+                                                    <div class="w-col w-col-11">
+                                                        <div class="w-row row-margin">
+                                                            <div class="w-col w-col-5">
+                                                                <div class="ef-review-title"> @item.DocumentName </div>
+                                                            </div>
+                                                            <div class="w-col w-col-7">
+                                                                <a href="@item.FilePath" target="_blank" class="ef-review-official-document">
+                                                                    @item.FileName
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                            <label for="selectType" style="font-weight: 400; margin-top: 5px;">Proof of Address:</label>
+                                            <div class="w-row">
+                                                @foreach (var item in Model.UploadedDocuments.Where(x => x.DocumentType == "address"))
+                                                {
+                                                    <div class="w-col w-col-11">
+                                                        <div class="w-row row-margin">
+                                                            <div class="w-col w-col-5">
+                                                                <div class="ef-review-title"> @item.DocumentName </div>
+                                                            </div>
+                                                            <div class="w-col w-col-7">
+                                                                <a href="@item.FilePath" target="_blank" class="ef-review-official-document">
+                                                                    @item.FileName
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
                                     <div class="w-col w-col-1">
-                                        <div class="w-col w-col-1 ef-review-edit-wrapper">
-                                            <button type="button" class="btn btn-success" onclick="redirectToFormation('Document')">Edit</button>
-                                        </div>
+                                        <button type="button" class="btn btn-success btn-margin " onclick="redirectToFormation('Document')">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -367,7 +366,7 @@
                 <div class="w-col w-col-6" style="padding-left: 0px;">
                     <button type="button" id="prevCompanyFormationTab" class="ef-btn prevstep" onclick="">Previous: Company Formation</button>
                 </div>
-                <div class="w-col w-col-6" style="padding-right: 0px;">
+                <div class="w-col w-col-6" style="padding-right: 0px;padding-left: 0px;">
                     <button type="button" class="ef-btn summary-nextstep" id="goToCart">Save &amp; continue</button>
                 </div>
             </div>
