@@ -299,7 +299,7 @@ h1 {
 }
 
 label, .field-label, .field-lable {
-    font-size: 17px;
+    font-size: 14px;
     line-height: 18px;
     color: rgb(42, 49, 53);
     margin-bottom: 10px;
@@ -2054,11 +2054,7 @@ ef-information-box p {
     overflow-y: auto;
 }
 
-@media only screen and (max-width:768px) {
-    .address-panel {
-        width: 90%;
-    }
-}
+
 
 .efCartPaymentlLabel {
     text-align: right;
@@ -2073,4 +2069,21 @@ ef-information-box p {
 .efCartPaymentDueVal {
     text-align: right;
     font-size: 1rem !important;
+}
+@media only screen and (max-width:768px) {
+    .address-panel {
+        width: 90%;
+    }
+
+    .additional-button {
+        font-weight: 600;
+        margin-left: 0px !important;
+        float: left !important;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .button-left-top-margin {
+        margin-left: 15px;
+        margin-top: 15px;
+    }
 }
