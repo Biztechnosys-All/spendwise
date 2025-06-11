@@ -18,13 +18,15 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         private readonly IConfiguration _config;
         private readonly EmailSender _emailSender;
         private readonly JwtTokenService _jwtTokenService;
+        private readonly IWebHostEnvironment _env;
 
-        public CompanyDetailsModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration config, EmailSender emailSender, JwtTokenService jwtTokenService)
+        public CompanyDetailsModel(Spendwise_WebApp.DLL.AppDbContext context, IConfiguration config, EmailSender emailSender, JwtTokenService jwtTokenService, IWebHostEnvironment env)
         {
             _context = context;
             _config = config;
             _emailSender = emailSender;
             _jwtTokenService = jwtTokenService;
+            _env = env;
         }
 
         public string PackageName { get; set; } = string.Empty;
@@ -368,6 +370,66 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         //    Console.WriteLine("Response:");
         //    Console.WriteLine(result);
         //}
+
+        public class EmailRequest
+        {
+            public string Email { get; set; }
+            public string Otp { get; set; }
+        }
+
+        [BindProperty]
+        public EmailRequest Input { get; set; }
+
+        public async Task<JsonResult> OnPostSendOtp([FromBody] EmailRequest input)
+        {
+            var otp = new Random().Next(100000, 999999).ToString();
+
+            _context.EmailOtp.Add(new EmailOtp
+            {
+                Email = input.Email,
+                OTP = otp,
+                GeneratedAt = DateTime.Now
+            });
+
+            await _context.SaveChangesAsync();
+
+            string subject = "Email OTP verification";
+
+            string pathToFile = Path.Combine(_env.WebRootPath, "EmailTemplate", "EmailOTPVerification.html");
+
+            string htmlTemplate;
+            using (StreamReader reader = System.IO.File.OpenText(pathToFile))
+            {
+                htmlTemplate = await reader.ReadToEndAsync();
+            }
+
+            string emailBody = string.Format(htmlTemplate, subject, otp);
+
+            await _emailSender.SendEmailAsync(input.Email, subject, emailBody);
+
+            return new JsonResult(new { success = true });
+        }
+
+        public async Task<JsonResult> OnPostVerifyOtp([FromBody] EmailRequest input)
+        {
+            try
+            {
+                var record = await _context.EmailOtp.Where(x => x.Email == input.Email && x.OTP == input.Otp).OrderByDescending(x => x.GeneratedAt).FirstOrDefaultAsync();
+
+                if (record != null && (DateTime.Now - record.GeneratedAt).TotalMinutes <= 10)
+                {
+                    return new JsonResult(new { success = true });
+                }
+                else
+                {
+                    return new JsonResult(new { success = false });
+                }
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(new { success = false });
+            }
+        }
     }
 
     public class UserPayloadData

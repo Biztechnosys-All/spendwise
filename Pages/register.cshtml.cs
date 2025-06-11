@@ -10,6 +10,7 @@ using System.Text;
 
 namespace Spendwise_WebApp.Pages
 {
+    [IgnoreAntiforgeryToken]
     public class registerModel : PageModel
     {
 
@@ -40,122 +41,117 @@ namespace Spendwise_WebApp.Pages
         {
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public class RegistrationDataRequest
         {
-            if (!ModelState.IsValid)
+            public User UserData { get; set; }
+            public AddressData AddressData { get; set; }
+        }
+
+        public async Task<IActionResult> OnPostRegistrationAsync([FromBody] RegistrationDataRequest payload)
+        {
+            try
             {
-                // List of required fields with custom error messages
-                var requiredFields = new Dictionary<string, string>
+                var user = payload.UserData;
+                var address = payload.AddressData;
+
+                var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == user.Email);
+                if (userData != null)
                 {
-                    { "User.Title", "Title is required." },
-                    { "User.Forename", "Forename is required." },
-                    { "User.Surname", "Surname is required." },
-                    { "User.PhoneNumber", "Phone number is required." },
-                    { "User.Email", "Email is required." },
-                    { "User.Password", "Password is required." },
-                    { "Address.HouseName", "House name is required." },
-                    { "Address.Street", "Street is required." },
-                    { "Address.Town", "Town is required." },
-                    { "Address.Country", "Country is required." },
-                    { "Address.PostCode", "Country is required." },
-                    { "isAgreeTerms", "Please agree to the Terms and Conditions & Privacy Policy to complete the registration process!" }
+                    userExist = true;
+                    return Page();
+                }
+                // Hash the password using MD5
+                if (!string.IsNullOrEmpty(user.Password))
+                {
+                    using (MD5 md5 = MD5.Create())
+                    {
+                        byte[] inputBytes = Encoding.UTF8.GetBytes(user.Password);
+                        byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                        // Convert the byte array to a hexadecimal string
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < hashBytes.Length; i++)
+                        {
+                            sb.Append(hashBytes[i].ToString("x2"));
+                        }
+                        user.Password = sb.ToString();
+                    }
+                }
+
+                string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+
+                User registrationData = new()
+                {
+                    Title = user.Title,
+                    Forename = user.Forename,
+                    Surname = user.Surname,
+                    PhoneNumber = user.PhoneNumber,
+                    Email = user.Email,
+                    Password = user.Password,
+                    BillingEmail = user.Email,
+                    BillingPhoneNumber = user.PhoneNumber,
+                    EmailVerificationToken = token,
+                    IsEmailVerified = false,
+                    created_on = DateTime.Now
                 };
+                _context.Users.Add(registrationData);
+                await _context.SaveChangesAsync();
 
-                // Iterate over required fields and add model errors
-                foreach (var field in requiredFields)
+                AddressData primaryAddress = new()
                 {
-                    if (ModelState.ContainsKey(field.Key) && ModelState[field.Key]?.Errors.Count > 0)
-                    {
-                        ModelState.AddModelError(field.Key, field.Value);
-                    }
+                    HouseName = address.HouseName,
+                    Street = address.Street,
+                    Locality = address.Locality,
+                    Town = address.Town,
+                    Country = address.Country,
+                    County = address.County,
+                    PostCode = address.PostCode,
+                    UserId = registrationData.UserID,
+                    IsPrimary = true
+                };
+                _context.AddressData.Add(primaryAddress);
+                await _context.SaveChangesAsync();
+
+                AddressData billingAddress = new()
+                {
+                    HouseName = address.HouseName,
+                    Street = address.Street,
+                    Locality = address.Locality,
+                    Town = address.Town,
+                    Country = address.Country,
+                    County = address.County,
+                    PostCode = address.PostCode,
+                    UserId = registrationData.UserID,
+                    IsBilling = true
+                };
+                _context.AddressData.Add(billingAddress);
+                await _context.SaveChangesAsync();
+
+                string subject = "Welcome to SpendWise Company Formations";
+
+                string pathToFile = Path.Combine(_env.WebRootPath, "EmailTemplate", "Confirm_Account_Registration.html");
+
+                string htmlTemplate;
+                using (StreamReader reader = System.IO.File.OpenText(pathToFile))
+                {
+                    htmlTemplate = await reader.ReadToEndAsync();
                 }
 
+                var confirmationLink = Url.Page("/ConfirmEmail",
+                    pageHandler: null,
+                    values: new { email = registrationData.Email, token = registrationData.EmailVerificationToken },
+                    protocol: Request.Scheme);
 
+                string emailBody = string.Format(htmlTemplate, subject, registrationData.Email, registrationData.Forename, registrationData.Surname, confirmationLink);
+
+                await _emailSender.SendEmailAsync(registrationData.Email, subject, emailBody);
+
+                return new JsonResult(new { success = true, redirectUrl = Url.Page("/Login") });
+            }
+            catch(Exception e)
+            {
                 return Page();
             }
-            if (!isAgreeTerms)
-            {
-                AgreeTermsError = true;
-                //ModelState.AddModelError("isAgreeTerms", "");
-                return Page();
-            }
-
-            var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == User.Email);
-            if (userData != null)
-            {
-                userExist = true;
-                return Page();
-            }
-            // Hash the password using MD5
-            if (!string.IsNullOrEmpty(User.Password))
-            {
-                using (MD5 md5 = MD5.Create())
-                {
-                    byte[] inputBytes = Encoding.UTF8.GetBytes(User.Password);
-                    byte[] hashBytes = md5.ComputeHash(inputBytes);
-
-                    // Convert the byte array to a hexadecimal string
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < hashBytes.Length; i++)
-                    {
-                        sb.Append(hashBytes[i].ToString("x2"));
-                    }
-                    User.Password = sb.ToString();
-                }
-            }
-
-            User.BillingEmail = User.Email;
-            User.BillingPhoneNumber = User.PhoneNumber;
-
-            string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-            User.EmailVerificationToken = token;
-            User.IsEmailVerified = false;
-            User.IsActive = true;
-            User.created_on = DateTime.Now;
-            _context.Users.Add(User);
-            await _context.SaveChangesAsync();
-
-            Address.UserId = User.UserID;
-            Address.IsPrimary = true;
-            _context.AddressData.Add(Address);
-            await _context.SaveChangesAsync();
-
-            AddressData billingAddress = new()
-            {
-                HouseName = Address.HouseName,
-                Street = Address.Street,
-                Locality = Address.Locality,
-                Town = Address.Town,
-                Country = Address.Country,
-                County = Address.County,
-                PostCode = Address.PostCode,
-
-            };
-            billingAddress.UserId = User.UserID;
-            billingAddress.IsBilling = true;
-            _context.AddressData.Add(billingAddress);
-            await _context.SaveChangesAsync();
-
-            string subject = "Welcome to SpendWise Company Formations";
-
-            string pathToFile = Path.Combine(_env.WebRootPath, "EmailTemplate", "Confirm_Account_Registration.html");
-
-            string htmlTemplate;
-            using (StreamReader reader = System.IO.File.OpenText(pathToFile))
-            {
-                htmlTemplate = await reader.ReadToEndAsync();
-            }
-
-            var confirmationLink = Url.Page("/ConfirmEmail",
-                pageHandler: null,
-                values: new { email = User.Email, token = User.EmailVerificationToken },
-                protocol: Request.Scheme);
-
-            string emailBody = string.Format(htmlTemplate, subject, User.Email, User.Forename, User.Surname, confirmationLink);
-
-            await _emailSender.SendEmailAsync(User.Email, subject, emailBody);
-
-            return RedirectToPage("/login");
         }
 
 
@@ -211,7 +207,65 @@ namespace Spendwise_WebApp.Pages
             return new JsonResult(new { success = true, suggestions });
         }
 
+        public class EmailRequest
+        {
+            public string Email { get; set; }
+            public string Otp { get; set; }
+        }
 
+        [BindProperty]
+        public EmailRequest Input { get; set; }
+
+        public async Task<JsonResult> OnPostSendOtp([FromBody] EmailRequest input)
+        {
+            var otp = new Random().Next(100000, 999999).ToString();
+
+            _context.EmailOtp.Add(new EmailOtp
+            {
+                Email = input.Email,
+                OTP = otp,
+                GeneratedAt = DateTime.Now
+            });
+
+            await _context.SaveChangesAsync();
+
+            string subject = "Email OTP verification";
+
+            string pathToFile = Path.Combine(_env.WebRootPath, "EmailTemplate", "EmailOTPVerification.html");
+
+            string htmlTemplate;
+            using (StreamReader reader = System.IO.File.OpenText(pathToFile))
+            {
+                htmlTemplate = await reader.ReadToEndAsync();
+            }
+
+            string emailBody = string.Format(htmlTemplate, subject, otp);
+
+            await _emailSender.SendEmailAsync(input.Email, subject, emailBody);
+
+            return new JsonResult(new { success = true });
+        }
+
+        public async Task<JsonResult> OnPostVerifyOtp([FromBody] EmailRequest input)
+        {
+            try
+            {
+                var record = await _context.EmailOtp.Where(x => x.Email == input.Email && x.OTP == input.Otp).OrderByDescending(x => x.GeneratedAt).FirstOrDefaultAsync();
+
+                if (record != null && (DateTime.Now - record.GeneratedAt).TotalMinutes <= 10)
+                {
+                    return new JsonResult(new { success = true });
+                }
+                else
+                {
+                    return new JsonResult(new { success = false });
+                }
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(new { success = false });
+            }
+        }
     }
     public class AddressSuggestion
     {
