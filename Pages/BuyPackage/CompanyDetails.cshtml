@@ -51,6 +51,19 @@
         position: absolute;
         margin-bottom: 12px !important;
     }
+
+    .text-address-error-message {
+        width: 100%;
+        clear: both;
+        display: block;
+        --bs-text-opacity: 1;
+        color: darkred !important;
+        font-weight: 700 !important;
+        padding: .25rem !important;
+        font-size: 12px;
+        margin-top: -3px;
+        margin-bottom: 5px
+    }
 </style>
 <link href="~/css/ef-core.min.css" rel="stylesheet" />
 <link href="~/css/company-details.css" rel="stylesheet" />
@@ -123,11 +136,13 @@
                                     <div class="efPaymentGatewayField">
                                         <label class="efPaymentGatewayLabel">Email:</label>
                                         <input type="text" asp-for="Email" class="form-control">
+                                        <span class="text-address-error-message" id="Email_Error" style="display: none;"></span>
                                         <span class="ef-validate-icon"></span>
                                     </div>
                                     <div class="efPaymentGatewayField fileld-position">
                                         <label class="efPaymentGatewayLabel">Password:</label>
                                         <input asp-for="Password" type="password" id="password" class="form-control" autocomplete="off">
+                                        <span class="text-address-error-message" id="Password_Error" style="display: none;"></span>
                                         <span class="efPasswordEyeOpenIcon ef-js-text-mask" id="showPassword" onclick="togglePassword()" style="cursor: pointer;" data-owner="efExistingPasswordInput">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
                                                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
@@ -206,6 +221,7 @@
                                             <label class="efPaymentGatewayLabel">Email</label>
                                             <input type="text" class="form-control" asp-for="User.Email" autocomplete="off">
                                             <label class="emailOtp" id="sendOtp"> </label>
+                                            <span class="text-address-error-message" id="User_Email_Error" style="display: none;"></span>
                                         </div>
                                         <div class="ef-registration efPaymentGatewayField" id="otpSection" style="display: none; margin-bottom: 4rem">
                                             <label class="efPaymentGatewayLabel"> Enter Otp:</label>
@@ -265,6 +281,7 @@
                                     <div class="efPaymentGatewayField">
                                         <label class="efPaymentGatewayLabel">Phone</label>
                                         <input type="text" class="form-control" asp-for="User.PhoneNumber" autocomplete="off">
+                                        <span class="text-address-error-message" id="User_PhoneNumber_Error" style="display: none;"></span>
                                     </div>
                                     <div class="efPaymentGatewayField efPaymentGatewayAddressWrapper">
                                         <div class="efPaymentGatewayAddress">
@@ -1027,18 +1044,34 @@
         // Clear previous errors
         $(".text-danger").remove();
 
+
+        var email = $("#Email").val()?.trim();
+
+        var emailPattern = @Html.Raw(@"/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/");
+
+        if (email === "") {
+            isValid = false;
+            $("#Email_Error").text("Email is required.").show();
+        } else if (!emailPattern.test(email)) {
+            isValid = false;
+            $("#Email_Error").text("Invalid email format.").show();
+        } else {
+            $("#Email_Error").text("").hide();
+        }
+
         // Field validation helper
-        function validateField(id, fieldName) {
-            var value = $(id).val()?.trim();
+        function validateField(id, errorId, fieldName) {
+            const value = $(id).val()?.trim();
             if (value === "") {
                 isValid = false;
-                $(id).after('<small class="text-danger">' + fieldName + ' is required.</small>');
+                $(errorId).text(`${fieldName} is required.`).show();
+            } else {
+                $(errorId).text("").hide();
             }
-
         }
+
         // Validate each required field
-        validateField("#Email", "Email");
-        validateField("#password", "Password");
+        validateField("#password","#Password_Error", "Password");
 
 
         if (isValid) {
@@ -1079,6 +1112,12 @@
         // Clear previous errors
         $(".text-danger").remove();
 
+        var email = $("#User_Email").val()?.trim();
+        var phone = $("#User_PhoneNumber").val()?.trim();
+
+        var emailPattern = @Html.Raw(@"/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/");
+        var phonePattern = /^\d{10}$/;
+
         // Field validation helper
         function validateField(id, fieldName) {
             var value = $(id).val().trim();
@@ -1090,14 +1129,31 @@
         }
         // Validate each required field
         if (!userEmail) {
-            validateField("#User_Email", "Email");
+            // Email validation
+            if (email === "") {
+                isValid = false;
+                $("#User_Email_Error").text("Email is required.").show();
+            } else if (!emailPattern.test(email)) {
+                isValid = false;
+                $("#User_Email_Error").text("Invalid email format.").show();
+            } else {
+                $("#User_Email_Error").text("").hide();
+            }
             validateField("#User_Password", "Password");
         }
         validateField("#User_Title", "Title");
         validateField("#User_Forename", "First Name");
         validateField("#User_Surname", "Last Name");
-        validateField("#User_PhoneNumber", "PhoneNumber");
-        //validateField(".efPaymentGatewayAddressText", "Address")
+        
+        if (phone === "") {
+            isValid = false;
+            $("#User_PhoneNumber_Error").text("Phone number is required.").show();
+        } else if (!phonePattern.test(phone)) {
+            isValid = false;
+            $("#User_PhoneNumber_Error").text("Phone number must be 10 digits.").show();
+        } else {
+            $("#User_PhoneNumber_Error").text("").hide();
+        }
 
         var addressText = $(".efPaymentGatewayAddressText").text().trim();
         if (!addressText) {
@@ -1391,31 +1447,47 @@
     }
     
     $("#sendOtp").click(function () {
+        var isValid = true;
         var email = $("#User_Email").val();
+
+        var emailPattern = @Html.Raw(@"/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/");
+
+        // Email validation
+        if (email === "") {
+            isValid = false;
+            $("#User_Email_Error").text("Email is required.").show();
+        } else if (!emailPattern.test(email)) {
+            isValid = false;
+            $("#User_Email_Error").text("Invalid email format.").show();
+        } else {
+            $("#User_Email_Error").text("").hide();
+        }
     
-        $.ajax({
-            url: "/BuyPackage/CompanyDetails?handler=SendOtp",
-            type: "POST",
-            data: JSON.stringify({ email: email }),
-            contentType: "application/json",
-            success: function (res) {
-                if (res.success) {
-                    showToast("OTP sent to email!", "success");
-                    $("#otpSection").show();
-                    timerSeconds = 60;
-                    startTimer();
-                } else {
-                    showToast("Error sending OTP.", "danger");
+        if(isValid) {
+            $.ajax({
+                url: "/BuyPackage/CompanyDetails?handler=SendOtp",
+                type: "POST",
+                data: JSON.stringify({ email: email }),
+                contentType: "application/json",
+                success: function (res) {
+                    if (res.success) {
+                        showToast("OTP sent to email!", "success");
+                        $("#otpSection").show();
+                        timerSeconds = 60;
+                        startTimer();
+                    } else {
+                        showToast("Error sending OTP.", "danger");
+                    }
                 }
-            }
-        });
+            });
+        }
     });
     
     $("#verifyOtp").click(function(e) {
         e.preventDefault();
         var email = $("#User_Email").val();
         var otp = $("#otp").val();
-    debugger;
+    
         if(timerSeconds <= 0)
         {
             showToast("Please Resend your OTP.", "warning");

@@ -2360,14 +2360,12 @@
 
             $('#CompanyName').keypress(function (e) {
                 if (e.which === 13) {
-                    Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
                     e.preventDefault(); // Prevent form submission
                     $('#CompanynamecheckBtn').click(); // Simulate button click
                 }
             });
 
             $("#CompanynamecheckBtn").click(function () {
-                Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
                 $("#CompanyName").addClass("spinner-ring");
                 var companyName = $("#CompanyName").val().trim().toUpperCase();
 

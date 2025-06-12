@@ -114,8 +114,6 @@
         .login-box__field input {
             min-width: 100%;
         }
-
-        
     }
 
     .login-box__field .text-danger {
@@ -126,16 +124,29 @@
         position: relative
     }
 
-        .fileld-position .efPasswordEyeOpenIcon.ef-js-text-mask{
+        .fileld-position .efPasswordEyeOpenIcon.ef-js-text-mask {
             top: 36px !important;
         }
 
-    .efPasswordEyeClosedIcon.ef-js-text-mask{
+    .efPasswordEyeClosedIcon.ef-js-text-mask {
         position: absolute;
         top: 35px;
         margin-left: -28px;
         cursor: pointer;
         right: 15px;
+    }
+
+    .text-address-error-message {
+        width: 100%;
+        clear: both;
+        display: block;
+        --bs-text-opacity: 1;
+        color: darkred !important;
+        font-weight: 700 !important;
+        padding: .25rem !important;
+        font-size: 12px;
+        margin-top: -3px;
+        margin-bottom: 5px
     }
 
 </style>
@@ -152,14 +163,10 @@
 
                 <div id="efLoginContainer">
                     <h2>Account Login</h2>
-                    
-                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-                    {
-                        <div class="alert-danger p-2">
-                            <p><b>@Model.ErrorMessage</b></p>
-                        </div>
-                    }
-                    <form method="post" class="ef-login-form cc-login-form">
+
+                    <div class="alert-danger p-2" id="loginErrorMessage" style="display: none; font-weight: 600; font-size: 15px;"></div>
+
+                    <div class="ef-login-form cc-login-form">
                         <input type="hidden" name="pa" value="login">
                         <input type="hidden" name="k" value="">
                         <input type="hidden" name="re" value="/account/">
@@ -168,12 +175,12 @@
                             <div class="login-box__field">
                                 <label>Username:</label>
                                 <input class="form-control" type="text" asp-for="User.Email" autocomplete="off">
-                                <span asp-validation-for="User.Email" class="text-danger fw-bold p-1"></span>
+                                <span class="text-address-error-message" id="User_Email_Error" style="display: none;"></span>
                             </div>
                             <div class="login-box__field fileld-position">
                                 <label>Password:</label>
                                 <input class="form-control" asp-for="User.Password" type="password" id="passwordField" autocomplete="off">
-                                <span asp-validation-for="User.Password" class="text-danger fw-bold p-1"></span>
+                                <span class="text-address-error-message" id="User_Password_Error" style="display: none;"></span>
 
                                 <!-- Eye Open Icon (Visible initially) -->
                                 <span class="efPasswordEyeOpenIcon ef-js-text-mask" id="showPassword" onclick="togglePassword()" style="cursor: pointer;">
@@ -194,7 +201,7 @@
                             </div>
                             <div class="login-box__actions">
                                 <div class="login-box__actions--login">
-                                    <input type="submit" value="Login" class="btn button--secondary" role="button" aria-disabled="false">
+                                    <input type="button" id="btnLogin" value="Login" class="btn button--secondary">
                                 </div>
                                 <div class="login-box__actions--reset">
                                     <p>Forgotten Password: Please <a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">click here</a> to reset.</p>
@@ -202,7 +209,7 @@
                             </div>
                         </div>
                         <input type="hidden" name="g-recaptcha-response" placeholder="" value="03AFcWeA50TWsJ_S35Tkm8xPoPHGUcLlt-M1iTgwfi5HrmHx29S06lG28wE14QBzo7FEfscTv-nM5NLQc-BmAX8VBh87DKmQP_Q3h8yaBQlXsps8KxtzQBZ6hXZI5ZDnoL3wf96h6WUu4ji1mmKzfKP_pK1JrGOXPVyubjuKv1NKr7Ar7gG_UBuffqd-Di18DFMKsznrUjoIVYaLMuttNkeGRBWEIZ6WkFDXkrr-wWYyMOZ67O4_MvoI1alH4r2Pn6U-5_t_KTYRlGSYEqp8ZiYHE3YHP3DyMQsXDlHQYhyIcOQHKG80f6JOdipKjpqEzhF-QDn53EiJYX1rgqvAeKMQQxeY43-K7lD3vPyw23FGxilAW5lZGAcX84FzywXeFibIluvg_k9jA2Dt6mV_mhXzIHd0WNsgKDfoiJL9qOW0ti7eSE_cZ3CTiL_TeHDIBSy5R59kJRO65_96MoUIl0YEEM4SLJ2DEKcwYqSbznYlGkt3dhfGvefVRM4q1zFnIsqHV4RZpSIyDy2RgSTS6ympbA3dRN1yEYz8td9dXGdln2cVfALf4-rQ7mTWEVk2olNw7pAwHMOiKW9FkS3olF8yWQ9ljwZRHs1-j4fj2B1qB9AkpTuLTZAkFJ-F0wfZOtYe9C9GZek3E9w3E8BIOgmNYIoWe5UwxbMCkkhv18kxLpKODZis4RF1S4QYmOOUOTGDk9m5x9ehw2874hT_AXf4V1xdT0pT66qfOaUQmZBIAxK6M1cgHoimyFfrt1ODZXOoVXBBEe2qhqEnug71LJhdl8-ErauTw0qglqvrRkSR_RjMumRM0YDO4golKaTtwldpGXx21OfuDiSRZ6D3O4yQdo6mtB34AUiN80oc5DfivA1gFuivhfvRw" id="g-recaptcha-response">
-                    </form>
+                    </div>
                 </div>
 
                 <div id="reminder" style="display:none" title="Password Reset">
@@ -216,10 +223,6 @@
                         <p><input type="submit" value="Submit" class="efButton  ui-button ui-widget ui-state-default ui-corner-all" style="float:right" role="button" aria-disabled="false"></p>
                     </form>
                 </div>
-
-
-
-
                 @* <script>
                 grecaptcha.ready(function () {
                 grecaptcha.execute('6LctSPcUAAAAAGqGPCeWQHpISurU2OwIHk8P5BFB', { action: 'login' })
@@ -227,11 +230,8 @@
                 document.getElementById('g-recaptcha-response').value = token;
                 });
                 });
-
                 </script> *@
-
             </div>
-
         </div>
         <div class="boxeleven mxwidth-fifty-per boxsizing float-left border-left-767 padding-left-five-per register-box">
             <h2>New Customer</h2>
@@ -269,6 +269,57 @@
 
 @section Scripts {
     <script>
+        $("#btnLogin").click(function() {
+            var isValid = true;
+
+            var email = $("#User_Email").val();
+            var password = $("#passwordField").val();
+            var emailPattern = @Html.Raw(@"/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/");
+
+            // Email validation
+            if (email === "") {
+                isValid = false;
+                $("#User_Email_Error").text("Email is required.").show();
+            } else if (!emailPattern.test(email)) {
+                isValid = false;
+                $("#User_Email_Error").text("Invalid Email format.").show();
+            } else {
+                $("#User_Email_Error").text("").hide();
+            }
+
+            if (password === "") {
+                isValid = false;
+                $("#User_Password_Error").text("Password is required.").show();
+            } else {
+                $("#User_Password_Error").text("").hide();
+            }
+
+            if(isValid) {
+                const loginData = {
+                    Email: email,
+                    Password: password,
+                }
+
+                $.ajax({
+                    url: "/login?handler=Login",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(loginData),
+                    success: function (res) {
+                        if (res.success) {
+                            window.location.href = res.redirectUrl;
+                        }else {
+                            // Display error message
+                            $("#loginErrorMessage").text(res.message).show();
+                        }
+                    },
+                    error: function () {
+                        $("#loginErrorMessage").text("An error occurred during login. Please try again.").show();
+                    }
+                });
+            }
+        });
+
         $(document).ready(function () {
             $("#btnResetPass").click(function () {
                 if ($("#txtResetPassEmail").val() != "") {
