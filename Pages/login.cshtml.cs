@@ -12,6 +12,7 @@ using System.Text.Encodings.Web;
 
 namespace Spendwise_WebApp.Pages
 {
+    [IgnoreAntiforgeryToken]
     public class loginModel : PageModel
     {
 
@@ -39,18 +40,23 @@ namespace Spendwise_WebApp.Pages
         {
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public class LoginRequest
         {
-            if (string.IsNullOrEmpty(User.Email) || string.IsNullOrEmpty(User.Password))
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
+
+        public async Task<IActionResult> OnPostLogin([FromBody] LoginRequest login)
+        {
+            if (string.IsNullOrEmpty(login.Email) || string.IsNullOrEmpty(login.Password))
             {
-                ErrorMessage = "Email and Password are required.";
-                return Page();
+                return new JsonResult(new { success = false, message = "Email and Password are required." });
             }
 
             string hashedPassword;
             using (MD5 md5 = MD5.Create())
             {
-                byte[] inputBytes = Encoding.UTF8.GetBytes(User.Password);
+                byte[] inputBytes = Encoding.UTF8.GetBytes(login.Password);
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
 
                 // Convert the byte array to a hexadecimal string
@@ -61,36 +67,32 @@ namespace Spendwise_WebApp.Pages
                 }
                 hashedPassword = sb.ToString();
             }
-            var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == User.Email && x.IsActive == true && x.IsAdmin == false);
+            var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == login.Email && x.IsActive == true && x.IsAdmin == false);
 
             if (userData == null)
             {
-                ErrorMessage = "User is not registred.";
-                return Page();
+                return new JsonResult(new { success = false, message = "User is not registered." });
             }
 
             // Compare hashed passwords
             if (userData.Password != hashedPassword)
             {
-                ErrorMessage = "Invalid email or password.";
-                return Page();
+                return new JsonResult(new { success = false, message = "Invalid email or password." });
             }
             else
             {
                 if (!userData.IsEmailVerified)
                 {
-                    ErrorMessage = "Please verify your email before logging in.";
-                    return Page();
+                    return new JsonResult(new { success = false, message = "Please verify your email before logging in." });
                 }
 
                 var options = CookieOptionsHelper.GetDefaultOptions();
                 Response.Cookies.Append("UserName", userData.Forename + " " + userData.Surname, options);
                 Response.Cookies.Append("UserEmail", userData.Email, options);
 
-                HttpContext.Response.Cookies.Append("AuthToken", _jwtTokenService.GenerateJwtToken(User.Email), options);
+                HttpContext.Response.Cookies.Append("AuthToken", _jwtTokenService.GenerateJwtToken(login.Email), options);
 
-                return RedirectToPage("./account");
-
+                return new JsonResult(new { success = true, redirectUrl = Url.Page("./account") });
             }
 
         }
