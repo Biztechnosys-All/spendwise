@@ -798,7 +798,7 @@
                             emailVerify = true;
                             showToast("Email verified successfully!", "success");
                             clearInterval(countdown);
-                            $(".emailOtp").html("Verified").css({"color": "green", "display": "none"});
+                            $(".emailOtp").html("Verified").css({"color": "green", "cursor": "none"});
                             $("#otpSection").hide();
                         } else {
                             showToast("Invalid OTP.", "danger");
