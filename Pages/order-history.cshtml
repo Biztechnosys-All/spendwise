@@ -11,15 +11,15 @@
             <div id="efAuthenticatedContent">
                 <h2>Order History</h2>
                 @* <script>
-                    function confirm_delete(fid)
-                    {
-                        var agree=confirm("Are you sure you wish to delete this order?");
-                        if (agree)
-                        {
-                            jQuery("#delform_"+fid).submit();
-                        }
+                function confirm_delete(fid)
+                {
+                var agree=confirm("Are you sure you wish to delete this order?");
+                if (agree)
+                {
+                jQuery("#delform_"+fid).submit();
+                }
 
-                    }
+                }
 
                 </script> *@
                 <div class="efAccountPanel">
@@ -39,7 +39,14 @@
                             {
                                 <tr class="efOdd">
                                     <td id="OrderId"> @item.OrderId </td>
-                                    <td> @item.OrderDate </td>
+                                    @if (item.InvoicedDate != null)
+                                    {
+                                        <td> @item.InvoicedDate </td>
+                                    }
+                                    else
+                                    {
+                                        <td>-</td>
+                                    }
                                     <td> @item.PackageName </td>
                                     <td id="companyName"> @item.CompanyName </td>
                                     <td id="selectCompanyId" style="display: none;"> @item.CompanyId </td>
@@ -97,10 +104,10 @@
 
 @section Scripts {
     <script>
-        function handleOrderDelete(id){
+        function handleOrderDelete(id) {
             // var id = $(this).data("id");
             // var token = $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
-            if(confirm("Are you sure you want to delete this?")) {
+            if (confirm("Are you sure you want to delete this?")) {
                 $.ajax({
                     url: "/order-history?handler=Delete",
                     type: "POST",
@@ -137,7 +144,7 @@
             const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
             Cookies.set("ComanyId", companyId, expires);
             Cookies.set("companyName", companyName, expires);
-            Cookies.set("OrderId", id, expires);        
+            Cookies.set("OrderId", id, expires);
         }
     </script>
 }

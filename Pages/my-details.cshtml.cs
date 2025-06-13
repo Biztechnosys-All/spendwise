@@ -57,7 +57,6 @@ namespace Spendwise_WebApp.Pages
                     AddressList = addressData;
 
                 }
-                Message = TempData["Message"]?.ToString();
             }
             return Page();
         }
