@@ -81,10 +81,10 @@ namespace Spendwise_WebApp.Pages
             }
             else
             {
-                if (!userData.IsEmailVerified)
-                {
-                    return new JsonResult(new { success = false, message = "Please verify your email before logging in." });
-                }
+                //if (!userData.IsEmailVerified)
+                //{
+                //    return new JsonResult(new { success = false, message = "Please verify your email before logging in." });
+                //}
 
                 var options = CookieOptionsHelper.GetDefaultOptions();
                 Response.Cookies.Append("UserName", userData.Forename + " " + userData.Surname, options);

@@ -19,50 +19,17 @@
     <div class="container-inner">
         <div id="efPageContent" class="ui-widget">
             <div id="efAuthenticatedContent">
-
-
-                <script>
-                    jQuery(document).ready(function () {
-                        jQuery(".efWebStateCompanySearch input").autocomplete({
-                            source: "/ejax-company-search/",
-                            position: { my: "right top", at: "right bottom" },
-                            select: function (event, ui) {
-                                event.preventDefault();
-                                jQuery(".efWebStateCompanySearch input").val(ui.item.label);
-                                document.location.href = "/account/company/?i=" + ui.item.value;
-                            }
-                        });
-                        var m = jQuery(".efAccountMenuTabs");
-                        m.find(".efAccountMainMenuItem").on('mouseover', function () {
-                            jQuery(this).addClass("ui-state-active");
-                        }).on('mouseleave', function () {
-                            jQuery(this).removeClass("ui-state-active");
-                        });
-                        m.find(".efAccountMainMenuLi").on('mouseover', function () {
-                            jQuery(this).find("ul").show();
-                        }).on('mouseleave', function () {
-                            jQuery(this).find("ul").hide();
-                        });
-                        m.find(".efAccountSubMenuItem").on('mouseover', function () {
-                            jQuery(this).addClass("ui-state-active");
-                        }).on('mouseleave', function () {
-                            jQuery(this).removeClass("ui-state-active");
-                        });
-                    });
-                </script>
-
-
                 <div id="efUserDetailsPageWrapper">
                     <h2>My Details</h2>
                     <!-- The empty span tag in the error div refers to the server side validation , the id of the span is a specfic error, this allows for custom error events -->
                     <div class="ui-state-error ui-corner-all efAlert" id="error-message" style="display:none">
                         <span id="error-text"></span>
                     </div>
-                    @if (!string.IsNullOrEmpty(Model.Message))
+                    @if (!string.IsNullOrEmpty(Model?.Message))
                     {
                         <div class="ui-state-highlight ui-corner-all efAlert" id="success-message">
                             <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-                            <span id="success-text">Details updated</span>
+                            <span id="success-text">@Model.Message</span>
                         </div>
                     }
 

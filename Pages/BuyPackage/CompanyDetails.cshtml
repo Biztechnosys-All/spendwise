@@ -27,10 +27,13 @@
         position: absolute;
         margin-top: -28px;
         margin-left: 35rem;
-        font-size: 12px;
-        font-weight: bold;
+        font-size: 13px;
+        font-weight: 800;
         color: red;
-        cursor: pointer;
+        cursor: pointer;        
+        background-color: #FFF;
+        padding-left: 4px;
+        padding-right: 4px;
     }
 
     .btnVerifyOtp {
@@ -969,9 +972,11 @@
             if (email === "") {
                 isValid = false;
                 $("#User_Email_Error").text("Email is required.").show();
+                showToast('Please filled required details.', 'warning');
             } else if (!emailPattern.test(email)) {
                 isValid = false;
                 $("#User_Email_Error").text("Invalid email format.").show();
+                showToast('Invalid email format.', 'warning');
             } else {
                 $("#User_Email_Error").text("").hide();
             }
@@ -984,9 +989,11 @@
         if (phone === "") {
             isValid = false;
             $("#User_PhoneNumber_Error").text("Phone number is required.").show();
+            showToast('Please filled required details.', 'warning');
         } else if (!phonePattern.test(phone)) {
             isValid = false;
             $("#User_PhoneNumber_Error").text("Phone number must be 10 digits.").show();
+            showToast('Phone number must be 10 digits.', 'warning');
         } else {
             $("#User_PhoneNumber_Error").text("").hide();
         }

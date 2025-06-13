@@ -33,7 +33,7 @@ namespace Spendwise_WebApp.Pages
         [BindProperty]
         public string? AddressType { get; set; }
 
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
         public async Task<IActionResult> OnGet()
         {
@@ -57,31 +57,20 @@ namespace Spendwise_WebApp.Pages
                     AddressList = addressData;
 
                 }
+                Message = TempData["Message"]?.ToString();
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-
-            var LoginEmail = Request.Cookies["UserEmail"] ?? "";
-            var LogUserData = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == LoginEmail.ToLower());
-            var addressData = await _context.AddressData.Where(x => x.UserId == LogUserData.UserID).ToListAsync();
-
-            if (LogUserData != null && addressData != null)
-            {
-                User = LogUserData;
-                AddressList = addressData;
-
-            }
-
             ModelState.Remove("Address.AddressId");
             ModelState.Remove("Address.PostCode");
             ModelState.Remove("Address.HouseName");
             ModelState.Remove("Address.Street");
             ModelState.Remove("Address.Locality");
             ModelState.Remove("Address.Town");
-            ModelState.Remove("Address.Country"); 
+            ModelState.Remove("Address.Country");
             ModelState.Remove("Address.County");
             if (!ModelState.IsValid)
             {
@@ -93,7 +82,8 @@ namespace Spendwise_WebApp.Pages
                     { "User.Surname", "Surname is required." },
                     { "User.PhoneNumber", "Phone number is required." },
                     { "User.Email", "Email is required." },
-                    { "User.Password", "Password is required." }
+                    { "User.Password", "Password is required." },
+                    { "Message", "Update Error." }
                 };
 
                 // Iterate over required fields and add model errors
@@ -152,8 +142,8 @@ namespace Spendwise_WebApp.Pages
                 }
             }
 
-            Message = "Details updated";
-            return Page();
+            TempData["Message"] = "Details updated";
+            return RedirectToAction("OnGet");
         }
 
         private bool UserExists(int id)

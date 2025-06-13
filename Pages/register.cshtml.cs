@@ -137,12 +137,12 @@ namespace Spendwise_WebApp.Pages
                     htmlTemplate = await reader.ReadToEndAsync();
                 }
 
-                var confirmationLink = Url.Page("/ConfirmEmail",
-                    pageHandler: null,
-                    values: new { email = registrationData.Email, token = registrationData.EmailVerificationToken },
-                    protocol: Request.Scheme);
+                //var confirmationLink = Url.Page("/ConfirmEmail",
+                //    pageHandler: null,
+                //    values: new { email = registrationData.Email, token = registrationData.EmailVerificationToken },
+                //    protocol: Request.Scheme);
 
-                string emailBody = string.Format(htmlTemplate, subject, registrationData.Email, registrationData.Forename, registrationData.Surname, confirmationLink);
+                string emailBody = string.Format(htmlTemplate, subject, registrationData.Email, registrationData.Forename, registrationData.Surname);
 
                 await _emailSender.SendEmailAsync(registrationData.Email, subject, emailBody);
 
