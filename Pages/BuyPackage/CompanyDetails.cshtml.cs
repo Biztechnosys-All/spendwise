@@ -365,7 +365,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             string username = "xjg9Ooew6J8gXiYk";
             string password = "9y6XFqPdMxjPVM7cF51rtBnmNHyE3kJMTaLNcuV44IVMSetAhFF09smOgA9n9bq1";
             string base64Credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}"));
-
+            string baseUrl = _config.GetValue<string>("BaseURL") ?? " ";
             var jsonBody = $@"
                 {{
                   ""transactionReference"": ""{OrderRefId}"",
@@ -381,12 +381,12 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                   }},
                   ""description"": ""SpendWise Accountancy"",
                   ""resultURLs"": {{
-                     ""successURL"": ""http://localhost:5132/BuyPackage/CompanyDetails?handler=PaymentSuccess"",
-                     ""pendingURL"": ""http://localhost:5132/"",
-                     ""failureURL"": ""http://localhost:5132/BuyPackage/CompanyDetails?handler=PaymentError"",
-                     ""errorURL"": ""http://localhost:5132/BuyPackage/CompanyDetails?handler=PaymentError"",
-                     ""cancelURL"": ""http://localhost:5132/BuyPackage/CompanyDetails?handler=PaymentCancelled"",
-                     ""expiryURL"": ""http://localhost:5132/""
+                     ""successURL"": ""{baseUrl}BuyPackage/CompanyDetails?handler=PaymentSuccess"",
+                     ""pendingURL"": ""{baseUrl}"",
+                     ""failureURL"": ""{baseUrl}BuyPackage/CompanyDetails?handler=PaymentError"",
+                     ""errorURL"": ""{baseUrl}BuyPackage/CompanyDetails?handler=PaymentError"",
+                     ""cancelURL"": ""{baseUrl}BuyPackage/CompanyDetails?handler=PaymentCancelled"",
+                     ""expiryURL"": ""{baseUrl}""
                   }}
                 }}";
 
