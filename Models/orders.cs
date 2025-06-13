@@ -20,6 +20,7 @@ namespace Spendwise_WebApp.Models
         public required double AmountDue { get; set; }
         public bool IsOrderComplete { get; set; }
         public DateTime? InvoicedDate { get; set; }
-        
+        public bool IsPaymentComplete { get; set; }
+
     }
 }

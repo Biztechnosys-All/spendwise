@@ -134,7 +134,7 @@
             window.location.href = '/BuyPackage?id=' + id;
             Cookies.remove("BillingAddress");
 
-            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
             Cookies.set("ComanyId", companyId, expires);
             Cookies.set("companyName", companyName, expires);
             Cookies.set("OrderId", id, expires);        

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -6,8 +6,13 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 using Spendwise_WebApp.DLL;
 using Spendwise_WebApp.Models;
 using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
+using Microsoft.VisualBasic;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Spendwise_WebApp.Pages.BuyPackage
 {
@@ -48,6 +53,10 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         //public int? OrderId { get; set; }
         public bool IsUserLoggedIn { get; set; } = false;
         public bool userExist { get; set; } = false!;
+        public string PaymentStatusMessage { get; set; } = string.Empty;
+        [BindProperty]
+        public EmailRequest Input { get; set; }
+
 
 
         public async Task<IActionResult> OnGet(int? id, string? token)
@@ -58,6 +67,15 @@ namespace Spendwise_WebApp.Pages.BuyPackage
 
 
             Order = await _context.Orders.Where(x => x.OrderId == id).FirstOrDefaultAsync();
+            if(Order.IsPaymentComplete == true)
+            {
+                return RedirectToPage("/FormationPage/Company-Formation");
+            }
+
+            if (TempData.ContainsKey("PaymentStatusMessage"))
+            {
+                PaymentStatusMessage = TempData["PaymentStatusMessage"]?.ToString();
+            }
             //OrderId = Order.OrderId;
             TempData["OrderId"] = Order.OrderId;
             SelectedPackage = await _context.packages.Where(x => x.PackageId == Order.PackageID).FirstOrDefaultAsync();
@@ -80,6 +98,9 @@ namespace Spendwise_WebApp.Pages.BuyPackage
 
             additionalPackageItems = await _context.AdditionalPackageItems.Where(x => AddPackageItemIds.Contains(x.AdditionalPackageItemId)).ToListAsync();
             //}
+
+            
+
             return Page();
         }
 
@@ -311,7 +332,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email == userEmail);
             var billingAddData = await _context.AddressData.FirstOrDefaultAsync(x => x.UserId == userData.UserID && x.IsBilling == true);
 
-            if(billingAddData != null)
+            if (billingAddData != null)
             {
                 _context.AddressData.Remove(billingAddData);
                 await _context.SaveChangesAsync();
@@ -325,60 +346,130 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             return new JsonResult(new { success = true, message = "Billing Address is Saved." });
         }
 
-        //public async Task RunTestAsync()
-        //{
-        //    //string base64ApiKey = "BASE64ENCODED_API_KEY";
-        //    string url = "https://try.access.worldpay.com/cardPayments/customerInitiatedTransactions";
-
-        //    var jsonBody = @"
-        //    {
-        //      ""transactionReference"": ""Memory265-13/08/1876"",
-        //      ""channel"": ""ecom"",
-        //      ""merchant"": {
-        //        ""entity"": ""default""
-        //      },
-        //      ""instruction"": {
-        //        ""requestAutoSettlement"": {
-        //          ""enabled"": false
-        //        },
-        //        ""narrative"": {
-        //          ""line1"": ""Mind Palace""
-        //        },
-        //        ""value"": {
-        //          ""currency"": ""GBP"",
-        //          ""amount"": 250
-        //        },
-        //        ""paymentInstrument"": {
-        //          ""type"": ""card/plain"",
-        //          ""cardNumber"": ""4444333322221111"",
-        //          ""expiryDate"": {
-        //            ""month"": 5,
-        //            ""year"": 2035
-        //          }
-        //        }
-        //      }
-        //    }";
-
-        //    var request = new HttpRequestMessage(HttpMethod.Post, url);
-        //    //request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64ApiKey);
-        //    request.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-        //    HttpResponseMessage response = await client.SendAsync(request);
-        //    string result = await response.Content.ReadAsStringAsync();
-
-        //    Console.WriteLine($"Status Code: {response.StatusCode}");
-        //    Console.WriteLine("Response:");
-        //    Console.WriteLine(result);
-        //}
-
-        public class EmailRequest
+        public async Task<JsonResult> OnGetSetupPayment()
         {
-            public string Email { get; set; }
-            public string Otp { get; set; }
+            int OrderRefId = 0;
+            double orderAmount = 0;
+            int CusOrderId = Convert.ToInt32(Request.Cookies["OrderId"]);
+            var OrderData = await _context.Orders.Where(x => x.OrderId == CusOrderId).FirstOrDefaultAsync();
+            if (OrderData != null)
+            {
+                OrderRefId = OrderData.OrderId;
+                orderAmount = OrderData.TotalAmount;
+            }
+            int amountInMinorUnits = (int)Math.Round(orderAmount * 100);
+
+            string url = "https://try.access.worldpay.com/payment_pages";
+
+            // Your API credentials
+            string username = "xjg9Ooew6J8gXiYk";
+            string password = "9y6XFqPdMxjPVM7cF51rtBnmNHyE3kJMTaLNcuV44IVMSetAhFF09smOgA9n9bq1";
+            string base64Credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}"));
+
+            var jsonBody = $@"
+                {{
+                  ""transactionReference"": ""{OrderRefId}"",
+                  ""merchant"": {{
+                    ""entity"": ""PO4079482312""
+                  }},
+                  ""narrative"": {{
+                    ""line1"": ""SpendWise Accountancy""
+                  }},
+                  ""value"": {{
+                    ""currency"": ""GBP"",
+                    ""amount"": ""{amountInMinorUnits}""
+                  }},
+                  ""description"": ""SpendWise Accountancy"",
+                  ""resultURLs"": {{
+                     ""successURL"": ""http://localhost:5132/BuyPackage/CompanyDetails?handler=PaymentSuccess"",
+                     ""pendingURL"": ""http://localhost:5132/"",
+                     ""failureURL"": ""http://localhost:5132/BuyPackage/CompanyDetails?handler=PaymentError"",
+                     ""errorURL"": ""http://localhost:5132/BuyPackage/CompanyDetails?handler=PaymentError"",
+                     ""cancelURL"": ""http://localhost:5132/BuyPackage/CompanyDetails?handler=PaymentCancelled"",
+                     ""expiryURL"": ""http://localhost:5132/""
+                  }}
+                }}";
+
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post, url);
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", base64Credentials);
+                request.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/vnd.worldpay.payment_pages-v1.hal+json"));
+                request.Content = new StringContent(jsonBody, Encoding.UTF8, "application/vnd.worldpay.payment_pages-v1.hal+json");
+
+                HttpResponseMessage response = await client.SendAsync(request);
+                string result = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    using var doc = System.Text.Json.JsonDocument.Parse(result);
+                    if (doc.RootElement.TryGetProperty("url", out var urlElement))
+                    {
+                        string paymentPageUrl = urlElement.GetString();
+
+                        // 🎯 Return the payment page URL to your AJAX call
+                        return new JsonResult(new { success = true, paymentPageUrl });
+                    }
+                    else
+                    {
+                        return new JsonResult(new { success = false, message = "Payment page URL not found in response." });
+                    }
+                }
+                else
+                {
+                    return new JsonResult(new { success = false, message = $"Error from Worldpay: {response.StatusCode}", details = result });
+                }
+            }
         }
 
-        [BindProperty]
-        public EmailRequest Input { get; set; }
+        public async Task<IActionResult> OnGetPaymentSuccess()
+        {
+            int CusOrderId = Convert.ToInt32(Request.Cookies["OrderId"]);
+            Order = await _context.Orders.Where(x => x.OrderId == CusOrderId).FirstOrDefaultAsync();
+
+            
+            if (Order != null)
+            {
+                Order.IsPaymentComplete = true;
+                await _context.SaveChangesAsync();
+            }
+
+
+            PaymentStatusMessage = "Payment successful! Thank you for your order.";
+            return RedirectToPage("/FormationPage/Company-Formation");
+        }
+
+        public async Task<IActionResult> OnGetPaymentError(string errorRefNumber, string errors)
+        {
+            int CusOrderId = Convert.ToInt32(Request.Cookies["OrderId"]);
+            Order = await _context.Orders.Where(x => x.OrderId == CusOrderId).FirstOrDefaultAsync();
+
+            if (!string.IsNullOrEmpty(errors))
+            {
+                TempData["PaymentStatusMessage"] = $"Payment error: {errors}";
+            }
+            else if (!string.IsNullOrEmpty(errorRefNumber))
+            {
+                TempData["PaymentStatusMessage"] = $"Payment error (Ref: {errorRefNumber}). Please try again.";
+            }
+            else
+            {
+                TempData["PaymentStatusMessage"] = "An unknown error occurred during payment. Please try again.";
+            }
+            return RedirectToPage("/BuyPackage/Index", new { id = CusOrderId });
+        }
+
+        public async Task<IActionResult> OnGetPaymentCancelled()
+        {
+            int CusOrderId = Convert.ToInt32(Request.Cookies["OrderId"]);
+            Order = await _context.Orders.Where(x => x.OrderId == CusOrderId).FirstOrDefaultAsync();
+
+            //Console.WriteLine($"Status Code: {response.StatusCode}");
+            //Console.WriteLine("Response:");
+            //Console.WriteLine(result);
+            TempData["PaymentStatusMessage"] = "A Payment Cancelled. Please try again.";
+            return RedirectToPage("/BuyPackage/Index", new { id = CusOrderId });
+        }
 
         public async Task<JsonResult> OnPostSendOtp([FromBody] EmailRequest input)
         {
@@ -431,10 +522,15 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             }
         }
     }
-
+        
     public class UserPayloadData
     {
         public User UserData { get; set; }
         public AddressData address { get; set; }
+    }
+    public class EmailRequest
+    {
+        public string Email { get; set; }
+        public string Otp { get; set; }
     }
 }

@@ -134,7 +134,7 @@
                     Cookies.remove("TotalAmount");
                     Cookies.remove("selectedPackageItems");
                     Cookies.remove("selectedAdditionalPackageItems");
-                    const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+                    const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
                     Cookies.set("SelectedPackage", $("#hdnSelectedPackage").val(), expires);
                 }
 
@@ -394,7 +394,7 @@
                         }
 
                         if (isAvailable === true) {
-                            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+                            const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
                             Cookies.set("companyName", searchedCompanyName, expires);
 
                             $("#errorCompanyname").css("display", "none");
