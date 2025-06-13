@@ -15,6 +15,11 @@
     .info-icon {
         position: relative;
     }
+
+    #section-one .home-packages__packages .infobox--right {
+        left: initial;
+        right: 25px;
+    }
 </style>
 
 <section class="home-hero">
@@ -642,6 +647,7 @@
                         <div class="home-packages__packages" style="grid-template-columns: repeat(@PackageCount, 1fr);">
                             @if (Model.Package != null && Model.Package.Any())
                             {
+                                int itemcnt = 1;
                                 @foreach (var item in Model.Package)
                                 {
                                     <div class="home-packages__package">
@@ -678,7 +684,8 @@
                                                                 <span class="checkout-additional-items__item--icon infobox-btn">
                                                                     <i class="fa fa-circle-info fc-bcbcbc" aria-hidden="true"></i>
                                                                 </span>
-                                                                <div class="infobox">
+                                                                @if(itemcnt == PackageCount){
+                                                                <div class="infobox infobox--right">
                                                                     <div class="infobox__wrapper">
                                                                         <a class="infobox__close">×</a>
                                                                         <div class="infobox__content">
@@ -686,6 +693,17 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                }
+                                                                else{
+                                                                      <div class="infobox">
+                                                                    <div class="infobox__wrapper">
+                                                                        <a class="infobox__close">×</a>
+                                                                        <div class="infobox__content">
+                                                                            @Html.Raw(featureInfo)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                }
                                                             </div>
                                                         }
                                                     </li>
@@ -696,6 +714,7 @@
                                             <a class="button button--alt" asp-page="/Package" asp-route-packageName="@item.PackageName">Read More</a>
                                         </div>
                                     </div>
+                                    itemcnt++;
                                 }
                             }
                         </div>
@@ -2408,7 +2427,7 @@
 
         function onBuyPackage() {
             var companyName = $("#hdnCompanyName").val();
-            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
             Cookies.set("companyName", companyName, expires);
             window.location.href = "/BuyPackage";
         }

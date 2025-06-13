@@ -41,9 +41,9 @@
         color: white;
     }
 
-    .btnVerifyOtp:hover {
-        color: white;
-    }
+        .btnVerifyOtp:hover {
+            color: white;
+        }
 
     .otpTimer {
         margin-left: -21rem;
@@ -640,182 +640,18 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <!-- account balance wrapper -->
-                    <!-- end account balance wrapper -->
-                    <!-- previous card wrapper -->
-                    <!-- end previoud card wrapper -->
-                    <!-- start ST V2 details -->
-                    <!-- New Card wrapper -->
-                    <div class="efNewCardWrapper ef-js-new-card-wrapper">
-
-                        <h2>Card Details</h2>
-
-                        <div id="st-message" class="ef-js-st-error-wrapper" style=""></div>
-
-                        <div class="ef-js-card-details-error efPaymentGatewayDetailsError efHide">
-                            <span class="ef-js-card-details-error-text"></span>
+                    <div class="efNewCardWrapper">
+                        @if (!string.IsNullOrEmpty(Model.PaymentStatusMessage))
+                        {
+                            <h2>@Model.PaymentStatusMessage</h2>
+                        }
+                        <div class="efPaymentGatewayPayBtn efCardDetailsField">
+                            <label class="efPaymentGatewayLabel"></label>
+                            <button type="button" name="make-payment" class="btn btn-success" role="button" aria-disabled="false" onclick="handlePaybtn()">Pay Securely</button>
+                            <span class="efPaymentGatewayLoader efHide ef-js-payment-loader"></span>
                         </div>
-                        <div>
-                        <div class="col-md-12">
-                            <label class="efPaymentGatewayLabel">Select Card Type:</label><div class="efCardTypeSelector ef-js-card-type-selector">
-                                <span class="ef-card-type-span ef-js-card-type " data-card-type="VISA">
-                                    <img src="/images/VISA.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span ef-js-card-type " data-card-type="ELECTRON">
-                                    <img src="/images/ELECTRON.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span ef-js-card-type " data-card-type="DELTA">
-                                    <img src="/images/DELTA.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span ef-js-card-type " data-card-type="PURCHASING">
-                                    <img src="/images/PURCHASING.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span ef-js-card-type " data-card-type="VPAY">
-                                    <img src="/images/VPAY.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span ef-js-card-type " data-card-type="MAESTRO">
-                                    <img src="/images/MAESTRO.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span ef-js-card-type " data-card-type="MASTERCARD">
-                                    <img src="/images/MASTERCARD.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span ef-js-card-type " data-card-type="MASTERCARDDEBIT">
-                                    <img src="/images/MASTERCARDDEBIT.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span ef-js-card-type " data-card-type="AMEX">
-                                    <img src="/images/AMEX.png" class="efCardTypeImg">
-                                </span>
-                            </div>
-                        </div>
-                        </div>
-                        <!-- new card form -->
-                        <form id="st-form-v2" class="ef-js-payment-form" action="/efiling-process-trustpayment/?pt=a860a6f2-a0cf-11ef-8d6b-42010a8400b7" method="post">
-                            <div class="efCardDetails ef-js-card-detailszzz">
-                                <input type="hidden" name="selected-card-type" value="" class="ef-js-card-type-id">
-                                <div class="ef-js-non-paypal ">
-                                    <div class="row">
-                                        <div class="col=md-12">
-                                            <label class="efPaymentGatewayLabel">Card Number</label>
-                                            <input type="text" class="form-control" name="ef-pan" data-st-field="pan" autocomplete="off" value="">
-                                        </div>
-                                    </div>                            
-
-                                    <div class="row">
-                                        <div class="col-md-6 col-xs-12">
-                                            <label class="efPaymentGatewayLabel">Expiry</label>
-                                            <select name="ef-exp-month" class="efSelectInput efExpDate efExpMonth" data-st-field="expirymonth">
-                                                <option value="">Month</option>
-                                                <option>01</option>
-                                                <option>02</option>
-                                                <option>03</option>
-                                                <option>04</option>
-                                                <option>05</option>
-                                                <option>06</option>
-                                                <option>07</option>
-                                                <option>08</option>
-                                                <option>09</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-
-                                            </select>
-                                            /
-                                            <select name="ef-exp-year" class="efSelectInput efExpDate efExpYear" data-st-field="expiryyear">
-                                                <option value="">Year</option>
-                                                <option>2024</option>
-                                                <option>2025</option>
-                                                <option>2026</option>
-                                                <option>2027</option>
-                                                <option>2028</option>
-                                                <option>2029</option>
-                                                <option>2030</option>
-                                                <option>2031</option>
-                                                <option>2032</option>
-                                                <option>2033</option>
-                                                <option>2034</option>
-                                            </select>
-
-                                        </div>
-                                        <div class="col-md-6 col-xs-12">
-                                            <label class="efPaymentGatewayLabel">CVC/CVV</label>
-                                            <input type="text" class="form-control efCVC" name="ef-cvc" size="4" data-st-field="securitycode" autocomplete="off">
-                                            <img src="/images/cvv2.png" class="efPaymentCVV">
-                                        </div>
-                                    </div>
-                                    <div class="efCardDetailsField">
-                                        </div>
-                                    <div class="efCardDetailsField">
-                                        
-                                    </div>
-                                </div>
-                                <div class="efPaymentGatewayPayBtn efCardDetailsField">
-                                    <label class="efPaymentGatewayLabel"></label>
-                                    <button type="button" name="make-payment" class="btn btn-success" role="button" aria-disabled="false" onclick="handlePaybtn()">Pay Securely</button>
-                                    <span class="efPaymentGatewayLoader efHide ef-js-payment-loader"></span>
-                                </div>
-
-                            </div>
-
-                            <!-- billing details populated presubmit-->
-                            <input type="hidden" class="js-st-billing-title" name="billing-title" value="">
-                            <input type="hidden" class="js-st-billing-firstname" name="billing-firstname" value="">
-                            <input type="hidden" class="js-st-billing-lastname" name="billing-lastname" value="">
-                            <input type="hidden" class="js-st-billing-phone" name="billing-phone" value="">
-                            <input type="hidden" class="js-st-billing-address" name="billing-address-id" value="">
-                            <!-- end billing details -->
-
-                            <input type="hidden" name="pa" value="card-payment">
-                            <input type="hidden" name="input-amount" value="59.58">
-                            <input type="hidden" name="order-description" value="Payment for Order 4811520">
-                            <input type="hidden" class="ef-js-pt" name="pt" value="a860a6f2-a0cf-11ef-8d6b-42010a8400b7">
-                            <input type="hidden" class="ef-js-csrf" name="csrf-token" value="2ed750ef6d876d665999ca8507f5dd9cfbe3e5ecbc246b53807933e77e5c59af">
-                            <input type="hidden" class="ef-js-siteref" name="siteref" value="firstform53731">
-                            <input type="hidden" class="ef-js-payment-version" name="ef-js-payment-version" value="ST2">
-                        </form>
 
                     </div>
-
-
-                    <!-- nothing to pay -->
-                    <!-- invalid config -->
-                    <div id="ef-stv2-overlay">
-                        <div id="ef-stv2-page-wrapper">
-                            <h1>Payment processing</h1>
-                            <p>Please do not refresh or leave this page.</p>
-                            <div class="ef-stv2-loader">
-                                <img class="ef-stv2-loader-img" src="/assets/loaders/default.gif" alt="Loading...">
-                            </div>
-                            <div class="ef-stv2-logos">
-                                <span class="ef-card-type-span">
-                                    <img src="/images/DELTA.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span">
-                                    <img src="images/VISA.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span">
-                                    <img src="/images/MASTERCARD.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span">
-                                    <img src="/images/MASTERCARDDEBIT.png" class="efCardTypeImg">
-                                </span>
-                                <span class="ef-card-type-span">
-                                    <img src="/images/MAESTRO.png" class="efCardTypeImg">
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="js-3d-secure-wrapper" class=""></div>
-
-                    <script src="https://webservices.securetrading.net/js/v3/st.js"></script>
-
-
-                    <!-- end ST V2 details -->
-                    <!-- start Stripe details -->
-                    <!-- end ST V2 details -->
-
                 </div>
                 <!-- end payment content -->
                 <!-- start cart contents -->
@@ -1071,7 +907,7 @@
         }
 
         // Validate each required field
-        validateField("#password","#Password_Error", "Password");
+        validateField("#password", "#Password_Error", "Password");
 
 
         if (isValid) {
@@ -1086,7 +922,7 @@
                     if (response.success === false) {
                         showToast(response.message, 'danger');
     @* alert(response.message); *@
-                    } else {
+                            } else {
                         // Redirect using the returned orderId and token
                         const orderId = response.orderId;
                         const token = response.token;
@@ -1144,7 +980,7 @@
         validateField("#User_Title", "Title");
         validateField("#User_Forename", "First Name");
         validateField("#User_Surname", "Last Name");
-        
+
         if (phone === "") {
             isValid = false;
             $("#User_PhoneNumber_Error").text("Phone number is required.").show();
@@ -1160,7 +996,7 @@
             isValid = false;
             $(".efPaymentGatewayAddressText").after('<small class="text-danger">Address is required.</small>');
         }
-        
+
         if (isValid) {
             var UserData = {
                 Email: $("#User_Email").val(),
@@ -1187,10 +1023,10 @@
 
             console.log("UserData =", UserData);
             if (!userEmail) {
-                if(emailVerify == false){
+                if (emailVerify == false) {
                     showToast("Please Verify your Email!", "warning");
                 }
-                else{
+                else {
                     $.ajax({
                         url: "/BuyPackage/CompanyDetails?handler=CreateNewUser",
                         method: "POST",
@@ -1206,10 +1042,27 @@
                                 const orderId = response.orderId;
                                 const token = response.token;
 
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/BuyPackage/CompanyDetails?handler=SetupPayment",
+                                    success: function (result) {
+                                        if (result.success) {
+                                            // Open the hosted payment page in a new tab (standard practice for HPP)
+                                            window.open(result.paymentPageUrl, "_blank");
+                                        } else {
+                                            console.log("Error from SetupPaymentAsync:", result.message);
+                                            alert("Error setting up payment: " + result.message);
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.log("AJAX error:", error);
+                                        alert("An unexpected error occurred. Please try again.");
+                                    }
+                                });
                                 // Build the redirect URL
-                                const redirectUrl = `/FormationPage/Company-Formation`;
-                                window.location.href = redirectUrl;
-                            }
+    @* const redirectUrl = `/FormationPage/Company-Formation`;
+                                    window.location.href = redirectUrl; *@
+                                }
                         },
                         error: function (xhr) {
                             console.error("Error:", xhr.statusText, xhr.responseText);
@@ -1217,8 +1070,7 @@
                     });
                 }
             }
-            else if(Cookies.get("BillingAddress"))
-            {
+            else if (Cookies.get("BillingAddress")) {
                 $.ajax({
                     url: "/BuyPackage/CompanyDetails?handler=UpdateUserBillingAddress",
                     method: "POST",
@@ -1235,8 +1087,25 @@
                             const token = response.token;
 
                             // Build the redirect URL
-                            const redirectUrl = `/FormationPage/Company-Formation`;
-                            window.location.href = redirectUrl;
+    @* const redirectUrl = `/FormationPage/Company-Formation`;
+                                window.location.href = redirectUrl; *@
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/BuyPackage/CompanyDetails?handler=SetupPayment",
+                                    success: function (result) {
+                                        if (result.success) {
+                                            // Open the hosted payment page in a new tab (standard practice for HPP)
+                                            window.open(result.paymentPageUrl, "_blank");
+                                        } else {
+                                            console.log("Error from SetupPaymentAsync:", result.message);
+                                            alert("Error setting up payment: " + result.message);
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.log("AJAX error:", error);
+                                        alert("An unexpected error occurred. Please try again.");
+                                    }
+                                });
                         }
                     },
                     error: function (xhr) {
@@ -1245,8 +1114,25 @@
                 });
             }
             else {
-                const redirectUrl = `/FormationPage/Company-Formation`;
-                window.location.href = redirectUrl;
+    @*  const redirectUrl = `/FormationPage/Company-Formation`;
+                    window.location.href = redirectUrl; *@
+                    $.ajax({
+                        type: "GET",
+                        url: "/BuyPackage/CompanyDetails?handler=SetupPayment",
+                        success: function (result) {
+                            if (result.success) {
+                                // Open the hosted payment page in a new tab (standard practice for HPP)
+                                window.open(result.paymentPageUrl, "_blank");
+                            } else {
+                                console.log("Error from SetupPaymentAsync:", result.message);
+                                alert("Error setting up payment: " + result.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("AJAX error:", error);
+                            alert("An unexpected error occurred. Please try again.");
+                        }
+                    });
             }
         }
     }
@@ -1283,7 +1169,7 @@
                 PostCode: $("#Address_PostCode").val(),
                 Country: $("#Address_Country").val()
             };
-            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
             Cookies.set("BillingAddress", true, expires);
             $("#chooseAddressModal").modal('hide');
             var SelectedAddress = AddressData.HouseName + "," + AddressData.Street + "," + AddressData.Locality + "," + AddressData.Town
@@ -1407,7 +1293,7 @@
     }
 
     function bindAddressToForm(data) {
-        
+
         if (!data) return;
         console.log("data", data);
         //const lines = data.line_1.split(' ');
@@ -1428,14 +1314,14 @@
     $(".emailOtp").html("Verify");
     let countdown;
     let timerSeconds = 60;
-    
+
     function startTimer() {
         $("#timer").text(`OTP is expired in ${timerSeconds}s`);
         $(".emailOtp").html("Verify");
-    
-        countdown = setInterval(function() {
+
+        countdown = setInterval(function () {
             timerSeconds--;
-            if(timerSeconds <= 0) {
+            if (timerSeconds <= 0) {
                 clearInterval(countdown);
                 $("#timer").text("OTP is expired.");
                 $(".emailOtp").html("Resend");
@@ -1443,9 +1329,9 @@
             else {
                 $("#timer").text(`OTP is expired in ${timerSeconds}s`);
             }
-        },1000);
+        }, 1000);
     }
-    
+
     $("#sendOtp").click(function () {
         var isValid = true;
         var email = $("#User_Email").val();
@@ -1462,8 +1348,8 @@
         } else {
             $("#User_Email_Error").text("").hide();
         }
-    
-        if(isValid) {
+
+        if (isValid) {
             $.ajax({
                 url: "/BuyPackage/CompanyDetails?handler=SendOtp",
                 type: "POST",
@@ -1482,14 +1368,13 @@
             });
         }
     });
-    
-    $("#verifyOtp").click(function(e) {
+
+    $("#verifyOtp").click(function (e) {
         e.preventDefault();
         var email = $("#User_Email").val();
         var otp = $("#otp").val();
-    
-        if(timerSeconds <= 0)
-        {
+
+        if (timerSeconds <= 0) {
             showToast("Please Resend your OTP.", "warning");
         }
         else {
@@ -1503,7 +1388,7 @@
                         emailVerify = true;
                         showToast("Email verified successfully!", "success");
                         clearInterval(countdown);
-                        $(".emailOtp").html("Verified").css({"color": "green", "cursor": "none"});
+                        $(".emailOtp").html("Verified").css({ "color": "green", "cursor": "none" });
                         $("#otpSection").hide();
                     } else {
                         showToast("Invalid OTP.", "danger");

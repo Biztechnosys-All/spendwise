@@ -1149,7 +1149,7 @@
         }
         else {
             var searchedCompanyName = $("#Particular_CompanyName").val();
-            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
             $.ajax({
                 type: "GET",
                 url: "/Index?handler=CheckCompanyAvailability&companyName=" + encodeURIComponent($("#Particular_CompanyName").val()),
@@ -1960,7 +1960,7 @@
         console.log("selectedPosition ::", selectedPosition);
 
         const officerId = data.officerId;
-        const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+        const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
         Cookies.set("PersonOfficerId", officerId, expires);
 
         $.ajax({

@@ -333,7 +333,7 @@
             selectedAdditionalPackageItems = filteredItems;
         }
 
-        const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+        const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
 
         var CheckOutSelectedItems = JSON.parse(Cookies.get("selectedPackageItems") || "[]");
         var CheckOutAdditionalSelectedItems = JSON.parse(Cookies.get("selectedAdditionalPackageItems") || "[]");
@@ -416,7 +416,7 @@
         var token = $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
         if (isChecked) {
             console.log(JSON.stringify(selectedPackageItems));
-            const expires = 7 ? { expires: 7, secure: true, sameSite: 'Strict' } : {};
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
             Cookies.set("NetAmount", $("#spmNetAmount").text(), expires);
             Cookies.set("VatAmount", $("#spmVatAmount").text(), expires);
             Cookies.set("TotalAmount", $("#spnTotalAmount").text(), expires);

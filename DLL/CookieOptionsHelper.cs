@@ -8,8 +8,8 @@
             {
                 HttpOnly = false,
                 Secure = true,
-                SameSite = SameSiteMode.Strict,
-                Expires = DateTime.UtcNow.AddDays(3)
+                SameSite = SameSiteMode.None,
+                Expires = DateTime.UtcNow.AddDays(2)
             };
         }
     }
