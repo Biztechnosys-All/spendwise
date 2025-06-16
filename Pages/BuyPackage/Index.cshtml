@@ -378,7 +378,6 @@
         }
 
         function CheckCompanyName() {
-            Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
             if ($("#company_name").val() == "") {
                 $("#errorCompanyname").css("display", "block");
             }

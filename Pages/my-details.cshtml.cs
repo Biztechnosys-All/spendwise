@@ -97,10 +97,20 @@ namespace Spendwise_WebApp.Pages
                 return Page();
             }
 
-            User.BillingEmail = User.BillingEmail != null ? User.BillingEmail : User.Email;
-            User.BillingPhoneNumber = User.BillingPhoneNumber != null ? User.BillingPhoneNumber : User.PhoneNumber;
+            var existingUser = await _context.Users.FindAsync(User.UserID);
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
 
-            _context.Attach(User).State = EntityState.Modified;
+            // Update only fields that were actually submitted (manually)
+            existingUser.Title = User.Title;
+            existingUser.Forename = User.Forename;
+            existingUser.Surname = User.Surname;
+            existingUser.Email = User.Email;
+            existingUser.PhoneNumber = User.PhoneNumber;
+            existingUser.BillingEmail = string.IsNullOrEmpty(User.BillingEmail) ? User.Email : User.BillingEmail;
+            existingUser.BillingPhoneNumber = string.IsNullOrEmpty(User.BillingPhoneNumber) ? User.PhoneNumber : User.BillingPhoneNumber;
 
             try
             {
