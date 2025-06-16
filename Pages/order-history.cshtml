@@ -41,7 +41,7 @@
                                     <td id="OrderId"> @item.OrderId </td>
                                     @if (item.InvoicedDate != null)
                                     {
-                                        <td> @item.InvoicedDate </td>
+                                        <td> @item.InvoicedDate.Value.ToString("dd'/'MM'/'yyyy")</td>
                                     }
                                     else
                                     {
@@ -76,7 +76,7 @@
                                     }
                                     else
                                     {
-                                        <td> Incomplete </td>
+                                        <td> Complete </td>
                                         <td>
                                             <a href="#" class="btn btn-success" role="button" aria-disabled="false">
                                                 <span>
