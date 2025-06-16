@@ -430,6 +430,7 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             
             if (Order != null)
             {
+                Order.IsOrderComplete = true;
                 Order.IsPaymentComplete = true;
                 Order.InvoicedDate = DateTime.Now;
                 await _context.SaveChangesAsync();
