@@ -91,6 +91,7 @@ namespace Spendwise_WebApp.Pages
                     BillingEmail = user.Email,
                     BillingPhoneNumber = user.PhoneNumber,
                     EmailVerificationToken = token,
+                    IsActive = true,
                     IsEmailVerified = false,
                     created_on = DateTime.Now
                 };
@@ -142,7 +143,7 @@ namespace Spendwise_WebApp.Pages
                 //    values: new { email = registrationData.Email, token = registrationData.EmailVerificationToken },
                 //    protocol: Request.Scheme);
 
-                string emailBody = string.Format(htmlTemplate, subject, registrationData.Email, registrationData.Forename, registrationData.Surname);
+                string emailBody = string.Format(htmlTemplate, registrationData.Email, registrationData.Forename, registrationData.Surname);
 
                 await _emailSender.SendEmailAsync(registrationData.Email, subject, emailBody);
 
