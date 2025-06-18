@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Spendwise_WebApp.DLL;
+using System.Net.Http.Headers;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +43,15 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<EmailSender>();
+
+builder.Services.AddHttpClient("CompanyHouseClient", client =>
+{
+    client.BaseAddress = new Uri("https://test-data-sandbox.company-information.service.gov.uk/");
+    var apiKey = "575c7a89-6c0a-44a8-bdcf-9892d925a2f6"; // replace with your sandbox API key
+    var byteArray = Encoding.ASCII.GetBytes($"{apiKey}:");
+    client.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+});
 
 var app = builder.Build();
 

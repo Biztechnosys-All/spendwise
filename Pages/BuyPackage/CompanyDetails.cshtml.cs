@@ -14,6 +14,7 @@ using System.Text.Json;
 using Microsoft.VisualBasic;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.ComponentModel.Design;
+using Azure.Core;
 
 namespace Spendwise_WebApp.Pages.BuyPackage
 {
@@ -426,9 +427,30 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         public async Task<IActionResult> OnGetPaymentSuccess()
         {
             int CusOrderId = Convert.ToInt32(Request.Cookies["OrderId"]);
-            Order = await _context.Orders.Where(x => x.OrderId == CusOrderId).FirstOrDefaultAsync();
+            Order = await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == CusOrderId);
 
-            
+            var Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId == Order.CompanyId);
+            var UserDetails = await _context.Users.FirstOrDefaultAsync(x => x.UserID == Order.OrderBy);
+            var CompanyParticulars = await _context.Particulars.FirstOrDefaultAsync(x => x.CompanyId == Order.CompanyId);
+
+            //Package Features for selected package
+            var features = _context.packages.Where(x => x.PackageName == Order.PackageName).FirstOrDefault().PackageFeatures;
+
+            var SelectedPackageFeatures = features != null ? features : string.Empty;
+            var AddPackageFeaturesItemIds = SelectedPackageFeatures.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                   .Select(int.Parse)
+                   .ToList();
+
+            var PackageFeature = _context.PackageFeatures.Where(x => AddPackageFeaturesItemIds.Contains(x.FeatureId)).ToList();
+
+            // Additional Package
+            var SelectedAddPackageItems = Order != null ? Order.AdditionalPackageItemIds : string.Empty;
+            var AddPackageItemIds = SelectedAddPackageItems.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                   .Select(int.Parse)
+                   .ToList();
+
+            var additionalPackageItems = _context.AdditionalPackageItems.Where(x => AddPackageItemIds.Contains(x.AdditionalPackageItemId)).ToList();
+
             if (Order != null)
             {
                 Order.IsOrderComplete = true;
@@ -456,6 +478,36 @@ namespace Spendwise_WebApp.Pages.BuyPackage
             _context.InvoiceHistory.Add(invoice);
             _context.SaveChanges();
 
+            var listBuilder = new StringBuilder();
+
+            listBuilder.Append("<ul class='efList ui-widget-content' style='list-style-type:none; padding-left:5px;'>");
+
+            listBuilder.AppendFormat("<li>1 x {0} Formation</li>", Order.PackageName);
+
+            foreach (var item in PackageFeature)
+            {
+                listBuilder.AppendFormat("<li>1 x {0}</li>", item.Feature);
+            }
+
+            foreach (var item in additionalPackageItems)
+            {
+                listBuilder.AppendFormat("<li>1 x {0}</li>", item.ItemName);
+            }
+
+            listBuilder.Append("</ul>");
+
+            string packageListHtml = listBuilder.ToString();
+
+            string subject = "Your company application order is processed";
+            string pathToFile = Path.Combine(_env.WebRootPath, "EmailTemplate", "OrderConfirmation.html");
+            string htmlTemplate;
+            using (StreamReader reader = System.IO.File.OpenText(pathToFile))
+            {
+                htmlTemplate = await reader.ReadToEndAsync();
+            }
+            string emailBody = string.Format(htmlTemplate, UserDetails?.Forename, UserDetails?.Surname, Order?.OrderId, packageListHtml);
+
+            await _emailSender.SendEmailAsync(UserDetails?.Email, subject, emailBody);
 
             PaymentStatusMessage = "Payment successful! Thank you for your order.";
             return RedirectToPage("/FormationPage/Company-Formation");
