@@ -44,15 +44,15 @@
                         @if (item.CompnayStatus == "Approved")
                         {
                             <td>
-                                <a class="btn btn-dark disabled" onclick="handleCompnayStatus('Approved', @item.CompanyId)">Approve </a> |
-                                <a class="btn btn-dark disabled" onclick="handleCompnayStatus('Action Required', @item.CompanyId)">Reject</a>
+                                <a class="btn btn-dark disabled" onclick="handleCompnayStatus('Approved', @item.CompanyId,@item.OrderNo)">Approve </a> |
+                                <a class="btn btn-dark disabled" onclick="handleCompnayStatus('Action Required', @item.CompanyId,@item.OrderNo)">Reject</a>
                             </td>
                         }
                         else
                         {
                             <td>
-                                <a class="btn btn-dark" onclick="handleCompnayStatus('Approved', @item.CompanyId)">Approve </a> |
-                                <a class="btn btn-dark" onclick="handleCompnayStatus('Action Required', @item.CompanyId)">Reject</a>
+                                <a class="btn btn-dark" onclick="handleCompnayStatus('Approved', @item.CompanyId,@item.OrderNo)">Approve </a> |
+                                <a class="btn btn-dark" onclick="handleCompnayStatus('Action Required', @item.CompanyId,@item.OrderNo)">Reject</a>
                             </td>
                         }
                     </tr>
@@ -70,16 +70,18 @@
     </table>
 </div>
 <script>
-    function handleCompnayStatus(status, CompanyId) {
+    function handleCompnayStatus(status, CompanyId, OrderNo) {
         // Check if the checkbox with id "agree-checkbox" is checked
         $.ajax({
             url: "/Admin/CompanyApplications?handler=UpdateCompanyStatus",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ status: status, CompanyId: CompanyId }),
+            data: JSON.stringify({ status: status, CompanyId: CompanyId, OrderNo: OrderNo }),
             success: function (result) {
                 if (result.success) {
-                    showToast("Company status updated successfully!", "success");
+                    console.log("result.Message:", result.Message);
+                    showToast(result.Message || "Company status updated successfully!", "success");
+
                     setTimeout(function () {
                         window.location.reload();
                     }, 1000);

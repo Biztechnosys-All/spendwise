@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Spendwise_WebApp.Models;
+using System.Text.Json;
+using System.Text;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace Spendwise_WebApp.Pages.Admin
 {
@@ -10,10 +13,16 @@ namespace Spendwise_WebApp.Pages.Admin
     public class CompanyApplicationsModel : PageModel
     {
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly IWebHostEnvironment _env;
+        private readonly EmailSender _emailSender;
 
-        public CompanyApplicationsModel(Spendwise_WebApp.DLL.AppDbContext context)
+        public CompanyApplicationsModel(Spendwise_WebApp.DLL.AppDbContext context, IHttpClientFactory clientFactory, IWebHostEnvironment env, EmailSender emailSender)
         {
             _context = context;
+            _clientFactory = clientFactory;
+            _env = env;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -23,6 +32,7 @@ namespace Spendwise_WebApp.Pages.Admin
         {
             public string status { get; set; }
             public int CompanyId { get; set; }
+            public int OrderNo { get; set; }
         }
 
         public async Task<IActionResult> OnGet()
@@ -61,17 +71,76 @@ namespace Spendwise_WebApp.Pages.Admin
 
         public async Task<IActionResult> OnPostUpdateCompanyStatus([FromBody] RequestModel request)
         {
+            string ResponseMsg = string.Empty;
             var CompanyName = Request.Cookies["companyName"];
-            var companyId = request.CompanyId; // typo: should probably be "CompanyId"
+            var companyId = request.CompanyId;
+            var OrderId = request.OrderNo;
+
             var Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId == companyId);
+            var OrderData = await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == OrderId);
+            var UserDetails = await _context.Users.FirstOrDefaultAsync(x => x.UserID == OrderData.OrderBy);
+            var CompanyParticulars = await _context.Particulars.FirstOrDefaultAsync(x => x.CompanyId == companyId);
+
 
             if (Company != null)
             {
                 Company.CompanyStatus = request.status;
+                Company.ApprovedDate = DateTime.Now;
                 await _context.SaveChangesAsync(); // Use await with async SaveChangesAsync()
             }
+            if (request.status == "Approved")
+            {
+                string? CreatedCompanyNumber = string.Empty;
+                var client = _clientFactory.CreateClient("CompanyHouseClient");
+                var RequestBody = new CreateTestCompanyRequestBody
+                {
+                    CompanyName = Company.CompanyName,
+                    CompanyType = Company.CompanyType?.ToLower(),
+                    Jurisdiction = "england-wales",//CompanyParticulars.Jurisdiction
+                    CompanyStatus = "active",
+                    CompanyStatusDetail = "active",
+                    AccountsDueStatus = "due-soon",
+                    HasSuperSecurePscs = false,
+                    NumberOfAppointments = 1,
+                    OfficerRoles = new List<string> { "director" },
+                    SubType = "none"
+                };
+                var json = JsonSerializer.Serialize(RequestBody);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            return new JsonResult(new { success = true });
+                var response = await client.PostAsync("test-data/company", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var result = JsonSerializer.Deserialize<CreateTestCompanyResponse>(responseContent,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    CreatedCompanyNumber = result?.CompanyNumber;
+                    ResponseMsg = $"Name: {Company.CompanyName}, Number: {result?.CompanyNumber}, Auth: {result?.CompanyAuthCode}";
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, $"Error: {response.StatusCode}");
+                    Console.WriteLine($"Error: {response.StatusCode}");
+                    ResponseMsg = $"Error: {response.StatusCode}";
+                    return new JsonResult(new { success = false, Message = ResponseMsg });
+                }
+
+                string subject = "Your company application order is processed";
+                string pathToFile = Path.Combine(_env.WebRootPath, "EmailTemplate", "OrderFulfillment.html");
+                string htmlTemplate;
+                using (StreamReader reader = System.IO.File.OpenText(pathToFile))
+                {
+                    htmlTemplate = await reader.ReadToEndAsync();
+                }
+                string emailBody = string.Format(htmlTemplate, UserDetails?.Forename, UserDetails?.Surname, OrderData?.PackageName);
+
+                await _emailSender.SendEmailAsync(UserDetails?.Email, subject, emailBody);
+            }
+
+
+            return new JsonResult(new { success = true,Message = ResponseMsg });
         }
     }
 
