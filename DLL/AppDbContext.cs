@@ -24,6 +24,7 @@ namespace Spendwise_WebApp.DLL
         public virtual DbSet<CorporateCompanyOfficers> CorporateCompanyOfficers { get; set; }
         public virtual DbSet<OtherLegalOfficers> OtherLegalOfficers { get; set; }
         public virtual DbSet<EmailOtp> EmailOtp { get; set; }
+        public virtual DbSet<InvoiceHistory> InvoiceHistory { get; set; }
 
     }
 }

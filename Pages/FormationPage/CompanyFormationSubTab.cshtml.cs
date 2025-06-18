@@ -101,6 +101,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var selectCompanyId = Request.Cookies["ComanyId"];
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
+            var invoiceId = _context.InvoiceHistory.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().InvoiceId;
             var companyDetails = await _context.CompanyDetails.Where(x => x.Createdby == userId && x.CompanyId == companyId).FirstOrDefaultAsync();
             string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
 
@@ -132,6 +133,20 @@ namespace Spendwise_WebApp.Pages.FormationPage
                 {
                     cmd.Parameters.AddWithValue("@CompanyName", particular.CompanyName);
                     cmd.Parameters.AddWithValue("@CompanyId", companyDetails.CompanyId);
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                    if (rowsAffected == 0)
+                    {
+                        ModelState.AddModelError("", "Data not found.");
+                        return new JsonResult(new { success = false });
+                    }
+                }
+
+                string invoiceQuery = "UPDATE InvoiceHistory SET CompanyName = @CompanyName WHERE InvoiceId = @InvoiceId";
+                using (var cmd = new SqlCommand(invoiceQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CompanyName", particular.CompanyName);
+                    cmd.Parameters.AddWithValue("@InvoiceId", invoiceId);
                     int rowsAffected = await cmd.ExecuteNonQueryAsync();
 
                     if (rowsAffected == 0)

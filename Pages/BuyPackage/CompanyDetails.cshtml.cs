@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.VisualBasic;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.ComponentModel.Design;
 
 namespace Spendwise_WebApp.Pages.BuyPackage
 {
@@ -435,6 +436,25 @@ namespace Spendwise_WebApp.Pages.BuyPackage
                 Order.InvoicedDate = DateTime.Now;
                 await _context.SaveChangesAsync();
             }
+
+            var invoice = new InvoiceHistory
+            {
+                InvoiceBy = Order?.OrderBy != null ? Order.OrderBy : 0,
+                OrderId = Order.OrderId,
+                InvoiceDate = DateTime.Now,
+                PackageId = Order.PackageID,
+                PackageName = Order.PackageName,
+                CompanyName = Order.CompanyName,
+                CompanyId = Order.CompanyId,
+                NetAmount = Convert.ToDecimal(Order.NetAmount),
+                VatAmount = Convert.ToDecimal(Order.VatAmount),
+                TotalAmount = Convert.ToDecimal(Order.TotalAmount),
+                AmountDue = Convert.ToDecimal(Order.AmountDue),
+                AdditionalPackageItemIds = Order.AdditionalPackageItemIds,
+            };
+
+            _context.InvoiceHistory.Add(invoice);
+            _context.SaveChanges();
 
 
             PaymentStatusMessage = "Payment successful! Thank you for your order.";
