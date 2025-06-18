@@ -5,48 +5,67 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using Spendwise_WebApp.Models;
-using System.Text.RegularExpressions;
 
 namespace Spendwise_WebApp.Pages
 {
     [IgnoreAntiforgeryToken]
-    public class paymentsModel : PageModel
+    public class Order_DetailsModel : PageModel
     {
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
 
-        public paymentsModel(Spendwise_WebApp.DLL.AppDbContext context)
+        public Order_DetailsModel(Spendwise_WebApp.DLL.AppDbContext context)
         {
             _context = context;
         }
 
-        public List<InvoiceHistory> InvoiceHistory { get; set; } = default!;
+        [BindProperty]
+        public InvoiceHistory InvoiceHistory { get; set; } = default!;
+
+        [BindProperty]
+        public List<AdditionalPackageItem> additionalPackageItems { get; set; }
+
+        [BindProperty]
+        public List<PackageFeature> PackageFeature { get; set; }
+
+        [BindProperty]
+        public Package SelectedPackage { get; set; }
+
         public InvoiceHistory InvoiceOrder { get; set; } = default!;
         public AddressData billingAddress { get; set; } = default!;
-        public List<AdditionalPackageItem>? additionalPackageItems { get; set; }
-        public List<PackageFeature>? PackageFeature { get; set; }
         public User User { get; set; } = default!;
-        public async Task<IActionResult> OnGet()
+
+        public async Task<IActionResult> OnGet(int id)
         {
-            List<InvoiceHistory> invoiceData;
             var userEmail = Request.Cookies["UserEmail"];
             var orderId = Request.Cookies["OrderId"];
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
-            invoiceData = await _context.InvoiceHistory.Where(m => m.InvoiceBy == userId).ToListAsync();
+            InvoiceHistory = await _context.InvoiceHistory.Where(m => m.InvoiceId == id && m.InvoiceBy == userId).FirstOrDefaultAsync();
 
-            //var orderData = await _context.Orders.Where(m => m.OrderByIP == userId).ToListAsync();
-            if (invoiceData == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                InvoiceHistory = invoiceData;
-            }
+            SelectedPackage = await _context.packages.Where(x => x.PackageId == InvoiceHistory.PackageId).FirstOrDefaultAsync();
+
+            //Package Features for selected package
+            var features = _context.packages.Where(x => x.PackageName == InvoiceHistory.PackageName).FirstOrDefault().PackageFeatures;
+
+            var SelectedPackageFeatures = features != null ? features : string.Empty;
+            var AddPackageFeaturesItemIds = SelectedPackageFeatures.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                   .Select(int.Parse)
+                   .ToList();
+
+            PackageFeature = _context.PackageFeatures.Where(x => AddPackageFeaturesItemIds.Contains(x.FeatureId)).ToList();
+
+            // Additional Package
+            var SelectedAddPackageItems = InvoiceHistory != null ? InvoiceHistory.AdditionalPackageItemIds : string.Empty;
+            var AddPackageItemIds = SelectedAddPackageItems.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                   .Select(int.Parse)
+                   .ToList();
+
+            additionalPackageItems = _context.AdditionalPackageItems.Where(x => AddPackageItemIds.Contains(x.AdditionalPackageItemId)).ToList();
+
             return Page();
         }
 
-        public IActionResult OnGetGeneratePDF(int invoiceId)
+        public IActionResult OnGetViewPDF(int invoiceId)
         {
             var userEmail = Request.Cookies["UserEmail"];
             var invoiceOrderId = Request.Cookies["OrderId"];

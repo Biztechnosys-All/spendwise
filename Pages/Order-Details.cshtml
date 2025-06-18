@@ -1,0 +1,237 @@
+﻿@page
+@model Spendwise_WebApp.Pages.Order_DetailsModel
+@using System.Text.Json
+@{
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+
+<style>
+    #efOrderDetails td {
+        vertical-align: top;
+    }
+</style>
+
+<div class="container-inner">
+    <div id="efPageContent" class="ui-widget">
+        <div id="efAuthenticatedContent">
+            <h2>Order Details: @Model.InvoiceHistory.InvoiceId</h2>
+            <h3 class="efOrderOverviewDescription"> @Model.InvoiceHistory.CompanyName </h3>
+            <div id="efOrderOverview">
+                <div class="efWidgetHeader ui-widget-header ui-corner-top">Overview</div>
+                <div class="ui-widget-content efWidget no-top-border">
+                    <p>
+                        <strong style="float:left;width:100px;">
+                            Order Id:
+                        </strong>
+                        <br>
+                        <span>@Model.InvoiceHistory.InvoiceId</span>
+                    </p>
+                    <p>
+                        <strong style="float:left;width:100px;">
+                            Company:
+                        </strong>
+                        <br>
+                        <span>
+                            <a href="#">
+                                @Model.InvoiceHistory.CompanyName
+                            </a>
+                        </span>
+                    </p>
+                    <p>
+                        <strong style="float:left;width:100px;">
+                            Package:
+                        </strong>
+                        <br>
+                        <span>
+                            @Model.SelectedPackage.ShortDescription
+                        </span>
+                    </p>
+                    <p>
+                        <strong style="float:left;width:100px;">Status:</strong><br>
+                        <span>
+                            Complete
+                        </span>
+                    </p>
+                    <p>
+                        <strong style="float:left;width:100px;">
+                            Invoice:
+                        </strong>
+                        <a href="javascript:void(0);" target="_blank" rel="noopener" onclick="viewInvoiceOrder(@Model.InvoiceHistory.InvoiceId)">
+                            View
+                        </a>
+                    </p>
+
+
+                </div>
+            </div>
+
+            <div id="efOrderDetails">
+                <table class="efTable ui-widget-content">
+                    <tbody>
+                        <tr class="ui-widget-header">
+                            <td> Item </td>
+                            <td> Quantity </td>
+                            <td> Status </td>
+                            <td> Net </td>
+                            <td> VAT </td>
+                            <td> Gross </td>
+                        </tr>
+                        <tr>
+                            <td> @Model.InvoiceHistory.PackageName</td>
+                            <td> 1 </td>
+                            <td> Accepted </td>
+                            <td style="text-align:right" id="packageNetAmount">
+                                @Model.InvoiceHistory.NetAmount
+                            </td>
+                            <td style="text-align:right" id="packageVatAmount">
+                                @Model.InvoiceHistory.VatAmount
+                            </td>
+                            <td style="text-align:right" id="packageTotalAmount">
+                                @Model.InvoiceHistory.TotalAmount
+                            </td>
+                        </tr>
+
+                        @foreach (var item in Model.PackageFeature)
+                        {
+                            <tr>
+                                <td> @item.Feature</td>
+                                <td> 1 </td>
+                                <td> Complete </td>
+                                <td style="text-align:right">
+                                    0.00
+                                </td>
+                                <td style="text-align:right">
+                                    0.00
+                                </td>
+                                <td style="text-align:right">
+                                    0.00
+                                </td>
+                            </tr>
+                        }
+
+                        @foreach (var item in Model.additionalPackageItems)
+                        {
+                            <tr>
+                                <td> @item.ItemName</td>
+                                <td> 1 </td>
+                                <td> Complete </td>
+                                <td style="text-align:right" id="addPackageNetAmount_@item.AdditionalPackageItemId">
+                                    @item.price
+                                </td>
+                                <td style="text-align:right" id="addPackageVatAmount_@item.AdditionalPackageItemId">
+                                </td>
+                                <td style="text-align:right" id="addPackageTotalAmount_@item.AdditionalPackageItemId">
+                                </td>
+                            </tr>
+                        }
+                        <tr class="ui-widget-header efTableSubheader">
+                            <td></td>
+                            <td colspan="2" style="text-align:right"><b>Totals:</b></td>
+                            <td style="text-align:right" class="orderNetTotal">
+                            </td>
+                            <td style="text-align:right" class="orderVatTotal">
+                            </td>
+                            <td style="text-align:right" class="orderGrossTotal">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="efOrderNotes" style="margin-top:20px">
+                <h2>Payments</h2>
+
+                <table class="efTable ui-widget-content">
+                    <tbody>
+                        <tr class="ui-widget-header">
+                            <td>Date</td>
+                            <td>Amount</td>
+                            <td>Type</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>06/03/2025</td>
+                            <td>-85.98</td>
+                            <td>DEBIT</td>
+                            <td>
+                                Fulfillment of order 5029857
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>06/03/2025</td>
+                            <td>85.98</td>
+                            <td>ST</td>
+                            <td>
+                                Payment for 5029857
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            debugger;
+            // For Additional package
+            var additionalPackageItems = @Html.Raw(JsonSerializer.Serialize(Model.additionalPackageItems));
+
+            // Now loop through in JavaScript/jQuery
+            var netTotal = 0;
+            var vatTotal = 0;
+            var grossTotal = 0;
+
+            // Loop through Additional Packages
+            $.each(additionalPackageItems, function (index, item) {
+                // VAT for Additional Package
+                var netAmount = parseFloat($("#addPackageNetAmount_" + item.AdditionalPackageItemId).text().trim());
+                var vatAmount = netAmount * 0.20;
+                $("#addPackageVatAmount_" + item.AdditionalPackageItemId).text(vatAmount.toFixed(2));
+                $("#addPackageTotalAmount_" + item.AdditionalPackageItemId).text(netAmount + vatAmount);
+
+                // Sum net amount
+                if (!isNaN(netAmount)) {
+                    netTotal += netAmount;
+                }
+
+                // Sum VAT
+                if (!isNaN(vatAmount)) {
+                    vatTotal += vatAmount;
+                }
+
+                // if (!isNaN(grossAmount)) {
+                //     grossTotal += grossAmount;
+                // }
+            });
+
+            // Main package values
+            var mainNetAmount = parseFloat($("#packageNetAmount").text().trim());
+            var mainVatAmount = parseFloat($("#packageVatAmount").text().trim());
+            // var mainGrossAmount = parseFloat($("#packageTotalAmount").text().trim());
+
+            if (!isNaN(mainNetAmount)) {
+                netTotal += mainNetAmount;
+            }
+
+            if (!isNaN(mainVatAmount)) {
+                vatTotal += mainVatAmount;
+            }
+
+            // if (!isNaN(mainGrossAmount)) {
+            //     grossTotal += mainGrossAmount;
+            // }
+
+            // Update the totals in the summary rows
+            $(".orderNetTotal").text(netTotal.toFixed(2));
+            $(".orderVatTotal").text(vatTotal.toFixed(2));
+            $(".orderGrossTotal").text((netTotal + vatTotal).toFixed(2));
+        });
+
+        function viewInvoiceOrder(invoiceId) {
+            window.open(`/Order-Details?handler=ViewPDF&invoiceId=${invoiceId}`);
+        }
+    </script>
+}
