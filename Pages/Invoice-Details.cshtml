@@ -1,5 +1,5 @@
 ﻿@page
-@model Spendwise_WebApp.Pages.Order_DetailsModel
+@model Spendwise_WebApp.Pages.Invoice_DetailsModel
 @using System.Text.Json
 @{
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
@@ -14,8 +14,8 @@
 <div class="container-inner">
     <div id="efPageContent" class="ui-widget">
         <div id="efAuthenticatedContent">
-            <h2>Order Details: @Model.OrderHistory.OrderId</h2>
-            <h3 class="efOrderOverviewDescription"> @Model.OrderHistory.CompanyName </h3>
+            <h2>Invoice Details: @Model.InvoiceHistory.InvoiceId</h2>
+            <h3 class="efOrderOverviewDescription"> @Model.InvoiceHistory.CompanyName </h3>
             <div id="efOrderOverview">
                 <div class="efWidgetHeader ui-widget-header ui-corner-top">Overview</div>
                 <div class="ui-widget-content efWidget no-top-border">
@@ -24,7 +24,7 @@
                             Order Id:
                         </strong>
                         <br>
-                        <span>@Model.OrderHistory.OrderId</span>
+                        <span>@Model.InvoiceHistory.InvoiceId</span>
                     </p>
                     <p>
                         <strong style="float:left;width:100px;">
@@ -33,7 +33,7 @@
                         <br>
                         <span>
                             <a href="#">
-                                @Model.OrderHistory.CompanyName
+                                @Model.InvoiceHistory.CompanyName
                             </a>
                         </span>
                     </p>
@@ -56,7 +56,7 @@
                         <strong style="float:left;width:100px;">
                             Invoice:
                         </strong>
-                        <a href="javascript:void(0);" target="_blank" rel="noopener" onclick="viewInvoiceOrder(@Model.OrderHistory.OrderId)">
+                        <a href="javascript:void(0);" target="_blank" rel="noopener" onclick="viewInvoiceOrder(@Model.InvoiceHistory.InvoiceId)">
                             View
                         </a>
                     </p>
@@ -77,17 +77,17 @@
                             <td> Gross </td>
                         </tr>
                         <tr>
-                            <td> @Model.OrderHistory.PackageName</td>
+                            <td> @Model.InvoiceHistory.PackageName</td>
                             <td> 1 </td>
                             <td> Accepted </td>
                             <td style="text-align:right" id="packageNetAmount">
-                                @Model.OrderHistory.NetAmount
+                                @Model.InvoiceHistory.NetAmount
                             </td>
                             <td style="text-align:right" id="packageVatAmount">
-                                @Model.OrderHistory.VatAmount
+                                @Model.InvoiceHistory.VatAmount
                             </td>
                             <td style="text-align:right" id="packageTotalAmount">
-                                @Model.OrderHistory.TotalAmount
+                                @Model.InvoiceHistory.TotalAmount
                             </td>
                         </tr>
 
@@ -230,8 +230,8 @@
             $(".orderGrossTotal").text((netTotal + vatTotal).toFixed(2));
         });
 
-        function viewInvoiceOrder(orderId) {
-            window.open(`/Order-Details?handler=ViewPDF&orderId=${orderId}`);
+        function viewInvoiceOrder(invoiceId) {
+            window.open(`/Invoice-Details?handler=ViewPDF&invoiceId=${invoiceId}`);
         }
     </script>
 }

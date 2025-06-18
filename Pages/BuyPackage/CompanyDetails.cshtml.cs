@@ -350,13 +350,13 @@ namespace Spendwise_WebApp.Pages.BuyPackage
         public async Task<JsonResult> OnGetSetupPayment()
         {
             int OrderRefId = 0;
-            double orderAmount = 0;
+            decimal orderAmount = 0;
             int CusOrderId = Convert.ToInt32(Request.Cookies["OrderId"]);
             var OrderData = await _context.Orders.Where(x => x.OrderId == CusOrderId).FirstOrDefaultAsync();
             if (OrderData != null)
             {
                 OrderRefId = OrderData.OrderId;
-                orderAmount = OrderData.TotalAmount;
+                orderAmount = Convert.ToDecimal(OrderData.TotalAmount);
             }
             int amountInMinorUnits = (int)Math.Round(orderAmount * 100);
 

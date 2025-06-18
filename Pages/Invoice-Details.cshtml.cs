@@ -8,19 +8,17 @@ using Spendwise_WebApp.Models;
 
 namespace Spendwise_WebApp.Pages
 {
-    [IgnoreAntiforgeryToken]
-    public class Order_DetailsModel : PageModel
+    public class Invoice_DetailsModel : PageModel
     {
         private readonly Spendwise_WebApp.DLL.AppDbContext _context;
 
-        public Order_DetailsModel(Spendwise_WebApp.DLL.AppDbContext context)
+        public Invoice_DetailsModel(Spendwise_WebApp.DLL.AppDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Orders OrderHistory { get; set; } = default!;
-        public InvoiceHistory InvoiceData { get; set; } = default!;
+        public InvoiceHistory InvoiceHistory { get; set; } = default!;
 
         [BindProperty]
         public List<AdditionalPackageItem> additionalPackageItems { get; set; }
@@ -31,7 +29,7 @@ namespace Spendwise_WebApp.Pages
         [BindProperty]
         public Package SelectedPackage { get; set; }
 
-        public Orders OrderData { get; set; } = default!;
+        public InvoiceHistory InvoiceOrder { get; set; } = default!;
         public AddressData billingAddress { get; set; } = default!;
         public User User { get; set; } = default!;
 
@@ -41,12 +39,12 @@ namespace Spendwise_WebApp.Pages
             var orderId = Request.Cookies["OrderId"];
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
-            OrderHistory = await _context.Orders.Where(m => m.OrderId == id && m.OrderBy == userId).FirstOrDefaultAsync();
+            InvoiceHistory = await _context.InvoiceHistory.Where(m => m.InvoiceId == id && m.InvoiceBy == userId).FirstOrDefaultAsync();
 
-            SelectedPackage = await _context.packages.Where(x => x.PackageId == OrderHistory.PackageID).FirstOrDefaultAsync();
+            SelectedPackage = await _context.packages.Where(x => x.PackageId == InvoiceHistory.PackageId).FirstOrDefaultAsync();
 
             //Package Features for selected package
-            var features = _context.packages.Where(x => x.PackageName == OrderHistory.PackageName).FirstOrDefault().PackageFeatures;
+            var features = _context.packages.Where(x => x.PackageName == InvoiceHistory.PackageName).FirstOrDefault().PackageFeatures;
 
             var SelectedPackageFeatures = features != null ? features : string.Empty;
             var AddPackageFeaturesItemIds = SelectedPackageFeatures.Split(',', StringSplitOptions.RemoveEmptyEntries)
@@ -56,7 +54,7 @@ namespace Spendwise_WebApp.Pages
             PackageFeature = _context.PackageFeatures.Where(x => AddPackageFeaturesItemIds.Contains(x.FeatureId)).ToList();
 
             // Additional Package
-            var SelectedAddPackageItems = OrderHistory != null ? OrderHistory.AdditionalPackageItemIds : string.Empty;
+            var SelectedAddPackageItems = InvoiceHistory != null ? InvoiceHistory.AdditionalPackageItemIds : string.Empty;
             var AddPackageItemIds = SelectedAddPackageItems.Split(',', StringSplitOptions.RemoveEmptyEntries)
                    .Select(int.Parse)
                    .ToList();
@@ -66,15 +64,13 @@ namespace Spendwise_WebApp.Pages
             return Page();
         }
 
-        public IActionResult OnGetViewPDF(int orderId)
+        public IActionResult OnGetViewPDF(int invoiceId)
         {
             var userEmail = Request.Cookies["UserEmail"];
             var invoiceOrderId = Request.Cookies["OrderId"];
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
-            OrderData = _context.Orders.Where(m => m.OrderId == orderId && m.OrderBy == userId).FirstOrDefault();
-
-            InvoiceData = _context.InvoiceHistory.Where(x => x.OrderId == orderId && x.InvoiceBy == userId).FirstOrDefault();
+            InvoiceOrder = _context.InvoiceHistory.Where(m => m.InvoiceId == invoiceId && m.InvoiceBy == userId).FirstOrDefault();
 
             billingAddress = _context.AddressData.FirstOrDefault(x => x.UserId == userId && x.IsBilling == true);
             User = _context.Users.FirstOrDefault(x => x.Email == userEmail);
@@ -91,10 +87,10 @@ namespace Spendwise_WebApp.Pages
                     {
                         row.RelativeItem().Column(column =>
                         {
-                            column.Item().Text($"Customer Ref: {OrderData?.OrderBy}").FontSize(10);
-                            column.Item().Text($"Invoice Ref: {InvoiceData.InvoiceId}").FontSize(10);
-                            column.Item().Text($"Order Ref: {orderId}").FontSize(10);
-                            column.Item().Text($"Invoice Date: {OrderData?.InvoicedDate.Value.ToString("dd'/'MM'/'yyyy")}").FontSize(10);
+                            column.Item().Text($"Customer Ref: {InvoiceOrder?.InvoiceBy}").FontSize(10);
+                            column.Item().Text($"Invoice Ref: {invoiceId}").FontSize(10);
+                            column.Item().Text($"Order Ref: {InvoiceOrder?.OrderId}").FontSize(10);
+                            column.Item().Text($"Invoice Date: {InvoiceOrder?.InvoiceDate.ToString("dd'/'MM'/'yyyy")}").FontSize(10);
                             column.Item().PaddingTop(40);
                             column.Item().Text($"{User?.Forename}").Bold().FontSize(10);
                             column.Item().Text($"{billingAddress?.HouseName}").FontSize(10);
@@ -131,7 +127,7 @@ namespace Spendwise_WebApp.Pages
             container.PaddingVertical(20).Column(column =>
             {
                 column.Item().Text("INVOICE").FontSize(16).Bold().AlignCenter();
-                column.Item().PaddingTop(10).Border(1).Background(Colors.Grey.Lighten5).Padding(5).Text($"{OrderData?.CompanyName}").Bold().FontSize(10);
+                column.Item().PaddingTop(10).Border(1).Background(Colors.Grey.Lighten5).Padding(5).Text($"{InvoiceOrder?.CompanyName}").Bold().FontSize(10);
                 column.Item().PaddingTop(10).Element(ComposeTable);
                 column.Item().PaddingTop(20).Border(1).Padding(5).Text("If this invoice is for ongoing services and you have requested us to take payment using the continuous authority credit or debit card details stored on our\r\nsystem, then we will do so and no further action is required");
             });
@@ -164,14 +160,14 @@ namespace Spendwise_WebApp.Pages
                         container.Border(1).Background(Colors.Grey.Lighten3).Padding(5).BorderColor(Colors.Grey.Medium);
                 });
 
-                decimal totalNet = OrderData.NetAmount;
-                decimal totalVat = OrderData.VatAmount;
-                decimal totalGross = OrderData.TotalAmount;
+                decimal totalNet = InvoiceOrder.NetAmount;
+                decimal totalVat = InvoiceOrder.VatAmount;
+                decimal totalGross = InvoiceOrder.TotalAmount;
 
                 //Bind Invoice details
                 string[][] items = new[]
                 {
-                    new[] { $"{OrderData.PackageName}", "1", $"{OrderData.NetAmount}", $"{OrderData.NetAmount}", $"{OrderData.VatAmount}", $"{OrderData.TotalAmount}" },
+                    new[] { $"{InvoiceOrder.PackageName}", "1", $"{InvoiceOrder.NetAmount}", $"{InvoiceOrder.NetAmount}", $"{InvoiceOrder.VatAmount}", $"{InvoiceOrder.TotalAmount}" },
                 };
 
                 foreach (var item in items)
@@ -186,7 +182,7 @@ namespace Spendwise_WebApp.Pages
                 }
 
                 //Package Features for selected package
-                var features = _context.packages.Where(x => x.PackageName == OrderData.PackageName).FirstOrDefault().PackageFeatures;
+                var features = _context.packages.Where(x => x.PackageName == InvoiceOrder.PackageName).FirstOrDefault().PackageFeatures;
 
                 var SelectedPackageFeatures = features != null ? features : string.Empty;
                 var AddPackageFeaturesItemIds = SelectedPackageFeatures.Split(',', StringSplitOptions.RemoveEmptyEntries)
@@ -215,7 +211,7 @@ namespace Spendwise_WebApp.Pages
                 }
 
                 // Additional Package
-                var SelectedAddPackageItems = OrderData != null ? OrderData.AdditionalPackageItemIds : string.Empty;
+                var SelectedAddPackageItems = InvoiceOrder != null ? InvoiceOrder.AdditionalPackageItemIds : string.Empty;
                 var AddPackageItemIds = SelectedAddPackageItems.Split(',', StringSplitOptions.RemoveEmptyEntries)
                        .Select(int.Parse)
                        .ToList();
