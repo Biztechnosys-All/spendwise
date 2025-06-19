@@ -428,6 +428,33 @@
         }
     });
 
+    $("#go-to-cart").click(function () {
+        isValid = true;
+        if(!$("#terms-lawful-activity").is(":checked")) {
+            // e.preventDefault();
+            isValid = false;
+            showToast("Legalities is required", "warning");
+        }
+
+        if(isValid) {
+            $(".ef-nav-section-link").removeClass("current");
+            var tab = $("#spnPartnerDetails").text();
+            var tabName = tab.replace(/[\s\d.]+/g, '').replace(/\d+/g, '');
+            $.ajax({
+                url: "/FormationPage/DeliveryAndPartnerDetails",
+                type: "get",
+                success: function (result) {
+                    $("#FormationTabContent").html(result);
+                    $(".partner-tab").addClass("current");
+                    $('html, body').scrollTop($('#deliveryAndPartnerServices').offset().top);
+
+                    const newUrl = '?section=' + tabName;
+                    window.history.pushState({ path: newUrl }, '', newUrl);
+                }
+            });
+        }
+    });
+
     function redirectToFormation(type) {
         if(type == 'Particular') {
             $.ajax({

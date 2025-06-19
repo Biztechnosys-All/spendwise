@@ -6,6 +6,11 @@ using System.Text.Json;
 using System.Text;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using Microsoft.AspNetCore.Http;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using System.Net.Mail;
+using Spendwise_WebApp.DLL;
 
 namespace Spendwise_WebApp.Pages.Admin
 {
@@ -16,13 +21,15 @@ namespace Spendwise_WebApp.Pages.Admin
         private readonly IHttpClientFactory _clientFactory;
         private readonly IWebHostEnvironment _env;
         private readonly EmailSender _emailSender;
+        private readonly InvoicePdfGenerator _InvoicepdfGenerator;
 
-        public CompanyApplicationsModel(Spendwise_WebApp.DLL.AppDbContext context, IHttpClientFactory clientFactory, IWebHostEnvironment env, EmailSender emailSender)
+        public CompanyApplicationsModel(Spendwise_WebApp.DLL.AppDbContext context, IHttpClientFactory clientFactory, IWebHostEnvironment env, EmailSender emailSender, InvoicePdfGenerator invoicepdfGenerator)
         {
             _context = context;
             _clientFactory = clientFactory;
             _env = env;
             _emailSender = emailSender;
+            _InvoicepdfGenerator = invoicepdfGenerator;
         }
 
         [BindProperty]
@@ -91,7 +98,9 @@ namespace Spendwise_WebApp.Pages.Admin
             if (request.status == "Approved")
             {
                 string? CreatedCompanyNumber = string.Empty;
+                string? CompanyAuthNumber = string.Empty;
                 var client = _clientFactory.CreateClient("CompanyHouseClient");
+                List<Attachment> AttchmentList = new List<Attachment>();
                 var RequestBody = new CreateTestCompanyRequestBody
                 {
                     CompanyName = Company.CompanyName,
@@ -117,6 +126,7 @@ namespace Spendwise_WebApp.Pages.Admin
                         new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                     CreatedCompanyNumber = result?.CompanyNumber;
+                    CompanyAuthNumber = result?.CompanyAuthCode;
                     ResponseMsg = $"Name: {Company.CompanyName}, Number: {result?.CompanyNumber}, Auth: {result?.CompanyAuthCode}";
                 }
                 else
@@ -134,9 +144,14 @@ namespace Spendwise_WebApp.Pages.Admin
                 {
                     htmlTemplate = await reader.ReadToEndAsync();
                 }
-                string emailBody = string.Format(htmlTemplate, UserDetails?.Forename, UserDetails?.Surname, OrderData?.PackageName);
+                string emailBody = string.Format(htmlTemplate, UserDetails?.Forename, UserDetails?.Surname, OrderData?.PackageName, CreatedCompanyNumber, CompanyAuthNumber);
+         
+                var pdfBytes = _InvoicepdfGenerator.GenerateInvoicePdf(orderId: OrderData?.OrderId, userEmail: UserDetails?.Email);
 
-                await _emailSender.SendEmailAsync(UserDetails?.Email, subject, emailBody);
+                Attachment attachment = new Attachment(new MemoryStream(pdfBytes), "Invoice_"+ OrderData?.OrderId + ".pdf", "application/pdf");
+                AttchmentList.Add(attachment);
+
+                await _emailSender.SendEmailAsync(UserDetails?.Email, subject, emailBody, AttchmentList);
             }
 
 

@@ -1,25 +1,19 @@
+﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using Spendwise_WebApp.DLL;
 using Spendwise_WebApp.Models;
 
-namespace Spendwise_WebApp.Pages
+namespace Spendwise_WebApp.DLL
 {
-    [IgnoreAntiforgeryToken]
-    public class Order_DetailsModel : PageModel
+    public class InvoicePdfGenerator
     {
-        private readonly Spendwise_WebApp.DLL.AppDbContext _context;
+        private readonly AppDbContext _context;
 
-        private readonly InvoicePdfGenerator _InvoicepdfGenerator;
-
-        public Order_DetailsModel(Spendwise_WebApp.DLL.AppDbContext context, InvoicePdfGenerator invoicepdfGenerator)
+        public InvoicePdfGenerator(AppDbContext context)
         {
             _context = context;
-            _InvoicepdfGenerator = invoicepdfGenerator;
         }
 
         [BindProperty]
@@ -39,100 +33,72 @@ namespace Spendwise_WebApp.Pages
         public AddressData billingAddress { get; set; } = default!;
         public User User { get; set; } = default!;
 
-        public async Task<IActionResult> OnGet(int id)
+        public byte[] GenerateInvoicePdf(int? orderId = null, int? invoiceId = null, string? userEmail = null)
         {
-            var userEmail = Request.Cookies["UserEmail"];
-            var orderId = Request.Cookies["OrderId"];
-
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
-            OrderHistory = await _context.Orders.Where(m => m.OrderId == id && m.OrderBy == userId).FirstOrDefaultAsync();
+            if(orderId != null)
+            {
+                OrderData = _context.Orders.Where(m => m.OrderId == orderId && m.OrderBy == userId).FirstOrDefault();
 
-            SelectedPackage = await _context.packages.Where(x => x.PackageId == OrderHistory.PackageID).FirstOrDefaultAsync();
+                InvoiceData = _context.InvoiceHistory.Where(x => x.OrderId == orderId && x.InvoiceBy == userId).FirstOrDefault();
+            }
+            if(invoiceId != null)
+            {
+                InvoiceData = _context.InvoiceHistory.Where(m => m.InvoiceId == invoiceId && m.InvoiceBy == userId).FirstOrDefault();
+            }
+           
 
-            //Package Features for selected package
-            var features = _context.packages.Where(x => x.PackageName == OrderHistory.PackageName).FirstOrDefault().PackageFeatures;
+            billingAddress = _context.AddressData.FirstOrDefault(x => x.UserId == userId && x.IsBilling == true);
+            User = _context.Users.FirstOrDefault(x => x.Email == userEmail);
 
-            var SelectedPackageFeatures = features != null ? features : string.Empty;
-            var AddPackageFeaturesItemIds = SelectedPackageFeatures.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                   .Select(int.Parse)
-                   .ToList();
+            var pdf = QuestPDF.Fluent.Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Margin(40);
+                    page.Size(PageSizes.A4);
+                    page.DefaultTextStyle(x => x.FontSize(9));
 
-            PackageFeature = _context.PackageFeatures.Where(x => AddPackageFeaturesItemIds.Contains(x.FeatureId)).ToList();
+                    page.Header().Row(row =>
+                    {
+                        row.RelativeItem().Column(column =>
+                        {
+                            column.Item().Text($"Customer Ref: {OrderData?.OrderBy}").FontSize(10);
+                            column.Item().Text($"Invoice Ref: {InvoiceData.InvoiceId}").FontSize(10);
+                            column.Item().Text($"Order Ref: {orderId}").FontSize(10);
+                            column.Item().Text($"Invoice Date: {OrderData?.InvoicedDate.Value.ToString("dd'/'MM'/'yyyy")}").FontSize(10);
+                            column.Item().PaddingTop(40);
+                            column.Item().Text($"{User?.Forename}").Bold().FontSize(10);
+                            column.Item().Text($"{billingAddress?.HouseName}").FontSize(10);
+                            column.Item().Text($"{billingAddress?.Street}").FontSize(10);
+                            column.Item().Text($"{billingAddress?.Town}").FontSize(10);
+                            column.Item().Text($"{billingAddress?.County}").FontSize(10);
+                            column.Item().Text($"{billingAddress?.PostCode}").FontSize(10);
+                            column.Item().Text($"{billingAddress?.Country}").FontSize(10);
+                        });
 
-            // Additional Package
-            var SelectedAddPackageItems = OrderHistory != null ? OrderHistory.AdditionalPackageItemIds : string.Empty;
-            var AddPackageItemIds = SelectedAddPackageItems.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                   .Select(int.Parse)
-                   .ToList();
+                        row.ConstantItem(200).AlignRight().Column(column =>
+                        {
+                            column.Item().Text("Spendwise Limited").Bold().FontSize(10);
+                            column.Item().Text("Registered in England & Wales").FontSize(10);
+                            column.Item().Text("at 1st Floor 17 Albemarle Street, London").FontSize(10);
+                            column.Item().Text("W1S 4HP").FontSize(10);
+                            column.Item().Text("England").FontSize(10);
+                            column.Item().Text("Email: info@spendwisefin.com").FontSize(10);
+                            column.Item().Text("Tel: 020 3897 2233").FontSize(10);
+                        });
+                    });
 
-            additionalPackageItems = _context.AdditionalPackageItems.Where(x => AddPackageItemIds.Contains(x.AdditionalPackageItemId)).ToList();
+                    page.Content().Element(ComposeContent);
+                });
+            });
 
-            return Page();
+            QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
+            return pdf.GeneratePdf();
         }
 
-        public IActionResult OnGetViewPDF(int orderId)
-        {
-            var userEmail = Request.Cookies["UserEmail"];
-            //var invoiceOrderId = Request.Cookies["OrderId"];
-
-            //var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
-            //OrderData = _context.Orders.Where(m => m.OrderId == orderId && m.OrderBy == userId).FirstOrDefault();
-
-            //InvoiceData = _context.InvoiceHistory.Where(x => x.OrderId == orderId && x.InvoiceBy == userId).FirstOrDefault();
-
-            //billingAddress = _context.AddressData.FirstOrDefault(x => x.UserId == userId && x.IsBilling == true);
-            //User = _context.Users.FirstOrDefault(x => x.Email == userEmail);
-
-            //var pdf = QuestPDF.Fluent.Document.Create(container =>
-            //{
-            //    container.Page(page =>
-            //    {
-            //        page.Margin(40);
-            //        page.Size(PageSizes.A4);
-            //        page.DefaultTextStyle(x => x.FontSize(9));
-
-            //        page.Header().Row(row =>
-            //        {
-            //            row.RelativeItem().Column(column =>
-            //            {
-            //                column.Item().Text($"Customer Ref: {OrderData?.OrderBy}").FontSize(10);
-            //                column.Item().Text($"Invoice Ref: {InvoiceData.InvoiceId}").FontSize(10);
-            //                column.Item().Text($"Order Ref: {orderId}").FontSize(10);
-            //                column.Item().Text($"Invoice Date: {OrderData?.InvoicedDate.Value.ToString("dd'/'MM'/'yyyy")}").FontSize(10);
-            //                column.Item().PaddingTop(40);
-            //                column.Item().Text($"{User?.Forename}").Bold().FontSize(10);
-            //                column.Item().Text($"{billingAddress?.HouseName}").FontSize(10);
-            //                column.Item().Text($"{billingAddress?.Street}").FontSize(10);
-            //                column.Item().Text($"{billingAddress?.Town}").FontSize(10);
-            //                column.Item().Text($"{billingAddress?.County}").FontSize(10);
-            //                column.Item().Text($"{billingAddress?.PostCode}").FontSize(10);
-            //                column.Item().Text($"{billingAddress?.Country}").FontSize(10);
-            //            });
-
-            //            row.ConstantItem(200).AlignRight().Column(column =>
-            //            {
-            //                column.Item().Text("Spendwise Limited").Bold().FontSize(10);
-            //                column.Item().Text("Registered in England & Wales").FontSize(10);
-            //                column.Item().Text("at 1st Floor 17 Albemarle Street, London").FontSize(10);
-            //                column.Item().Text("W1S 4HP").FontSize(10);
-            //                column.Item().Text("England").FontSize(10);
-            //                column.Item().Text("Email: info@spendwisefin.com").FontSize(10);
-            //                column.Item().Text("Tel: 020 3897 2233").FontSize(10);
-            //            });
-            //        });
-
-            //        page.Content().Element(ComposeContent);
-            //    });
-            //});
-
-            //QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
-            //var pdfBytes = pdf.GeneratePdf();
-            //return File(pdfBytes, "application/pdf");
-            var pdfBytes = _InvoicepdfGenerator.GenerateInvoicePdf(orderId: orderId, userEmail: userEmail);
-            return File(pdfBytes, "application/pdf");
-        }
-
-        void ComposeContent(IContainer container)
+        private void ComposeContent(IContainer container)
         {
             container.PaddingVertical(20).Column(column =>
             {

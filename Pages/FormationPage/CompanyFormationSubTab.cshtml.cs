@@ -101,7 +101,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var selectCompanyId = Request.Cookies["ComanyId"];
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
-            var invoiceId = _context.InvoiceHistory.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().InvoiceId;
+            var invoiceId = _context.InvoiceHistory.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault()?.InvoiceId;
             var orderId = _context.Orders.Where(c => c.CompanyId == companyId).FirstOrDefault().OrderId;
             var companyDetails = await _context.CompanyDetails.Where(x => x.Createdby == userId && x.CompanyId == companyId).FirstOrDefaultAsync();
             string connectionString = _config.GetConnectionString("DefaultConnection") ?? "";
