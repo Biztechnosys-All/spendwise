@@ -43,6 +43,7 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<EmailSender>();
+builder.Services.AddTransient<InvoicePdfGenerator>();
 
 builder.Services.AddHttpClient("CompanyHouseClient", client =>
 {

@@ -11,7 +11,7 @@ public class EmailSender
         _config = config;
     }
 
-    public async Task SendEmailAsync(string email, string subject, string message)
+    public async Task SendEmailAsync(string email, string subject, string message, List<Attachment>? attachments = null)
     {
         try
         {
@@ -36,6 +36,16 @@ public class EmailSender
             mailMessage.Headers.Add("Return-Path", _config["EmailSettings:SenderEmail"]);
 
             mailMessage.To.Add(email);
+
+            // Add attachments if provided
+            if (attachments != null)
+            {
+                foreach (var attachment in attachments)
+                {
+                    mailMessage.Attachments.Add(attachment);
+                }
+            }
+
             await smtpClient.SendMailAsync(mailMessage);
         }
         catch(Exception ex) {
