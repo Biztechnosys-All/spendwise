@@ -30,7 +30,7 @@
         font-size: 13px;
         font-weight: 800;
         color: red;
-        cursor: pointer;        
+        cursor: pointer;
         background-color: #FFF;
         padding-left: 4px;
         padding-right: 4px;
@@ -66,6 +66,27 @@
         font-size: 12px;
         margin-top: -3px;
         margin-bottom: 5px
+    }
+
+    @@media screen and (max-width: 768px) {
+        .emailOtp {
+            position: absolute;
+            margin-top: -28px;
+            margin-left: 17rem;
+            font-size: 13px;
+            font-weight: 800;
+            color: red;
+            cursor: pointer;
+            background-color: #FFF;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+        .otpTimer {
+            margin-left: -12rem;
+            margin-top: 40px;
+            position: absolute;
+            margin-bottom: 12px !important;
+        }
     }
 </style>
 <link href="~/css/ef-core.min.css" rel="stylesheet" />
@@ -925,7 +946,7 @@
                     if (response.success === false) {
                         showToast(response.message, 'danger');
     @* alert(response.message); *@
-                            } else {
+                                    } else {
                         // Redirect using the returned orderId and token
                         const orderId = response.orderId;
                         const token = response.token;
@@ -1069,7 +1090,7 @@
                                 // Build the redirect URL
     @* const redirectUrl = `/FormationPage/Company-Formation`;
                                     window.location.href = redirectUrl; *@
-                                }
+                                        }
                         },
                         error: function (xhr) {
                             console.error("Error:", xhr.statusText, xhr.responseText);
@@ -1323,6 +1344,7 @@
     let timerSeconds = 60;
 
     function startTimer() {
+        clearInterval(countdown);
         $("#timer").text(`OTP is expired in ${timerSeconds}s`);
         $(".emailOtp").html("Verify");
 
