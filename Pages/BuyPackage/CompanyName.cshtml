@@ -1,20 +1,32 @@
 ﻿@page
 @model Spendwise_WebApp.Pages.BuyPackage.CompanyNameModel
 @{
-	//Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
-	Layout = null;
+    //Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+    Layout = null;
 }
-
+<style>
+    @@media screen and (max-width: 768px) {
+        .custom.ncinput-wrap-new-amber input#company_name.efInputText, .custom.ncinput-wrap-new input#company_name.efInputText, .custom.ncinput-wrap input#company_name.efInputText {
+            max-width: 95% !important;
+            margin-left: 3%;
+        }
+        .btnSearchCompnay {
+            margin: 3% 1% 2% 0% !important;
+            width: 45% !important;
+            height: 43px !important;
+        }
+    }
+</style>
 <div class="col-five namecheck-holer bg-color-white">
     <div class="col twelve pd-left-0" id="divCopmanySearch">
         <h2 class="fs-24 fc-grey">
             You have chosen the <br class="xs-visible m-visible"><span class="fc-blue" id="PackageNameSpan"></span>.
-          <br/>Now choose your company name.
+            <br />Now choose your company name.
         </h2>
         <div class="custom ncblock ncinput-wrap lbs1 seven m-twelve col pd-20 pd-left-0 m-pd-left-20">
             <form method="post" asp-page="CompanyName" data-ajax-complete="firstCompleted">
                 <input class="efInputText" id="company_name" name="name" type="text" placeholder="Enter your new company name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your company name'">
-                <button type="button" class="btn btn-success btn-height" onclick="CheckCompanyName()">Submit</button>
+                <button type="button" class="btn btn-success btn-height btnSearchCompnay" onclick="CheckCompanyName()">Submit</button>
                 <label id="errorCompanyname" style="display:none;color:red;text-align:left">Please write company name</label>
             </form>
         </div>
@@ -29,7 +41,7 @@
             <p class="box4 fs-thirty-one">
                 <span class="ncgreen-title fc-green" id="spnSearchedCompanyName"></span>
                 Congratulations! This company name is available.
-            </p>           
+            </p>
         </div>
     </div>
     <div id="efNameCheckResult_AMBER" class="efNameCheckResult" style="display:none;">
@@ -52,14 +64,14 @@
             <a href="#" class="btn btn-success float-right" onclick="MoveToNextPackageStep()">Continue</a>
         </div>
     </div>
- </div>
+</div>
 
- <script>
+<script>
     $('#company_name').keypress(function (e) {
         if (e.which === 13) {
             e.preventDefault(); // Prevent form submission
             CheckCompanyName(); // Simulate button click
         }
     });
- </script>
+</script>
 
