@@ -42,6 +42,15 @@
         position: absolute;
         margin-bottom: 12px !important;
     }
+
+    @@media screen and (max-width: 768px) {
+        .otpTimer {
+            margin-left: -19rem;
+            margin-top: 71px;
+            position: absolute;
+            margin-bottom: 12px !important;
+        }
+    }
 </style>
 <link href="~/css/register.css" rel="stylesheet" />
 <div class="col-five padding-top-bot-tw client">
@@ -567,7 +576,7 @@
 {
     <script>
         let emailVerify = false;
-        $("#registration").click(function() {
+        $("#registration").click(function () {
             var isValid = true;
 
             var email = $("#User_Email").val()?.trim();
@@ -598,7 +607,7 @@
                 $("#User_PhoneNumber_Error").text("").hide();
             }
 
-            if(!$("#termsandcondition").is(":checked")) {
+            if (!$("#termsandcondition").is(":checked")) {
                 isValid = false;
                 showToast("Please check the Terms and Condition", "warning");
             }
@@ -624,7 +633,7 @@
             validateField("#Address_Country", "#Address_Country_Error", "Country");
             validateField("#Address_PostCode", "#Address_PostCode_Error", "PostCode");
 
-            if(isValid) {
+            if (isValid) {
                 const userData = {
                     Title: $("#User_Title").val(),
                     Forename: $("#User_Forename").val(),
@@ -648,7 +657,7 @@
                     AddressData: addressData
                 }
 
-                if(emailVerify == false){
+                if (emailVerify == false) {
                     showToast("Please Verify your Email!", "warning");
                 }
                 else {
@@ -778,12 +787,13 @@
         let timerSeconds = 60;
 
         function startTimer() {
+            clearInterval(countdown);
             $("#timer").text(`OTP is expired in ${timerSeconds}s`);
             $(".emailOtp").html("Verify");
 
-            countdown = setInterval(function() {
+            countdown = setInterval(function () {
                 timerSeconds--;
-                if(timerSeconds <= 0) {
+                if (timerSeconds <= 0) {
                     clearInterval(countdown);
                     $("#timer").text("OTP is expired.");
                     $(".emailOtp").html("Resend");
@@ -791,7 +801,7 @@
                 else {
                     $("#timer").text(`OTP is expired in ${timerSeconds}s`);
                 }
-            },1000);
+            }, 1000);
         }
 
         $("#sendOtp").click(function () {
@@ -812,7 +822,7 @@
                 $("#User_Email_Error").text("").hide();
             }
 
-            if(isValid) {
+            if (isValid) {
                 $.ajax({
                     url: "/register?handler=SendOtp",
                     type: "POST",
@@ -832,12 +842,11 @@
             }
         });
 
-        $("#verifyOtp").click(function() {
+        $("#verifyOtp").click(function () {
             var email = $("#User_Email").val();
             var otp = $("#otp").val();
 
-            if(timerSeconds <= 0)
-            {
+            if (timerSeconds <= 0) {
                 showToast("Please Resend your OTP.", "warning");
             }
             else {
@@ -851,13 +860,13 @@
                             emailVerify = true;
                             showToast("Email verified successfully!", "success");
                             clearInterval(countdown);
-                            $(".emailOtp").html("Verified").css({"color": "green", "cursor": "none"});
+                            $(".emailOtp").html("Verified").css({ "color": "green", "cursor": "none" });
                             $("#otpSection").hide();
                         } else {
                             showToast("Invalid OTP.", "danger");
-                             clearInterval(countdown);
-                             $("#timer").text("");
-                             $(".emailOtp").html("Resend");
+                            clearInterval(countdown);
+                            $("#timer").text("");
+                            $(".emailOtp").html("Resend");
                         }
                     }
                 });

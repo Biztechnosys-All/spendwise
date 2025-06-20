@@ -135,7 +135,7 @@ namespace Spendwise_WebApp.Pages
             }
 
             ViewData["SuccessMessage"] = "Password reset successful. You can now log in.";
-            return Page();
+            return RedirectToPage("/login");
         }
 
 
