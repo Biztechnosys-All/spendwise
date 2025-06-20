@@ -179,57 +179,83 @@
             <p>Send us your message below and one of our representatives will quickly get back to you within business hours.</p>
             <div>
                 <div id="efPageContent" class="ui-widget">
-
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+                    @{
+                        var departments = new[]
+                        {
+                    new { Value = "General", Text = "General Enquiry" },
+                    new { Value = "ID", Text = "ID requirements" },
+                    new { Value = "RenewalsCancellations", Text = "Renewals/Cancellations" },
+                    new { Value = "Mail", Text = "Mail" },
+                    new { Value = "Refunds", Text = "Refund" },
+                    new { Value = "VATPAYE", Text = "VAT/PAYE" },
+                    new { Value = "Complaint", Text = "Complaint" }
+                    };
+                    }
 
                     <div class="efContactUsForm">
-                        <form method="post" action="/contact-us/">
-                            <input type="hidden" name="g-recaptcha-response" placeholder="" value="03AFcWeA7pJM8friY5mW9VjcVN2nCPjg-Yifi7zv0vhh9LbXrOGfzj_JzDCr05TesF_j2WXqezIv4IrNd_j-eLm5rZotQhb-wItqZmLr2ezQu6oPubHZ5LAfJuRA1MlxYHuxjVeyaG9yQc8HlLde0YbevLdNYvnu19zIjmZPctoeChnib08vbb17vMq2DXXtYCnxOEaCD-mdssBwuJsgFtogwYpo0sWOwQ5XrDMZT1x879ueKc1JAlkGmpEb0_sGxIf-5RoZWsJ7z0m_o7cRk1otdiZuTm7XyaryiQXpuGQj-lO0s0612_2ZZug7yV6uE6MeMMbw-_MOQ7cow0Z_CQU4449WNJOItNRncOIbaBVbT0L0yFtF7O3rbqUPmG7VwSAE-T-0o2Y57FXad2yI96s-1kRO_Dn2IN-BcRSi_8lWw0LxLSuHJMx7suPaer9CtWxYPq4PNcXpnZxwALlcVx5HciqZ-YtRgtSaSuKFWuyaZDtj7uN38vovyTf2JsY2QVTqxIj-Us5eaehvPlOXW2qlA_tjpBAW8W6uQLY9mf0YTeztIGZZDFHf5RbWz3612Dn_JCTv5GAN6TsMrNVYj5vDLNVNtoJ40stxg9h6JIC25WrtndjW5zhdpfaDUXpP4uLPla_Fd4PqTIwhPpCywyO9_0ZxqXSvefani52gKgaMjytWMsRNh66DI0tXGVjz0ZEovK1TaS-_paeSYLtHb41LN1pNkE52Tl3Z-VLj7i3nYNpQRtpjwBLj3Md7ZN6JKPSPxmNaBdj4GKxd7kaUEmabRGO8b42-DlwXuFCLL2yhPYQz3HxHftpsbLW9TlIn9yOylCT8pmj1hDcvgt_nZBybnvbm1H_vzAZMNfpUiVS3jquGWNRBEjpEQ" id="g-recaptcha-response">        <h2>Contact Us</h2>
+                        @* <form method="post" asp-page-handler="SubmitForm">
+                        <div class="mb-3">
+                        <label for="efContactName">Name:</label>
+                        <input type="text" id="efContactName" name="ContactForm.Name" class="form-control" value="@Model.ContactForm?.Name" />
+                        <span asp-validation-for="ContactForm.Name" class="text-danger"></span>
+                        </div>
 
-                            <!-- custom input fields -->
-                            <p>Name:<br><input type="text" id="efContactName" name="name" class="form-control"></p>
-                            <p>
-                                Email:<br><input type="text" id="efContactEmail" name="email" class="form-control" p="">
-                            </p><p>Question:<br><textarea rows="2" cols="20" name="question"></textarea></p>
-                            <p>
-                                Department:<br>
-                                <select name="department" id="efDepartment" class="form-select">
-                                    <option value="General">General Enquiry</option>
-                                    <option value="ID">ID requirements</option>
-                                    <option value="RenewalsCancellations">Renewals/Cancellations</option>
-                                    <option value="Mail">Mail</option>
-                                    <option value="Refunds">Refund</option>
-                                    <option value="VATPAYE">VAT/PAYE</option>
-                                    <option value="Complaint">Complaint</option>
-                                </select>
-                            </p>
+                        <div class="mb-3">
+                        <label for="efContactEmail">Email:</label>
+                        <input type="text" id="efContactEmail" name="ContactForm.Email" class="form-control" value="@Model.ContactForm?.Email" />
+                        <span asp-validation-for="ContactForm.Email" class="text-danger"></span>
+                        </div>
 
-                            <!-- do you want the brand to a email to the customer confirming the request -->
-                            <input type="hidden" id="SendToCustomer" name="SendToCustomer" value="1">
+                        <div class="mb-3">
+                        <label for="efDepartment">Department:</label>
+                        <select asp-for="ContactForm.Department" asp-items="Model.DepartmentList" class="form-control"></select>
+                        <span asp-validation-for="ContactForm.Department" class="text-danger"></span>
+                        </div>
 
-                            <!-- some custom hidden fields for extra replace codes -->
-                            <input id="redir" type="hidden" value="/contact-us-thankyou/" name="redir">
+                        <div class="mb-3">
+                        <label for="efContactQuestion">Question:</label>
+                        <textarea id="efContactQuestion" name="ContactForm.Question" class="form-control">@Model.ContactForm?.Question</textarea>
+                        <span asp-validation-for="ContactForm.Question" class="text-danger"></span>
+                        </div>
 
-                            <input type="hidden" id="hidden1" name="hidden1" value="1">
-                            <input type="hidden" id="hidden2" name="hidden2" value="1">
-                            <input type="hidden" id="hidden3" name="hidden3" value="1">
-                            <input type="hidden" id="hidden4" name="hidden4" value="1">
-                            <div id="efContactUsSubmit" style="clear:both">
-                                <input id="efContactSubmitButton" class="efButton ui-button ui-widget ui-state-default ui-corner-all" type="submit" value="Submit" role="button" aria-disabled="false">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </form> *@
+
+                        <form id="contactForm">
+                            <div class="mb-1">
+                                <label asp-for="ContactForm.Name"></label>
+                                <input asp-for="ContactForm.Name" class="form-control" />
+                                <span asp-validation-for="ContactForm.Name" class="text-danger fw-bold p-2"></span>
                             </div>
+
+                            <div class="mb-1">
+                                <label asp-for="ContactForm.Email"></label>
+                                <input asp-for="ContactForm.Email" class="form-control" />
+                                <span asp-validation-for="ContactForm.Email" class="text-danger fw-bold p-2"></span>
+                            </div>
+
+                            <div class="mb-1">
+                                <label asp-for="ContactForm.Department"></label>
+                                <select asp-for="ContactForm.Department" asp-items="Model.DepartmentList" class="form-select"></select>
+                                <span asp-validation-for="ContactForm.Department" class="text-danger fw-bold p-2"></span>
+                            </div>
+
+                            <div class="mb-1">
+                                <label asp-for="ContactForm.Question"></label>
+                                <textarea asp-for="ContactForm.Question" class="form-control"></textarea>
+                                <span asp-validation-for="ContactForm.Question" class="text-danger fw-bold p-2"></span>
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Submit</button>
                         </form>
 
                     </div>
-
-
-                    @* <script>
-                    grecaptcha.ready(function () {
-                    grecaptcha.execute('6LctSPcUAAAAAGqGPCeWQHpISurU2OwIHk8P5BFB', { action: 'contactus' })
-                    .then(function (token) {
-                    document.getElementById('g-recaptcha-response').value = token;
-                    });
-                    });
-
-                    </script> *@
 
                 </div>
 
@@ -238,13 +264,6 @@
     </div>
     <div class="contactContainer__header"><span>Our Office</span></div>
     <div class="col-five bg-color-nsgray au-infowrap float-left">
-        @*  <div class="au-image">
-        <img alt="Exterior view of our office in Covent Garden, London" src="https://cdn-brand.s3.eu-west-1.amazonaws.com/assets/images/71-75SheltonStreetXL.jpg" width="500">
-        </div>
-        <div class="au-gmap">
-        <iframe frameborder="0" height="375" src="https://maps.google.com/maps?q=1st%20Formationsᅷ-75%20Shelton%20Street&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=&amp;output=embed" style="border:0" width="492"></iframe>
-        </div>
-        <div id="map" style="height: 500px; width: 100%;"></div> *@
         <div class="container">
             <div class="address-list">
                 <div class="address-item" data-index="0">
@@ -269,72 +288,143 @@
 
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv_rKGDaF-RaK95_813LS6faJohf4xQc4"></script>
+    <partial name="_ValidationScriptsPartial" />
     <script>
+        $(document).ready(function () {
+            $("#contactForm").submit(function (e) {
+                e.preventDefault();
 
-        const addresses = [
-            "The Basement,Crownage Court,Green Lane Sunbury on Thames,TW16 7FL",
-            "1st Floor 17 Albemarle Street,London,England,W1S 4HP",
-            "193 Summer Lane,London,N12 0LA"
-        ];
+                // Clear previous errors
+                $("span.text-danger").text("");
+                var name = $("input[name='ContactForm.Name']").val().trim();
+                var email = $("input[name='ContactForm.Email']").val().trim();
+                var department = $("select[name='ContactForm.Department']").val().trim();
+                var question = $("textarea[name='ContactForm.Question']").val().trim();
+                var isValid = true;
 
-        let map;
-        let bounds;
-        const markers = [];
+                // Name required
+                if (!name) {
+                    $("span[data-valmsg-for='ContactForm.Name']").text("Name is required.");
+                    isValid = false;
+                }
 
-        function initMap() {
-            map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 37.7749, lng: -122.4194 },
-                zoom: 10
-            });
+                // Email required + format
+                if (!email) {
+                    $("span[data-valmsg-for='ContactForm.Email']").text("Email is required.");
+                    isValid = false;
+                } else if (!/^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/.test(email)) {
+                $("span[data-valmsg-for='ContactForm.Email']").text("Invalid email address.");
+                isValid = false;
+            }
 
-            bounds = new google.maps.LatLngBounds();
-            const geocoder = new google.maps.Geocoder();
+            // Department required
+            if (!department) {
+                $("span[data-valmsg-for='ContactForm.Department']").text("Department is required.");
+                isValid = false;
+            }
 
-            addresses.forEach((address, index) => {
-                geocoder.geocode({ address: address }, function (results, status) {
-                    if (status === 'OK') {
-                        const location = results[0].geometry.location;
-                        const marker = new google.maps.Marker({
-                            map: map,
-                            position: location,
-                            title: address,
-                            animation: google.maps.Animation.DROP
-                        });
+            // Question required
+            if (!question) {
+                $("span[data-valmsg-for='ContactForm.Question']").text("Question is required.");
+                isValid = false;
+            }
 
-                        markers[index] = marker;
-                        bounds.extend(location);
-                        map.fitBounds(bounds);
+            if (!isValid) {
+                return; // Stop here if client-side validation fails
+            }
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: "/Contact-us?handler=SubmitForm",
+                type: "POST",
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        showToast(response.message, "success");
+                        $("#contactForm")[0].reset();
+                    } else if (response.errors) {
+                        // Show validation errors next to fields
+                        for (const error of response.errors) {
+                            const fieldName = error.key.replace("ContactForm.", "");
+                            const errorMessage = error.errors.join(", ");
+                            $(`span[data-valmsg-for='ContactForm.${fieldName}']`).text(errorMessage);
+                        }
                     } else {
-                        console.error("Geocode failed for: " + address);
+                        showToast("An error occurred. Please try again.", "danger");
                     }
-                });
+                },
+                error: function () {
+                    showToast("An error occurred. Please try again.", "danger");
+                }
             });
+        });
+    });
 
-            setupHoverEvents();
-        }
+    const addresses = [
+        "The Basement,Crownage Court,Green Lane Sunbury on Thames,TW16 7FL",
+        "1st Floor 17 Albemarle Street,London,England,W1S 4HP",
+        "193 Summer Lane,London,N12 0LA"
+    ];
 
-        function setupHoverEvents() {
-            document.querySelectorAll('.address-item').forEach(item => {
-                item.addEventListener('mouseenter', function () {
-                    const index = parseInt(this.dataset.index);
-                    const marker = markers[index];
-                    if (marker) {
-                        map.setZoom(14);
-                        map.setCenter(marker.getPosition());
-                        marker.setAnimation(google.maps.Animation.BOUNCE);
-                    }
-                });
-                item.addEventListener('mouseleave', function () {
-                    const index = parseInt(this.dataset.index);
-                    const marker = markers[index];
-                    if (marker) {
-                        marker.setAnimation(null);
-                        map.fitBounds(bounds);
-                    }
-                });
+    let map;
+    let bounds;
+    const markers = [];
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 37.7749, lng: -122.4194 },
+            zoom: 10
+        });
+
+        bounds = new google.maps.LatLngBounds();
+        const geocoder = new google.maps.Geocoder();
+
+        addresses.forEach((address, index) => {
+            geocoder.geocode({ address: address }, function (results, status) {
+                if (status === 'OK') {
+                    const location = results[0].geometry.location;
+                    const marker = new google.maps.Marker({
+                        map: map,
+                        position: location,
+                        title: address,
+                        animation: google.maps.Animation.DROP
+                    });
+
+                    markers[index] = marker;
+                    bounds.extend(location);
+                    map.fitBounds(bounds);
+                } else {
+                    console.error("Geocode failed for: " + address);
+                }
             });
-        }
+        });
 
-        window.onload = initMap;
-    </script>
+        setupHoverEvents();
+    }
+
+    function setupHoverEvents() {
+        document.querySelectorAll('.address-item').forEach(item => {
+            item.addEventListener('mouseenter', function () {
+                const index = parseInt(this.dataset.index);
+                const marker = markers[index];
+                if (marker) {
+                    map.setZoom(14);
+                    map.setCenter(marker.getPosition());
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            });
+            item.addEventListener('mouseleave', function () {
+                const index = parseInt(this.dataset.index);
+                const marker = markers[index];
+                if (marker) {
+                    marker.setAnimation(null);
+                    map.fitBounds(bounds);
+                }
+            });
+        });
+    }
+
+    window.onload = initMap;
+</script>
 }
