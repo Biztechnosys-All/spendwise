@@ -41,6 +41,8 @@ namespace Spendwise_WebApp.Pages.FormationPage
         [BindProperty]
         public CompanyDetail Company { get; set; } = default!;
 
+        [BindProperty]
+        public List<PackageFeature> PackageFeature { get; set; }
         public async Task<IActionResult> OnGet()
         {
             var userEmail = Request.Cookies["UserEmail"];
@@ -52,6 +54,16 @@ namespace Spendwise_WebApp.Pages.FormationPage
             List<AddressData> addressData;
             Order = await _context.Orders.Where(x => x.OrderId == orderId).FirstOrDefaultAsync();
             SelectedPackage = await _context.packages.Where(x => x.PackageId == Order.PackageID).FirstOrDefaultAsync();
+
+            //Package Features for selected package
+            var features = _context.packages.Where(x => x.PackageName == Order.PackageName).FirstOrDefault().PackageFeatures;
+
+            var selectedPackageFeatures = features != null ? features : string.Empty;
+            var packageFeaturesItemIds = selectedPackageFeatures.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                   .Select(int.Parse)
+                   .ToList();
+
+            PackageFeature = _context.PackageFeatures.Where(x => packageFeaturesItemIds.Contains(x.FeatureId)).ToList();
 
             var SelectedAddPackageItems = Order != null ? Order.AdditionalPackageItemIds : string.Empty;
             var AddPackageItemIds = SelectedAddPackageItems.Split(',', StringSplitOptions.RemoveEmptyEntries)
