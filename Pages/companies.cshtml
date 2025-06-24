@@ -4,6 +4,26 @@
     ViewData["Title"] = "companies";
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
+<style>
+    .companyView {
+        background-color: #5ea72d !important;
+        border: 1px solid #5ea72d !important;
+        color: var(--color-white) !important;
+        background-image: none !important;
+        font-family: var(--font-family-myriad);
+        font-size: 18px !important;
+        padding: 3px 10px !important;
+        width: auto !important;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+        .companyView:hover {
+            background-color: #329118 !important;
+            border-color: #329118 !important;
+            text-decoration: none !important;
+        }
+</style>
 <div class="col-five clientpage">
     <div class="container-inner">
         <div id="efPageContent" class="ui-widget">
@@ -55,12 +75,19 @@
                         {
                             <tr>
                                 <td> @item.CompanyId </td>
-                                <td> @(item.ApprovedDate != null ? @item.ApprovedDate : "-") </td>
+                                <td> @(item.ApprovedDate != null ? @item.ApprovedDate.Value.ToString("dd'/'MM'/'yyyy") : "-") </td>
                                 <td> @item.CompanyName </td>
                                 <td> @(item.CompanyNumber != null ? @item.CompanyNumber : "-") </td>
                                 <td> @(item.CompanyAuthCode != null ? @item.CompanyAuthCode : "-") </td>
                                 <td> @item.CompanyStatus </td>
-                                <td style="text-align:right"><a class="efButton efEditButton efDetailsButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="/account/company/?i=2986203" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/magnifier.png" alt="">View</span></a></td>
+                                <td style="text-align:right">
+                                    <a class="companyView" onclick="btnCompanyDetails('@item.CompanyId', '@item.CompanyStatus', '@item.CompanyName')" role="button" aria-disabled="false">
+                                        <span class="ui-button-text">
+                                            <img src="/images/magnifier.png" alt="">
+                                            View
+                                        </span>
+                                    </a>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -70,3 +97,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    function btnCompanyDetails(id, status, companyName) {
+        const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
+        if(status == "Approved") {
+             window.location.href = "/CompanySummary?id=" + id;
+             Cookies.set("ComanyId", id, expires);
+        }
+        else if(status == "InComplete" || status == "Action Required") {
+             window.location.href = "/FormationPage/Company-Formation"
+             Cookies.set("companyName", companyName, expires);
+             Cookies.set("ComanyId", id, expires);
+        }
+        else{
+            showToast("Can't do anything", "warning");
+        }
+    }
+</script>
