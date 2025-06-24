@@ -128,6 +128,11 @@ namespace Spendwise_WebApp.Pages.Admin
                     CreatedCompanyNumber = result?.CompanyNumber;
                     CompanyAuthNumber = result?.CompanyAuthCode;
                     ResponseMsg = $"Name: {Company.CompanyName}, Number: {result?.CompanyNumber}, Auth: {result?.CompanyAuthCode}";
+
+                    Company.CompanyNumber = result?.CompanyNumber;
+                    Company.CompanyAuthCode = result?.CompanyAuthCode;
+                    await _context.SaveChangesAsync(); // Use await with async SaveChangesAsync()
+
                 }
                 else
                 {

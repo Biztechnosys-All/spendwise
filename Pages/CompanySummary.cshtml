@@ -1,0 +1,395 @@
+﻿@page
+@model Spendwise_WebApp.Pages.CompanySummaryModel
+@{
+    Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
+}
+<link href="/css/company-details.css" rel="stylesheet" />
+<div class="container-inner">
+    <div id="efPageContent" class="ui-widget">
+        <div id="efAuthenticatedContent">
+            <h2> @Model.Company.CompanyName </h2>
+
+            <div class="efTabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+
+                <ul id="efCompanyManagerUl" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+                    <li class="ef-companysummary-tab" role="tab" tabindex="0" aria-controls="efCompanyTab" aria-labelledby="clickoverview" aria-selected="true">
+                        <a href="#efCompanyOverViewTab" onclick="btnCompanyTab('overview')" class="ui-tabs-anchor" role="presentation" tabindex="-1">
+                            Overview
+                        </a>
+                    </li>
+                    <li class="ef-summarydocuments-tab" role="tab" tabindex="-1" aria-controls="ui-tabs-1" aria-labelledby="clickdocuments" aria-selected="false">
+                        <a href="#" onclick="btnCompanyTab('documents')" class="ui-tabs-anchor" role="presentation" tabindex="-1">
+                            Documents
+                        </a>
+                    </li>
+                    <li class="ef-companyservice-tab" role="tab" tabindex="-1" aria-controls="ui-tabs-2" aria-labelledby="clickservices" aria-selected="false">
+                        <a href="#" onclick="btnCompanyTab('service')" class="ui-tabs-anchor" role="presentation" tabindex="-1">
+                            Company Services
+                        </a>
+                    </li>
+                </ul>
+
+                <div id="efCompanyOverViewTab" aria-labelledby="clickoverview" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false">
+                    <h3 class="efCompanyManagerHeader">Company Overview</h3>
+                    <div id="efCompanyParticluars" style="margin-bottom:20px;">
+                        <table class="efTable efTableCondensed ui-widget-content">
+                            <tbody>
+                                <tr class="efCompanyManagerHeader ui-widget-header">
+                                    <td colspan="3">Particulars</td>
+                                </tr>
+                                <tr>
+                                    <td class="efLabel">Name:</td>
+                                    <td colspan="2">
+                                        @Model.Company.CompanyName
+                                        <div class="nc-custom">
+                                            <button id="efAddButton_25" onclick="yo_add_product('25', '11742')" class="efEditButton efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                                                <span class="ui-button-text">
+                                                    <img src="/images/pencil.png" alt="Edit">
+                                                    Change Name
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="efLabel">Number:</td>
+                                    <td colspan="2">
+                                        <span id="thenumber">
+                                            @(Model.Company.CompanyNumber != null ? Model.Company.CompanyNumber : "-")
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="efLabel">Auth. Code:</td>
+                                    <td colspan="2">
+                                        <span id="theauthcode" class="js-auth-code">
+                                            @(Model.Company.CompanyAuthCode != null ? Model.Company.CompanyAuthCode : "-")
+                                        </span>
+                                        <span id="efEditAuthCode" class="nc-custom efButton efEditButton ef-js-update-auth-btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                                            <span class="ui-button-text">
+                                                <img src="/images/pencil.png" alt="Edit">
+                                                Edit
+                                            </span>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="efLabel">Type:</td>
+                                    <td colspan="2"> @Model.Particular.CompanyType </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="efLabel">Jurisdiction:</td>
+                                    <td colspan="2"> @Model.Particular.Jurisdiction </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="efLabel">
+                                        SIC Codes:
+                                    </td>
+                                    <td colspan="2">
+                                        @Html.Raw(@Model.Particular.SIC_Code)
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td class="efLabel">Confirmation Statement:</td>
+                                    <td colspan="2">
+
+                                        11/03/2026
+
+                                        <div class="cs-custom">
+                                            <div class="cs-custom__content">
+                                                All companies are legally required to file an annual Confirmation Statement. Avoid missing this deadline by purchasing our filing service (incl. filing fee of £34.00).
+                                            </div>
+                                            <div class="cs-custom__price">
+                                                £59.99
+                                            </div>
+                                            <div class="cs-custom__button">
+                                                <button id="efAddButton_44" onclick="yo_add_product('44', '16459')" class="efEditButton efButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                                                    <span class="ui-button-text">
+                                                        Order
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="efCompanyRegisteredAddresses" style="margin-bottom:20px;">
+                        <table class="efTable efTableCondensed ui-widget-content">
+                            <tbody>
+                                <tr class="efCompanyManagerHeader ui-widget-header">
+                                    <td colspan="3">Addresses</td>
+                                </tr>
+                                <tr>
+                                    <td class="efLabel">Registered Office:</td>
+                                    <td>
+                                        @Model.RegisterdAddress.HouseName, @Model.RegisterdAddress.Street <br /> @(Model.RegisterdAddress.Locality != null ? Model.RegisterdAddress.Locality : "")
+                                        @if (!string.IsNullOrEmpty(Model.RegisterdAddress.Locality))
+                                        {
+                                            <br />
+                                        }
+                                        @Model.RegisterdAddress.County <br /> @Model.RegisterdAddress.PostCode <br /> @Model.RegisterdAddress.Country
+                                    </td>
+                                    <td>
+                                        <span id="efEditButtonChangeOfRegisteredOffice" onclick="show_company_form_reg_office_change('2986203')" class="efFilesForms efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                                            <span class="ui-button-text">
+                                                <img src="/images/pencil.png" alt="Edit">Edit
+                                            </span>
+                                        </span>
+                                        <a id="efRenewService" class="efEditButton efButton efRenewButton ef-js-renew-reg-office ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/basket_add.png" style="float:left;margin-right:4px">Renew</span></a>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div id="efCompanyAccounts" style="margin-bottom:20px;">
+                        <table class="efTable efTableCondensed ui-widget-content">
+                            <tbody>
+                                <tr class="efCompanyManagerHeader ui-widget-header">
+                                    <td colspan="2">Accounts</td>
+                                </tr>
+                                <tr class="efCompanyAccountsDueTr">
+                                    <td class="efLabel">
+                                        Due:
+                                    </td>
+                                    <td>
+                                        12/12/2026 <br>
+                                    </td>
+                                </tr>
+                                <tr class="efCompanyAccountsNextDueTr">
+                                    <td class="efLabel">Next Due:</td>
+                                    <td>
+                                        12/12/2026
+                                    </td>
+                                </tr>
+                                <tr class="efCompanyAccountsMadeUpToTr">
+                                    <td class="efLabel">
+                                        Made up to:
+                                    </td>
+                                    <td>
+                                        31/03/2026
+                                    </td>
+                                </tr>
+
+
+                                <tr class="efCompanyAccountsRefDateTr">
+                                    <td class="efLabel">
+                                        Reference Date:
+                                    </td>
+                                    <td>
+                                        31st March                                    <span id="efEditButtonChangeAccountingDate" onclick="show_company_form_change_acc_date(
+                                              '2986203',
+                                              '31/03/2026',
+                                              '12/12/2026'
+                                          )" class="efFilesForms efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                                            <span class="ui-button-text">
+                                                <img src="/images/pencil.png" alt="Edit">Edit
+                                            </span>
+                                        </span>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="efCompanyAppointments">
+                        <table class="efTable efTableCondensed ui-widget-content">
+                            <thead>
+                                <tr class="efCompanyManagerHeader ui-widget-header">
+                                    <td colspan="100">Appointments</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Officer</td>
+                                    <td style="text-align:center">Director</td>
+                                    <td style="text-align:center">Shareholder</td>
+                                    <td style="text-align:center">Secretary</td>
+                                    <td style="text-align:center">PSC</td>
+                                    <td style="text-align:center"></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OfficersList)
+                                {
+                                    var position = item.PositionName?.Split(',') ?? Array.Empty<string>();
+                                    <tr class="efEven ef-officer-2521249" id="ef-officer-2521249">
+                                        <td style="text-align:center" width="30px">
+                                            <img src="/images/user_suit.png" alt="Person">
+                                        </td>
+                                        <td>
+                                            @item.FirstName @item.LastName
+                                        </td>
+                                        <td style="text-align:center">
+                                            @(position.Contains("Director") ? "✔" : "❌")
+                                        </td>
+                                        <td style="text-align:center">
+                                            @(position.Contains("Shareholder") ? "✔" : "❌")
+                                        </td>
+                                        <td style="text-align:center">
+                                            @(position.Contains("Secretary") ? "✔" : "❌")
+                                        </td>
+                                        <td style="text-align:center">
+                                            @(position.Contains("PSC") ? "✔" : "❌")
+                                        </td>
+                                        <td style="text-align:center">
+                                            <a class="efFilesForms efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="/company-details/officer/?i=2986203&amp;o=2521249" role="button" aria-disabled="false">
+                                                <span class="ui-button-text">
+                                                    <img src="/images/pencil.png" alt="Edit">
+                                                    Edit
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <!-- add officer row -->
+                    <div style="overflow:hidden">
+                        <a id="efAddButtonNewOfficer" href="/company-details/officer/?i=2986203" style="float:right;margin-top:10px; margin-bottom:10px;" class="efFilesForms efButton efAddNewOfficerButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/images/user_add.png" alt="Add">Add New Officer</span></a>
+                    </div>
+                    <!-- end officer row -->
+                    <!-- start statement section -->
+                    <div id="efStatements" style="margin-top : 20px;">
+
+                        <table class="efTable efTableCondensed ui-widget-content">
+                            <thead>
+                                <tr class="efCompanyManagerHeader ui-widget-header">
+                                    <td colspan="100">Company Statement</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr class="efEven ef-statement ef-no-active-statement ef-company-statement-row">
+                                    <td>No Active Statement</td>
+                                    <td></td>
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+
+                        <br>
+                        <table class="efTable efTableCondensed ui-widget-content">
+                            <thead>
+                                <tr class="efCompanyManagerHeader ui-widget-header">
+                                    <td colspan="100">Linked Statements</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr class="efEven ef-statement ef-no-active-statement ef-company-statement-row">
+                                    <td>No Active Statements</td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- end statement row -->
+                    <!-- Pending Statements -->
+                    <!-- End Pending Statement Row -->
+
+                    <div style="overflow:hidden">
+                        <a href="/company-statement/?i=2986203" style="float:right;margin-top:10px; margin-bottom:10px;" class="efFilesForms efButton efAddNewStatmentButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text"><img src="/assets/icons/table_refresh.png" alt="Add">Add New Statement</span></a>
+                    </div>
+
+                    <!-- start shareholder section -->
+                    <!-- end shareholder section -->
+
+                </div>
+
+                <div id="efCompanyDocumentsTab">
+                    <div id="ui-tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-live="polite" aria-labelledby="clickdocuments" role="tabpanel" aria-expanded="true" aria-hidden="false" style="display: block;">
+
+                        <h3 class="efCompanyManagerHeader">Company Documents</h3>
+                        <p>
+                            Below is a list of documents available for immediate download.
+                            @* For an unlisted document, or to order hard copies,
+                            please visit the <a href="/account/company/?i=2986287&amp;tab=4">shop</a>. *@
+                        </p>
+
+                        <table class="efTable ui-widget-content" id="efCompanyManagerDocumentTable">
+                            <tbody>
+                                <tr class="efDocumentDownload efEven">
+                                    <td>Company Summary </td>
+                                    <td style="text-align:right">
+                                        <a class="ef-download-btn ef-download-summary-btn" href="javascript:void(0);" rel="noopener" onclick="downloadCompanySummary()" role="button" aria-disabled="false">
+                                            <span class="ui-button-text">
+                                                Download
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="efCompanyServiceTab">
+                    <h1> Company Services </h1>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".ef-companysummary-tab").addClass("active");
+            $("#efCompanyOverViewTab").show();
+            $("#efCompanyDocumentsTab").hide();
+            $("#efCompanyServiceTab").hide();
+        });
+
+        function btnCompanyTab(type) {
+            if(type == 'overview') {
+                $("#efCompanyOverViewTab").show();
+                $("#efCompanyDocumentsTab").hide();
+                $("#efCompanyServiceTab").hide();
+                $(".ef-companysummary-tab").addClass("active");
+                $(".ef-summarydocuments-tab").removeClass("active");
+                $(".ef-companyservice-tab").removeClass("active");
+            }
+            else if(type == 'documents') {
+                $("#efCompanyOverViewTab").hide();
+                $("#efCompanyDocumentsTab").show();
+                $("#efCompanyServiceTab").hide();
+                $(".ef-companysummary-tab").removeClass("active");
+                $(".ef-summarydocuments-tab").addClass("active");
+                $(".ef-companyservice-tab").removeClass("active");
+            }
+            else if(type == 'service') {
+                $("#efCompanyOverViewTab").hide();
+                $("#efCompanyDocumentsTab").hide();
+                $("#efCompanyServiceTab").show();
+                $(".ef-companysummary-tab").removeClass("active");
+                $(".ef-summarydocuments-tab").removeClass("active");
+                $(".ef-companyservice-tab").addClass("active");
+            }
+        }
+
+        function downloadCompanySummary(){
+            window.open("/CompanySummary?handler=DownloadSummaryPDF");
+        }
+    </script>
+}
