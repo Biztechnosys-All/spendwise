@@ -1747,3 +1747,16 @@ body .ui-tooltip {
         color: #fff !important;
         display: flex;
     }
+
+
+/* Default: No scroll */
+.scroll-mobile {
+    overflow: hidden;
+}
+
+/* For Mobile Devices Only */
+@media (max-width: 767px) {
+    .scroll-mobile {
+        overflow-x: scroll; /* or overflow-y: auto; depending on your need */
+    }
+}
