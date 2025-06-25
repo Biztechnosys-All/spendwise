@@ -246,7 +246,8 @@ namespace Spendwise_WebApp.Pages
                 await _context.SaveChangesAsync();
             }
 
-            return Page();
+            TempData["Message"] = "Address is updated";
+            return RedirectToAction("OnGet");
         }
     }
 }
