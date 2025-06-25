@@ -4,26 +4,6 @@
     ViewData["Title"] = "companies";
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
-<style>
-    .companyView {
-        background-color: #5ea72d !important;
-        border: 1px solid #5ea72d !important;
-        color: var(--color-white) !important;
-        background-image: none !important;
-        font-family: var(--font-family-myriad);
-        font-size: 18px !important;
-        padding: 3px 10px !important;
-        width: auto !important;
-        border-radius: 5px;
-        text-decoration: none;
-    }
-
-        .companyView:hover {
-            background-color: #329118 !important;
-            border-color: #329118 !important;
-            text-decoration: none !important;
-        }
-</style>
 <div class="col-five clientpage">
     <div class="container-inner">
         <div id="efPageContent" class="ui-widget">
@@ -60,38 +40,40 @@
                         </div>
                     </form>
                 </div>
-                <table class="efTable ui-widget-content">
-                    <tbody>
-                        <tr class="ui-widget-header">
-                            <td>ID</td>
-                            <td>Incorporated</td>
-                            <td>Name</td>
-                            <td>Number</td>
-                            <td>Auth. Code</td>
-                            <td>Status <span class="status-helper"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span></td>
-                            <td></td>
-                        </tr>
-                        @foreach (var item in Model.Companies)
-                        {
-                            <tr>
-                                <td> @item.CompanyId </td>
-                                <td> @(item.ApprovedDate != null ? @item.ApprovedDate.Value.ToString("dd'/'MM'/'yyyy") : "-") </td>
-                                <td> @item.CompanyName </td>
-                                <td> @(item.CompanyNumber != null ? @item.CompanyNumber : "-") </td>
-                                <td> @(item.CompanyAuthCode != null ? @item.CompanyAuthCode : "-") </td>
-                                <td> @item.CompanyStatus </td>
-                                <td style="text-align:right">
-                                    <a class="companyView" onclick="btnCompanyDetails('@item.CompanyId', '@item.CompanyStatus', '@item.CompanyName')" role="button" aria-disabled="false">
-                                        <span class="ui-button-text">
-                                            <img src="/images/magnifier.png" alt="">
-                                            View
-                                        </span>
-                                    </a>
-                                </td>
+                <div class="scroll-mobile">
+                    <table class="efTable ui-widget-content">
+                        <tbody>
+                            <tr class="ui-widget-header">
+                                <td>ID</td>
+                                <td>Incorporated</td>
+                                <td>Name</td>
+                                <td>Number</td>
+                                <td>Auth. Code</td>
+                                <td>Status <span class="status-helper"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span></td>
+                                <td></td>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                            @foreach (var item in Model.Companies)
+                            {
+                                <tr>
+                                    <td> @item.CompanyId </td>
+                                    <td> @(item.ApprovedDate != null ? @item.ApprovedDate.Value.ToString("dd'/'MM'/'yyyy") : "-") </td>
+                                    <td> @item.CompanyName </td>
+                                    <td> @(item.CompanyNumber != null ? @item.CompanyNumber : "-") </td>
+                                    <td> @(item.CompanyAuthCode != null ? @item.CompanyAuthCode : "-") </td>
+                                    <td> @item.CompanyStatus </td>
+                                    <td style="text-align:right">
+                                        <a class="btn btn-success" style="text-decoration: none;" onclick="btnCompanyDetails('@item.CompanyId', '@item.CompanyStatus', '@item.CompanyName')" role="button" aria-disabled="false">
+                                            <span class="ui-button-text">
+                                                <img src="/images/magnifier.png" alt="">
+                                                View
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
                 <div style="overflow:hidden;margin-top:10px;"></div>
             </div>
         </div>
