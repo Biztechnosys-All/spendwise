@@ -258,6 +258,7 @@
                                         <div class="efPaymentGatewayField fileld-position">
                                             <label class="efPaymentGatewayLabel">Create Password</label>
                                             <input type="password" class="form-control" asp-for="User.Password" autocomplete="off">
+                                            <span class="text-address-error-message" id="User_Password_Error" style="display: none;"></span>
                                             <span class="efPasswordEyeOpenIcon ef-js-text-mask" id="showNewPassword" onclick="toggleNewPassword()" style="cursor: pointer;" data-owner="efUserPasswordInput">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 18 22">
                                                     <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
@@ -271,17 +272,6 @@
                                                     <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"></path>
                                                 </svg>
                                             </span>
-                                        </div>
-                                        <div class="efPaymentGatewayField">
-                                            <div id="password-constraints" class="efHide">
-                                                <ul style="">
-                                                    <li id="password-constraint-uppercase">At least one uppercase character <img src="/assets/icons/tick.png" class="efHide"> </li>
-                                                    <li id="password-constraint-lowercase">At least one lowercase character <img src="/assets/icons/tick.png" class="efHide"> </li>
-                                                    <li id="password-constraint-number">At least one number                 <img src="/assets/icons/tick.png" class="efHide"> </li>
-                                                    <li id="password-constraint-symbol">At least one symbol                 <img src="/assets/icons/tick.png" class="efHide"> </li>
-                                                    <li id="password-constraint-length">Minimum of 8 Characters             <img src="/assets/icons/tick.png" class="efHide"> </li>
-                                                </ul>
-                                            </div>
                                         </div>
                                     </div>
                                 }
@@ -964,6 +954,39 @@
         }
     }
 
+    $("#User_Password").on("keyup change", function () {
+            var specialCharPattern = @Html.Raw("new RegExp('[!@#$%^&*]')");
+            const password = $(this).val() || "";
+            let passwordErrors = [];
+
+            if (!/[a-z]/.test(password)) {
+                passwordErrors.push("a lowercase letter");
+            }
+            if (!/[A-Z]/.test(password)) {
+                passwordErrors.push("an uppercase letter");
+            }
+            if (!/[0-9]/.test(password)) {
+                passwordErrors.push("a number");
+            }
+            if (!specialCharPattern.test(password)) {
+                passwordErrors.push("a special character");
+            }
+            if (password.length < 8) {
+                passwordErrors.push("at least 8 characters");
+            }
+
+            if (passwordErrors.length > 0) {
+                $("#User_Password_Error")
+                    .html(
+                        "Your password must include:<br>- " + passwordErrors.join("<br>- ")
+                    )
+                    .show();
+            } else {
+                $("#User_Password_Error").text("").hide();
+            }
+        });
+
+
     let emailVerify = false;
 
     function handlePaybtn() {
@@ -974,6 +997,7 @@
 
         var email = $("#User_Email").val()?.trim();
         var phone = $("#User_PhoneNumber").val()?.trim();
+        var password = $("#User_Password").val()?.trim();
 
         var emailPattern = @Html.Raw(@"/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/");
         var phonePattern = /^\d{10}$/;
@@ -1002,6 +1026,20 @@
                 $("#User_Email_Error").text("").hide();
             }
             validateField("#User_Password", "Password");
+            var passwordPattern = @Html.Raw(@"/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/");
+            //Password
+            if (password === "") {
+                isValid = false;
+                $("#User_Password_Error").text("Password is required.").show();
+            } else if (!passwordPattern.test(password)) {
+                isValid = false;
+                $("#User_Password_Error").text(
+                "Password must be at least 8 characters long and include an uppercase, lowercase, number, and special character."
+                ).show();
+            } else {
+                $("#User_Password_Error").text("").hide();
+            }
+
         }
         validateField("#User_Title", "Title");
         validateField("#User_Forename", "First Name");
