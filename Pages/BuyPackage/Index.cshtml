@@ -92,6 +92,7 @@
             $("#hdnSelectedCompany").val(Cookies.get("companyName"));
             var searchParams = new URLSearchParams(window.location.search);
             var UrlPrams = searchParams.toString().split('=');
+            debugger;
             if (UrlPrams.length > 1 && UrlPrams[0] == "id" && UrlPrams[1].indexOf("token") !== -1) {
                 var id = searchParams.get("id");
                 var token = searchParams.get("token");
@@ -528,6 +529,7 @@
             $("#efNameCheckResult_AMBER").hide();
             $("#btnContinue").css("display", "none");
             $("#btnCompanySearch").css("display", "none");
+            $("#company_name").val("");
             $("#divCopmanySearch").show();
             Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
         }

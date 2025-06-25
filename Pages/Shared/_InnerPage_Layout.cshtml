@@ -553,17 +553,23 @@
             if (Type == "Non-residents") {
                 const redirectUrl = `/BuyPackage#Non-residents`;
                 window.location.href = redirectUrl;
-                window.location.reload();
+                if (window.location.href.includes("BuyPackage#")) {
+                    location.reload();
+                }
             }
             else if (Type == "LLP") {
                const redirectUrl = `/BuyPackage#LLP`;
                 window.location.href = redirectUrl;
-                window.location.reload();
+                if (window.location.href.includes("BuyPackage#")) {
+                    location.reload();
+                }
             }
             else if (Type == "Guarantee") {
                 const redirectUrl = `/BuyPackage#Guarantee`;
                 window.location.href = redirectUrl;
-                window.location.reload();
+                if (window.location.href.includes("BuyPackage#")) {
+                    location.reload();
+                }
             }
         }
     </script>
