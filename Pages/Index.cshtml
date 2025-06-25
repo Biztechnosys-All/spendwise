@@ -2441,6 +2441,7 @@
         function onSearchAgain() {
             $("#cNameAv").hide();
             $("#cNameNotAv").hide();
+            $("#CompanyName").val("");
             $(".company-name-search").show();
             Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
         }
@@ -2449,14 +2450,23 @@
             if (Type == "Non-residents") {
                 const redirectUrl = `/BuyPackage#Non-residents`;
                 window.location.href = redirectUrl;
+                if (window.location.href.includes("BuyPackage#")) {
+                    location.reload();
+                }
             }
             else if (Type == "LLP") {
                const redirectUrl = `/BuyPackage#LLP`;
                 window.location.href = redirectUrl;
+                if (window.location.href.includes("BuyPackage#")) {
+                    location.reload();
+                }
             }
             else if (Type == "Guarantee") {
                 const redirectUrl = `/BuyPackage#Guarantee`;
                 window.location.href = redirectUrl;
+                if (window.location.href.includes("BuyPackage#")) {
+                    location.reload();
+                }
             }
         }
 
