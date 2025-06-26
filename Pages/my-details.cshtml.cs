@@ -53,6 +53,9 @@ namespace Spendwise_WebApp.Pages
 
                 if (userData != null && addressData != null)
                 {
+                    var UserPass = userData.Password;
+
+                  
                     User = userData;
                     AddressList = addressData;
 
@@ -64,6 +67,17 @@ namespace Spendwise_WebApp.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var LoginEmail = Request.Cookies["UserEmail"] ?? "";
+            var userDetailsData = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == LoginEmail.ToLower());
+            var addressData = await _context.AddressData.Where(x => x.UserId == userDetailsData.UserID).ToListAsync();
+
+            if (userDetailsData != null && addressData != null)
+            {
+                User = userDetailsData;
+                AddressList = addressData;
+
+            }
+
             ModelState.Remove("Address.AddressId");
             ModelState.Remove("Address.PostCode");
             ModelState.Remove("Address.HouseName");
