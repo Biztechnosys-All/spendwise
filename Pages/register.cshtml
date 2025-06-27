@@ -43,12 +43,20 @@
         margin-bottom: 12px !important;
     }
 
+    #otpSection{
+        margin-bottom: 5rem;
+    }
+
     @@media screen and (max-width: 768px) {
         .otpTimer {
             margin-left: -19rem;
             margin-top: 71px;
             position: absolute;
             margin-bottom: 12px !important;
+        }
+
+        #otpSection {
+            margin-bottom: 6rem;
         }
     }
 </style>
@@ -145,7 +153,7 @@
                                             <span class="text-address-error-message" id="User_Email_Error" style="display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="ef-registration form-group row" id="otpSection" style="display: none; margin-bottom: 4rem">
+                                    <div class="ef-registration form-group row" id="otpSection" style="display: none;">
                                         <label class="col-sm-5 col-form-label"> Enter Otp:</label>
                                         <div class="col-sm-7" style="margin-bottom: 8px;">
                                             <input class="form-control" type="text" id="otp" style="width: 12rem;" />

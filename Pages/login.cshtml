@@ -269,7 +269,13 @@
 
 @section Scripts {
     <script>
-        $("#btnLogin").click(function() {
+        $(document).ready(function () {
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>showToast("@TempData["SuccessMessage"]", "success"); </text>
+        }
+            });
+        $("#btnLogin").click(function () {
             var isValid = true;
 
             var email = $("#User_Email").val();
@@ -294,7 +300,7 @@
                 $("#User_Password_Error").text("").hide();
             }
 
-            if(isValid) {
+            if (isValid) {
                 const loginData = {
                     Email: email,
                     Password: password,
@@ -308,7 +314,7 @@
                     success: function (res) {
                         if (res.success) {
                             window.location.href = res.redirectUrl;
-                        }else {
+                        } else {
                             // Display error message
                             $("#loginErrorMessage").text(res.message).show();
                         }
@@ -337,8 +343,7 @@
                         }
                     });
                 }
-                else
-                {
+                else {
                     showToast('please enter email address!.', 'warning');
                 }
             });

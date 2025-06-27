@@ -23,11 +23,16 @@ namespace Spendwise_WebApp.Pages
         [Required]
         public string NewPassword { get; set; }
 
-        private readonly IConfiguration _config;
+        [BindProperty]
+        public bool ShowFrom { get; set; }  = true;
 
-        public ResetPasswordModel(IConfiguration config)
+        private readonly IConfiguration _config;
+        private readonly Spendwise_WebApp.DLL.AppDbContext _context;
+
+        public ResetPasswordModel(IConfiguration config, Spendwise_WebApp.DLL.AppDbContext context)
         {
             _config = config;
+            _context = context;
         }
 
 
@@ -56,6 +61,7 @@ namespace Spendwise_WebApp.Pages
                         if (!reader.Read() || reader["ResetToken"].ToString() != Token)
                         {
                             ViewData["ErrorMessage"] = "Invalid or expired link. Please request a new password reset.";
+                            ShowFrom = false;
                             return Page();
                         }
 
@@ -63,6 +69,7 @@ namespace Spendwise_WebApp.Pages
                         if (expiry < DateTime.UtcNow)
                         {
                             ViewData["ErrorMessage"] = "Your password reset link has expired. Please request a new one.";
+                            ShowFrom = false;
                             return Page();
                         }
                     }
@@ -91,7 +98,8 @@ namespace Spendwise_WebApp.Pages
                     {
                         if (!reader.Read())
                         {
-                            ModelState.AddModelError("", "Invalid token.");
+                            ViewData["ErrorMessage"] = "Invalid token.";
+                            ShowFrom = false;
                             return Page();
                         }
 
@@ -100,7 +108,8 @@ namespace Spendwise_WebApp.Pages
 
                         if (storedToken != Token || expiry < DateTime.UtcNow)
                         {
-                            ModelState.AddModelError("", "Invalid or expired token.");
+                            ViewData["ErrorMessage"] = "Invalid or expired token.";
+                            ShowFrom = false;
                             return Page();
                         }
                     }
@@ -122,7 +131,13 @@ namespace Spendwise_WebApp.Pages
                     }
                     hashedPassword = sb.ToString();
                 }
-
+                var userData = _context.Users.Where(x => x.Email == Email).FirstOrDefault();
+                if (hashedPassword == userData.Password)
+                {
+                    ViewData["ErrorMessage"] = "The new password cannot be the same as the current password. Please choose a different password.";
+                    ShowFrom = true;
+                    return Page();
+                }
 
                 // Update password in DB
                 string updateQuery = "UPDATE Users SET Password = @Password, ResetToken = NULL, ResetTokenExpiry = NULL WHERE Email = @Email";
@@ -134,7 +149,7 @@ namespace Spendwise_WebApp.Pages
                 }
             }
 
-            ViewData["SuccessMessage"] = "Password reset successful. You can now log in.";
+            TempData["SuccessMessage"] = "Password reset successful.";
             return RedirectToPage("/login");
         }
 
