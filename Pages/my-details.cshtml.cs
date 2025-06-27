@@ -53,9 +53,6 @@ namespace Spendwise_WebApp.Pages
 
                 if (userData != null && addressData != null)
                 {
-                    var UserPass = userData.Password;
-
-                  
                     User = userData;
                     AddressList = addressData;
 
@@ -71,13 +68,6 @@ namespace Spendwise_WebApp.Pages
             var userDetailsData = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == LoginEmail.ToLower());
             var addressData = await _context.AddressData.Where(x => x.UserId == userDetailsData.UserID).ToListAsync();
 
-            if (userDetailsData != null && addressData != null)
-            {
-                User = userDetailsData;
-                AddressList = addressData;
-
-            }
-
             ModelState.Remove("Address.AddressId");
             ModelState.Remove("Address.PostCode");
             ModelState.Remove("Address.HouseName");
@@ -86,6 +76,7 @@ namespace Spendwise_WebApp.Pages
             ModelState.Remove("Address.Town");
             ModelState.Remove("Address.Country");
             ModelState.Remove("Address.County");
+            ModelState.Remove("User.Password");
             if (!ModelState.IsValid)
             {
                 // List of required fields with custom error messages
@@ -96,7 +87,7 @@ namespace Spendwise_WebApp.Pages
                     { "User.Surname", "Surname is required." },
                     { "User.PhoneNumber", "Phone number is required." },
                     { "User.Email", "Email is required." },
-                    { "User.Password", "Password is required." },
+                    //{ "User.Password", "Password is required." },
                     { "Message", "Update Error." }
                 };
 
@@ -107,6 +98,11 @@ namespace Spendwise_WebApp.Pages
                     {
                         ModelState.AddModelError(field.Key, field.Value);
                     }
+                }
+                if (userDetailsData != null && addressData != null)
+                {
+                    User = userDetailsData;
+                    AddressList = addressData;
                 }
                 return Page();
             }
@@ -128,9 +124,9 @@ namespace Spendwise_WebApp.Pages
 
             try
             {
+                var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == User.Email.ToLower());
                 if (string.IsNullOrEmpty(User.Password))
                 {
-                    var userData = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == User.Email.ToLower());
                     if (userData != null)
                     {
                         User.Password = userData.Password;
@@ -150,6 +146,10 @@ namespace Spendwise_WebApp.Pages
                             sb.Append(hashBytes[i].ToString("x2"));
                         }
                         User.Password = sb.ToString();
+                    }
+                    if(User.Password == userData.Password)
+                    {
+                        User.Password = userData.Password;
                     }
                 }
                 await _context.SaveChangesAsync();
