@@ -31,9 +31,17 @@
         overflow-y: auto;
     }
 
+    .sic-category {
+        width: 33.7rem
+    }
+
     @@media only screen and (max-width:768px) {
         .address-panel {
             width: 90%;
+        }
+
+        .sic-category {
+            width: 14rem;
         }
     }
 </style>
@@ -88,7 +96,7 @@
                     </div>
                     <div id="ef-panel-inner-content-particular">
                         <div class="success name-check-result show-namecheck particular-company" id="companyAvailable" style="display:none">
-                            <div class="ef-alert-box-main-text"><span class="ef-namecheck-choosen-name" id="availableCompanyName"> </span> Congratulations! This company name is available.</div>
+                            <div class="ef-alert-box-main-text" style="line-height: 32px;"><span class="ef-namecheck-choosen-name" id="availableCompanyName"> </span> Congratulations! This company name is available.</div>
                         </div>
 
                         <div class="success name-check-result show-namecheck particular-company" id="companyNotAvailable" style="display:none">
@@ -164,13 +172,13 @@
                                     </div>
                                     <!--  there can be multiple -->
                                     <div class="w-row">
-                                        <div class="w-col w-col-6">
+                                        <div class="w-col w-col-6" style="padding-left: 0px;">
                                             <!-- sic codes -->
                                             <label>
                                                 What are your business activities
                                                 <span class="ef-modal-help-icon" data-ref="HELP|SIC_CODES"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                             </label>
-                                            <div class="" id="ef-js-sic-codes">
+                                            <div class="sic-category" id="ef-js-sic-codes">
                                                 <div class="" id="ef-js-sic-codes__categories">
                                                     <select class="w-select" asp-for="Particular.Activities" asp-items="Model.SicCodeCategoryList">
                                                         <option value="">Select a category:</option>
@@ -191,7 +199,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="w-col w-col-6">
+                                        <div class="w-col w-col-6" style="padding-left: 0px;">
                                             <div id="ef-js-sic-codes__selected" class="ef-sic-codes-selected">
                                                 <label class="ef-sic-codes-selected-label">
                                                     Selected SIC codes
