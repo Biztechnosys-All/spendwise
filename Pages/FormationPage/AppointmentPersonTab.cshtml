@@ -336,7 +336,7 @@
                                     </div>
                                 </div>
                                 <div class="w-row">&nbsp;</div>
-                               @*  <div class="w-row">
+                                @*  <div class="w-row">
                                     <div class="w-col">
                                         <button type="button" id="officer-submit-details-tab" class="ef-btn ef-primary-btn ef-submit-btn ef-officer-next-step"> Save </button>
                                     </div>
@@ -615,8 +615,10 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
-                <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                <div class="address-modal">
+                    <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
+                    <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -969,7 +971,7 @@
         });
 
         if($("#PersonAddress_HouseName").val() == "" && residentialHouseName == "") {
-            isValid = false; 
+            isValid = false;
             $("#residentialAddress-error").html("Please select the Residential Address.").show();
             showToast('Please filled required details.', 'warning');
             $('html, body').scrollTop($('#details').offset().top);
@@ -1022,10 +1024,10 @@
         validateField("#Officers_AuthenticationAns2", "#Officers_AuthenticationAns2_error", "AuthenticationAns");
         validateField("#Officers_Authentication3", "#Officers_Authentication3_error", "Authentication");
         validateField("#Officers_AuthenticationAns3", "#Officers_AuthenticationAns3_error", "AuthenticationAns");
-        
+
         if(isValid) {
             const selectedPosition = selectedData.join(",");
-            
+
             var formData = {
                 OfficerId: $('#Officers_OfficerId').val() || 0,
                 Title: $('#Officers_Title').val(),
@@ -1160,7 +1162,7 @@
         validateFields("#PersonAddress_Street", "#PersonAddress_Street_error", "Street");
         validateFields("#PersonAddress_Town", "#PersonAddress_Town_error", "Town");
         validateFields("#PersonAddress_PostCode", "#PersonAddress_PostCode_error", "Postcode");
-        
+
         if (isValid) {
             var type = $('#hndAddressType').val();
 
@@ -1483,7 +1485,7 @@
 
     function editPersonOfficer(data) {
         const selectedPosition = data.positionName ? data.positionName.split(',').map(p => p.trim()) : [];
-        
+
         $('html, body').scrollTop($('#appointmentTab').offset().top);
 
         //Bind data based on Id

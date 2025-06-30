@@ -2087,3 +2087,71 @@ ef-information-box p {
         margin-top: 15px;
     }
 }
+
+.w-input, .w-select {
+    border: 1px solid #84888a !important;
+    font-size: 14px !important;
+}
+
+.ef-sic-code-filter {
+    display: none;
+    min-height: 300px;
+    height: 340px;
+    max-height: 400px;
+    overflow-x: scroll;
+    overflow-x: hidden;
+}
+
+.address-panel {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    background: #fff;
+    border-radius: 10px;
+    z-index: 2000;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.sic-category {
+    width: 33.7rem
+}
+
+.address-modal {
+    height: 4rem;
+    align-items: flex-start;
+}
+
+.address-modal p {
+    margin-left: 0px;
+}
+
+@media only screen and (max-width:768px) {
+    .address-panel {
+        width: 90%;
+    }
+
+    .sic-category {
+        width: 14rem;
+    }
+
+    .address-modal {
+        height: 4rem;
+        align-items: flex-start;
+    }
+
+    .address-modal p {
+        margin-left: 0px;
+    }
+
+    .ef-postcode-lookup-btn {
+        margin-top: -8px;
+        margin-left: 2rem;
+    }
+
+    .postal-lookup {
+        width: 11rem;
+    }
+}

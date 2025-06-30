@@ -368,8 +368,10 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
-                <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                <div class="address-modal">
+                    <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
+                    <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -672,7 +674,7 @@
 
         if (isValid) {
             const selectedPosition = selectedData.join(",");
-            
+
             var formData = {
                 CorporateOfficerId: $('#CorporateOfficers_CorporateOfficerId').val() || 0,
                 Title: $('#CorporateOfficers_Title').val(),
@@ -1013,7 +1015,7 @@
     function editCorporateOfficer(data) {
         $('.officer-corporate-is-uk-status').prop('checked', false);
         const selectedPosition = data.positionName ? data.positionName.split(',').map(p => p.trim()) : [];
-        
+
         $('html, body').scrollTop($('#appointmentTab').offset().top);
 
         //Bind data based on Id

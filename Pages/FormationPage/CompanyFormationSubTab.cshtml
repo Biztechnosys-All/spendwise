@@ -3,48 +3,6 @@
 @{
     Layout = null;
 }
-<style>
-    .w-input, .w-select {
-        border: 1px solid #84888a !important;
-        font-size: 14px !important;
-    }
-
-    .ef-sic-code-filter {
-        display: none;
-        min-height: 300px;
-        height: 340px;
-        max-height: 400px;
-        overflow-x: scroll;
-        overflow-x: hidden;
-    }
-
-    .address-panel {
-        position: fixed;
-        top: 15%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 30%;
-        background: #fff;
-        border-radius: 10px;
-        z-index: 2000;
-        max-height: 70vh;
-        overflow-y: auto;
-    }
-
-    .sic-category {
-        width: 33.7rem
-    }
-
-    @@media only screen and (max-width:768px) {
-        .address-panel {
-            width: 90%;
-        }
-
-        .sic-category {
-            width: 14rem;
-        }
-    }
-</style>
 
 <div id="parentTabs">
     <div class="ef-order-form-nav-step-wrapper">
@@ -734,8 +692,10 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
-                <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                <div class="address-modal">
+                    <h5 class="modal-title" id="addressModalLabel">Forwarding Address</h5>
+                    <p>Tell us where to forward your mail to you, by entering your address below.</p>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
