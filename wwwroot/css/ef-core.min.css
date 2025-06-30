@@ -3161,3 +3161,8 @@ ul.efOrderContentsList {
         padding: 6px 0
     }
 }
+@media only screen and (max-width:678px) {
+    #efOrderOverview, #efOrderDetails {
+        width:100%;
+    }
+}

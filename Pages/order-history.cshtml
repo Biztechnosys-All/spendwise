@@ -4,7 +4,8 @@
     ViewData["Title"] = "order-history";
     Layout = "~/Pages/Shared/_InnerPage_Layout.cshtml";
 }
-
+<link href="~/css/footable.core.css" rel="stylesheet" />
+<link href="~/css/footable-demos.css" rel="stylesheet" />
 <div class="col-five clientpage">
     <div class="container-inner">
         <div id="efPageContent" class="ui-widget">
@@ -22,19 +23,21 @@
                 }
 
                 </script> *@
-                <div class="efAccountPanel scroll-mobile">
+                <div class="efAccountPanel table table-bordered footable">
                     <table class="efTable ui-widget-content">
-                        <tbody>
+                        <thead>
                             <tr class="ui-widget-header">
-                                <td>Order ID</td>
-                                <td>Invoiced</td>
-                                <td>Package / Type</td>
-                                <td>Description</td>
-                                <td>Status <span class="status-helper"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <th data-toggle="true">Order ID</td>
+                                <th>Invoiced</th>
+                                <th data-hide="phone,tablet">Package / Type</th>
+                                <th data-hide="phone,tablet">Description</th>
+                                <th data-hide="phone,tablet">Status <span class="status-helper"><i class="fa fa-info-circle fc-bcbcbc" aria-hidden="true"></i></span></th>
+                                <th data-hide="phone,tablet"></th>
+                                <th data-hide="phone,tablet"></th>
+                                <th data-hide="phone,tablet"></th>
                             </tr>
+                        <tbody>
+                        <tbody>
                             @foreach (var item in Model.Order)
                             {
                                 <tr class="efOdd">
@@ -149,5 +152,11 @@
         function viewOrderDetails(orderId) {
             window.location.href = "/Order-Details?id=" + orderId;
         }
+    </script>
+    <script>
+        $(function () {
+          $('table').footable();
+          $('.footable tbody tr:first').addClass('footable-detail-show');
+        });
     </script>
 }
