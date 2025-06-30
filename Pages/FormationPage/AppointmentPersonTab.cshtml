@@ -180,8 +180,8 @@
                                     <div class="ef-form-wrap">
                                         <h2 id="preselected-officer"> Officer Details </h2>
                                         <div class="hr-line-1"></div>
-                                        <div class="w-row row-margin">
-                                            <div class="w-col w-col-6" style="">
+                                        <div class="w-row row-margin ">
+                                            <div class="w-col w-col-6 full-width" style="">
                                                 <div id="officer-title-wrapper">
                                                     <input type="hidden" asp-for="Officers.OfficerId" />
                                                     <div id="officer-label-wrapper">
@@ -203,7 +203,7 @@
                                                     <span class="text-address-error-message" id="Officers_LastName_error" style="display: none;"></span>
                                                 </div>
                                             </div>
-                                            <div class="w-col w-col-6">
+                                            <div class="w-col w-col-6 full-width">
                                                 <div id="officer-dob-wrapper">
                                                     <label class="field-label" for="date-of-birth">Date of Birth</label>
                                                     <input class="form-control w-input" type="date" asp-for="Officers.DOB" />
@@ -254,14 +254,14 @@
                                             </div>
                                             <!-- end res address -->
                                             <div class="w-row row-margin">
-                                                <div class="w-col w-col-10" style="">
+                                                <div class="w-col w-col-12" style="">
                                                     <div class="officer-paq-wrapper">
                                                         <h3>Authentication Questions</h3>
                                                         <div class="w-row">
-                                                            <div class="w-col w-col-3">
+                                                            <div class="w-col w-col-3 full-width">
                                                                 <label class="field-label" id="pac-q1-label" for="pac-q1">Select First 3 letters of</label>
                                                             </div>
-                                                            <div class="w-col w-col-5">
+                                                            <div class="w-col w-col-5 full-width">
                                                                 <select class="w-select appointments-field auth-select" asp-for="Officers.Authentication1" style="margin-bottom: 20px;">
                                                                     <option value=""> --Select-- </option>
                                                                     <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
@@ -273,19 +273,19 @@
                                                                 </select>
                                                                 <span class="text-address-error-message" id="Officers_Authentication1_error" style="display: none;"></span>
                                                             </div>
-                                                            <div class="w-col w-col-1">
+                                                            <div class="w-col w-col-1 full-width">
                                                                 <label class="field-label" for="pac-a1">Answer</label>
                                                             </div>
-                                                            <div class="w-col w-col-3 w-clearfix">
+                                                            <div class="w-col w-col-3 w-clearfix full-width">
                                                                 <input class="w-input ef-pac-answer" type="text" asp-for="Officers.AuthenticationAns1" />
                                                                 <span class="text-address-error-message" id="Officers_AuthenticationAns1_error" style="display: none;"></span>
                                                             </div>
                                                         </div>
                                                         <div class="w-row">
-                                                            <div class="w-col w-col-3">
+                                                            <div class="w-col w-col-3 full-width">
                                                                 <label class="field-label" id="pac-q2-label" for="pac-q2">Select Last 3 digits of</label>
                                                             </div>
-                                                            <div class="w-col w-col-5">
+                                                            <div class="w-col w-col-5 full-width">
                                                                 <select class="w-select appointments-field auth-select" asp-for="Officers.Authentication2" style="margin-bottom: 20px;">
                                                                     <option value=""> --Select-- </option>
                                                                     <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
@@ -297,19 +297,19 @@
                                                                 </select>
                                                                 <span class="text-address-error-message" id="Officers_Authentication2_error" style="display: none;"></span>
                                                             </div>
-                                                            <div class="w-col w-col-1">
+                                                            <div class="w-col w-col-1 full-width">
                                                                 <label class="field-label" for="pac-a2">Answer</label>
                                                             </div>
-                                                            <div class="w-col w-col-3 w-clearfix">
+                                                            <div class="w-col w-col-3 w-clearfix full-width">
                                                                 <input class="w-input ef-pac-answer" type="text" asp-for="Officers.AuthenticationAns2" />
                                                                 <span class="text-address-error-message" id="Officers_AuthenticationAns2_error" style="display: none;"></span>
                                                             </div>
                                                         </div>
                                                         <div class="w-row last-margin">
-                                                            <div class="w-col w-col-3">
+                                                            <div class="w-col w-col-3 full-width">
                                                                 <label class="field-label" id="pac-q3-label" for="pac-q3">Select First 3 letters of</label>
                                                             </div>
-                                                            <div class="w-col w-col-5">
+                                                            <div class="w-col w-col-5 full-width">
                                                                 <select class="w-select appointments-field auth-select" asp-for="Officers.Authentication3" style="margin-bottom: 20px;">
                                                                     <option value=""> --Select-- </option>
                                                                     <option value="MUM" data-label="Select First 3 letters of">Mother's Maiden Name</option>
@@ -321,10 +321,10 @@
                                                                 </select>
                                                                 <span class="text-address-error-message" id="Officers_Authentication3_error" style="display: none;"></span>
                                                             </div>
-                                                            <div class="w-col w-col-1">
+                                                            <div class="w-col w-col-1 full-width">
                                                                 <label class="field-label" for="pac-a3">Answer</label>
                                                             </div>
-                                                            <div class="w-col w-col-3 w-clearfix">
+                                                            <div class="w-col w-col-3 w-clearfix full-width">
                                                                 <input class="w-input ef-pac-answer" type="text" asp-for="Officers.AuthenticationAns3" />
                                                                 <span class="text-address-error-message" id="Officers_AuthenticationAns3_error" style="display: none;"></span>
                                                             </div>

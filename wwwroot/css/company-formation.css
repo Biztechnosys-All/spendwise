@@ -2134,7 +2134,7 @@ ef-information-box p {
     }
 
     .sic-category {
-        width: 14rem;
+        width: 100%;
     }
 
     .address-modal {
@@ -2154,4 +2154,17 @@ ef-information-box p {
     .postal-lookup {
         width: 11rem;
     }
+    .full-width {
+        width: 100%;
+    }
+    .w-col.w-col-6.full-width, .w-col.w-col-3.full-width, .w-col.w-col-5.full-width, .w-col.w-col-1.full-width, .w-col.w-col-3.w-clearfix.full-width, .appointments-field {
+        width: 100%;
+    }
+    .ef-panel-row {
+        margin-left:30px;
+    }
+    .ef-btn.ef-select-btn {
+        margin-left: 10px;
+    }
 }
+
