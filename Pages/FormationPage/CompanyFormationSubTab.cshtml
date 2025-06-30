@@ -130,14 +130,14 @@
                                     </div>
                                     <!--  there can be multiple -->
                                     <div class="w-row">
-                                        <div class="w-col w-col-6" style="padding-left: 0px;">
+                                        <div class="w-col w-col-6 full-width" style="padding-left: 0px;">
                                             <!-- sic codes -->
                                             <label>
                                                 What are your business activities
                                                 <span class="ef-modal-help-icon" data-ref="HELP|SIC_CODES"><img class="ef-help-icon-img" src="/assets/icons/help.png"></span>
                                             </label>
                                             <div class="sic-category" id="ef-js-sic-codes">
-                                                <div class="" id="ef-js-sic-codes__categories">
+                                                <div class="full-width" id="ef-js-sic-codes__categories">
                                                     <select class="w-select" asp-for="Particular.Activities" asp-items="Model.SicCodeCategoryList">
                                                         <option value="">Select a category:</option>
                                                         <option value="all-categories">All</option>
@@ -157,7 +157,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="w-col w-col-6" style="padding-left: 0px;">
+                                        <div class="w-col w-col-6 full-width" style="padding-left: 0px;">
                                             <div id="ef-js-sic-codes__selected" class="ef-sic-codes-selected">
                                                 <label class="ef-sic-codes-selected-label">
                                                     Selected SIC codes
