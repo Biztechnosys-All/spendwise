@@ -1216,7 +1216,7 @@ ef-information-box p {
 
 .ef-item-bottom-border {
     border-bottom: 1px solid #ccc !important;
-    margin: 30px 15px;
+    margin: 30px 10px;
     padding-bottom: 1px;
 }
 
@@ -2123,7 +2123,9 @@ ef-information-box p {
     height: 4rem;
     align-items: flex-start;
 }
-
+.padding-left {
+    padding-left:10px;
+}
 .address-modal p {
     margin-left: 0px;
 }
@@ -2161,7 +2163,7 @@ ef-information-box p {
         width: 100%;
     }
     .ef-panel-row {
-        margin-left:30px;
+        margin-left:10px;
     }
     .ef-btn.ef-select-btn {
         margin-left: 10px;
