@@ -213,7 +213,6 @@
                                                     <div class="ef-autocomplete-wrapper">
                                                         <label class="field-label" for="officer-nationality--disabled">
                                                             Nationality
-                                                            <span class="ef-modal-help-icon nationality-help" data-ref="HELP|NATIONALITY"> - <span>List of accepted nationalities</span>&nbsp;</span>
                                                         </label>
                                                         <input class="w-input data-hj-whitelist" type="text" placeholder="Nationality" asp-for="Officers.Nationality">
                                                         <span class="text-address-error-message" id="Officers_Nationality_error" style="display: none;"></span>
@@ -232,10 +231,10 @@
                                                 <div class="ef-item-box ef-selected">
                                                     <div class="ef-item-content">
                                                         <div class="w-row ef-panel-row">
-                                                            <button type="button" class="ef-btn ef-select-btn" id="ExsistingAddress" onclick="showUserAddressPanel('Residential')">
+                                                            <button type="button" class="ef-btn ef-select-btn appointment-button" id="ExsistingAddress" onclick="showUserAddressPanel('Residential')">
                                                                 Recently used addresses
                                                             </button>
-                                                            <button type="button" class="ef-btn ef-select-btn" id="openPersonSecondModal" onclick="openAddressModal('Residential')">
+                                                            <button type="button" class="ef-btn ef-select-btn appointment-button" id="openPersonSecondModal" onclick="openAddressModal('Residential')">
                                                                 New Address
                                                             </button>
                                                             <div class="w-col w-col-8" style="margin-top: 10px;">
@@ -369,10 +368,10 @@
                                             <div class="ef-item-box ef-selected">
                                                 <div class="ef-item-content">
                                                     <div class="w-row ef-panel-row">
-                                                        <button type="button" class="ef-btn ef-select-btn" id="ExsistingAddress" onclick="showUserAddressPanel('Service')">
+                                                        <button type="button" class="ef-btn ef-select-btn appointment-service-button" id="ExsistingAddress" onclick="showUserAddressPanel('Service')">
                                                             Recently used addresses
                                                         </button>
-                                                        <button type="button" class="ef-btn ef-select-btn" id="openPersonSecondModal" onclick="openAddressModal('Service')">
+                                                        <button type="button" class="ef-btn ef-select-btn appointment-service-button" id="openPersonSecondModal" onclick="openAddressModal('Service')" style="margin-left:2px;">
                                                             New Address
                                                         </button>
                                                         <div class="w-col w-col-8" style="margin-top: 10px;">

@@ -64,7 +64,7 @@ namespace Spendwise_WebApp.Pages.FormationPage
             var selectCompanyId = Request.Cookies["ComanyId"];
 
             var userId = _context.Users.Where(x => x.Email == userEmail).FirstOrDefault().UserID;
-            addressData = await _context.AddressData.Where(m => m.UserId == userId && m.CompanyId.ToString() == selectCompanyId).ToListAsync();
+            addressData = await _context.AddressData.Where(m => m.UserId == userId).ToListAsync();
             var companyId = _context.CompanyDetails.Where(c => c.CompanyId.ToString() == selectCompanyId.ToString()).FirstOrDefault().CompanyId;
             Company = await _context.CompanyDetails.FirstOrDefaultAsync(m => m.CompanyId.ToString() == selectCompanyId);
             Particular = await _context.Particulars.FirstOrDefaultAsync(m => m.UserId == userId && m.CompanyId.ToString() == selectCompanyId);

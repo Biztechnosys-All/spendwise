@@ -84,28 +84,26 @@
     </div>
 </div>
 @section Scripts {
-<script>
-    function btnCompanyDetails(id, status, companyName) {
-        const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
-        if(status == "Approved") {
-             window.location.href = "/CompanySummary?id=" + id;
-             Cookies.set("ComanyId", id, expires);
+    <script>
+        function btnCompanyDetails(id, status, companyName) {
+            const expires = 7 ? { expires: 7, secure: true, sameSite: 'None' } : {};
+            if(status == "Approved") {
+                 window.location.href = "/CompanySummary?id=" + id;
+                 Cookies.set("ComanyId", id, expires);
+            }
+            else if(status == "InComplete" || status == "Action Required") {
+                 window.location.href = "/FormationPage/Company-Formation"
+                 Cookies.set("companyName", companyName, expires);
+                 Cookies.set("ComanyId", id, expires);
+            }
+            else{
+                showToast("Can't do anything", "warning");
+            }
         }
-        else if(status == "InComplete" || status == "Action Required") {
-             window.location.href = "/FormationPage/Company-Formation"
-             Cookies.set("companyName", companyName, expires);
-             Cookies.set("ComanyId", id, expires);
-        }
-        else{
-            showToast("Can't do anything", "warning");
-        }
-    }
-</script>
 
-<script>
-    $(function () {
-      $('table').footable();
-      $('.footable tbody tr:first').addClass('footable-detail-show');
-    });
-</script>
+        $(function () {
+          $('table').footable();
+              $('.footable tbody tr:first').addClass('footable-detail-show');
+        });
+    </script>
 }

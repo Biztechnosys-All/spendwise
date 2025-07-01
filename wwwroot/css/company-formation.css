@@ -2144,9 +2144,9 @@ ef-information-box p {
         align-items: flex-start;
     }
 
-    .address-modal p {
-        margin-left: 0px;
-    }
+        .address-modal p {
+            margin-left: 0px;
+        }
 
     .ef-postcode-lookup-btn {
         margin-top: -8px;
@@ -2156,9 +2156,25 @@ ef-information-box p {
     .postal-lookup {
         width: 11rem;
     }
+
+    .appointment-button {
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .appointment-service-button {
+        margin-left: 4px;
+        margin-top: 10px;
+    }
+
+    .ef-pac-answer {
+        margin-left: 40px;
+    }
+
     .full-width {
         width: 100%;
     }
+
     .w-col.w-col-6.full-width, .w-col.w-col-3.full-width, .w-col.w-col-5.full-width, .w-col.w-col-1.full-width, .w-col.w-col-3.w-clearfix.full-width, .appointments-field {
         width: 100%;
     }
@@ -2167,6 +2183,16 @@ ef-information-box p {
     }
     .ef-btn.ef-select-btn {
         margin-left: 10px;
+
+    .select-mobile {
+        width: 21.5rem;
     }
+}
+
+.ef-panel-row {
+    margin-left:30px;
+}
+.ef-btn.ef-select-btn {
+    margin-left: 10px;
 }
 

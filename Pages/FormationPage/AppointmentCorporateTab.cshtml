@@ -160,11 +160,11 @@
                                                     </label>
                                                     <div class="officer-corporate-is-uk-answers">
                                                         <span style="margin-right: 10px;">
-                                                            <input type="radio" id="officer-corporate-is-uk-status" @(Model.CorporateRegisteredInUk == "1" ? "checked" : "") class="w-radio officer-corporate-is-uk-status" value="1" style="display: inline-block">
+                                                            <input type="radio" name="officer-corporate-is-uk-status" id="officer-corporate-is-uk-status-1" @(Model.CorporateRegisteredInUk == "1" ? "checked" : "") class="w-radio officer-corporate-is-uk-status" value="1" style="display: inline-block">
                                                             <label style="display: inline-block" class="field-label" for="officer-corporate-is-uk-status-1">Yes</label>
                                                         </span>
                                                         <span>
-                                                            <input type="radio" id="officer-corporate-is-uk-status" @(Model.CorporateRegisteredInUk == "0" ? "checked" : "") class="w-radio officer-corporate-is-uk-status" value="0" style="display: inline-block">
+                                                            <input type="radio" name="officer-corporate-is-uk-status" id="officer-corporate-is-uk-status-0" @(Model.CorporateRegisteredInUk == "0" ? "checked" : "") class="w-radio officer-corporate-is-uk-status" value="0" style="display: inline-block">
                                                             <label class="field-label" style="display: inline-block" for="officer-corporate-is-uk-status-0">No</label>
                                                         </span>
                                                     </div>
@@ -208,10 +208,10 @@
                                                 <div class="ef-item-box ef-selected">
                                                     <div class="ef-item-content">
                                                         <div class="w-row ef-panel-row">
-                                                            <button type="button" class="ef-btn ef-select-btn" id="ExsistingAddress" onclick="showUserAddressPanel()">
+                                                            <button type="button" class="ef-btn ef-select-btn appointment-button" id="ExsistingAddress" onclick="showUserAddressPanel()">
                                                                 Recently used addresses
                                                             </button>
-                                                            <button type="button" class="ef-btn ef-select-btn" id="openPersonSecondModal" onclick="openAddressModal()">
+                                                            <button type="button" class="ef-btn ef-select-btn appointment-button" id="openPersonSecondModal" onclick="openAddressModal()">
                                                                 New Address
                                                             </button>
                                                             <div class="w-col w-col-8" style="margin-top: 10px;">
@@ -578,7 +578,7 @@
         $('#CorporateOfficers_FirstName').val('');
         $('#CorporateOfficers_LastName').val('');
         $('#CorporateOfficers_LegalName').val('');
-        $('.officer-corporate-is-uk-status').prop('checked', false);
+        $("input[name='officer-corporate-is-uk-status']").prop('checked', false);
         $('#CorporateOfficers_RegistrationNumber').val('');
         $('#CorporateOfficers_PlaceRegistered').val('');
         $('#CorporateOfficers_RegistryHeld').val('');
@@ -681,7 +681,7 @@
                 FirstName: $('#CorporateOfficers_FirstName').val(),
                 LastName: $('#CorporateOfficers_LastName').val(),
                 LegalName: $('#CorporateOfficers_LegalName').val(),
-                RegisteredInUK: $('#officer-corporate-is-uk-status:checked').val(),
+                RegisteredInUK: $("input[name='officer-corporate-is-uk-status']:checked").val(),
                 RegistrationNumber: $('#CorporateOfficers_RegistrationNumber').val(),
                 PlaceRegistered: $('#CorporateOfficers_PlaceRegistered').val(),
                 RegistryHeld: $('#CorporateOfficers_RegistryHeld').val(),
@@ -728,7 +728,7 @@
         $('#CorporateOfficers_FirstName').val('');
         $('#CorporateOfficers_LastName').val('');
         $('#CorporateOfficers_LegalName').val('');
-        $('.officer-corporate-is-uk-status').prop('checked', false);
+        $("input[name='officer-corporate-is-uk-status']").prop('checked', false);
         $('#CorporateOfficers_RegistrationNumber').val('');
         $('#CorporateOfficers_PlaceRegistered').val('');
         $('#CorporateOfficers_RegistryHeld').val('');
@@ -1013,7 +1013,7 @@
     }
 
     function editCorporateOfficer(data) {
-        $('.officer-corporate-is-uk-status').prop('checked', false);
+        $("input[name='officer-corporate-is-uk-status']").prop('checked', false);
         const selectedPosition = data.positionName ? data.positionName.split(',').map(p => p.trim()) : [];
 
         $('html, body').scrollTop($('#appointmentTab').offset().top);
