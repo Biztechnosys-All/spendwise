@@ -2183,7 +2183,7 @@ ef-information-box p {
     }
     .ef-btn.ef-select-btn {
         margin-left: 10px;
-
+    }
     .select-mobile {
         width: 21.5rem;
     }
@@ -2196,3 +2196,11 @@ ef-information-box p {
     margin-left: 10px;
 }
 
+@media only screen and (max-width : 388px) {
+    #my-own-service-address .ef-item-box #ExsistingAddress {
+        margin-left: 0px !important;
+    }
+    .ef-item-box.ef-selected #ExsistingAddress {
+        margin-left: 10px !important;
+    }
+}
