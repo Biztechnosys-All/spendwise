@@ -7,6 +7,7 @@ using Microsoft.Identity.Client;
 using Spendwise_WebApp.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Spendwise_WebApp.Pages
 {
@@ -77,6 +78,20 @@ namespace Spendwise_WebApp.Pages
             ModelState.Remove("Address.Country");
             ModelState.Remove("Address.County");
             ModelState.Remove("User.Password");
+
+            if (string.IsNullOrWhiteSpace(User.PhoneNumber))
+            {
+                ModelState.AddModelError("User.PhoneNumber", "Phone number is required.");
+            }
+            else if (!Regex.IsMatch(User.PhoneNumber, @"^\d{10}$"))
+            {
+                ModelState.AddModelError("User.PhoneNumber", "Phone number must be 10 digits.");
+            }
+            else if (!Regex.IsMatch(User.BillingPhoneNumber, @"^\d{10}$"))
+            {
+                ModelState.AddModelError("User.BillingPhoneNumber", "Billing Phone number must be 10 digits.");
+            }
+
             if (!ModelState.IsValid)
             {
                 // List of required fields with custom error messages
@@ -86,6 +101,7 @@ namespace Spendwise_WebApp.Pages
                     { "User.Forename", "Forename is required." },
                     { "User.Surname", "Surname is required." },
                     { "User.PhoneNumber", "Phone number is required." },
+                    { "User.BillingPhoneNumber", "Phone number is required." },
                     { "User.Email", "Email is required." },
                     //{ "User.Password", "Password is required." },
                     { "Message", "Update Error." }
@@ -108,7 +124,7 @@ namespace Spendwise_WebApp.Pages
             }
 
             var existingUser = await _context.Users.FindAsync(User.UserID);
-            if (existingUser == null)
+                if (existingUser == null)
             {
                 return NotFound();
             }
